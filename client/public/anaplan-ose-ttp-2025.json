@@ -1,0 +1,4645 @@
+{
+  "year": 2025,
+  "rows": [
+    {
+      "plant": "Accra",
+      "plant_raw": "Accra Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 234.2291036090531,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Accra",
+      "plant_raw": "Accra Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 7790.559198022831,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Accra",
+      "plant_raw": "Accra Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1282568.1208781977,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Accra",
+      "plant_raw": "Accra Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 422518.3395485425,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Agudos",
+      "plant_raw": "Agudos",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 403.7841423861565,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Agudos",
+      "plant_raw": "Agudos",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 18233.534724810135,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Agudos",
+      "plant_raw": "Agudos",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1746491.9137345362,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Agudos",
+      "plant_raw": "Agudos",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1184399.8376270216,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Alrode",
+      "plant_raw": "Alrode Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 466.6175595371331,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Alrode",
+      "plant_raw": "Alrode Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13739.182685694168,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Alrode",
+      "plant_raw": "Alrode Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2186343.421664626,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Alrode",
+      "plant_raw": "Alrode Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1118827.0995292803,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Aquiraz",
+      "plant_raw": "Aquiraz",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 316.6723081567262,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Aquiraz",
+      "plant_raw": "Aquiraz",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13807.3370948908,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Aquiraz",
+      "plant_raw": "Aquiraz",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2180096.524308162,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Aquiraz",
+      "plant_raw": "Aquiraz",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1123964.271329525,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Arequipa",
+      "plant_raw": "Arequipa",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 223.20393435378733,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Arequipa",
+      "plant_raw": "Arequipa",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9481.069658471071,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Arequipa",
+      "plant_raw": "Arequipa",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 382152.18705400033,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Arequipa",
+      "plant_raw": "Arequipa",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 342187.1483035206,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ate",
+      "plant_raw": "Ate Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 394.87123461067875,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ate",
+      "plant_raw": "Ate Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 22946.2453183149,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ate",
+      "plant_raw": "Ate Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1385720.2320770805,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ate",
+      "plant_raw": "Ate Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1132478.2925653658,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Aurangabad",
+      "plant_raw": "Aurangabad",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 105.36074436915969,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Aurangabad",
+      "plant_raw": "Aurangabad",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12585.649403414856,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Aurangabad",
+      "plant_raw": "Aurangabad",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 720194.650169301,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Aurangabad",
+      "plant_raw": "Aurangabad",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 589201.7024609777,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Baldwinsville",
+      "plant_raw": "Baldwinsville",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 413.65117203457453,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Baldwinsville",
+      "plant_raw": "Baldwinsville",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 19548.156163210086,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Baldwinsville",
+      "plant_raw": "Baldwinsville",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1564937.0463452109,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Baldwinsville",
+      "plant_raw": "Baldwinsville",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1011485.9823766517,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Baoding",
+      "plant_raw": "Baoding",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 414.3142733423329,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Baoding",
+      "plant_raw": "Baoding",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10172.421241079046,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Baoding",
+      "plant_raw": "Baoding",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 340402.33049474267,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Baoding",
+      "plant_raw": "Baoding",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 288016.4825188643,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Barranquilla",
+      "plant_raw": "Barranquilla",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 257.06959096204446,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Barranquilla",
+      "plant_raw": "Barranquilla",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 19852.487342224566,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Barranquilla",
+      "plant_raw": "Barranquilla",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1463235.12950587,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Barranquilla",
+      "plant_raw": "Barranquilla",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1219098.2378898445,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Beira",
+      "plant_raw": "Beira",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 185.24030175343268,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Beira",
+      "plant_raw": "Beira",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 8447.255756193963,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Beira",
+      "plant_raw": "Beira",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 376976.54738321534,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Beira",
+      "plant_raw": "Beira",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 229173.06306009903,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Boyaca",
+      "plant_raw": "Boyaca",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 359.91262429692654,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Boyaca",
+      "plant_raw": "Boyaca",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12102.8088920497,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Boyaca",
+      "plant_raw": "Boyaca",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 852845.3339779364,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Boyaca",
+      "plant_raw": "Boyaca",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 753948.2098273635,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Bremen",
+      "plant_raw": "Bremen",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 275.1699107304005,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Bremen",
+      "plant_raw": "Bremen",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 23109.12230850803,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Bremen",
+      "plant_raw": "Bremen",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1894943.379010966,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Bremen",
+      "plant_raw": "Bremen",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1184195.1703652495,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Bucaramanga",
+      "plant_raw": "Bucaramanga",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 233.55275477642337,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Bucaramanga",
+      "plant_raw": "Bucaramanga",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 8402.200841598129,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Bucaramanga",
+      "plant_raw": "Bucaramanga",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 566427.3871442948,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Bucaramanga",
+      "plant_raw": "Bucaramanga",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 439996.9151993814,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cachoeiras",
+      "plant_raw": "Cachoeiras de Macacu",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 251.80257506138076,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cachoeiras",
+      "plant_raw": "Cachoeiras de Macacu",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 14383.605683116893,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cachoeiras",
+      "plant_raw": "Cachoeiras de Macacu",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1159239.2768256443,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cachoeiras",
+      "plant_raw": "Cachoeiras de Macacu",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 646627.0039375382,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Camacari",
+      "plant_raw": "Camacari",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 321.7161140598302,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Camacari",
+      "plant_raw": "Camacari",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 11781.880002028316,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Camacari",
+      "plant_raw": "Camacari",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2204917.1438879054,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Camacari",
+      "plant_raw": "Camacari",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 997091.0165253328,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cartersville",
+      "plant_raw": "Cartersville",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 410.14953971102943,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cartersville",
+      "plant_raw": "Cartersville",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 19731.051821218385,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cartersville",
+      "plant_raw": "Cartersville",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1716474.3594193698,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cartersville",
+      "plant_raw": "Cartersville",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1110025.695453376,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Chamdor",
+      "plant_raw": "Chamdor",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 268.93453084563185,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Chamdor",
+      "plant_raw": "Chamdor",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 11848.03791638804,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Chamdor",
+      "plant_raw": "Chamdor",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1547579.45074659,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Chamdor",
+      "plant_raw": "Chamdor",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 696399.951561379,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Charminar",
+      "plant_raw": "Charminar",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 70.36828540073354,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Charminar",
+      "plant_raw": "Charminar",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 8191.982692009462,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Charminar",
+      "plant_raw": "Charminar",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 262756.1963341529,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Charminar",
+      "plant_raw": "Charminar",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 179464.5338601011,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cheongwon",
+      "plant_raw": "Cheongwon",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 313.70803824823577,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cheongwon",
+      "plant_raw": "Cheongwon",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12935.017920684135,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cheongwon",
+      "plant_raw": "Cheongwon",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 674249.1691307822,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cheongwon",
+      "plant_raw": "Cheongwon",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 561418.6325748281,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cochabamba",
+      "plant_raw": "Cochabamba",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 231.7417352454979,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cochabamba",
+      "plant_raw": "Cochabamba",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9963.947027396382,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cochabamba",
+      "plant_raw": "Cochabamba",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 586488.7707180759,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cochabamba",
+      "plant_raw": "Cochabamba",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 502342.17147271906,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Columbus",
+      "plant_raw": "Columbus",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 446.3042018094262,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Columbus",
+      "plant_raw": "Columbus",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 17650.615889127268,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Columbus",
+      "plant_raw": "Columbus",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2051401.6453273545,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Columbus",
+      "plant_raw": "Columbus",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1025967.4774734712,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cordoba",
+      "plant_raw": "Cordoba",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 246.88251527580067,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cordoba",
+      "plant_raw": "Cordoba",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 6308.071002026414,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cordoba",
+      "plant_raw": "Cordoba",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 244745.26955386726,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cordoba",
+      "plant_raw": "Cordoba",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 186500.39156190038,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Corrientes",
+      "plant_raw": "Corrientes",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 254.34537074026883,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Corrientes",
+      "plant_raw": "Corrientes",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 6185.708346235628,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Corrientes",
+      "plant_raw": "Corrientes",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 336480.06718100107,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Corrientes",
+      "plant_raw": "Corrientes",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 173634.0275114622,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Creston",
+      "plant_raw": "Creston",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 268.8788593838044,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Creston",
+      "plant_raw": "Creston",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9523.573077402021,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Creston",
+      "plant_raw": "Creston",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 205540.1961408336,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Creston",
+      "plant_raw": "Creston",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 163324.8539351408,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cuiaba",
+      "plant_raw": "Cuiaba",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 259.2061042923509,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cuiaba",
+      "plant_raw": "Cuiaba",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13796.03547249707,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cuiaba",
+      "plant_raw": "Cuiaba",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1086106.807020965,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cuiaba",
+      "plant_raw": "Cuiaba",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 698479.5187308004,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cusco",
+      "plant_raw": "Cusco",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 195.2220118029597,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cusco",
+      "plant_raw": "Cusco",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 6610.650207446303,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cusco",
+      "plant_raw": "Cusco",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 217491.31962455623,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Cusco",
+      "plant_raw": "Cusco",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 195895.2670191006,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Dar es Salaam",
+      "plant_raw": "Dar es Salaam",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 247.826997597071,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Dar es Salaam",
+      "plant_raw": "Dar es Salaam",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 15314.827634108533,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Dar es Salaam",
+      "plant_raw": "Dar es Salaam",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 906568.7275630281,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Dar es Salaam",
+      "plant_raw": "Dar es Salaam",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 666400.9441303025,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Dommelen",
+      "plant_raw": "Dommelen",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 249.12659233406447,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Dommelen",
+      "plant_raw": "Dommelen",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13846.76834892479,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Dommelen",
+      "plant_raw": "Dommelen",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 815034.5892586797,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Dommelen",
+      "plant_raw": "Dommelen",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 600185.762452831,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Edmonton",
+      "plant_raw": "Edmonton",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 255.5251790996648,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Edmonton",
+      "plant_raw": "Edmonton",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9941.825217271758,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Edmonton",
+      "plant_raw": "Edmonton",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 659407.3352496787,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Edmonton",
+      "plant_raw": "Edmonton",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 407766.3342578992,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "El Alto",
+      "plant_raw": "El Alto",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 431.2072785367843,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "El Alto",
+      "plant_raw": "El Alto",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 8940.207799730902,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "El Alto",
+      "plant_raw": "El Alto",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 669693.931374316,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "El Alto",
+      "plant_raw": "El Alto",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 498196.45053339127,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Eswatini",
+      "plant_raw": "Eswatini",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 84.27965303397404,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Eswatini",
+      "plant_raw": "Eswatini",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 11938.93462923099,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Eswatini",
+      "plant_raw": "Eswatini",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 253135.9399643679,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Eswatini",
+      "plant_raw": "Eswatini",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 129229.44622879362,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Fort Collins",
+      "plant_raw": "Fort Collins",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 453.7622582193939,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Fort Collins",
+      "plant_raw": "Fort Collins",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 17703.476377749936,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Fort Collins",
+      "plant_raw": "Fort Collins",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1780237.732812028,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Fort Collins",
+      "plant_raw": "Fort Collins",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1003642.3857768624,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Foshan",
+      "plant_raw": "Foshan",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 514.3913673037465,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Foshan",
+      "plant_raw": "Foshan",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 33335.03850203152,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Foshan",
+      "plant_raw": "Foshan",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2129953.6774874264,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Foshan",
+      "plant_raw": "Foshan",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1799307.6599111743,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guadalajara",
+      "plant_raw": "GUADALAJARA",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 215.9261110356167,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guadalajara",
+      "plant_raw": "GUADALAJARA",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 15569.30872845841,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guadalajara",
+      "plant_raw": "GUADALAJARA",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1185503.236966613,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guadalajara",
+      "plant_raw": "GUADALAJARA",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 869113.5607904603,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Gateway",
+      "plant_raw": "Gateway Brewery",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 316.30482128034595,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Gateway",
+      "plant_raw": "Gateway Brewery",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13198.163512451472,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Gateway",
+      "plant_raw": "Gateway Brewery",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1125508.2365632078,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Gateway",
+      "plant_raw": "Gateway Brewery",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 559007.1674007885,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guarulhos",
+      "plant_raw": "Guarulhos",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 280.3168758533441,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guarulhos",
+      "plant_raw": "Guarulhos",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12802.630634918343,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guarulhos",
+      "plant_raw": "Guarulhos",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1015523.6839035944,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guarulhos",
+      "plant_raw": "Guarulhos",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 656022.7203122303,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guayaquil",
+      "plant_raw": "Guayaquil Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 267.2849977676091,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guayaquil",
+      "plant_raw": "Guayaquil Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13048.715594264397,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guayaquil",
+      "plant_raw": "Guayaquil Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1086431.0930650057,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Guayaquil",
+      "plant_raw": "Guayaquil Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 848676.4116349942,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Gwangju",
+      "plant_raw": "Gwangju",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 288.65460157505186,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Gwangju",
+      "plant_raw": "Gwangju",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 11520.064628340038,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Gwangju",
+      "plant_raw": "Gwangju",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 604173.9646438222,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Gwangju",
+      "plant_raw": "Gwangju",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 434488.2285826163,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Halifax",
+      "plant_raw": "Halifax",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 148.23932443953387,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Halifax",
+      "plant_raw": "Halifax",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9608.639806858744,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Halifax",
+      "plant_raw": "Halifax",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 276598.6488610222,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Halifax",
+      "plant_raw": "Halifax",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 171863.87977567417,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Harbin 2",
+      "plant_raw": "Harbin 2",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 345.4414613657914,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Harbin 2",
+      "plant_raw": "Harbin 2",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 18505.258322092217,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Harbin 2",
+      "plant_raw": "Harbin 2",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 710770.3906623821,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Harbin 2",
+      "plant_raw": "Harbin 2",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 610262.7127872662,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hato Nuevo",
+      "plant_raw": "Hato Nuevo",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 142.7506946017671,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hato Nuevo",
+      "plant_raw": "Hato Nuevo",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12184.730836050374,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hato Nuevo",
+      "plant_raw": "Hato Nuevo",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1121048.740358198,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hato Nuevo",
+      "plant_raw": "Hato Nuevo",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 730962.5310565279,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hoegaarden",
+      "plant_raw": "Hoegaarden",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 191.6718259460619,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hoegaarden",
+      "plant_raw": "Hoegaarden",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 8119.5523915106,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hoegaarden",
+      "plant_raw": "Hoegaarden",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 842671.5522068866,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hoegaarden",
+      "plant_raw": "Hoegaarden",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 357794.508768165,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Houston",
+      "plant_raw": "Houston",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 518.4414805646028,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Houston",
+      "plant_raw": "Houston",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 29369.04220109845,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Houston",
+      "plant_raw": "Houston",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2211808.119200349,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Houston",
+      "plant_raw": "Houston",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1572147.8840569635,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Huari",
+      "plant_raw": "Huari",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 178.23815732537932,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Huari",
+      "plant_raw": "Huari",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 4729.1563740273705,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Huari",
+      "plant_raw": "Huari",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 333730.8043866195,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Huari",
+      "plant_raw": "Huari",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 187350.21723351558,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hyderabad",
+      "plant_raw": "Hyderabad",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 102.26086637520623,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hyderabad",
+      "plant_raw": "Hyderabad",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9481.801942691554,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hyderabad",
+      "plant_raw": "Hyderabad",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 381292.62578933116,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Hyderabad",
+      "plant_raw": "Hyderabad",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 306894.7464584499,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ibhayi",
+      "plant_raw": "Ibhayi",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 394.21990048288455,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ibhayi",
+      "plant_raw": "Ibhayi",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 6193.2289610359385,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ibhayi",
+      "plant_raw": "Ibhayi",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 792372.5963660518,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ibhayi",
+      "plant_raw": "Ibhayi",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 412591.30414784,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Icheon",
+      "plant_raw": "Icheon",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 468.375178849698,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Icheon",
+      "plant_raw": "Icheon",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 24826.31306577355,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Icheon",
+      "plant_raw": "Icheon",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1209054.45473663,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Icheon",
+      "plant_raw": "Icheon",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1020157.4034257339,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ilesa",
+      "plant_raw": "Ilesa",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 261.8984583625554,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ilesa",
+      "plant_raw": "Ilesa",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 8707.119453226129,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ilesa",
+      "plant_raw": "Ilesa",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1043175.9691205365,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ilesa",
+      "plant_raw": "Ilesa",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 582420.2843584364,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia",
+      "plant_raw": "Ind La Constancia Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 286.97523930302214,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia",
+      "plant_raw": "Ind La Constancia Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 15300.955991695584,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia",
+      "plant_raw": "Ind La Constancia Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 738327.1217924976,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia",
+      "plant_raw": "Ind La Constancia Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 669851.5066555833,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia CSD",
+      "plant_raw": "Ind La Constancia CSD",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 414.2923509870351,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia CSD",
+      "plant_raw": "Ind La Constancia CSD",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 23597.529738885674,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia CSD",
+      "plant_raw": "Ind La Constancia CSD",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1486598.2487971957,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia CSD",
+      "plant_raw": "Ind La Constancia CSD",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1296984.9659291038,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia Water",
+      "plant_raw": "Ind La Constancia Water",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 1448.6484027323309,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia Water",
+      "plant_raw": "Ind La Constancia Water",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 11473.620962251034,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia Water",
+      "plant_raw": "Ind La Constancia Water",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 990570.6207356612,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ind La Constancia Water",
+      "plant_raw": "Ind La Constancia Water",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 823600.203556112,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Issum",
+      "plant_raw": "Issum",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 208.66621093440534,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Issum",
+      "plant_raw": "Issum",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10439.297992068923,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Issum",
+      "plant_raw": "Issum",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 260566.32018533596,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Issum",
+      "plant_raw": "Issum",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 135621.21143790463,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Itapissuma",
+      "plant_raw": "Itapissuma",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 351.6603026499623,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Itapissuma",
+      "plant_raw": "Itapissuma",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 23774.10971019886,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Itapissuma",
+      "plant_raw": "Itapissuma",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 3087137.100131939,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Itapissuma",
+      "plant_raw": "Itapissuma",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1599327.4667270293,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jacarei",
+      "plant_raw": "Jacarei",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 313.6843465561383,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jacarei",
+      "plant_raw": "Jacarei",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 18768.52563780632,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jacarei",
+      "plant_raw": "Jacarei",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2370044.2604761417,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jacarei",
+      "plant_raw": "Jacarei",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1443187.542073252,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jacksonville",
+      "plant_raw": "Jacksonville",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 485.1387077576182,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jacksonville",
+      "plant_raw": "Jacksonville",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 21113.514463664465,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jacksonville",
+      "plant_raw": "Jacksonville",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1721568.2594619645,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jacksonville",
+      "plant_raw": "Jacksonville",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1204325.159773357,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jaguariuna",
+      "plant_raw": "Jaguariuna",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 275.7523673019563,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jaguariuna",
+      "plant_raw": "Jaguariuna",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 23176.518916586298,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jaguariuna",
+      "plant_raw": "Jaguariuna",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 3142981.4229633585,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jaguariuna",
+      "plant_raw": "Jaguariuna",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1624407.7265366216,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jiamusi",
+      "plant_raw": "Jiamusi New",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 181.21549130457757,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jiamusi",
+      "plant_raw": "Jiamusi New",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 7157.630633609911,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jiamusi",
+      "plant_raw": "Jiamusi New",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 130956.88893120672,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jiamusi",
+      "plant_raw": "Jiamusi New",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 111640.0169905762,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinja",
+      "plant_raw": "Jinja Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 285.8104946517346,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinja",
+      "plant_raw": "Jinja Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10377.08178510706,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinja",
+      "plant_raw": "Jinja Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 750533.3969980766,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinja",
+      "plant_raw": "Jinja Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 438992.2184595157,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinshibai",
+      "plant_raw": "Jinshibai",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 303.73120435566153,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinshibai",
+      "plant_raw": "Jinshibai",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 21769.952693868967,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinshibai",
+      "plant_raw": "Jinshibai",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1174225.3942464022,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinshibai",
+      "plant_raw": "Jinshibai",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1005904.3118419712,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinzhou",
+      "plant_raw": "Jinzhou",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 263.6755473875849,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinzhou",
+      "plant_raw": "Jinzhou",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10577.243381345806,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinzhou",
+      "plant_raw": "Jinzhou",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 360193.41313516104,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jinzhou",
+      "plant_raw": "Jinzhou",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 275649.1007774276,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jishui",
+      "plant_raw": "Jishui",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 252.102708897252,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jishui",
+      "plant_raw": "Jishui",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 7205.467175827039,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jishui",
+      "plant_raw": "Jishui",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 218429.5979039346,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jishui",
+      "plant_raw": "Jishui",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 187355.63645250944,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jundiai",
+      "plant_raw": "Jundiai",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 566.3698633187905,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jundiai",
+      "plant_raw": "Jundiai",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 18489.821871945693,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jundiai",
+      "plant_raw": "Jundiai",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2486592.1885282286,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jundiai",
+      "plant_raw": "Jundiai",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1283635.6765311293,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jupille",
+      "plant_raw": "Jupille",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 288.3491121927348,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jupille",
+      "plant_raw": "Jupille",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 17143.62800706901,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jupille",
+      "plant_raw": "Jupille",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2143888.861399883,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Jupille",
+      "plant_raw": "Jupille",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1129156.3829782356,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Kgalagadi",
+      "plant_raw": "Kgalagadi Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 187.2779468943597,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Kgalagadi",
+      "plant_raw": "Kgalagadi Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 7980.72794935916,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Kgalagadi",
+      "plant_raw": "Kgalagadi Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1077182.5026986187,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Kgalagadi",
+      "plant_raw": "Kgalagadi Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 323842.70533216343,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Kunming",
+      "plant_raw": "Kunming",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 200.8314386989942,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Kunming",
+      "plant_raw": "Kunming",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 7313.269815510465,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Kunming",
+      "plant_raw": "Kunming",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 181746.7641795,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Kunming",
+      "plant_raw": "Kunming",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 156190.89553435598,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "La Paz",
+      "plant_raw": "La Paz",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 152.6183642696544,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "La Paz",
+      "plant_raw": "La Paz",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 4079.595460561006,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "La Paz",
+      "plant_raw": "La Paz",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 277621.15463288757,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "La Paz",
+      "plant_raw": "La Paz",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 136947.03394802503,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lages",
+      "plant_raw": "Lages",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 232.72054037786316,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lages",
+      "plant_raw": "Lages",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13716.70061822601,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lages",
+      "plant_raw": "Lages",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1022022.5308782222,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lages",
+      "plant_raw": "Lages",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 587936.6508496732,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Las Palmas",
+      "plant_raw": "Las Palmas",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 169.3040459193296,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Las Palmas",
+      "plant_raw": "Las Palmas",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 7617.243090744045,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Las Palmas",
+      "plant_raw": "Las Palmas",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 484759.3397045001,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Las Palmas",
+      "plant_raw": "Las Palmas",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 246269.06704947108,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lesotho",
+      "plant_raw": "Lesotho Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 108.03527556549865,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lesotho",
+      "plant_raw": "Lesotho Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12821.6886317896,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lesotho",
+      "plant_raw": "Lesotho Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 281393.7595719144,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lesotho",
+      "plant_raw": "Lesotho Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 228453.1929696592,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Leuven",
+      "plant_raw": "Leuven",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 341.2608666800618,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Leuven",
+      "plant_raw": "Leuven",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 22199.769624514516,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Leuven",
+      "plant_raw": "Leuven",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 3237600.2699584486,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Leuven",
+      "plant_raw": "Leuven",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1745970.0256264065,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "London",
+      "plant_raw": "London",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 244.44839887332043,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "London",
+      "plant_raw": "London",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10745.899877028383,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "London",
+      "plant_raw": "London",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 966374.4827869207,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "London",
+      "plant_raw": "London",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 539196.846888636,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Los Angeles",
+      "plant_raw": "Los Angeles",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 313.4276335175104,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Los Angeles",
+      "plant_raw": "Los Angeles",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 21775.90186670322,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Los Angeles",
+      "plant_raw": "Los Angeles",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1957128.2969369318,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Los Angeles",
+      "plant_raw": "Los Angeles",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1158323.8936872168,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lusaka",
+      "plant_raw": "Lusaka Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 183.87087383316089,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lusaka",
+      "plant_raw": "Lusaka Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 6025.349985207867,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lusaka",
+      "plant_raw": "Lusaka Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1219722.6038655832,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Lusaka",
+      "plant_raw": "Lusaka Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 381444.32749270357,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mazatlan",
+      "plant_raw": "MAZATLAN",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 173.870586838733,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mazatlan",
+      "plant_raw": "MAZATLAN",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9124.038113519648,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mazatlan",
+      "plant_raw": "MAZATLAN",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 159729.57930589427,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mazatlan",
+      "plant_raw": "MAZATLAN",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 120722.41063338933,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Magor",
+      "plant_raw": "Magor",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 374.863834712128,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Magor",
+      "plant_raw": "Magor",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 18897.33402875026,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Magor",
+      "plant_raw": "Magor",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2268456.1617922527,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Magor",
+      "plant_raw": "Magor",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1290382.3911661466,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Manaus",
+      "plant_raw": "Manaus",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 210.10379350501418,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Manaus",
+      "plant_raw": "Manaus",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12248.651981067926,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Manaus",
+      "plant_raw": "Manaus",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 968170.9390958259,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Manaus",
+      "plant_raw": "Manaus",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 577953.0015566385,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Maputo",
+      "plant_raw": "Maputo",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 215.38610531901077,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Maputo",
+      "plant_raw": "Maputo",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 11704.27823800535,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Maputo",
+      "plant_raw": "Maputo",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1190108.1700445628,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Maputo",
+      "plant_raw": "Maputo",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 644319.9687904982,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Marracuene",
+      "plant_raw": "Marracuene",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 419.95716539496743,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Marracuene",
+      "plant_raw": "Marracuene",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 3308.645983626829,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Marracuene",
+      "plant_raw": "Marracuene",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 385594.75399114715,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Marracuene",
+      "plant_raw": "Marracuene",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 157318.64080164055,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mbarara",
+      "plant_raw": "Mbarara",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 236.4211478274004,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mbarara",
+      "plant_raw": "Mbarara",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 5973.380498163591,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mbarara",
+      "plant_raw": "Mbarara",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 350271.1994701095,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mbarara",
+      "plant_raw": "Mbarara",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 240900.42165697293,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mbeya",
+      "plant_raw": "Mbeya",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 286.45332870788815,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mbeya",
+      "plant_raw": "Mbeya",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 6618.300894809613,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mbeya",
+      "plant_raw": "Mbeya",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 384741.1449694338,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mbeya",
+      "plant_raw": "Mbeya",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 302527.8497688118,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Medellin",
+      "plant_raw": "Medellin",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 280.3445788091636,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Medellin",
+      "plant_raw": "Medellin",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12518.029990978532,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Medellin",
+      "plant_raw": "Medellin",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1354088.0651609544,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Medellin",
+      "plant_raw": "Medellin",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1000188.9151446827,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Meerut",
+      "plant_raw": "Meerut",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 44.19730498570827,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Meerut",
+      "plant_raw": "Meerut",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 6187.709069703401,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Meerut",
+      "plant_raw": "Meerut",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 165393.27139517726,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Meerut",
+      "plant_raw": "Meerut",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 143392.73183521576,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mendoza",
+      "plant_raw": "Mendoza",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 266.6810717800063,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mendoza",
+      "plant_raw": "Mendoza",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10347.976783484048,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mendoza",
+      "plant_raw": "Mendoza",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 385378.7990515372,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mendoza",
+      "plant_raw": "Mendoza",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 244756.87001977995,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Merida",
+      "plant_raw": "Merida",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 344.36521883776294,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Merida",
+      "plant_raw": "Merida",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12583.046036793028,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Merida",
+      "plant_raw": "Merida",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 470331.42232970713,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Merida",
+      "plant_raw": "Merida",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 435435.17711289023,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mexico APAN",
+      "plant_raw": "Mexico Apan",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 624.4862490629326,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mexico APAN",
+      "plant_raw": "Mexico Apan",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 11533.639149228997,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mexico APAN",
+      "plant_raw": "Mexico Apan",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1490431.06653798,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mexico APAN",
+      "plant_raw": "Mexico Apan",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1021407.5628037382,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mexico Plant",
+      "plant_raw": "Mexico Plant",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 284.9102078250294,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mexico Plant",
+      "plant_raw": "Mexico Plant",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 25659.165188774063,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mexico Plant",
+      "plant_raw": "Mexico Plant",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2890286.072806334,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mexico Plant",
+      "plant_raw": "Mexico Plant",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1985191.9968947098,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Montreal",
+      "plant_raw": "Montreal",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 259.71953352658903,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Montreal",
+      "plant_raw": "Montreal",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13790.184032397518,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Montreal",
+      "plant_raw": "Montreal",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1019894.2623322258,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Montreal",
+      "plant_raw": "Montreal",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 550139.020663496,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Motupe",
+      "plant_raw": "Motupe Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 264.96941284147925,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Motupe",
+      "plant_raw": "Motupe Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10500.24346179642,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Motupe",
+      "plant_raw": "Motupe Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 873785.521137704,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Motupe",
+      "plant_raw": "Motupe Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 654285.5131317801,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mudanjiang",
+      "plant_raw": "Mudanjiang(New)",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 233.80429839478117,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mudanjiang",
+      "plant_raw": "Mudanjiang(New)",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10625.744253837109,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mudanjiang",
+      "plant_raw": "Mudanjiang(New)",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 221618.44068010018,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mudanjiang",
+      "plant_raw": "Mudanjiang(New)",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 194198.69013785312,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Munich",
+      "plant_raw": "Munich",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 318.0753051814603,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Munich",
+      "plant_raw": "Munich",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10578.132106683934,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Munich",
+      "plant_raw": "Munich",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1129600.330615814,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Munich",
+      "plant_raw": "Munich",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 523818.75052714976,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mwanza",
+      "plant_raw": "Mwanza",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 302.7699723187376,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mwanza",
+      "plant_raw": "Mwanza",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 7860.414827617564,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mwanza",
+      "plant_raw": "Mwanza",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 572642.9392937749,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mwanza",
+      "plant_raw": "Mwanza",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 390408.17761620804,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "MyPhuoc",
+      "plant_raw": "MyPhuoc",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 137.84320219337138,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "MyPhuoc",
+      "plant_raw": "MyPhuoc",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12418.22322603629,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "MyPhuoc",
+      "plant_raw": "MyPhuoc",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 215632.88298939585,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "MyPhuoc",
+      "plant_raw": "MyPhuoc",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 177047.9451545387,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mysore",
+      "plant_raw": "Mysore",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 134.7999629543817,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mysore",
+      "plant_raw": "Mysore",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12289.292817458423,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mysore",
+      "plant_raw": "Mysore",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 607644.8448453308,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Mysore",
+      "plant_raw": "Mysore",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 475762.68047696864,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Namibia",
+      "plant_raw": "Namibia Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 177.92687284740578,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Namibia",
+      "plant_raw": "Namibia Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 8574.246830413984,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Namibia",
+      "plant_raw": "Namibia Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 293371.9076919987,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Namibia",
+      "plant_raw": "Namibia Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 201358.52803994922,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nampula",
+      "plant_raw": "Nampula",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 216.2384278639832,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nampula",
+      "plant_raw": "Nampula",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9716.391030250341,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nampula",
+      "plant_raw": "Nampula",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 281141.91996205796,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nampula",
+      "plant_raw": "Nampula",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 217345.40790219276,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nanning",
+      "plant_raw": "Nanning",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 309.3992616027786,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nanning",
+      "plant_raw": "Nanning",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10366.937317331773,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nanning",
+      "plant_raw": "Nanning",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 267871.3379236453,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nanning",
+      "plant_raw": "Nanning",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 229407.70203901548,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nantong",
+      "plant_raw": "Nantong",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 293.0660904378305,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nantong",
+      "plant_raw": "Nantong",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 16530.642651405986,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nantong",
+      "plant_raw": "Nantong",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 857615.6292464937,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Nantong",
+      "plant_raw": "Nantong",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 741183.2435090423,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Newlands",
+      "plant_raw": "Newlands",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 336.17565553297453,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Newlands",
+      "plant_raw": "Newlands",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 16331.123947868535,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Newlands",
+      "plant_raw": "Newlands",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1175272.3509573643,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Newlands",
+      "plant_raw": "Newlands",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 757270.0628581292,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Onitsha",
+      "plant_raw": "Onitsha",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 227.25731900931814,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Onitsha",
+      "plant_raw": "Onitsha",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 7834.663716562977,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Onitsha",
+      "plant_raw": "Onitsha",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 949152.7469077002,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Onitsha",
+      "plant_raw": "Onitsha",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 488119.4942462641,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Panama",
+      "plant_raw": "Panama Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 157.60684138668697,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Panama",
+      "plant_raw": "Panama Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 14986.902587587156,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Panama",
+      "plant_raw": "Panama Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 526444.705751454,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Panama",
+      "plant_raw": "Panama Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 464881.6934814417,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Pirai",
+      "plant_raw": "Pirai",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 271.5302038945431,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Pirai",
+      "plant_raw": "Pirai",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 15616.815729943935,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Pirai",
+      "plant_raw": "Pirai",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2715396.1547780954,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Pirai",
+      "plant_raw": "Pirai",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1296270.4593479668,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Polokwane",
+      "plant_raw": "Polokwane",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 332.487114561069,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Polokwane",
+      "plant_raw": "Polokwane",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 4950.014988948652,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Polokwane",
+      "plant_raw": "Polokwane",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 396983.86143392365,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Polokwane",
+      "plant_raw": "Polokwane",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 234480.4841083856,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ponta Grossa",
+      "plant_raw": "Ponta Grossa",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 360.28143072880215,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ponta Grossa",
+      "plant_raw": "Ponta Grossa",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 11429.319791552925,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ponta Grossa",
+      "plant_raw": "Ponta Grossa",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1178739.8940897316,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ponta Grossa",
+      "plant_raw": "Ponta Grossa",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 667150.4554905166,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Port Harcourt",
+      "plant_raw": "Port Harcourt",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 256.3331174749576,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Port Harcourt",
+      "plant_raw": "Port Harcourt",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9860.016397500118,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Port Harcourt",
+      "plant_raw": "Port Harcourt",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 978209.2475823754,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Port Harcourt",
+      "plant_raw": "Port Harcourt",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 624042.29753575,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Prospecton",
+      "plant_raw": "Prospecton",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 370.57803807932896,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Prospecton",
+      "plant_raw": "Prospecton",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13019.496242599898,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Prospecton",
+      "plant_raw": "Prospecton",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1428058.0575819018,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Prospecton",
+      "plant_raw": "Prospecton",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 790307.6195776827,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Putian",
+      "plant_raw": "Putian (New)",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 533.0127309375326,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Putian",
+      "plant_raw": "Putian (New)",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 47609.99805986222,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Putian",
+      "plant_raw": "Putian (New)",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2643507.4718072573,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Putian",
+      "plant_raw": "Putian (New)",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 2264034.8057450918,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Quilmes",
+      "plant_raw": "Quilmes",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 268.4206138646213,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Quilmes",
+      "plant_raw": "Quilmes",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 15828.082475887459,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Quilmes",
+      "plant_raw": "Quilmes",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 683282.2190550154,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Quilmes",
+      "plant_raw": "Quilmes",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 477461.40068869956,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Quito",
+      "plant_raw": "Quito",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 331.5668006215225,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Quito",
+      "plant_raw": "Quito",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12271.36612703627,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Quito",
+      "plant_raw": "Quito",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 495175.1279506297,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Quito",
+      "plant_raw": "Quito",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 422792.59108675364,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Rio de Janeiro",
+      "plant_raw": "Rio de Janeiro",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 319.3522956602199,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Rio de Janeiro",
+      "plant_raw": "Rio de Janeiro",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 30046.53539730665,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Rio de Janeiro",
+      "plant_raw": "Rio de Janeiro",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 4002468.6979847876,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Rio de Janeiro",
+      "plant_raw": "Rio de Janeiro",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1962146.6213905755,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Rosslyn",
+      "plant_raw": "Rosslyn",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 483.60627277710194,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Rosslyn",
+      "plant_raw": "Rosslyn",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 18647.65882103655,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Rosslyn",
+      "plant_raw": "Rosslyn",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 3019676.91974467,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Rosslyn",
+      "plant_raw": "Rosslyn",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1464869.510458957,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Samlesbury",
+      "plant_raw": "Samlesbury",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 336.4033610706766,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Samlesbury",
+      "plant_raw": "Samlesbury",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12567.104445021063,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Samlesbury",
+      "plant_raw": "Samlesbury",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1252978.0083325026,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Samlesbury",
+      "plant_raw": "Samlesbury",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 666974.0804251211,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Juan",
+      "plant_raw": "San Juan",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 294.4640335915286,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Juan",
+      "plant_raw": "San Juan",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 5417.913350596263,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Juan",
+      "plant_raw": "San Juan",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 340365.8421825805,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Juan",
+      "plant_raw": "San Juan",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 247448.6202756573,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Pedro Sula",
+      "plant_raw": "San Pedro Sula Beer",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 270.34188294222656,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Pedro Sula",
+      "plant_raw": "San Pedro Sula Beer",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 11504.400925732172,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Pedro Sula",
+      "plant_raw": "San Pedro Sula Beer",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 812469.3450781343,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Pedro Sula",
+      "plant_raw": "San Pedro Sula Beer",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 733949.7063657163,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Pedro Sula CSD",
+      "plant_raw": "San Pedro Sula CSD",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 652.2275109701209,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Pedro Sula CSD",
+      "plant_raw": "San Pedro Sula CSD",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 30192.569168592618,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Pedro Sula CSD",
+      "plant_raw": "San Pedro Sula CSD",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2191410.5147345746,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "San Pedro Sula CSD",
+      "plant_raw": "San Pedro Sula CSD",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 2025623.1233628043,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santa Cruz BO",
+      "plant_raw": "Santa Cruz",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 254.38692899754025,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santa Cruz BO",
+      "plant_raw": "Santa Cruz",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 16274.221584065237,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santa Cruz BO",
+      "plant_raw": "Santa Cruz",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1092308.451781452,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santa Cruz BO",
+      "plant_raw": "Santa Cruz",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 902669.2227290747,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santa Cruz SABM",
+      "plant_raw": "Santa Cruz (SABM)",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 159.29776206536235,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santa Cruz SABM",
+      "plant_raw": "Santa Cruz (SABM)",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 6740.803539866653,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santa Cruz SABM",
+      "plant_raw": "Santa Cruz (SABM)",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 310223.42527852074,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santa Cruz SABM",
+      "plant_raw": "Santa Cruz (SABM)",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 169123.93186633958,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santo Domingo",
+      "plant_raw": "Santo Domingo",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 253.05878967065226,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santo Domingo",
+      "plant_raw": "Santo Domingo",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 24379.025814303714,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santo Domingo",
+      "plant_raw": "Santo Domingo",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1340256.0254218741,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Santo Domingo",
+      "plant_raw": "Santo Domingo",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1176988.395388702,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sapucaia",
+      "plant_raw": "Sapucaia do Sul",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 358.1357784212317,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sapucaia",
+      "plant_raw": "Sapucaia do Sul",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12622.276788866466,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sapucaia",
+      "plant_raw": "Sapucaia do Sul",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1071428.7727170305,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sapucaia",
+      "plant_raw": "Sapucaia do Sul",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 486180.9343525807,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sete Lagoas",
+      "plant_raw": "Sete Lagoas",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 568.0171881980186,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sete Lagoas",
+      "plant_raw": "Sete Lagoas",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 19841.07400404835,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sete Lagoas",
+      "plant_raw": "Sete Lagoas",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2399830.9365016334,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sete Lagoas",
+      "plant_raw": "Sete Lagoas",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1546156.337140026,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Shiliang",
+      "plant_raw": "Shiliang",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 360.8296579025906,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Shiliang",
+      "plant_raw": "Shiliang",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 19064.23299928473,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Shiliang",
+      "plant_raw": "Shiliang",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1284055.7994818022,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Shiliang",
+      "plant_raw": "Shiliang",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1117842.0358582397,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sonipat",
+      "plant_raw": "Sonipat",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 140.26065943849923,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sonipat",
+      "plant_raw": "Sonipat",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 8646.936415518747,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sonipat",
+      "plant_raw": "Sonipat",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 434974.55378310406,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Sonipat",
+      "plant_raw": "Sonipat",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 321237.49222433293,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "St. Louis",
+      "plant_raw": "St. Louis",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 472.29245358904126,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "St. Louis",
+      "plant_raw": "St. Louis",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 26725.195230236954,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "St. Louis",
+      "plant_raw": "St. Louis",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2419642.848042343,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "St. Louis",
+      "plant_raw": "St. Louis",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1576204.3693576425,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Suqian",
+      "plant_raw": "Suqian",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 428.9021354680921,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Suqian",
+      "plant_raw": "Suqian",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13407.598856779345,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Suqian",
+      "plant_raw": "Suqian",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 780323.901447415,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Suqian",
+      "plant_raw": "Suqian",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 673338.120377024,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Torreon",
+      "plant_raw": "TORREON",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 301.87436729794973,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Torreon",
+      "plant_raw": "TORREON",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 14240.549703763105,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Torreon",
+      "plant_raw": "TORREON",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 704959.3583711887,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Torreon",
+      "plant_raw": "TORREON",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 662469.4722729656,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tangshan 2",
+      "plant_raw": "Tangshan 2",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 245.79785524055788,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tangshan 2",
+      "plant_raw": "Tangshan 2",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 15963.263275358217,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tangshan 2",
+      "plant_raw": "Tangshan 2",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 706316.933833831,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tangshan 2",
+      "plant_raw": "Tangshan 2",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 594637.9139340991,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Teresina",
+      "plant_raw": "Teresina",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 192.3059562177901,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Teresina",
+      "plant_raw": "Teresina",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10195.685833565838,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Teresina",
+      "plant_raw": "Teresina",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1207681.4914886868,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Teresina",
+      "plant_raw": "Teresina",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 641559.3883278251,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tocancipa",
+      "plant_raw": "Tocancipa",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 490.1445760615565,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tocancipa",
+      "plant_raw": "Tocancipa",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 29345.33264113462,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tocancipa",
+      "plant_raw": "Tocancipa",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 2799527.2282625013,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tocancipa",
+      "plant_raw": "Tocancipa",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 2434764.108226691,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tuxtepec",
+      "plant_raw": "Tuxtepec",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 283.78247988643506,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tuxtepec",
+      "plant_raw": "Tuxtepec",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 26961.63841121328,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tuxtepec",
+      "plant_raw": "Tuxtepec",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 3187495.0508587332,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Tuxtepec",
+      "plant_raw": "Tuxtepec",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 2182763.4267258504,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Uberlandia",
+      "plant_raw": "Uberlandia",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 420.4274295120308,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Uberlandia",
+      "plant_raw": "Uberlandia",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 12278.890580150479,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Uberlandia",
+      "plant_raw": "Uberlandia",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1806853.5827623415,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Uberlandia",
+      "plant_raw": "Uberlandia",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 965474.9358967127,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Viamao",
+      "plant_raw": "Viamao",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 345.62591230100566,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Viamao",
+      "plant_raw": "Viamao",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 15081.09528044859,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Viamao",
+      "plant_raw": "Viamao",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1646699.9530000857,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Viamao",
+      "plant_raw": "Viamao",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 838416.8303924059,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wenzhou",
+      "plant_raw": "Wenzhou",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 471.2747698427375,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wenzhou",
+      "plant_raw": "Wenzhou",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13763.278295486401,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wenzhou",
+      "plant_raw": "Wenzhou",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 592778.4576883024,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wenzhou",
+      "plant_raw": "Wenzhou",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 522654.57126584905,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wernigerode",
+      "plant_raw": "Wernigerode",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 424.87187037425844,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wernigerode",
+      "plant_raw": "Wernigerode",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 13112.474273044201,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wernigerode",
+      "plant_raw": "Wernigerode",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 978203.7003679923,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wernigerode",
+      "plant_raw": "Wernigerode",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 575655.5903388136,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Williamsburg",
+      "plant_raw": "Williamsburg",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 343.40839246623943,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Williamsburg",
+      "plant_raw": "Williamsburg",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 19843.368209790016,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Williamsburg",
+      "plant_raw": "Williamsburg",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1243940.127198954,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Williamsburg",
+      "plant_raw": "Williamsburg",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 824998.1972748846,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wugang",
+      "plant_raw": "Wugang",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 229.94076874018893,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wugang",
+      "plant_raw": "Wugang",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 10026.611091942646,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wugang",
+      "plant_raw": "Wugang",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 311442.10443588643,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wugang",
+      "plant_raw": "Wugang",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 266465.3166576636,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wuhan",
+      "plant_raw": "Wuhan",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 365.4369038197839,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wuhan",
+      "plant_raw": "Wuhan",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 33535.98543019337,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wuhan",
+      "plant_raw": "Wuhan",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1722078.1636251616,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Wuhan",
+      "plant_raw": "Wuhan",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 1435810.6170697892,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Xinxiang",
+      "plant_raw": "Xinxiang",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 395.60870076876364,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Xinxiang",
+      "plant_raw": "Xinxiang",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 16295.79348546713,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Xinxiang",
+      "plant_raw": "Xinxiang",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 523173.9175893723,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Xinxiang",
+      "plant_raw": "Xinxiang",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 461888.3037764006,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Xinyang",
+      "plant_raw": "Xinyang",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 196.01641183215716,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Xinyang",
+      "plant_raw": "Xinyang",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 7209.796471309333,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Xinyang",
+      "plant_raw": "Xinyang",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 192067.34998442084,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Xinyang",
+      "plant_raw": "Xinyang",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 164913.8121124231,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Yingkou",
+      "plant_raw": "Yingkou",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 191.66995380044332,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Yingkou",
+      "plant_raw": "Yingkou",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 9417.451320206894,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Yingkou",
+      "plant_raw": "Yingkou",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 171798.56595448332,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Yingkou",
+      "plant_raw": "Yingkou",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 147894.91122614584,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ypane",
+      "plant_raw": "Ypane",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 288.7916894529985,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ypane",
+      "plant_raw": "Ypane",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 19969.37134987822,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ypane",
+      "plant_raw": "Ypane",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1182160.759633895,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ypane",
+      "plant_raw": "Ypane",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 858845.9621941485,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zacatecas",
+      "plant_raw": "ZACATECAS",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 428.43955646224833,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zacatecas",
+      "plant_raw": "ZACATECAS",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 46882.87450926615,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zacatecas",
+      "plant_raw": "ZACATECAS",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 3499510.9227417596,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zacatecas",
+      "plant_raw": "ZACATECAS",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 3316846.6419327604,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zacapa",
+      "plant_raw": "Zacapa",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 148.4000668934203,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zacapa",
+      "plant_raw": "Zacapa",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 6665.509895081937,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zacapa",
+      "plant_raw": "Zacapa",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 100013.02978405703,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zacapa",
+      "plant_raw": "Zacapa",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 88552.83357019628,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zarate",
+      "plant_raw": "Zarate",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 188.3106629639162,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zarate",
+      "plant_raw": "Zarate",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 20504.482751647076,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zarate",
+      "plant_raw": "Zarate",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 1108760.8624981851,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zarate",
+      "plant_raw": "Zarate",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 681802.0914306056,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zhangzhou",
+      "plant_raw": "Zhangzhou",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 341.5282814808551,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zhangzhou",
+      "plant_raw": "Zhangzhou",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 17654.1036015324,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zhangzhou",
+      "plant_raw": "Zhangzhou",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 791753.3397288424,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Zhangzhou",
+      "plant_raw": "Zhangzhou",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 615463.4799262469,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ziyang",
+      "plant_raw": "Ziyang",
+      "kpi_code": "PG-K0412",
+      "aggregated_value": 393.349667519498,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ziyang",
+      "plant_raw": "Ziyang",
+      "kpi_code": "PG-K4038",
+      "aggregated_value": 19563.4720616223,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ziyang",
+      "plant_raw": "Ziyang",
+      "kpi_code": "PG-K4039",
+      "aggregated_value": 954632.5903348584,
+      "year": "2025",
+      "periodtype": "YTD"
+    },
+    {
+      "plant": "Ziyang",
+      "plant_raw": "Ziyang",
+      "kpi_code": "PG-R0060",
+      "aggregated_value": 804263.2180020019,
+      "year": "2025",
+      "periodtype": "YTD"
+    }
+  ]
+}

@@ -1,0 +1,120 @@
+# Coverage Assessment Dashboard — Regras para o Cursor AI
+
+## Contexto do projeto
+
+Dashboard React 18 + TypeScript + Tailwind CSS v3 de acompanhamento de maturidade de produtos digitais.
+Toda a lógica está em `client/src/App.tsx` (~1200 linhas, componente único intencional).
+Os dados vêm de um arquivo Excel e são embutidos como constantes TypeScript no bundle.
+
+Leia `CURSOR.md` e `README.md` antes de fazer qualquer alteração.
+
+---
+
+## Stack técnica
+
+- React 18 + TypeScript 5.6
+- Vite 7 (build)
+- Tailwind CSS v3 com `darkMode: ["class"]`
+- Express 5 (servidor dev apenas — produção é bundle estático)
+- Sem banco de dados ativo neste projeto
+
+---
+
+## Regras obrigatórias
+
+### Dados e modelo de negócio
+
+1. O funil de maturidade é L0–L4, **cumulativo e decrescente**:
+   - L0 = 100% dos sites (base)
+   - L1 = sites com score ≥ 1
+   - L2 = sites com score ≥ 2
+   - L3 = sites com score ≥ 3
+   - L4 = sites com score = 4
+   - Os **tooltips** mostram sites exclusivos de cada nível (score EXATAMENTE igual ao número do nível)
+
+2. **Legacy > Global quando ambos coexistem** no mesmo site+domínio.
+   - `"G"` = Global ativo
+   - `"L"` = Legacy ativo (prevalece)
+   - Chave ausente = sem produto
+
+3. Grupos de volume são filtros simples: G1 (< 2M HL), G2 (2–6M HL), G3 (> 6M HL).
+
+4. **Nunca mostrar `%global` dentro dos botões de filtro** de volume — apenas label, faixa e contagem.
+
+### Tooltip
+
+5. O `SiteTooltip` usa `ReactDOM.createPortal` em `document.body`.
+6. Posicionamento: `position: fixed` + `getBoundingClientRect()`. **Nunca adicionar `window.scrollY`**.
+7. Abre apenas ao **clicar** na barra do funil — nunca no hover.
+8. Fecha ao clicar fora ou no botão ×.
+
+### Layout
+
+9. Sidebar: `flex-none w-52` ao lado de `flex-1 min-w-0` para o conteúdo — nunca sobrepostos.
+10. Sidebar panels de Volume Groups e Tech Glide Path devem ser compactos.
+
+### Estilo de código
+
+11. Mantenha TypeScript estrito (`strict: true`).
+12. Use Tailwind para todo styling — não adicione CSS externo ao `index.css` sem necessidade.
+13. Props de componente devem ser tipadas com `interface` ou `type`.
+14. O prop `t: T` (tipo `typeof TRANSLATIONS['pt']`) deve ser passado a qualquer componente que exiba texto visível ao usuário.
+15. O prop `dark: boolean` deve ser passado a componentes que alteram estilo por tema.
+
+### O que não fazer
+
+- Não fragmentar `App.tsx` em múltiplos arquivos sem discussão prévia
+- Não usar `window.scrollY` ou `window.pageYOffset` no posicionamento do tooltip
+- Não remover o badge GHQ do header dos cards (mas não exibir `%GHQ` nas linhas do funil)
+- Não alterar a lógica cumulativa do funil
+- Não alterar a regra de precedência Legacy > Global
+- Não adicionar bibliotecas de gráficos externas (o projeto usa barras CSS nativas)
+- Não usar `any` sem justificativa
+
+---
+
+## Atualização de dados
+
+Quando o arquivo `Coverage.xlsx` for atualizado, rode na raiz do projeto:
+
+```bash
+# Atualizar scores dos sites (CSV_DATA em App.tsx)
+python scripts/update_csv_data.py
+
+# Atualizar mapeamento Global/Legado (SITE_DOMAIN_TYPE em App.tsx)
+python scripts/extract_site_types.py
+```
+
+Ambos os scripts imprimem o novo conteúdo no terminal. Copie e substitua as respectivas constantes em `App.tsx`.
+
+---
+
+## Constantes principais em App.tsx
+
+| Constante | Linha aprox. | Finalidade |
+|---|---|---|
+| `TRANSLATIONS` | 7 | Strings PT/EN |
+| `ZONE_COLORS` | 126 | Paleta por zona |
+| `SITE_DOMAIN_TYPE` | 164 | Mapeamento G/L por site+domínio |
+| `getSiteDomainType` | 166 | Helper de acesso ao mapeamento |
+| `CSV_DATA` | 170 | Dados dos 163 sites (CSV inline) |
+
+---
+
+## Convenções de nomenclatura
+
+- Componentes: PascalCase (`FunnelCard`, `ScoreDot`, `SiteTooltip`, `SiteTable`)
+- Constantes de dados: SCREAMING_SNAKE_CASE (`CSV_DATA`, `SITE_DOMAIN_TYPE`)
+- Funções helper: camelCase (`parseCSV`, `getSiteDomainType`, `calcFunnel`)
+- Props interfaces: `[ComponentName]Props`
+
+---
+
+## Paleta de cores (não alterar sem aprovação)
+
+```
+L0: #D1D5DB  L1: #FFE066  L2: #FFC000  L3: #F59E0B  L4: #10B981
+AFR: #D97706  SAZ: #059669  MAZ: #2563EB  NAZ: #7C3AED  EUR: #DB2777  APAC: #EA580C
+Global ring: ring-blue-400 (Tailwind)
+Legacy ring: ring-gray-400 (Tailwind)
+```
