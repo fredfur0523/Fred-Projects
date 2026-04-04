@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tech Supply Strategy Operations Map</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #1a1a2e; color: #e0e0e0; font-family: 'Segoe UI', system-ui, sans-serif; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding: 24px; }
+  h1 { font-size: 28px; font-weight: 700; color: #f0f0f0; margin-top: 12px; }
+  .subtitle { font-size: 14px; color: #aaa; margin: 4px 0 16px; }
+  .legend { display: flex; gap: 18px; flex-wrap: wrap; justify-content: center; margin-bottom: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 13px; color: #ccc; }
+  .legend-dot { width: 14px; height: 14px; border-radius: 50%; }
+  .chart-wrap { background: #16213e; border-radius: 12px; padding: 20px; max-width: 1260px; width: 100%; box-shadow: 0 4px 24px rgba(0,0,0,.4); }
+  canvas { width: 100% !important; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 20px; max-width: 1260px; width: 100%; }
+  .stat-card { background: #16213e; border-radius: 10px; padding: 16px; text-align: center; }
+  .stat-card h3 { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+  .stat-card .val { font-size: 28px; font-weight: 700; margin: 6px 0; }
+  .stat-card .desc { font-size: 12px; color: #666; }
+  .b1 .val { color: #ef4444; } .b2 .val { color: #f59e0b; } .b3 .val { color: #3b82f6; } .b4 .val { color: #10b981; }
+  .footnote { font-size: 11px; color: #555; margin-top: 18px; text-align: center; max-width: 900px; }
+</style>
+</head>
+<body>
+
+<h1>Tech Supply Strategy Operations Map</h1>
+<p class="subtitle">Bubble size = Annual Volume (hL) · 2025 data · VPO by zone proxy</p>
+
+<div class="legend" id="legend"></div>
+
+<div class="chart-wrap">
+  <canvas id="bubble" height="700"></canvas>
+</div>
+
+<div class="stats" id="stats"></div>
+<p class="footnote" id="footnote"></p>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// 1. RAW DATA — Tech Maturity from Coverage Dashboard CSV_DATA
+// ═══════════════════════════════════════════════════════════════════
+const CSV_RAW = `Zone,Site,Country,Volume,BP,DA,UT,MT,MG,MDM,PP,QL,SF,Score
+MAZ,Zacatecas,Mexico,21490232,2,2,2,2,2,2,2,2,2,2
+MAZ,Tocancipa,Colombia,11877306,2,2,2,2,2,2,2,2,2,2
+MAZ,Mexico APAN,Mexico,11762721,2,2,2,2,2,2,2,2,2,2
+NAZ,St. Louis,USA,11625432,2,2,2,2,2,2,2,2,2,2
+SAZ,Rio de Janeiro,Brazil,11195323,2,2,2,2,2,2,2,2,2,2
+MAZ,Tuxtepec,Mexico,11116745,2,2,2,2,2,2,2,2,2,2
+NAZ,Houston,USA,10631547,2,2,2,2,2,2,2,2,2,2
+MAZ,Mexico Plant,Mexico,10452776,2,2,2,2,2,2,2,2,2,2
+SAZ,Sete Lagoas,Brazil,9710192,2,2,2,2,2,2,2,2,2,2
+APAC,Putian,China,9361612,2,3,2,2,3,2,2,2,2,2
+AFR,Accra,Ghana,8268546,3,2,2,2,2,2,2,3,2,2
+MAZ,San Pedro Sula CSD,Honduras,8129123,2,2,2,2,2,2,2,2,2,2
+NAZ,Jacksonville,USA,8093143,2,2,2,2,2,2,2,2,2,2
+AFR,Alrode,South Africa,8069020,2,2,2,2,2,2,2,3,2,2
+APAC,Foshan,China,7956210,2,3,3,2,3,3,2,2,2,2
+SAZ,Pernambuco,Brazil,7763920,2,2,2,2,2,2,2,2,2,2
+NAZ,Columbus,USA,7675003,2,2,2,2,2,2,2,2,2,2
+MAZ,Ate,Peru,7547062,2,2,2,2,2,2,2,2,2,2
+NAZ,Fort Collins,USA,7422385,2,2,2,2,2,2,2,2,2,2
+NAZ,Baldwinsville,USA,7170161,2,2,1,2,2,2,2,2,2,1
+NAZ,Los Angeles,USA,7146842,2,2,2,2,2,2,2,2,2,2
+SAZ,Jundiai,Brazil,7004740,2,2,2,2,2,2,2,2,2,2
+SAZ,Jacarei,Brazil,6971809,2,2,2,2,2,2,2,2,2,2
+NAZ,Cartersville,USA,6927016,3,2,2,2,2,2,2,2,2,2
+SAZ,Itapissuma,Brazil,6600077,2,2,2,2,2,2,2,2,2,2
+SAZ,Uberlandia,Brazil,6182294,2,2,2,2,2,2,2,2,2,2
+SAZ,Agudos,Brazil,6147209,2,2,2,2,2,2,2,2,2,2
+EUR,Magor,United Kingdom,6011596,2,2,2,2,1,2,2,2,2,1
+NAZ,Williamsburg,USA,5926289,2,2,1,2,2,2,2,2,2,1
+SAZ,Jaguariuna,Brazil,5877702,2,2,2,2,2,2,2,2,2,2
+SAZ,Pirai,Brazil,5571090,2,2,2,2,2,2,2,2,2,2
+APAC,Icheon,South Korea,5400783,1,2,2,2,2,2,0,2,2,0
+EUR,Leuven,Belgium,5223871,2,2,2,2,1,2,2,2,2,1
+AFR,Prospecton,South Africa,5233078,3,2,2,2,2,2,2,3,2,2
+SAZ,Viamao,Brazil,4937776,2,2,2,2,2,2,2,2,2,2
+SAZ,Camacari,Brazil,4936812,2,2,2,2,2,2,2,2,2,2
+AFR,Inanda,South Africa,4704538,1,2,2,2,2,2,2,2,2,2
+SAZ,Aquiraz,Brazil,4703919,2,2,2,2,2,2,2,2,2,2
+SAZ,Sur,Argentina,4688943,2,2,2,2,2,2,2,2,2,2
+SAZ,Quilmes,Argentina,4654841,2,2,2,2,2,2,2,2,2,2
+MAZ,Santo Domingo,Dominican Republic,4541107,2,2,2,2,2,2,2,2,2,2
+MAZ,Ind La Constancia Water,El Salvador,4427409,2,0,2,2,1,2,0,2,2,0
+MAZ,Guadalajara,Mexico,4349004,2,2,2,2,2,2,2,2,2,2
+MAZ,Boyaca,Colombia,4276591,2,2,2,2,2,2,2,2,2,2
+EUR,Bremen,Germany,4255902,1,2,2,2,1,2,2,2,2,1
+MAZ,Barranquilla,Colombia,4200971,2,2,2,2,2,2,2,2,2,2
+MAZ,Ind La Constancia CSD,El Salvador,4153127,2,0,2,2,1,2,0,2,2,0
+SAZ,Ponta Grossa,Brazil,4083690,2,2,2,2,2,2,2,2,2,2
+AFR,Newlands,South Africa,4073762,3,2,2,2,2,2,2,3,2,2
+EUR,Samlesbury,United Kingdom,3932263,1,2,2,2,1,2,2,2,2,1
+MAZ,Medellin,Colombia,3930434,2,2,2,2,2,2,2,2,2,2
+APAC,Wuhan,China,3737412,2,3,3,2,3,3,2,2,2,2
+SAZ,Ypane,Paraguay,3596873,2,2,2,2,2,2,2,2,2,2
+EUR,Jupille,Belgium,3593528,2,2,2,2,1,2,2,2,2,1
+SAZ,Sergipe,Brazil,3552437,2,2,2,2,2,2,2,2,2,2
+SAZ,Zarate,Argentina,3447034,2,2,2,2,2,2,2,2,2,2
+SAZ,Quilmes 2,Argentina,3309284,2,2,2,2,2,2,2,2,2,2
+SAZ,Equatorial,Brazil,3279525,2,2,2,2,2,2,2,2,2,2
+APAC,Jinshibai,China,3266999,2,3,3,2,3,3,2,2,2,2
+MAZ,Guayaquil,Ecuador,3257552,2,2,2,2,2,2,2,2,2,2
+SAZ,Cachoeiras,Brazil,3237498,2,2,2,2,2,2,2,2,2,2
+APAC,Shiliang,China,3112540,2,3,3,2,3,3,2,2,3,2
+AFR,Chamdor,South Africa,3073102,3,2,2,2,2,2,2,3,2,2
+MAZ,Motupe,Peru,3072045,2,2,2,2,2,2,2,2,2,2
+NAZ,London,Canada,3041422,1,2,2,2,1,2,2,0,2,1
+APAC,Gwangju,South Korea,2968668,1,2,2,2,2,2,0,2,2,0
+APAC,Cheongwon,South Korea,2959517,0,2,2,2,2,2,0,2,2,0
+APAC,Harbin 2,China,2897663,2,3,3,2,3,3,2,2,2,2
+SAZ,Lages,Brazil,2869908,2,2,2,2,2,2,2,2,2,2
+MAZ,Merida,Mexico,2848134,2,2,2,2,2,2,2,2,2,2
+APAC,Ziyang,China,2844535,2,3,3,2,3,3,2,2,3,2
+AFR,Dar es Salaam,Tanzania,2805741,2,2,2,2,2,2,2,2,2,2
+MAZ,Torreon,Mexico,2797436,2,2,2,2,2,2,2,2,2,2
+APAC,Suqian,China,2762633,2,3,3,2,3,3,2,2,3,2
+APAC,Wenzhou,China,2750215,2,3,3,2,3,3,2,2,3,2
+SAZ,Guarulhos,Brazil,2698383,2,2,2,2,2,2,2,2,2,2
+SAZ,Cuiaba,Brazil,2613994,2,2,2,2,2,2,2,2,2,2
+NAZ,Montreal,Canada,2612694,1,2,2,2,1,2,2,0,2,1
+SAZ,Teresina,Brazil,2494659,2,2,2,2,2,2,2,2,2,2
+SAZ,Sapucaia,Brazil,2392284,0,2,2,2,2,2,2,2,2,2
+SAZ,Macacu,Brazil,2369745,2,2,2,2,2,2,2,2,2,2
+MAZ,Quito,Ecuador,2252976,2,2,2,2,2,2,2,2,2,2
+AFR,Gateway,Nigeria,2251714,3,2,2,2,2,2,2,3,2,2
+APAC,Nanchang 1,China,2114522,2,3,3,2,2,3,2,2,2,2
+MAZ,San Pedro Sula,Honduras,2053369,2,2,2,2,2,2,2,2,2,2
+EUR,Munich,Germany,2041558,1,2,2,2,1,2,2,1,2,1
+SAZ,Manaus,Brazil,2041326,2,2,2,2,2,2,2,2,2,2
+APAC,Nanning,China,1940444,2,3,3,2,3,3,2,2,2,2
+MAZ,Bucaramanga,Colombia,1936433,2,2,2,2,2,2,2,2,2,2
+APAC,Xinxiang,China,1920884,2,3,3,2,3,3,2,2,3,2
+EUR,Wernigerode,Germany,1897050,1,2,2,2,1,2,2,1,2,1
+MAZ,San Juan,Peru,1883825,2,2,2,2,2,2,2,2,2,2
+APAC,Zhangzhou,China,1835676,2,3,3,2,3,3,1,2,3,2
+APAC,Tangshan 2,China,1804951,2,3,3,2,3,3,2,2,3,2
+MAZ,Ind La Constancia,El Salvador,1731889,2,2,2,2,2,2,2,2,2,2
+MAZ,Panama,Panama,1707242,2,2,2,2,2,2,2,2,2,2
+SAZ,Mendoza,Argentina,1676116,2,2,2,2,2,2,2,2,2,2
+AFR,Ibhayi,South Africa,1666051,3,2,2,2,2,2,2,3,2,2
+AFR,Onitsha,Nigeria,1611235,3,2,2,2,2,2,2,3,2,2
+MAZ,Arequipa,Peru,1606665,2,2,2,2,2,2,2,2,2,2
+AFR,Marracuene,Mozambique,1588950,3,2,2,2,2,2,2,3,2,2
+SAZ,Santa Cruz BO,Bolivia,1555839,2,2,2,2,2,2,2,2,2,2
+MAZ,Armenia,Colombia,1512540,2,2,2,2,2,2,2,2,2,2
+AFR,Jinja,Uganda,1469800,1,2,2,2,2,2,2,0,2,1
+AFR,Ilesa,Nigeria,1435063,3,2,2,2,2,2,2,2,2,2
+NAZ,Edmonton,Canada,1365943,1,2,2,2,1,2,2,0,2,1
+AFR,Lusaka,Zambia,1365641,1,2,2,2,2,2,2,2,2,1
+APAC,Baoding,China,1352928,2,3,3,2,3,3,2,2,3,2
+SAZ,Corrientes,Argentina,1352486,2,2,2,2,2,2,2,2,2,2
+MAZ,Hato Nuevo,Dominican Republic,1345154,2,2,2,2,2,2,2,2,2,2
+SAZ,El Alto,Bolivia,1296070,2,2,2,2,2,2,2,2,2,2
+SAZ,Curitibana,Brazil,1286150,0,2,2,2,2,2,2,2,2,2
+AFR,Maputo,Mozambique,1285760,1,2,2,2,2,2,2,2,2,1
+AFR,Port Harcourt,Nigeria,1274513,3,2,2,2,2,2,2,3,2,2
+APAC,Aurangabad,India,1271625,0,0,1,1,0,0,1,0,1,0
+AFR,Ilorin,Nigeria,1331782,1,2,2,2,2,2,2,2,2,1
+EUR,Dommelen,Netherlands,1382165,1,2,2,2,1,2,2,1,2,1
+SAZ,Tucuman,Argentina,1254087,2,2,2,2,2,2,2,2,2,2
+EUR,Hoegaarden,Belgium,1154717,1,2,2,2,1,2,2,1,2,1
+APAC,Jinzhou,China,1110825,2,3,3,2,3,3,1,2,3,1
+APAC,Mysore,India,1075882,0,0,1,1,0,0,1,0,1,0
+MAZ,Cusco,Peru,1068857,2,2,2,2,2,2,2,2,2,2
+APAC,Nantong,China,1038747,2,3,3,2,3,3,2,2,3,2
+SAZ,Cochabamba,Bolivia,1030936,2,2,2,2,2,2,2,2,2,2
+APAC,Sonipat,India,1016449,0,0,1,1,0,0,1,0,1,0
+SAZ,Huachipa,Peru,987693,2,2,2,2,2,2,2,2,2,2
+AFR,Mbarara,Uganda,979938,1,2,2,2,2,2,2,0,2,1
+APAC,Jishui,China,937258,2,3,3,2,3,3,2,2,3,2
+AFR,Nampula,Mozambique,628699,3,2,2,2,2,2,2,3,2,2
+APAC,Mudanjiang,China,764171,2,3,3,2,3,3,2,2,3,2
+SAZ,Cordoba,Argentina,745018,2,2,2,2,2,2,2,2,2,2
+MAZ,Mazatlan,Mexico,727620,2,2,2,2,2,2,2,2,2,2
+SAZ,La Paz,Bolivia,712689,2,2,2,2,2,2,2,2,2,2
+AFR,Mwanza,Tanzania,1058574,2,2,2,2,2,2,2,0,2,2
+AFR,Mbeya,Tanzania,757159,2,2,2,2,2,2,2,0,2,2
+APAC,Hyderabad,India,649833,0,0,1,1,0,0,1,0,1,0
+APAC,Charminar,India,636120,0,0,1,1,0,0,1,0,1,0
+APAC,Kunming,China,635021,2,3,3,2,3,3,2,2,3,2
+AFR,Polokwane,South Africa,1630622,3,2,2,2,2,2,2,3,2,2
+EUR,Las Palmas,Spain,609797,1,2,2,2,1,2,2,1,2,1
+SAZ,Huari,Bolivia,603883,2,2,2,2,2,2,2,2,2,2
+NAZ,Halifax,Canada,581503,1,2,2,2,1,2,2,0,2,1
+AFR,Rosslyn2,South Africa,571761,2,2,2,2,2,2,2,2,2,2
+APAC,Jiamusi,China,568202,2,3,3,2,3,3,2,2,3,2
+APAC,Wugang,China,563192,2,3,3,2,3,3,2,2,3,2
+APAC,Daqing,China,561401,2,3,3,2,3,3,2,2,3,2
+APAC,Yingkou,China,557877,2,3,3,2,3,3,2,2,3,2
+APAC,Xinyang,China,554297,2,3,3,2,3,3,2,2,3,2
+NAZ,Creston,Canada,546005,1,2,2,2,1,2,2,0,2,1
+APAC,HBP,Vietnam,466492,1,2,2,2,2,2,1,2,2,1
+EUR,Issum,Germany,448881,1,2,2,2,1,2,2,1,2,1
+APAC,Rohtak,India,402172,0,0,1,1,0,0,1,0,1,0
+SAZ,Santa Cruz SABM,Bolivia,396645,2,2,2,2,2,2,2,2,2,2
+APAC,MyPhuoc,Vietnam,379245,1,2,2,2,2,2,1,2,2,1
+AFR,Eswatini,Swaziland,354230,1,2,2,2,1,2,2,1,2,1
+MAZ,Zacapa,Guatemala,326265,2,2,2,2,2,2,2,2,2,2
+AFR,Namibia,Namibia,310889,3,2,2,2,2,2,2,3,2,2
+APAC,Meerut,India,170263,0,0,1,1,0,0,1,0,1,0
+AFR,Kgalagadi,Botswana,797731,1,2,2,2,2,2,2,1,2,1
+AFR,Lesotho,Lesotho,422520,1,2,2,2,2,2,2,0,2,1
+AFR,Rosslyn,South Africa,9152428,2,2,2,2,2,2,2,2,2,2
+AFR,Beira,Mozambique,6286999,2,2,2,2,2,2,2,2,2,2`;
+
+// ═══════════════════════════════════════════════════════════════════
+// 2. OSE data from Anaplan PG-K4038 (avg 2025)
+// ═══════════════════════════════════════════════════════════════════
+const OSE_RAW = {
+  "Kunming":49.79,"Wenzhou":49.34,"Jiamusi New":49.34,"Mudanjiang(New)":49.22,"Shiliang":49.18,
+  "Jishui":48.99,"Nanning":48.61,"Baoding":48.34,"Cochabamba":47.36,"ZACATECAS":46.85,
+  "Ziyang":46.68,"Almirante Tamandare":46.51,"Nanchang 3":46.33,"Tangshan 2":46.20,
+  "Harbin 2":46.18,"Foshan":46.15,"Atlantico":46.07,"Ind La Constancia CSD":46.01,
+  "Mbeya":45.95,"Putian (New)":45.68,"Cheongwon":45.63,"Xinxiang":45.51,"Zacapa":44.96,
+  "Yanji":44.95,"Nantong":44.82,"Cordoba":44.80,"Aurangabad":44.73,"Celebrity":44.67,
+  "Jinshibai":44.60,"Xinyang":44.57,"Jinzhou":44.47,"Jingmen":44.42,"Arequipa":44.40,
+  "Icheon":44.33,"Wugang":44.12,"Manantial":43.96,"Santo Domingo":43.67,"Fosters":43.34,
+  "Boyaca":43.33,"Merida":43.26,"Tocancipa":43.14,"Hyderabad":43.09,"Cusco":43.05,
+  "VSIP":43.03,"Lesotho Beer":43.02,"Ind La Constancia Beer":42.77,"Suqian":42.76,
+  "MyPhuoc":42.74,"Arusha":42.60,"Panama Beer":42.56,"TORREON":42.42,"Meerut":42.26,
+  "Nampula":42.21,"El Alto":41.91,"Pompeya":41.85,"Wuhan":41.82,
+  "San Pedro Sula Beer":41.79,"Barranquilla":41.65,"Creston":41.46,
+  "San Pedro Sula CSD":41.41,"Dar es Salaam":41.18,"Ate Beer":40.91,
+  "Mysore":40.41,"Santa Cruz":39.94,"Zhangzhou":39.92,"Xiaogan":39.80,
+  "Motupe Beer":39.49,"Charminar":39.45,"Bucaramanga":39.44,"Chernigiv":39.34,
+  "Mwanza":39.29,"Quito":39.24,"Ypane":38.89,"Valle":38.73,
+  "Houston":38.68,"Mbarara":38.50,"Medellin":38.38,"Eswatini":36.13,
+  "Jinja Beer":37.60,"Sonipat":37.41,"San Juan":37.35,"Newlands":37.19,
+  "Jacksonville":37.18,"Baldwinsville":36.73,"Ind La Constancia Water":36.67,
+  "Hato Nuevo":36.57,"Namibia Beer":36.37,"Mendoza":36.33,"Zarate":36.33,
+  "Agudos":36.00,"Port Harcourt":35.99,"St. Louis":35.97,"Quilmes":35.94,
+  "Williamsburg":35.93,"FairField":35.78,"Sete Lagoas":35.71,"Polokwane":35.69,
+  "Merrimack":35.36,"GUADALAJARA":35.33,"Mexico Plant":34.94,"Jacarei":34.91,
+  "Ningbo":34.67,"Juatuba":34.48,"Dommelen":34.28,"Bremen":34.21,
+  "MAZATLAN":34.08,"Cartersville":33.83,"Mexico Apan":33.82,"Cuiaba":33.18,
+  "Guarulhos":32.87,"Beira":32.84,"Wernigerode":32.84,"Tuxtepec":32.77,
+  "Cachoeiras de Macacu":32.71,"Anapolis":32.44,"Lages":32.36,"Acheral":32.29,
+  "Ilesa":31.96,"Manaus":31.91,"Halifax":31.90,"Huari":31.81,"Jundiai":31.81,
+  "Santiago":31.67,"Fort Collins":31.66,"Sacaba":31.42,"Montevideo":31.18,
+  "Corrientes":31.01,"Los Angeles":30.98,"Gwangju":30.85,"Edmonton":30.84,
+  "Uberlandia":30.40,"Jaguariuna":30.39,"Ibhayi":30.37,"Maputo":30.37,
+  "London":30.27,"Las Palmas":27.28,"Estancia":29.66,"Onitsha":29.57,
+  "Leuven":29.44,"Ponta Grossa":29.39,"Alrode Beer":29.38,"Ndola Beer":29.34,
+  "Columbus":29.30,"Magor":29.26,"La Paz":29.10,"Sapucaia do Sul":29.00,
+  "Prospecton":28.76,"Aquiraz":28.52,"Teresina":28.47,"Montreal":28.37,
+  "Samlesbury":28.24,"Gateway Brewery":28.16,"Itapissuma":28.05,
+  "Rio de Janeiro":27.62,"Pirai":27.32,"Rosslyn":26.65,"Viamao":26.60,
+  "Camacari":26.53,"Newark":26.40,"Sao Luis":25.64,"Issum":25.46,
+  "Santa Cruz (SABM)":24.70,"Munich":24.69,"Jupille":23.95,"Chamdor":23.70,
+  "Hoegaarden":23.45,"Marracuene":23.17,"Kgalagadi Beer":20.67,
+  "Accra Beer":19.26,"Lusaka Beer":18.77,"Nikolaev":14.31,
+  "Minas":1.72
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// 3. Parse + enrich
+// ═══════════════════════════════════════════════════════════════════
+const ZONE_COLOR = { AFR:'#D97706', SAZ:'#059669', MAZ:'#2563EB', NAZ:'#7C3AED', EUR:'#DB2777', APAC:'#EA580C' };
+const VPO_LABELS = { 1:'NB', 2:'Basic', 3:'INT', 4:'SUS', 5:'EXC', 6:'WC' };
+
+// VPO proxy by zone (with India exception)
+function getVPO(zone, country) {
+  if (zone === 'NAZ') return 4;
+  if (zone === 'MAZ') return 3;
+  if (zone === 'SAZ') return 3;
+  if (zone === 'EUR') return 2;
+  if (zone === 'APAC') return (country === 'India') ? 4 : 3;
+  if (zone === 'AFR') return 1;
+  return 2;
+}
+
+// Fuzzy match site name to OSE key
+function matchOSE(site, zone) {
+  const low = site.toLowerCase().replace(/[^a-z0-9]/g, '');
+  // Direct and partial matches
+  const mappings = {
+    'zacatecas': 'ZACATECAS', 'tocancipa': 'Tocancipa', 'mexico apan': 'Mexico Apan',
+    'st. louis': 'St. Louis', 'rio de janeiro': 'Rio de Janeiro', 'tuxtepec': 'Tuxtepec',
+    'houston': 'Houston', 'mexico plant': 'Mexico Plant', 'sete lagoas': 'Sete Lagoas',
+    'putian': 'Putian (New)', 'accra': 'Accra Beer', 'san pedro sula csd': 'San Pedro Sula CSD',
+    'jacksonville': 'Jacksonville', 'alrode': 'Alrode Beer', 'foshan': 'Foshan',
+    'pernambuco': null, 'columbus': 'Columbus', 'ate': 'Ate Beer',
+    'fort collins': 'Fort Collins', 'baldwinsville': 'Baldwinsville', 'los angeles': 'Los Angeles',
+    'jundiai': 'Jundiai', 'jacarei': 'Jacarei', 'cartersville': 'Cartersville',
+    'itapissuma': 'Itapissuma', 'uberlandia': 'Uberlandia', 'agudos': 'Agudos',
+    'magor': 'Magor', 'williamsburg': 'Williamsburg', 'jaguariuna': 'Jaguariuna',
+    'pirai': 'Pirai', 'icheon': 'Icheon', 'leuven': 'Leuven', 'prospecton': 'Prospecton',
+    'viamao': 'Viamao', 'camacari': 'Camacari', 'inanda': null, 'aquiraz': 'Aquiraz',
+    'sur': 'Pompeya', 'quilmes': 'Quilmes', 'santo domingo': 'Santo Domingo',
+    'ind la constancia water': 'Ind La Constancia Water', 'guadalajara': 'GUADALAJARA',
+    'boyaca': 'Boyaca', 'bremen': 'Bremen', 'barranquilla': 'Barranquilla',
+    'ind la constancia csd': 'Ind La Constancia CSD', 'ponta grossa': 'Ponta Grossa',
+    'newlands': 'Newlands', 'samlesbury': 'Samlesbury', 'medellin': 'Medellin',
+    'wuhan': 'Wuhan', 'ypane': 'Ypane', 'jupille': 'Jupille', 'sergipe': 'Estancia',
+    'zarate': 'Zarate', 'quilmes 2': null, 'equatorial': null, 'jinshibai': 'Jinshibai',
+    'guayaquil': null, 'cachoeiras': 'Cachoeiras de Macacu', 'shiliang': 'Shiliang',
+    'chamdor': 'Chamdor', 'motupe': 'Motupe Beer', 'london': 'London',
+    'gwangju': 'Gwangju', 'cheongwon': 'Cheongwon', 'harbin 2': 'Harbin 2',
+    'lages': 'Lages', 'merida': 'Merida', 'ziyang': 'Ziyang',
+    'dar es salaam': 'Dar es Salaam', 'torreon': 'TORREON', 'suqian': 'Suqian',
+    'wenzhou': 'Wenzhou', 'guarulhos': 'Guarulhos', 'cuiaba': 'Cuiaba',
+    'montreal': 'Montreal', 'teresina': 'Teresina', 'sapucaia': 'Sapucaia do Sul',
+    'macacu': 'Cachoeiras de Macacu', 'quito': 'Quito', 'gateway': 'Gateway Brewery',
+    'nanchang 1': null, 'san pedro sula': 'San Pedro Sula Beer', 'munich': 'Munich',
+    'manaus': 'Manaus', 'nanning': 'Nanning', 'bucaramanga': 'Bucaramanga',
+    'xinxiang': 'Xinxiang', 'wernigerode': 'Wernigerode', 'san juan': 'San Juan',
+    'zhangzhou': 'Zhangzhou', 'tangshan 2': 'Tangshan 2',
+    'ind la constancia': 'Ind La Constancia Beer', 'panama': 'Panama Beer',
+    'mendoza': 'Mendoza', 'ibhayi': 'Ibhayi', 'onitsha': 'Onitsha',
+    'arequipa': 'Arequipa', 'marracuene': 'Marracuene', 'santa cruz bo': 'Santa Cruz',
+    'armenia': null, 'jinja': 'Jinja Beer', 'ilesa': 'Ilesa', 'edmonton': 'Edmonton',
+    'lusaka': 'Lusaka Beer', 'baoding': 'Baoding', 'corrientes': 'Corrientes',
+    'hato nuevo': 'Hato Nuevo', 'el alto': 'El Alto', 'curitibana': null,
+    'maputo': 'Maputo', 'port harcourt': 'Port Harcourt', 'aurangabad': 'Aurangabad',
+    'ilorin': null, 'dommelen': 'Dommelen', 'tucuman': null, 'hoegaarden': 'Hoegaarden',
+    'jinzhou': 'Jinzhou', 'mysore': 'Mysore', 'cusco': 'Cusco', 'nantong': 'Nantong',
+    'cochabamba': 'Cochabamba', 'sonipat': 'Sonipat', 'huachipa': null,
+    'mbarara': 'Mbarara', 'jishui': 'Jishui', 'nampula': 'Nampula',
+    'mudanjiang': 'Mudanjiang(New)', 'cordoba': 'Cordoba', 'mazatlan': 'MAZATLAN',
+    'la paz': 'La Paz', 'mwanza': 'Mwanza', 'mbeya': 'Mbeya',
+    'hyderabad': 'Hyderabad', 'charminar': 'Charminar', 'kunming': 'Kunming',
+    'polokwane': 'Polokwane', 'las palmas': 'Las Palmas', 'huari': 'Huari',
+    'halifax': 'Halifax', 'rosslyn2': 'Rosslyn', 'jiamusi': 'Jiamusi New',
+    'wugang': 'Wugang', 'daqing': null, 'yingkou': 'Yingkou', 'xinyang': 'Xinyang',
+    'creston': 'Creston', 'hbp': 'VSIP', 'issum': 'Issum', 'rohtak': null,
+    'santa cruz sabm': 'Santa Cruz (SABM)', 'myphuoc': 'MyPhuoc', 'eswatini': 'Eswatini',
+    'zacapa': 'Zacapa', 'namibia': 'Namibia Beer', 'meerut': 'Meerut',
+    'kgalagadi': 'Kgalagadi Beer', 'lesotho': 'Lesotho Beer',
+    'rosslyn': 'Rosslyn', 'beira': 'Beira'
+  };
+  const key = mappings[site.toLowerCase()];
+  if (key && OSE_RAW[key] !== undefined) return OSE_RAW[key];
+  // Fallback: try substring match
+  for (const [k,v] of Object.entries(OSE_RAW)) {
+    if (k.toLowerCase().includes(low) || low.includes(k.toLowerCase().replace(/[^a-z0-9]/g,''))) return v;
+  }
+  return null;
+}
+
+// Parse CSV
+const lines = CSV_RAW.trim().split('\n').slice(1);
+const sites = lines.map(l => {
+  const c = l.split(',');
+  const zone = c[0], site = c[1], country = c[2];
+  const volume = parseInt(c[3]) || 0;
+  const techScore = parseFloat(c[13]) || 0;
+  // Compute average of 9 domain scores (cols 4-12) for a continuous tech score
+  const domainScores = [];
+  for (let i = 4; i <= 12; i++) domainScores.push(parseFloat(c[i]) || 0);
+  const techAvg = domainScores.reduce((a,b) => a+b, 0) / domainScores.length;
+  const vpo = getVPO(zone, country);
+  const ose = matchOSE(site, zone);
+  return { zone, site, country, volume, techScore: Math.round(techAvg * 100) / 100, techLevel: parseInt(c[13]) || 0, vpo, ose };
+});
+
+// Normalize bubble radius
+const volumes = sites.map(s => s.volume);
+const minVol = Math.min(...volumes), maxVol = Math.max(...volumes);
+const R_MIN = 6, R_MAX = 30;
+function radius(v) {
+  if (maxVol === minVol) return (R_MIN + R_MAX) / 2;
+  const ratio = (v - minVol) / (maxVol - minVol);
+  return R_MIN + Math.sqrt(ratio) * (R_MAX - R_MIN); // sqrt for area-proportional
+}
+
+// Add small jitter to avoid perfect overlap
+function jitter(val, amount) { return val + (Math.random() - 0.5) * amount; }
+
+// ═══════════════════════════════════════════════════════════════════
+// 4. Build Chart.js datasets (one per zone)
+// ═══════════════════════════════════════════════════════════════════
+const TECH_THRESHOLD = 1.3;
+const VPO_THRESHOLD = 3;
+
+const zoneGroups = {};
+sites.forEach(s => {
+  if (!zoneGroups[s.zone]) zoneGroups[s.zone] = [];
+  zoneGroups[s.zone].push(s);
+});
+
+const datasets = Object.entries(zoneGroups).map(([zone, items]) => ({
+  label: zone,
+  data: items.map(s => ({
+    x: jitter(s.techScore, 0.08),
+    y: jitter(s.vpo, 0.15),
+    r: radius(s.volume),
+    _site: s.site, _zone: s.zone, _country: s.country,
+    _tech: s.techScore, _vpo: s.vpo, _vol: s.volume, _ose: s.ose, _techLevel: s.techLevel,
+    _bundle: (s.techScore >= TECH_THRESHOLD && s.vpo >= VPO_THRESHOLD) ? 4 :
+             (s.techScore >= TECH_THRESHOLD && s.vpo < VPO_THRESHOLD) ? 3 :
+             (s.techScore < TECH_THRESHOLD && s.vpo >= VPO_THRESHOLD) ? 2 : 1
+  })),
+  backgroundColor: ZONE_COLOR[zone] + 'B3', // 0.7 opacity
+  borderColor: items.map(s => {
+    const isB4 = s.techScore >= TECH_THRESHOLD && s.vpo >= VPO_THRESHOLD;
+    return isB4 ? '#FFD700' : (ZONE_COLOR[zone] || '#888');
+  }),
+  borderWidth: items.map(s => {
+    const isB4 = s.techScore >= TECH_THRESHOLD && s.vpo >= VPO_THRESHOLD;
+    return isB4 ? 3 : 1;
+  }),
+}));
+
+// ═══════════════════════════════════════════════════════════════════
+// 5. Legend
+// ═══════════════════════════════════════════════════════════════════
+const legendEl = document.getElementById('legend');
+Object.entries(ZONE_COLOR).forEach(([z, c]) => {
+  const n = (zoneGroups[z] || []).length;
+  legendEl.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:${c}"></div>${z} (${n})</div>`;
+});
+legendEl.innerHTML += `<div class="legend-item"><div class="legend-dot" style="background:transparent;border:2px solid #FFD700"></div>Bundle 4 (gold border)</div>`;
+
+// ═══════════════════════════════════════════════════════════════════
+// 6. Render Chart
+// ═══════════════════════════════════════════════════════════════════
+Chart.register(ChartDataLabels);
+
+const ctx = document.getElementById('bubble').getContext('2d');
+new Chart(ctx, {
+  type: 'bubble',
+  data: { datasets },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    layout: { padding: { top: 30, right: 30, bottom: 10, left: 10 } },
+    scales: {
+      x: {
+        min: -0.2, max: 3.2,
+        title: { display: true, text: 'Tech Maturity Score (avg 9 domains, 0–3)', color: '#ccc', font: { size: 14 } },
+        ticks: { color: '#aaa', stepSize: 0.5 },
+        grid: { color: '#ffffff10' },
+      },
+      y: {
+        min: 0.3, max: 6.5,
+        title: { display: true, text: 'VPO Score (zone proxy)', color: '#ccc', font: { size: 14 } },
+        ticks: {
+          color: '#aaa', stepSize: 1,
+          callback: v => VPO_LABELS[v] ? `${v} (${VPO_LABELS[v]})` : ''
+        },
+        grid: { color: '#ffffff10' },
+      }
+    },
+    plugins: {
+      legend: { display: false },
+      datalabels: {
+        display: ctx => ctx.dataset.data[ctx.dataIndex].r > 16,
+        color: '#fff',
+        font: { size: 9, weight: 'bold' },
+        formatter: (v, ctx) => ctx.dataset.data[ctx.dataIndex]._site.substring(0, 10),
+        anchor: 'center', align: 'center',
+        textShadowBlur: 3, textShadowColor: '#000',
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => {
+            const d = ctx.raw;
+            const oseStr = d._ose !== null ? `${d._ose.toFixed(1)}%` : 'N/A';
+            return [
+              `${d._site} (${d._zone})`,
+              `Country: ${d._country}`,
+              `Tech Score: ${d._tech.toFixed(2)} (Level ${d._techLevel})`,
+              `VPO: ${d._vpo} (${VPO_LABELS[d._vpo] || '?'})`,
+              `Volume: ${d._vol.toLocaleString()} hL`,
+              `OSE: ${oseStr}`,
+              `Bundle: ${d._bundle}`
+            ];
+          }
+        },
+        backgroundColor: '#1e293b', titleColor: '#f0f0f0', bodyColor: '#ccc',
+        borderColor: '#334155', borderWidth: 1, padding: 12,
+      },
+      annotation: undefined // handled below
+    }
+  },
+  plugins: [{
+    id: 'quadrantLines',
+    afterDraw(chart) {
+      const { ctx, chartArea: { left, right, top, bottom }, scales: { x, y } } = chart;
+      // Vertical reference line at Tech = 1.3
+      const xPx = x.getPixelForValue(TECH_THRESHOLD);
+      ctx.save();
+      ctx.strokeStyle = '#ffffff30';
+      ctx.lineWidth = 2;
+      ctx.setLineDash([8, 6]);
+      ctx.beginPath(); ctx.moveTo(xPx, top); ctx.lineTo(xPx, bottom); ctx.stroke();
+      // Horizontal reference line at VPO = 3
+      const yPx = y.getPixelForValue(VPO_THRESHOLD);
+      ctx.beginPath(); ctx.moveTo(left, yPx); ctx.lineTo(right, yPx); ctx.stroke();
+      ctx.setLineDash([]);
+
+      // Quadrant labels
+      ctx.font = 'bold 12px Segoe UI, sans-serif';
+      ctx.fillStyle = '#ffffff40';
+      ctx.textAlign = 'center';
+      // B1 bottom-left
+      ctx.fillText('B1: VPO Low + Tech Low', (left + xPx) / 2, bottom - 14);
+      // B2 top-left
+      ctx.fillText('B2: VPO High + Tech Low', (left + xPx) / 2, top + 18);
+      // B3 bottom-right
+      ctx.fillText('B3: VPO Low + Tech High', (xPx + right) / 2, bottom - 14);
+      // B4 top-right
+      ctx.fillStyle = '#ffd70060';
+      ctx.fillText('★ B4: VPO High + Tech High', (xPx + right) / 2, top + 18);
+      ctx.restore();
+    }
+  }]
+});
+
+// ═══════════════════════════════════════════════════════════════════
+// 7. Stats cards
+// ═══════════════════════════════════════════════════════════════════
+const bundles = { 1: [], 2: [], 3: [], 4: [] };
+sites.forEach(s => {
+  const b = (s.techScore >= TECH_THRESHOLD && s.vpo >= VPO_THRESHOLD) ? 4 :
+            (s.techScore >= TECH_THRESHOLD && s.vpo < VPO_THRESHOLD) ? 3 :
+            (s.techScore < TECH_THRESHOLD && s.vpo >= VPO_THRESHOLD) ? 2 : 1;
+  bundles[b].push(s);
+});
+
+const statsEl = document.getElementById('stats');
+const bundleInfo = [
+  { n: 1, cls: 'b1', title: 'Bundle 1', desc: 'VPO Low + Tech Low — Need both process & tech investment' },
+  { n: 2, cls: 'b2', title: 'Bundle 2', desc: 'VPO High + Tech Low — Ready for tech acceleration' },
+  { n: 3, cls: 'b3', title: 'Bundle 3', desc: 'VPO Low + Tech High — Tech ahead of process maturity' },
+  { n: 4, cls: 'b4', title: 'Bundle 4', desc: 'VPO High + Tech High — Best cluster, optimize & scale' },
+];
+bundleInfo.forEach(b => {
+  const list = bundles[b.n];
+  const totalVol = list.reduce((a, s) => a + s.volume, 0);
+  statsEl.innerHTML += `
+    <div class="stat-card ${b.cls}">
+      <h3>${b.title}</h3>
+      <div class="val">${list.length}</div>
+      <div class="desc">${b.desc}</div>
+      <div class="desc" style="margin-top:6px;color:#999">${(totalVol/1e6).toFixed(1)}M hL total</div>
+    </div>`;
+});
+
+// Total sites card
+statsEl.innerHTML += `
+  <div class="stat-card">
+    <h3>Total Breweries</h3>
+    <div class="val" style="color:#60a5fa">${sites.length}</div>
+    <div class="desc">Plotted from Coverage Dashboard</div>
+    <div class="desc" style="margin-top:6px;color:#999">${sites.filter(s=>s.ose!==null).length} with OSE data</div>
+  </div>`;
+
+// ═══════════════════════════════════════════════════════════════════
+// 8. Footnote
+// ═══════════════════════════════════════════════════════════════════
+document.getElementById('footnote').textContent =
+  'Data sources: Tech Maturity = Coverage Dashboard CSV_DATA (9-domain avg, 0–3 scale) · ' +
+  'VPO = Zone proxy (NAZ=4/SUS, MAZ=3/INT, SAZ=3/INT, EUR=2/Basic, APAC=3 except India=4, AFR=1/NB) · ' +
+  'OSE = Anaplan PG-K4038 avg 2025 · Volume = Annual hL from Coverage Dashboard. ' +
+  'Limitations: VPO is zone-level proxy (not plant-specific); OSE match is fuzzy by plant name; ' +
+  'some sites may lack OSE data; Tech Score computed as avg of 9 domain scores (BP,DA,UT,MT,MG,MDM,PP,QL,SF). ' +
+  'Bubble positions include small jitter to reduce overlap. Generated ' + new Date().toISOString().slice(0,10) + '.';
+</script>
+</body>
+</html>
