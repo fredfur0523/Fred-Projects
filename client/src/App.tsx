@@ -200,6 +200,22 @@ const TRANSLATIONS = {
     portfolioDecommAction: 'Ação p/ Descomissionamento',
     portfolioSummaryTitle: 'Visão Consolidada por Zona',
     portfolioZoneCompareSub: 'Comparativo de cobertura e maturidade entre zonas por domínio',
+    portfolioDataUnavailable: 'Dado não disponível',
+    portfolioDataUnavailableTooltip: (zone: string, domain: string) => `Os dados de cobertura de produto para ${zone}/${domain} não estão disponíveis nesta versão do relatório`,
+    portfolioLoading: 'Carregando dados de cobertura de produto...',
+    portfolioLoadError: 'Falha ao carregar dados de cobertura de produto.',
+    portfolioRetry: 'Tentar novamente',
+    portfolioDecommRoadmap: 'Roadmap de Descomissionamento',
+    portfolioDecommRoadmapSub: 'Top 5 candidatos a descomissionamento — ordenados por urgência (sites já em L2+)',
+    portfolioLegacyProduct: 'Produto Legacy',
+    portfolioSitesStillLegacy: 'Sites ainda em Legacy',
+    portfolioMaturityPrereq: 'Pré-requisito de maturidade',
+    portfolioCurrentGap: 'Gap atual',
+    portfolioUrgency: 'Urgência',
+    portfolioClosestDecom: 'Mais próximos de descomissionar',
+    portfolioSitesNeedL2: (n: number, domain: string) => `${n} sites precisam atingir L2 em ${domain} para viabilizar decom`,
+    portfolioAvgVsL2: (avg: string) => `Score médio ${avg} vs L2 threshold (2.0)`,
+    portfolioNoDecomCandidates: 'Nenhum candidato a descomissionamento identificado neste filtro.',
     // ── Capability Gap ──
     capabilityGapNavLabel: 'Gap de Cap.',
     capabilityGapTitle: 'Análise de Gap de Capacidade',
@@ -281,6 +297,72 @@ const TRANSLATIONS = {
     methodologyWhyDiffer: 'Por que os dois scores podem diferir?',
     methodologyWhyDifferBody: 'O score N3/N4 é mais rigoroso — avalia se capacidades específicas estão funcionando, não apenas se o produto está implantado.',
     methodologyHelp: '?',
+    // ── Domain Blocking Analysis (Sprint 5) ──
+    domainBlockingTitle: 'Ranking de Bloqueantes',
+    domainBlockingSub: 'Domínios que mais limitam a maturidade dos sites',
+    domainBlockedSites: 'Sites Bloqueados',
+    domainBlockingPct: '% Bloqueante',
+    domainAvgScore: 'Score Médio',
+    domainTypeGL: 'Tipo (G/L)',
+    domainDistribution: 'Distribuição',
+    domainActiveSites: 'Sites ativos',
+    domainBlockedBy: 'bloqueados por',
+    domainClickDrill: 'Clique em um domínio para ver sites bloqueados',
+    domainSiteLevel: 'Nível geral',
+    domainNextLevel: 'Próximo nível',
+    domainNoBlocked: 'Nenhum site bloqueado por este domínio',
+    // ── Site Comparison (Sprint 7) ──
+    compareSites: 'Comparar Sites',
+    siteComparison: 'Comparação de Sites',
+    keyDifferences: 'Diferenças Chave',
+    inactive: 'Inativo',
+    compareWithSimilar: 'Comparar com similar',
+    clearSelection: 'Limpar seleção',
+    compSelected: (n: number) => `${n} selecionado(s)`,
+    compScore: 'Score N3/N4',
+    compGap: 'gap',
+    compAhead: 'à frente',
+    compVacuous: 'vac.',
+    compNoData: 'Sem dados para ambos os sites',
+    // ── Drivers OSE (Sprint 8) ──
+    driversOseTab: 'Drivers de OSE',
+    driversOseTitle: 'Decomposição do OSE por Zona',
+    driversOseSub: 'Waterfall: de onde vem a perda de eficiência — conectado à maturidade tech',
+    wfNonScheduled: 'Tempo Não Agendado',
+    wfPlannedDowntime: 'Paradas Planejadas',
+    wfExternalConstraints: 'Restrições Externas',
+    wfInternalConstraints: 'Restrições Internas',
+    wfEffectiveProduction: 'Tempo Efetivo de Produção',
+    wfTotalTime: 'Tempo Total',
+    wfScheduledTime: 'Tempo Programado',
+    wfLoadingTime: 'Tempo de Carga',
+    wfLoadingEffective: 'Tempo Efetivo de Carga',
+    wfZoneComparison: 'Comparativo entre Zonas',
+    wfInsights: 'Insights Automáticos',
+    wfHours: 'h',
+    wfOfTT: 'do TT',
+    // ── Sprint 9: Targets, Scorecard, Projeção ──
+    progressVsTarget: 'Progresso vs Target 2026',
+    sitesL2PlusTarget: 'Sites L2+',
+    oseAvgTarget: 'OSE Médio',
+    targetLabel: 'target',
+    editTargets: 'Editar Targets',
+    closeTargets: 'Fechar',
+    pctL2PlusLabel: '% L2+ target',
+    oseTargetLabel: 'OSE% target',
+    horizonLabel: 'Horizonte (meses)',
+    zoneHealth: 'Saúde da Zona',
+    healthGood: 'Bom',
+    healthCaution: 'Atenção',
+    healthCritical: 'Crítico',
+    healthScore: 'Health Score',
+    trendLabel: 'Tendência OSE',
+    proj12m: 'Projeção 12M',
+    projLinear: 'ⓘ Projeção linear',
+    insufData: 'Dados insuf.',
+    blockingDom: 'Bloq',
+    vpo80Plus: 'VPO80+',
+    estimated: '(estimado)',
   },
   en: {
     appSub: 'Audit Operations',
@@ -503,6 +585,22 @@ const TRANSLATIONS = {
     portfolioDecommAction: 'Decommissioning Action',
     portfolioSummaryTitle: 'Consolidated Zone View',
     portfolioZoneCompareSub: 'Coverage and maturity comparison across zones by domain',
+    portfolioDataUnavailable: 'Data not available',
+    portfolioDataUnavailableTooltip: (zone: string, domain: string) => `Product coverage data for ${zone}/${domain} is not available in this report version`,
+    portfolioLoading: 'Loading product coverage data...',
+    portfolioLoadError: 'Failed to load product coverage data.',
+    portfolioRetry: 'Try again',
+    portfolioDecommRoadmap: 'Decommissioning Roadmap',
+    portfolioDecommRoadmapSub: 'Top 5 decommissioning candidates — sorted by urgency (sites already at L2+)',
+    portfolioLegacyProduct: 'Legacy Product',
+    portfolioSitesStillLegacy: 'Sites still on Legacy',
+    portfolioMaturityPrereq: 'Maturity prerequisite',
+    portfolioCurrentGap: 'Current gap',
+    portfolioUrgency: 'Urgency',
+    portfolioClosestDecom: 'Closest to decommission',
+    portfolioSitesNeedL2: (n: number, domain: string) => `${n} sites need to reach L2 in ${domain} to enable decom`,
+    portfolioAvgVsL2: (avg: string) => `Avg score ${avg} vs L2 threshold (2.0)`,
+    portfolioNoDecomCandidates: 'No decommissioning candidates identified in this filter.',
     // ── VPO Threshold Callout (US1) ──
     vpoCalloutTitle: '⚠ VPO THRESHOLD — Precondition for tech investment ROI',
     vpoCalloutBody: (below: number, total: number) => `${below} of ${total} sites are below VPO 80% (Basic/Intermediate VPO). For these sites, digital maturity investment ROI is marginal without first raising VPO.`,
@@ -558,6 +656,72 @@ const TRANSLATIONS = {
     methodologyWhyDiffer: 'Why can the two scores differ?',
     methodologyWhyDifferBody: 'The N3/N4 score is more rigorous — it evaluates whether specific capabilities are functioning, not just whether the product is deployed.',
     methodologyHelp: '?',
+    // ── Domain Blocking Analysis (Sprint 5) ──
+    domainBlockingTitle: 'Blocking Ranking',
+    domainBlockingSub: 'Domains that most limit site maturity',
+    domainBlockedSites: 'Blocked Sites',
+    domainBlockingPct: '% Blocking',
+    domainAvgScore: 'Avg Score',
+    domainTypeGL: 'Type (G/L)',
+    domainDistribution: 'Distribution',
+    domainActiveSites: 'Active sites',
+    domainBlockedBy: 'blocked by',
+    domainClickDrill: 'Click a domain to see blocked sites',
+    domainSiteLevel: 'Overall level',
+    domainNextLevel: 'Next level',
+    domainNoBlocked: 'No sites blocked by this domain',
+    // ── Site Comparison (Sprint 7) ──
+    compareSites: 'Compare Sites',
+    siteComparison: 'Site Comparison',
+    keyDifferences: 'Key Differences',
+    inactive: 'Inactive',
+    compareWithSimilar: 'Compare with similar',
+    clearSelection: 'Clear selection',
+    compSelected: (n: number) => `${n} selected`,
+    compScore: 'Score N3/N4',
+    compGap: 'gap',
+    compAhead: 'ahead',
+    compVacuous: 'vac.',
+    compNoData: 'No data for both sites',
+    // ── Drivers OSE (Sprint 8) ──
+    driversOseTab: 'OSE Drivers',
+    driversOseTitle: 'OSE Decomposition by Zone',
+    driversOseSub: 'Waterfall: where efficiency loss comes from — linked to tech maturity',
+    wfNonScheduled: 'Non-Scheduled Time',
+    wfPlannedDowntime: 'Planned Downtime',
+    wfExternalConstraints: 'External Constraints',
+    wfInternalConstraints: 'Internal Constraints',
+    wfEffectiveProduction: 'Effective Production Time',
+    wfTotalTime: 'Total Time',
+    wfScheduledTime: 'Scheduled Time',
+    wfLoadingTime: 'Loading Time',
+    wfLoadingEffective: 'Loading Effective Time',
+    wfZoneComparison: 'Zone Comparison',
+    wfInsights: 'Automated Insights',
+    wfHours: 'h',
+    wfOfTT: 'of TT',
+    // ── Sprint 9: Targets, Scorecard, Projection ──
+    progressVsTarget: 'Progress vs Target 2026',
+    sitesL2PlusTarget: 'Sites L2+',
+    oseAvgTarget: 'Avg OSE',
+    targetLabel: 'target',
+    editTargets: 'Edit Targets',
+    closeTargets: 'Close',
+    pctL2PlusLabel: '% L2+ target',
+    oseTargetLabel: 'OSE% target',
+    horizonLabel: 'Horizon (months)',
+    zoneHealth: 'Zone Health',
+    healthGood: 'Good',
+    healthCaution: 'Caution',
+    healthCritical: 'Critical',
+    healthScore: 'Health Score',
+    trendLabel: 'OSE Trend',
+    proj12m: '12M Projection',
+    projLinear: 'ⓘ Linear projection',
+    insufData: 'Insuf. data',
+    blockingDom: 'Block',
+    vpo80Plus: 'VPO80+',
+    estimated: '(estimated)',
   }
 };
 type Lang = 'pt' | 'en';
@@ -578,6 +742,10 @@ const ZONES = ["AFR","SAZ","MAZ","NAZ","EUR","APAC"];
 // Schema: { year: number, rows: { plant, year, kpi_code, aggregated_value[, periodtype?, month?] }[] }
 type AnaplanRow = { plant: string; year: string; kpi_code: string; aggregated_value: number; periodtype?: string; month?: string };
 type AnaplanData = { year: number; rows: AnaplanRow[] };
+
+// Waterfall OSE data (Sprint 8)
+type WaterfallZoneData = { TT: number; NST: number; ST: number; DPA: number; LT: number; EC: number; LET: number; IC: number; EPT: number; OST: number; volume_hl: number; OSE: number; GLY: number; OAE: number; OEE: number; LEF: number };
+type WaterfallData = { period: string; generated_at: string; zones: string[]; data: Record<string, WaterfallZoneData> };
 
 // Product Coverage data: loaded from product-coverage-2026.json (from OneMes Coverage.xlsx)
 // zone → domain → [{product, sites, n}]
@@ -740,6 +908,23 @@ interface MaturityDetailSite {
 // ── KPI History (kpi-history.json) ──
 interface KpiHistoryMonth { period: string; zone: string; OSE: number; GLY?: number; OAE?: number; }
 interface KpiHistoryData { generated_at: string; periods: string[]; months: KpiHistoryMonth[]; }
+
+// ── Sprint 9: OSE projection (linear regression) ──
+function projectOse(history: { period: string; OSE: number }[], months: number): number | null {
+  const n = history.length;
+  if (n < 3) return null;
+  const xs = history.map((_, i) => i);
+  const ys = history.map(h => h.OSE);
+  const sumX = xs.reduce((a, b) => a + b, 0);
+  const sumY = ys.reduce((a, b) => a + b, 0);
+  const sumXY = xs.reduce((s, x, i) => s + x * ys[i], 0);
+  const sumX2 = xs.reduce((s, x) => s + x * x, 0);
+  const denom = n * sumX2 - sumX * sumX;
+  if (denom === 0) return null;
+  const b = (n * sumXY - sumX * sumY) / denom;
+  const a = (sumY - b * sumX) / n;
+  return a + b * (n - 1 + months);
+}
 const MATURITY_DETAIL: Record<string, MaturityDetailSite> = {"Accra":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Agudos":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Alrode":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Aquiraz":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Arequipa":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Ate":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Aurangabad":{"zone":"APAC","domains":{"BP":null,"DA":null,"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":null,"PP":null,"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6054,"pass":true},"L2":{"vacuous":false,"frac":0.8043,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":null},"score":2},"Baldwinsville":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.9326,"pass":true},"L2":{"vacuous":false,"frac":0.6,"pass":false},"L3":{"vacuous":false,"frac":0.3972,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Baoding":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Barranquilla":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Beira":{"zone":"AFR","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Boyaca":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Bremen":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.7688,"pass":true},"L2":{"vacuous":false,"frac":0.5714,"pass":false},"L3":{"vacuous":false,"frac":0.2278,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":1},"Bucaramanga":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Camacari":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Cartersville":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.9326,"pass":true},"L2":{"vacuous":false,"frac":0.6,"pass":false},"L3":{"vacuous":false,"frac":0.3972,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Chamdor":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Charminar":{"zone":"APAC","domains":{"BP":null,"DA":null,"UT":null,"MT":null,"MG":null,"MDM":null,"PP":null,"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6054,"pass":true},"L2":{"vacuous":false,"frac":0.8043,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":null},"score":2},"Cheongwon":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6054,"pass":true},"L2":{"vacuous":false,"frac":0.8043,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":null},"score":2},"Cochabamba":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"G"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Columbus":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.9326,"pass":true},"L2":{"vacuous":false,"frac":0.6,"pass":false},"L3":{"vacuous":false,"frac":0.3972,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Cordoba":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Corrientes":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Creston":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Cuiaba":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Curitibana":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Cusco":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Dar es Salaam":{"zone":"AFR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8263,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Dommelen":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.7688,"pass":true},"L2":{"vacuous":false,"frac":0.5714,"pass":false},"L3":{"vacuous":false,"frac":0.2278,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":1},"Edmonton":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"El Alto":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Equatorial":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Eswatini":{"zone":"AFR","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Fort Collins":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.9326,"pass":true},"L2":{"vacuous":false,"frac":0.6,"pass":false},"L3":{"vacuous":false,"frac":0.3972,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Foshan":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9796,"pass":true},"L3":{"vacuous":false,"frac":0.6139,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Gateway":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.6682,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Guadalajara":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Guarulhos":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Guayaquil":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Gwangju":{"zone":"APAC","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9585,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":0.9091,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":2},"Halifax":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Harbin 2":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9796,"pass":true},"L3":{"vacuous":false,"frac":0.6139,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Hato Nuevo":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Hoegaarden":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.8624,"pass":true},"L3":{"vacuous":false,"frac":0.2554,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":2},"Houston":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.9326,"pass":true},"L2":{"vacuous":false,"frac":0.6,"pass":false},"L3":{"vacuous":false,"frac":0.3972,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Huachipa":{"zone":"SAZ","domains":{"BP":null,"DA":null,"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":null,"PP":null,"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Huari":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Hyderabad":{"zone":"APAC","domains":{"BP":null,"DA":null,"UT":null,"MT":null,"MG":null,"MDM":null,"PP":null,"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6054,"pass":true},"L2":{"vacuous":false,"frac":0.8043,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":null},"score":2},"Ibhayi":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Icheon":{"zone":"APAC","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9585,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":0.9091,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":2},"Ilesa":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.6682,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Ind La Constancia":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Ind La Constancia CSD":{"zone":"MAZ","domains":{"BP":null,"DA":null,"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":null,"PP":null,"QL":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.6541,"pass":true},"L2":{"vacuous":false,"frac":0.7391,"pass":false},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":1},"Ind La Constancia Water":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":null,"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":null,"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Issum":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":2},"Jacarei":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Jacksonville":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.9326,"pass":true},"L2":{"vacuous":false,"frac":0.6,"pass":false},"L3":{"vacuous":false,"frac":0.3972,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Jaguariuna":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Jiamusi":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Jinja":{"zone":"AFR","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Jinshibai":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Jinzhou":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Jishui":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Jundiai":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Jupille":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.7688,"pass":true},"L2":{"vacuous":false,"frac":0.5714,"pass":false},"L3":{"vacuous":false,"frac":0.2278,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":1},"Kgalagadi":{"zone":"AFR","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Kunming":{"zone":"APAC","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9484,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.7407,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"La Paz":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Lages":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Las Palmas":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":2},"Lesotho":{"zone":"AFR","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Leuven":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.7688,"pass":true},"L2":{"vacuous":false,"frac":0.5714,"pass":false},"L3":{"vacuous":false,"frac":0.2278,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":1},"London":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Los Angeles":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.9326,"pass":true},"L2":{"vacuous":false,"frac":0.6,"pass":false},"L3":{"vacuous":false,"frac":0.3972,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Lusaka":{"zone":"AFR","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Macacu":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Magor":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.7688,"pass":true},"L2":{"vacuous":false,"frac":0.5714,"pass":false},"L3":{"vacuous":false,"frac":0.2278,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":1},"Manaus":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Maputo":{"zone":"AFR","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Marracuene":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Mazatlan":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Mbarara":{"zone":"AFR","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Mbeya":{"zone":"AFR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8263,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"Medellin":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Meerut":{"zone":"APAC","domains":{"BP":null,"DA":null,"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":null,"PP":null,"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6054,"pass":true},"L2":{"vacuous":false,"frac":0.8043,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":null},"score":2},"Mendoza":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Merida":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Mexico APAN":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Mexico Plant":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Montreal":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Motupe":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Mudanjiang":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":null,"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Munich":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.8624,"pass":true},"L3":{"vacuous":false,"frac":0.2554,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":2},"Mwanza":{"zone":"AFR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8263,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5189,"pass":false},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":0},"MyPhuoc":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6054,"pass":true},"L2":{"vacuous":false,"frac":0.8043,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":null},"score":2},"Mysore":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6054,"pass":true},"L2":{"vacuous":false,"frac":0.8043,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":null},"score":2},"Namibia":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Nampula":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Nanning":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":null,"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Nantong":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Newlands":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Onitsha":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.6682,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Panama":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Pernambuco":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Pirai":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Polokwane":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Ponta Grossa":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Port Harcourt":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.6682,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Prospecton":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Putian":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9796,"pass":true},"L3":{"vacuous":false,"frac":0.6139,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Quilmes":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Quito":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Rio de Janeiro":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Rosslyn":{"zone":"AFR","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8238,"pass":true},"L2":{"vacuous":false,"frac":0.9259,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7561,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9808,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7188,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Samlesbury":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.7688,"pass":true},"L2":{"vacuous":false,"frac":0.5714,"pass":false},"L3":{"vacuous":false,"frac":0.2278,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":1},"San Juan":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"San Pedro Sula":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"San Pedro Sula CSD":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Santo Domingo":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Sapucaia":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Sergipe":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Sete Lagoas":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Shiliang":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Sonipat":{"zone":"APAC","domains":{"BP":null,"DA":null,"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":null,"PP":null,"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6054,"pass":true},"L2":{"vacuous":false,"frac":0.8043,"pass":true},"L3":{"vacuous":false,"frac":0.1875,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"SF":null},"score":2},"St. Louis":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.9326,"pass":true},"L2":{"vacuous":false,"frac":0.6,"pass":false},"L3":{"vacuous":false,"frac":0.3972,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Suqian":{"zone":"APAC","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9484,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.7407,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9796,"pass":true},"L3":{"vacuous":false,"frac":0.6139,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Sur":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Tangshan 2":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Teresina":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Tocancipa":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Torreon":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Tuxtepec":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Uberlandia":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Viamao":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Wenzhou":{"zone":"APAC","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9484,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.7407,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9796,"pass":true},"L3":{"vacuous":false,"frac":0.6139,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Wernigerode":{"zone":"EUR","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9531,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.8148,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":null,"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":0.4579,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9135,"pass":true},"L2":{"vacuous":false,"frac":0.7826,"pass":true},"L3":{"vacuous":false,"frac":0.9375,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":2},"Williamsburg":{"zone":"NAZ","domains":{"BP":{"score":0,"levels":{"L1":{"vacuous":false,"frac":0.5681,"pass":false},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.0741,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8654,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":1,"levels":{"L1":{"vacuous":false,"frac":0.9326,"pass":true},"L2":{"vacuous":false,"frac":0.6,"pass":false},"L3":{"vacuous":false,"frac":0.3972,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9062,"pass":true},"L2":{"vacuous":false,"frac":0.9143,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":null},"score":0},"Wugang":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Wuhan":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9796,"pass":true},"L3":{"vacuous":false,"frac":0.6139,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Xinxiang":{"zone":"APAC","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9484,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.7407,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9796,"pass":true},"L3":{"vacuous":false,"frac":0.6139,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Xinyang":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":null,"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Yingkou":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Ypane":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Zacapa":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Zacatecas":{"zone":"MAZ","domains":{"BP":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9482,"pass":true},"L2":{"vacuous":false,"frac":1.0,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.7073,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":false,"frac":0.9031,"pass":true},"L3":{"vacuous":false,"frac":0.4672,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"L"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.7885,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.981,"pass":true},"L3":{"vacuous":false,"frac":0.3925,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9141,"pass":true},"L2":{"vacuous":false,"frac":0.8,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Zarate":{"zone":"SAZ","domains":{"BP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6432,"pass":true},"L2":{"vacuous":false,"frac":0.8462,"pass":true},"L3":{"vacuous":false,"frac":0.4444,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":1.0,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"UT":null,"MT":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8313,"pass":true},"L2":{"vacuous":false,"frac":0.784,"pass":true},"L3":{"vacuous":false,"frac":0.5444,"pass":false},"L4":{"vacuous":false,"frac":1.0,"pass":true}},"type":"G"},"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"MDM":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8269,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9101,"pass":true},"L2":{"vacuous":false,"frac":0.8286,"pass":true},"L3":{"vacuous":false,"frac":0.3832,"pass":false},"L4":{"vacuous":false,"frac":0.0,"pass":false}},"type":"L"},"QL":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6324,"pass":true},"L2":{"vacuous":false,"frac":0.8913,"pass":true},"L3":{"vacuous":false,"frac":0.0625,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.6736,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"}},"score":2},"Zhangzhou":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2},"Ziyang":{"zone":"APAC","domains":{"BP":null,"DA":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8049,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"UT":null,"MT":null,"MG":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.8961,"pass":true},"L2":{"vacuous":false,"frac":0.977,"pass":true},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"MDM":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.9423,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"G"},"PP":null,"QL":{"score":4,"levels":{"L1":{"vacuous":false,"frac":0.8438,"pass":true},"L2":{"vacuous":false,"frac":0.8857,"pass":true},"L3":{"vacuous":false,"frac":1.0,"pass":true},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"},"SF":{"score":2,"levels":{"L1":{"vacuous":false,"frac":0.9583,"pass":true},"L2":{"vacuous":true,"pass":true,"frac":null},"L3":{"vacuous":false,"frac":0.0,"pass":false},"L4":{"vacuous":true,"pass":true,"frac":null}},"type":"L"}},"score":2}};
 
 const CSV_DATA = `Zone,Site,Country,Volume,BP,DA,UT,MT,MG,MDM,PP,QL,SF,Score
@@ -2284,7 +2469,7 @@ const ScoreDot: React.FC<{score:number;dark:boolean;siteName:string;domainShort:
   );
 };
 
-const SitesView: React.FC<{sites:Site[];t:T;dark:boolean;lang:string;anaplanData:AnaplanData|null}> = ({sites,t,dark,lang,anaplanData}) => {
+const SitesView: React.FC<{sites:Site[];t:T;dark:boolean;lang:string;anaplanData:AnaplanData|null;compSelection:string[];onToggleComp:(name:string)=>void}> = ({sites,t,dark,lang,anaplanData,compSelection,onToggleComp}) => {
   const [sortBy,setSortBy] = useState<'name'|'zone'|'volume'|'ose'|'ttp'|'avg'>('volume');
   const [sortDir,setSortDir] = useState<'asc'|'desc'>('desc');
   const [search,setSearch] = useState('');
@@ -2399,6 +2584,7 @@ const SitesView: React.FC<{sites:Site[];t:T;dark:boolean;lang:string;anaplanData
           <table className="w-full text-sm">
             <thead>
               <tr className={'border-b ' + (th)}>
+                <th className="px-2 py-3 w-8"></th>
                 <th className="text-left px-4 py-3 text-xs font-black"><button onClick={()=>toggleSort('name')} className="flex items-center hover:opacity-100 opacity-80">{t.sortName}<SortIcon col="name"/></button></th>
                 <th className="text-left px-3 py-3 text-xs font-black"><button onClick={()=>toggleSort('zone')} className="flex items-center hover:opacity-100 opacity-80">{t.sortZone}<SortIcon col="zone"/></button></th>
                 <th className="text-right px-3 py-3 text-xs font-black"><button onClick={()=>toggleSort('volume')} className="flex items-center ml-auto hover:opacity-100 opacity-80">{t.sortVolume}<SortIcon col="volume"/></button></th>
@@ -2419,6 +2605,29 @@ const SitesView: React.FC<{sites:Site[];t:T;dark:boolean;lang:string;anaplanData
                 const zc=ZONE_COLORS[site.zone];
                 return(
                   <tr key={`${site.name}-${i}`} className={'border-b transition-colors ' + (tr)}>
+                    <td className="px-2 py-2.5 text-center">{(()=>{
+                      const isSelected = compSelection.includes(site.name);
+                      const isFull = compSelection.length >= 2;
+                      const disabled = !isSelected && isFull;
+                      return (
+                        <button
+                          onClick={(e)=>{e.stopPropagation();onToggleComp(site.name);}}
+                          disabled={disabled}
+                          className={'w-5 h-5 rounded-full border-2 flex items-center justify-center text-[10px] font-bold transition-all flex-shrink-0 ' + (
+                            isSelected
+                              ? 'bg-yellow-400 border-yellow-400 text-gray-900'
+                              : disabled
+                                ? 'border-gray-300 text-gray-300 cursor-not-allowed opacity-40'
+                                : dark
+                                  ? 'border-gray-500 text-gray-500 hover:border-yellow-400 hover:text-yellow-400'
+                                  : 'border-gray-300 text-gray-300 hover:border-yellow-400 hover:text-yellow-500'
+                          )}
+                          title={isSelected ? (lang==='pt'?'Remover da comparação':'Remove from comparison') : disabled ? (lang==='pt'?'Máx. 2 sites':'Max 2 sites') : (lang==='pt'?'Selecionar para comparar':'Select to compare')}
+                        >
+                          {isSelected ? '✓' : '+'}
+                        </button>
+                      );
+                    })()}</td>
                     <td className="px-4 py-2.5">
                       <div className={'font-semibold text-sm ' + (dark?'text-white':'text-gray-900')}>{site.name}</div>
                       <div className={'text-[10px] ' + (dark?'text-gray-500':'text-gray-400')}>{site.country}</div>
@@ -3652,9 +3861,18 @@ function computePortfolioMatrix(sites: Site[]): DomainZonePortfolioRow[] {
 const PortfolioIntelligenceView: React.FC<{
   sites: Site[]; dark: boolean; t: T; lang: Lang;
   productCoverage: ProductCoverageData | null;
-}> = ({ sites, dark, t, productCoverage }) => {
+  productCoverageLoading: boolean; productCoverageError: boolean; onRetryFetch: () => void;
+}> = ({ sites, dark, t, productCoverage, productCoverageLoading, productCoverageError, onRetryFetch }) => {
   const [selectedZone, setSelectedZone] = useState<string>('AFR');
   const [domainFilter, setDomainFilter] = useState<string>('all');
+  const [loadingElapsed, setLoadingElapsed] = useState(false);
+  useEffect(() => {
+    if (!productCoverageLoading && !productCoverageError && !productCoverage) {
+      const timer = setTimeout(() => setLoadingElapsed(true), 3000);
+      return () => clearTimeout(timer);
+    }
+    if (productCoverage) setLoadingElapsed(false);
+  }, [productCoverageLoading, productCoverageError, productCoverage]);
 
   const card = dark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-100';
   const sub = dark ? 'text-gray-400' : 'text-gray-500';
@@ -3750,6 +3968,129 @@ const PortfolioIntelligenceView: React.FC<{
   const fmtScore = (v:number|null) => v!=null ? v.toFixed(2) : '—';
   const fmtPct = (v:number) => (v*100).toFixed(0)+'%';
   const statusIcon = (s:string) => ({global_leading:'🟢',approaching:'🟡',legacy_dominant:'🔴',absent:'⬜'}[s]??'⬜');
+
+  // Helper: check if data is available for a zone/domain combo
+  const isDataAvailable = (zone: string, domainKey: string): boolean => {
+    if (!productCoverage) return false;
+    if (!productCoverage[zone]) return false;
+    // Zone exists but domain might be absent
+    return productCoverage[zone][domainKey] !== undefined;
+  };
+  const isZoneAvailable = (zone: string): boolean => {
+    if (!productCoverage) return false;
+    return productCoverage[zone] !== undefined;
+  };
+
+  // ── US3: Decom Roadmap data ──
+  const decommCandidates = useMemo(() => {
+    const candidates: {
+      zone: string; domain: string; domainShort: string;
+      legacyProduct: string; nLegacy: number;
+      sitesBelow: number; totalSites: number; avgScore: number; urgency: number;
+    }[] = [];
+    for (const z of ZONES) {
+      const zSites = sites.filter(s => s.zone === z);
+      if (zSites.length === 0) continue;
+      for (const dk of DOMAIN_KEYS.filter(d => d.key !== 'Total Global')) {
+        // Compute parity status for this zone-domain
+        let nG = 0, nL = 0;
+        const scoresG: number[] = [], scoresL: number[] = [];
+        for (const s of zSites) {
+          const pt = getSiteDomainType(s.name, dk.short);
+          const sc = s.scores[dk.key] ?? 0;
+          if (pt === 'G') { nG++; if (sc > 0) scoresG.push(sc); }
+          else if (pt === 'L') { nL++; if (sc > 0) scoresL.push(sc); }
+        }
+        const covPct = (nG + nL) > 0 ? nG / (nG + nL) : 0;
+        const avgG = scoresG.length ? scoresG.reduce((a, b) => a + b, 0) / scoresG.length : null;
+        const avgL = scoresL.length ? scoresL.reduce((a, b) => a + b, 0) / scoresL.length : null;
+        let parity: string;
+        if (nG === 0) parity = nL > 0 ? 'legacy_dominant' : 'absent';
+        else if ((avgG != null && avgL != null ? avgG >= avgL && covPct >= 0.70 : covPct >= 0.70)) parity = 'global_leading';
+        else if (covPct >= 0.30) parity = 'approaching';
+        else parity = 'legacy_dominant';
+        if (parity !== 'legacy_dominant' && parity !== 'approaching') continue;
+        // Find legacy product name from productCoverage
+        let legacyProduct = '—';
+        if (productCoverage && productCoverage[z]?.[dk.key]) {
+          const products = productCoverage[z][dk.key];
+          if (products.length > 0) legacyProduct = products.sort((a, b) => b.n - a.n)[0].product;
+        }
+        // L2 threshold calculation using CSV_DATA sites
+        const domainScores = zSites.map(s => s.scores[dk.key] ?? 0);
+        const sitesL2Plus = domainScores.filter(sc => sc >= 2).length;
+        const sitesBelow = domainScores.filter(sc => sc < 2 && sc > 0).length + domainScores.filter(sc => sc === 0).length;
+        const totalWithDomain = domainScores.filter(sc => sc > 0).length;
+        const avgDomain = totalWithDomain > 0 ? domainScores.filter(sc => sc > 0).reduce((a, b) => a + b, 0) / totalWithDomain : 0;
+        const urgency = totalWithDomain > 0 ? sitesL2Plus / totalWithDomain : 0;
+        candidates.push({
+          zone: z, domain: dk.key, domainShort: dk.short,
+          legacyProduct, nLegacy: nL,
+          sitesBelow: zSites.length - sitesL2Plus, totalSites: zSites.length,
+          avgScore: avgDomain, urgency,
+        });
+      }
+    }
+    return candidates.sort((a, b) => b.urgency - a.urgency).slice(0, 5);
+  }, [sites, productCoverage]);
+
+  // ── US2: Loading / Error states ──
+  if (productCoverageError) {
+    return (
+      <div className="space-y-5">
+        <div className={'rounded-xl border p-8 text-center ' + card}>
+          <div className="text-4xl mb-3">⚠️</div>
+          <p className={'text-sm font-bold mb-2 ' + (dark ? 'text-red-400' : 'text-red-600')}>{t.portfolioLoadError}</p>
+          <button onClick={onRetryFetch}
+            className="mt-3 px-4 py-2 rounded-lg text-xs font-bold bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+            {t.portfolioRetry}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!productCoverage) {
+    return (
+      <div className="space-y-5">
+        {/* Skeleton zone selector */}
+        <div className={'rounded-xl border p-5 ' + card}>
+          <div className={'h-3 w-28 rounded mb-3 animate-pulse ' + (dark ? 'bg-gray-700' : 'bg-gray-200')} />
+          <div className="flex gap-2 flex-wrap mt-2">
+            {ZONES.map(z => (
+              <div key={z} className={'px-4 py-2 rounded-lg h-9 w-20 animate-pulse ' + (dark ? 'bg-gray-700' : 'bg-gray-200')} />
+            ))}
+          </div>
+          <div className="grid grid-cols-4 gap-2 mt-3">
+            {[1,2,3,4].map(i => (
+              <div key={i} className={'rounded-lg p-4 animate-pulse ' + (dark ? 'bg-gray-700' : 'bg-gray-200')} />
+            ))}
+          </div>
+        </div>
+        {/* Skeleton domain cards */}
+        <div className={'rounded-xl border p-5 ' + card}>
+          <div className={'h-3 w-40 rounded mb-3 animate-pulse ' + (dark ? 'bg-gray-700' : 'bg-gray-200')} />
+          <div className="space-y-3">
+            {[1,2,3].map(i => (
+              <div key={i} className={'rounded-lg p-4 h-32 animate-pulse ' + (dark ? 'bg-gray-700/50' : 'bg-gray-100')} />
+            ))}
+          </div>
+        </div>
+        {/* Skeleton cross-zone matrix */}
+        <div className={'rounded-xl border p-5 ' + card}>
+          <div className={'h-3 w-48 rounded mb-3 animate-pulse ' + (dark ? 'bg-gray-700' : 'bg-gray-200')} />
+          <div className={'h-40 rounded animate-pulse ' + (dark ? 'bg-gray-700/50' : 'bg-gray-100')} />
+        </div>
+        {/* Show message after 3 seconds */}
+        {loadingElapsed && (
+          <div className={'rounded-xl border p-6 text-center ' + card}>
+            <div className="inline-block w-5 h-5 border-2 border-blue-500 border-t-transparent rounded-full animate-spin mb-2" />
+            <p className={'text-sm ' + sub}>{t.portfolioLoading}</p>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-5">
@@ -3990,15 +4331,24 @@ const PortfolioIntelligenceView: React.FC<{
                   {row.zones.map(zd => {
                     const c = statusColors[zd.parity];
                     const isSelected = selectedZone === zd.z;
+                    const dataGap = !isZoneAvailable(zd.z) || !isDataAvailable(zd.z, row.dk.key);
                     return (
                       <td key={zd.z} className={'py-2 px-2 text-center border-b ' + td + (isSelected?' ring-1 ring-blue-500/30':'')}
-                        style={{backgroundColor: isSelected?(dark?'rgba(59,130,246,0.08)':'rgba(219,234,254,0.5)'):undefined}}>
-                        <div className="flex flex-col items-center gap-0.5">
-                          <span style={{fontSize:'11px', color:c.dot}}>●</span>
-                          {zd.nG>0&&<span className={'text-[9px] font-bold ' + (dark?'text-emerald-400':'text-emerald-700')}>{zd.nG}G</span>}
-                          {zd.nL>0&&<span className={'text-[9px] ' + (dark?'text-amber-400':'text-amber-600')}>{zd.nL}L</span>}
-                          {zd.aG!=null&&<span className={'text-[8px] tabular-nums ' + sub}>{fmtScore(zd.aG)}</span>}
-                        </div>
+                        style={{backgroundColor: dataGap ? (dark ? 'rgba(234,179,8,0.08)' : 'rgba(254,249,195,0.7)') : isSelected?(dark?'rgba(59,130,246,0.08)':'rgba(219,234,254,0.5)'):undefined}}
+                        title={dataGap ? t.portfolioDataUnavailableTooltip(zd.z, row.dk.key) : undefined}>
+                        {dataGap ? (
+                          <div className="flex flex-col items-center gap-0.5">
+                            <span className="text-[10px]">⚠</span>
+                            <span className={'text-[8px] font-bold ' + (dark ? 'text-yellow-400' : 'text-yellow-700')}>{t.portfolioDataUnavailable}</span>
+                          </div>
+                        ) : (
+                          <div className="flex flex-col items-center gap-0.5">
+                            <span style={{fontSize:'11px', color:c.dot}}>●</span>
+                            {zd.nG>0&&<span className={'text-[9px] font-bold ' + (dark?'text-emerald-400':'text-emerald-700')}>{zd.nG}G</span>}
+                            {zd.nL>0&&<span className={'text-[9px] ' + (dark?'text-amber-400':'text-amber-600')}>{zd.nL}L</span>}
+                            {zd.aG!=null&&<span className={'text-[8px] tabular-nums ' + sub}>{fmtScore(zd.aG)}</span>}
+                          </div>
+                        )}
                       </td>
                     );
                   })}
@@ -4017,6 +4367,74 @@ const PortfolioIntelligenceView: React.FC<{
         </div>
       </div>
 
+      {/* ══ US3: DECOMMISSIONING ROADMAP ══ */}
+      <div className={'rounded-xl border p-5 ' + card}>
+        <p className={h2}>{t.portfolioDecommRoadmap}</p>
+        <p className={'text-[10px] mb-1 ' + sub}>{t.portfolioDecommRoadmapSub}</p>
+        <p className={'text-[10px] mb-3 font-bold ' + (dark ? 'text-amber-400' : 'text-amber-700')}>🏁 {t.portfolioClosestDecom}</p>
+        {decommCandidates.length > 0 ? (
+          <div className="space-y-3">
+            {decommCandidates.map((c, i) => {
+              const urgPct = (c.urgency * 100).toFixed(0);
+              const urgColor = c.urgency >= 0.6 ? (dark ? 'text-emerald-400' : 'text-emerald-700')
+                : c.urgency >= 0.3 ? (dark ? 'text-amber-400' : 'text-amber-700')
+                : (dark ? 'text-red-400' : 'text-red-700');
+              const urgBg = c.urgency >= 0.6 ? (dark ? 'bg-emerald-900/20' : 'bg-emerald-50')
+                : c.urgency >= 0.3 ? (dark ? 'bg-amber-900/20' : 'bg-amber-50')
+                : (dark ? 'bg-red-900/20' : 'bg-red-50');
+              const sitesL2Plus = c.totalSites - c.sitesBelow;
+              return (
+                <div key={`${c.zone}-${c.domain}`} className={'rounded-lg border p-4 ' + (dark ? 'border-gray-700' : 'border-gray-200')}>
+                  <div className="flex items-start justify-between gap-3 mb-2">
+                    <div className="flex items-center gap-2">
+                      <span className={'font-black text-lg ' + (dark ? 'text-gray-200' : 'text-gray-800')}>#{i + 1}</span>
+                      <div>
+                        <span className={'font-bold text-sm ' + (dark ? 'text-white' : 'text-gray-900')}>{c.domainShort}</span>
+                        <span className={'text-xs ml-1.5 ' + sub}>{c.domain}</span>
+                        <span className={'text-xs ml-1.5 px-1.5 py-0.5 rounded font-bold ' + (dark ? 'bg-blue-900/30 text-blue-300' : 'bg-blue-50 text-blue-700')}>{c.zone}</span>
+                      </div>
+                    </div>
+                    <span className={'text-xs font-black px-2 py-1 rounded ' + urgBg + ' ' + urgColor}>
+                      {t.portfolioUrgency}: {urgPct}%
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-[10px]">
+                    <div>
+                      <p className={'font-bold uppercase ' + sub}>{t.portfolioLegacyProduct}</p>
+                      <p className={'font-bold ' + (dark ? 'text-amber-300' : 'text-amber-800')}>{c.legacyProduct}</p>
+                    </div>
+                    <div>
+                      <p className={'font-bold uppercase ' + sub}>{t.portfolioSitesStillLegacy}</p>
+                      <p className={'font-bold ' + (dark ? 'text-red-400' : 'text-red-700')}>{c.nLegacy} sites</p>
+                    </div>
+                    <div>
+                      <p className={'font-bold uppercase ' + sub}>{t.portfolioMaturityPrereq}</p>
+                      <p className={dark ? 'text-gray-300' : 'text-gray-700'}>{t.portfolioSitesNeedL2(c.sitesBelow, c.domainShort)}</p>
+                    </div>
+                    <div>
+                      <p className={'font-bold uppercase ' + sub}>{t.portfolioCurrentGap}</p>
+                      <p className={dark ? 'text-gray-300' : 'text-gray-700'}>{t.portfolioAvgVsL2(c.avgScore.toFixed(2))}</p>
+                    </div>
+                  </div>
+                  {/* Urgency bar */}
+                  <div className="mt-2">
+                    <div className="flex justify-between mb-0.5">
+                      <span className={'text-[9px] ' + (dark ? 'text-emerald-400' : 'text-emerald-700')}>L2+ : {sitesL2Plus}</span>
+                      <span className={'text-[9px] ' + (dark ? 'text-gray-400' : 'text-gray-500')}>&lt;L2 : {c.sitesBelow}</span>
+                    </div>
+                    <div className={'h-1.5 rounded-full overflow-hidden ' + (dark ? 'bg-gray-700' : 'bg-gray-200')}>
+                      <div className="h-full rounded-full transition-all" style={{width: urgPct + '%', backgroundColor: c.urgency >= 0.6 ? '#10b981' : c.urgency >= 0.3 ? '#f59e0b' : '#ef4444'}} />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p className={'text-xs italic ' + sub}>{t.portfolioNoDecomCandidates}</p>
+        )}
+      </div>
+
     </div>
   );
 };
@@ -4029,6 +4447,7 @@ interface MaturityVsResultsViewProps {
   anaplanData: AnaplanData | null;
   vpoData: VpoData | null;
   kpiHistory: KpiHistoryData | null;
+  waterfallData: WaterfallData | null;
 }
 type QuadrantFilter = 'all' | 'tech_high_vpo_high' | 'tech_high_vpo_low' | 'tech_low_vpo_high' | 'tech_low_vpo_low';
 const QUADRANT_KEYS: QuadrantFilter[] = ['tech_high_vpo_high', 'tech_high_vpo_low', 'tech_low_vpo_high', 'tech_low_vpo_low'];
@@ -4430,11 +4849,12 @@ const LevelMigrationGuide: React.FC<{
   );
 };
 
-const MaturityVsResultsView: React.FC<MaturityVsResultsViewProps> = ({ t, dark, lang, sites, anaplanData, vpoData, kpiHistory }) => {
+const MaturityVsResultsView: React.FC<MaturityVsResultsViewProps> = ({ t, dark, lang, sites, anaplanData, vpoData, kpiHistory, waterfallData }) => {
   const [quadrantFilter, setQuadrantFilter] = useState<QuadrantFilter>('all');
   const [readinessDomain, setReadinessDomain] = useState(DOMAIN_KEYS[0]?.key ?? '');
   const [vpoCalloutDismissed, setVpoCalloutDismissed] = useState(false);
-  const [showScatter, setShowScatter] = useState(false);
+  const [activeSubTab, setActiveSubTab] = useState<'correlation' | 'scatter' | 'driversOse'>('correlation');
+  const [selectedWfZone, setSelectedWfZone] = useState('Global');
   const [scatterHover, setScatterHover] = useState<{x:number;y:number;name:string;zone:string;level:string;ose:number;ttp:number|null}|null>(null);
   const [howToModal, setHowToModal] = useState(false);
   const siteOseTtp = useMemo(() => anaplanData?.rows ? getSiteOseTtp(sites, anaplanData.rows) : {}, [sites, anaplanData]);
@@ -4599,17 +5019,21 @@ const MaturityVsResultsView: React.FC<MaturityVsResultsViewProps> = ({ t, dark, 
       {hasAnaplan && (
         <div className={'rounded-xl border p-5 ' + card}>
           <div className="flex items-center gap-3 mb-3">
-            <button onClick={() => setShowScatter(false)}
-              className={'px-3 py-1.5 rounded text-xs font-bold transition-all ' + (!showScatter ? (dark ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white') : (dark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'))}>
+            <button onClick={() => setActiveSubTab('correlation')}
+              className={'px-3 py-1.5 rounded text-xs font-bold transition-all ' + (activeSubTab === 'correlation' ? (dark ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white') : (dark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'))}>
               {t.correlationStudy}
             </button>
-            <button onClick={() => setShowScatter(true)}
-              className={'px-3 py-1.5 rounded text-xs font-bold transition-all ' + (showScatter ? (dark ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white') : (dark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'))}>
+            <button onClick={() => setActiveSubTab('scatter')}
+              className={'px-3 py-1.5 rounded text-xs font-bold transition-all ' + (activeSubTab === 'scatter' ? (dark ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white') : (dark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'))}>
               {t.scatterTab}
+            </button>
+            <button onClick={() => setActiveSubTab('driversOse')}
+              className={'px-3 py-1.5 rounded text-xs font-bold transition-all ' + (activeSubTab === 'driversOse' ? (dark ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white') : (dark ? 'bg-gray-700 text-gray-400' : 'bg-gray-100 text-gray-500'))}>
+              {t.driversOseTab}
             </button>
           </div>
 
-          {showScatter ? (
+          {activeSubTab === 'scatter' ? (
             <div>
               <p className={h2Cls}>{t.scatterTitle}</p>
               <p className={'text-xs mb-4 ' + sub}>{t.scatterSub}</p>
@@ -4677,6 +5101,300 @@ const MaturityVsResultsView: React.FC<MaturityVsResultsViewProps> = ({ t, dark, 
                     </span>
                   </div>
                 </div>
+              )}
+            </div>
+          ) : activeSubTab === 'driversOse' ? (
+            <div>
+              <p className={h2Cls}>{t.driversOseTitle}</p>
+              <p className={'text-xs mb-4 ' + sub}>{t.driversOseSub}</p>
+              {waterfallData ? (() => {
+                const wfZones = waterfallData.zones.filter(z => z !== 'Global');
+                const zd = waterfallData.data[selectedWfZone];
+                if (!zd) return <p className={'text-xs ' + sub}>No data</p>;
+                const pct = (v: number) => (v / zd.TT * 100).toFixed(1);
+                const fmtH = (v: number) => v >= 1000 ? (v / 1000).toFixed(1) + 'k' : v.toFixed(0);
+                const barW = (v: number) => Math.max(1, v / zd.TT * 100);
+                const NST_CLR = dark ? '#6b7280' : '#9ca3af';
+                const DPA_CLR = dark ? '#f59e0b' : '#f97316';
+                const EC_CLR = dark ? '#fbbf24' : '#eab308';
+                const IC_CLR = dark ? '#ef4444' : '#dc2626';
+                const EPT_CLR = dark ? '#10b981' : '#059669';
+                const ST_CLR = dark ? '#3b82f6' : '#2563eb';
+
+                const getZoneAvgDomain = (zone: string, domainShort: string): number => {
+                  const zoneSites = zone === 'Global' ? sites : sites.filter(s => s.zone === zone);
+                  const dk = DOMAIN_KEYS.find(d => d.short === domainShort);
+                  if (!dk) return 0;
+                  const vals = zoneSites.map(s => s.scores[dk.key] ?? 0).filter(v => v > 0);
+                  return vals.length > 0 ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+                };
+
+                const bullets: string[] = [];
+                const icPct = zd.IC / zd.TT;
+                const dpaPct = zd.DPA / zd.TT;
+                const nstPct = zd.NST / zd.TT;
+                const glyPct = zd.GLY / 100;
+                const osePct = zd.OSE / 100;
+                const avgBP = getZoneAvgDomain(selectedWfZone, 'BP');
+                const avgPP = getZoneAvgDomain(selectedWfZone, 'PP');
+
+                if (icPct > 0.08 && avgBP < 2) {
+                  bullets.push(lang === 'pt'
+                    ? `\u2022 Alta perda por paradas internas (IC = ${(icPct * 100).toFixed(1)}%) \u2014 sites com BMS/Athena implementado mostram IC ~40% menor`
+                    : `\u2022 High internal constraint losses (IC = ${(icPct * 100).toFixed(1)}%) \u2014 sites with BMS/Athena show ~40% lower IC`);
+                }
+                if (dpaPct > 0.07 && avgPP < 2) {
+                  bullets.push(lang === 'pt'
+                    ? `\u2022 Alta propor\u00e7\u00e3o de paradas planejadas (DPA = ${(dpaPct * 100).toFixed(1)}%) \u2014 LMS reduz DPA tipicamente em 15-25%`
+                    : `\u2022 High planned downtime ratio (DPA = ${(dpaPct * 100).toFixed(1)}%) \u2014 LMS typically reduces DPA by 15-25%`);
+                }
+                if (nstPct > 0.45) {
+                  bullets.push(lang === 'pt'
+                    ? `\u2022 Alta propor\u00e7\u00e3o de tempo n\u00e3o-agendado (NST = ${(nstPct * 100).toFixed(1)}%) \u2014 priorizar SPLAN/Management para reduzir ociosidade programada`
+                    : `\u2022 High non-scheduled time ratio (NST = ${(nstPct * 100).toFixed(1)}%) \u2014 prioritize SPLAN/Management to reduce scheduled idle time`);
+                }
+                if (glyPct > 0.80 && osePct < 0.50) {
+                  bullets.push(lang === 'pt'
+                    ? `\u2022 Alta efici\u00eancia de linha (GLY ${(glyPct * 100).toFixed(1)}%) mas OSE baixo \u2014 principal driver \u00e9 NST. Tech n\u00e3o \u00e9 o gargalo prim\u00e1rio`
+                    : `\u2022 High line efficiency (GLY ${(glyPct * 100).toFixed(1)}%) but low OSE \u2014 main driver is NST. Tech is not the primary bottleneck`);
+                }
+
+                const allZoneData = ['Global', ...wfZones].map(z => {
+                  const d = waterfallData.data[z];
+                  if (!d) return null;
+                  return { zone: z, ose: d.OSE, gly: d.GLY, dpaTT: d.DPA / d.TT * 100, ecTT: d.EC / d.TT * 100, icTT: d.IC / d.TT * 100, nstTT: d.NST / d.TT * 100 };
+                }).filter((v): v is NonNullable<typeof v> => v != null).sort((a, b) => b.ose - a.ose);
+
+                const quartileColor = (vals: number[], val: number, higherIsBetter: boolean) => {
+                  const sorted = [...vals].sort((a, b) => a - b);
+                  const q1 = sorted[Math.floor(sorted.length * 0.25)] ?? val;
+                  const q3 = sorted[Math.floor(sorted.length * 0.75)] ?? val;
+                  if (higherIsBetter) {
+                    if (val >= q3) return dark ? 'text-emerald-400' : 'text-emerald-600';
+                    if (val <= q1) return dark ? 'text-red-400' : 'text-red-600';
+                    return dark ? 'text-amber-400' : 'text-amber-600';
+                  } else {
+                    if (val <= q1) return dark ? 'text-emerald-400' : 'text-emerald-600';
+                    if (val >= q3) return dark ? 'text-red-400' : 'text-red-600';
+                    return dark ? 'text-amber-400' : 'text-amber-600';
+                  }
+                };
+                const oseVals = allZoneData.filter(z => z.zone !== 'Global').map(z => z.ose);
+                const glyVals = allZoneData.filter(z => z.zone !== 'Global').map(z => z.gly);
+                const dpaVals = allZoneData.filter(z => z.zone !== 'Global').map(z => z.dpaTT);
+                const ecVals = allZoneData.filter(z => z.zone !== 'Global').map(z => z.ecTT);
+                const icVals = allZoneData.filter(z => z.zone !== 'Global').map(z => z.icTT);
+                const nstVals = allZoneData.filter(z => z.zone !== 'Global').map(z => z.nstTT);
+
+                return (
+                  <div className="space-y-5">
+                    {/* Zone selector */}
+                    <div className="flex items-center gap-2 flex-wrap">
+                      {['Global', ...wfZones].map(z => (
+                        <button key={z} onClick={() => setSelectedWfZone(z)}
+                          className={'px-3 py-1 rounded text-xs font-bold transition-all ' + (selectedWfZone === z ? (dark ? 'bg-blue-600 text-white' : 'bg-blue-600 text-white') : (dark ? 'bg-gray-700 text-gray-400 hover:bg-gray-600' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'))}>
+                          {z}
+                        </button>
+                      ))}
+                    </div>
+
+                    {/* Waterfall header */}
+                    <div className={'rounded-xl border p-4 ' + card}>
+                      <div className="flex items-center justify-between mb-3 flex-wrap gap-2">
+                        <div>
+                          <span className={'text-sm font-black ' + (dark ? 'text-white' : 'text-gray-900')}>{selectedWfZone}</span>
+                          <span className={'text-xs ml-2 ' + sub}>OSE: {zd.OSE.toFixed(1)}% | {t.wfTotalTime}: {fmtH(zd.TT)}{t.wfHours}</span>
+                        </div>
+                        <span className={'text-[10px] ' + sub}>{waterfallData.period}</span>
+                      </div>
+
+                      {/* Waterfall nested bars */}
+                      <div className="space-y-2">
+                        {/* TT bar (100%) */}
+                        <div>
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={'text-[10px] font-bold w-8 ' + sub}>TT</span>
+                            <div className={'flex-1 h-6 rounded overflow-hidden relative ' + (dark ? 'bg-gray-700' : 'bg-gray-200')}>
+                              <div className="absolute inset-0 flex h-full">
+                                <div style={{ width: `${barW(zd.NST)}%`, background: NST_CLR }} className="h-full" title={`NST: ${pct(zd.NST)}%`} />
+                                <div style={{ width: `${barW(zd.ST)}%`, background: ST_CLR }} className="h-full opacity-30" title={`ST: ${pct(zd.ST)}%`} />
+                              </div>
+                            </div>
+                            <span className={'text-[10px] w-14 text-right ' + sub}>{fmtH(zd.TT)}{t.wfHours}</span>
+                          </div>
+                        </div>
+
+                        {/* NST breakdown */}
+                        <div className="ml-10">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={'text-[10px] font-bold w-8 ' + sub}>NST</span>
+                            <div className="flex-1 h-5 rounded overflow-hidden" style={{ background: dark ? '#374151' : '#e5e7eb' }}>
+                              <div style={{ width: `${barW(zd.NST)}%`, background: NST_CLR }} className="h-full rounded" />
+                            </div>
+                            <span className={'text-[10px] w-20 text-right ' + sub}>{fmtH(zd.NST)}{t.wfHours} ({pct(zd.NST)}%)</span>
+                          </div>
+                          <p className={'text-[9px] ml-10 ' + sub}>{t.wfNonScheduled}</p>
+                        </div>
+
+                        {/* ST -> DPA + LT */}
+                        <div className="ml-10">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={'text-[10px] font-bold w-8 ' + sub}>ST</span>
+                            <div className={'flex-1 h-5 rounded overflow-hidden relative ' + (dark ? 'bg-gray-700' : 'bg-gray-200')}>
+                              <div className="absolute inset-0 flex h-full">
+                                <div style={{ width: `${zd.DPA / zd.ST * 100}%`, background: DPA_CLR }} className="h-full" />
+                                <div style={{ width: `${zd.LT / zd.ST * 100}%`, background: dark ? '#1e40af' : '#93c5fd' }} className="h-full opacity-40" />
+                              </div>
+                            </div>
+                            <span className={'text-[10px] w-20 text-right ' + sub}>{fmtH(zd.ST)}{t.wfHours} ({pct(zd.ST)}%)</span>
+                          </div>
+                          <p className={'text-[9px] ml-10 ' + sub}>{t.wfScheduledTime}</p>
+                        </div>
+
+                        {/* DPA */}
+                        <div className="ml-20">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={'text-[10px] font-bold w-8 ' + sub}>DPA</span>
+                            <div className="flex-1 h-4 rounded overflow-hidden" style={{ background: dark ? '#374151' : '#e5e7eb' }}>
+                              <div style={{ width: `${barW(zd.DPA)}%`, background: DPA_CLR }} className="h-full rounded" />
+                            </div>
+                            <span className={'text-[10px] w-20 text-right ' + sub}>{fmtH(zd.DPA)}{t.wfHours} ({pct(zd.DPA)}%)</span>
+                          </div>
+                          <p className={'text-[9px] ml-10 ' + (dark ? 'text-orange-400' : 'text-orange-600')}>{t.wfPlannedDowntime} — PP, MT</p>
+                        </div>
+
+                        {/* LT -> EC + LET */}
+                        <div className="ml-20">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={'text-[10px] font-bold w-8 ' + sub}>LT</span>
+                            <div className={'flex-1 h-4 rounded overflow-hidden relative ' + (dark ? 'bg-gray-700' : 'bg-gray-200')}>
+                              <div className="absolute inset-0 flex h-full">
+                                <div style={{ width: `${zd.EC / zd.LT * 100}%`, background: EC_CLR }} className="h-full" />
+                                <div style={{ width: `${zd.LET / zd.LT * 100}%`, background: dark ? '#1e40af' : '#93c5fd' }} className="h-full opacity-30" />
+                              </div>
+                            </div>
+                            <span className={'text-[10px] w-20 text-right ' + sub}>{fmtH(zd.LT)}{t.wfHours} ({pct(zd.LT)}%)</span>
+                          </div>
+                          <p className={'text-[9px] ml-10 ' + sub}>{t.wfLoadingTime}</p>
+                        </div>
+
+                        {/* EC */}
+                        <div className="ml-28">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={'text-[10px] font-bold w-8 ' + sub}>EC</span>
+                            <div className="flex-1 h-3.5 rounded overflow-hidden" style={{ background: dark ? '#374151' : '#e5e7eb' }}>
+                              <div style={{ width: `${barW(zd.EC)}%`, background: EC_CLR }} className="h-full rounded" />
+                            </div>
+                            <span className={'text-[10px] w-20 text-right ' + sub}>{fmtH(zd.EC)}{t.wfHours} ({pct(zd.EC)}%)</span>
+                          </div>
+                          <p className={'text-[9px] ml-10 ' + (dark ? 'text-yellow-400' : 'text-yellow-600')}>{t.wfExternalConstraints}</p>
+                        </div>
+
+                        {/* LET -> IC + EPT */}
+                        <div className="ml-28">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={'text-[10px] font-bold w-8 ' + sub}>LET</span>
+                            <div className={'flex-1 h-3.5 rounded overflow-hidden relative ' + (dark ? 'bg-gray-700' : 'bg-gray-200')}>
+                              <div className="absolute inset-0 flex h-full">
+                                <div style={{ width: `${zd.IC / zd.LET * 100}%`, background: IC_CLR }} className="h-full" />
+                                <div style={{ width: `${zd.EPT / zd.LET * 100}%`, background: EPT_CLR }} className="h-full" />
+                              </div>
+                            </div>
+                            <span className={'text-[10px] w-20 text-right ' + sub}>{fmtH(zd.LET)}{t.wfHours} ({pct(zd.LET)}%)</span>
+                          </div>
+                          <p className={'text-[9px] ml-10 ' + sub}>{t.wfLoadingEffective}</p>
+                        </div>
+
+                        {/* IC */}
+                        <div className="ml-36">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={'text-[10px] font-bold w-8 ' + sub}>IC</span>
+                            <div className="flex-1 h-3 rounded overflow-hidden" style={{ background: dark ? '#374151' : '#e5e7eb' }}>
+                              <div style={{ width: `${barW(zd.IC)}%`, background: IC_CLR }} className="h-full rounded" />
+                            </div>
+                            <span className={'text-[10px] w-20 text-right ' + sub}>{fmtH(zd.IC)}{t.wfHours} ({pct(zd.IC)}%)</span>
+                          </div>
+                          <p className={'text-[9px] ml-10 ' + (dark ? 'text-red-400' : 'text-red-600')}>{t.wfInternalConstraints} — BP, PP</p>
+                        </div>
+
+                        {/* EPT */}
+                        <div className="ml-36">
+                          <div className="flex items-center gap-2 mb-0.5">
+                            <span className={'text-[10px] font-bold w-8 ' + sub}>EPT</span>
+                            <div className="flex-1 h-3 rounded overflow-hidden" style={{ background: dark ? '#374151' : '#e5e7eb' }}>
+                              <div style={{ width: `${barW(zd.EPT)}%`, background: EPT_CLR }} className="h-full rounded" />
+                            </div>
+                            <span className={'text-[10px] w-20 text-right ' + sub}>{fmtH(zd.EPT)}{t.wfHours} ({pct(zd.EPT)}%)</span>
+                          </div>
+                          <p className={'text-[9px] ml-10 ' + (dark ? 'text-emerald-400' : 'text-emerald-600')}>{t.wfEffectiveProduction} — OSE = {zd.OSE.toFixed(1)}%</p>
+                        </div>
+                      </div>
+
+                      {/* Legend */}
+                      <div className="flex flex-wrap gap-3 mt-4 pt-3 border-t" style={{ borderColor: dark ? '#374151' : '#e5e7eb' }}>
+                        {[
+                          { color: NST_CLR, label: 'NST' },
+                          { color: DPA_CLR, label: 'DPA' },
+                          { color: EC_CLR, label: 'EC' },
+                          { color: IC_CLR, label: 'IC' },
+                          { color: EPT_CLR, label: 'EPT' },
+                        ].map(l => (
+                          <span key={l.label} className="flex items-center gap-1 text-[10px]">
+                            <span className="inline-block w-3 h-3 rounded-sm" style={{ background: l.color }} />
+                            <span className={sub}>{l.label}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Component B: Zone comparison table */}
+                    <div className={'rounded-xl border p-4 ' + card}>
+                      <p className={h2Cls}>{t.wfZoneComparison}</p>
+                      <div className="overflow-x-auto">
+                        <table className="w-full text-xs">
+                          <thead>
+                            <tr className={dark ? 'text-gray-400' : 'text-gray-500'}>
+                              <th className="text-left px-2 py-1.5 font-bold">{lang === 'pt' ? 'Zona' : 'Zone'}</th>
+                              <th className="text-right px-2 py-1.5 font-bold">OSE%</th>
+                              <th className="text-right px-2 py-1.5 font-bold">GLY%</th>
+                              <th className="text-right px-2 py-1.5 font-bold">DPA/TT</th>
+                              <th className="text-right px-2 py-1.5 font-bold">EC/TT</th>
+                              <th className="text-right px-2 py-1.5 font-bold">IC/TT</th>
+                              <th className="text-right px-2 py-1.5 font-bold">NST/TT</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {allZoneData.map(row => (
+                              <tr key={row.zone} className={'border-t ' + (row.zone === 'Global' ? 'font-black ' : '') + td}>
+                                <td className="px-2 py-1.5">{row.zone}</td>
+                                <td className={'px-2 py-1.5 text-right font-mono ' + (row.zone === 'Global' ? '' : quartileColor(oseVals, row.ose, true))}>{row.ose.toFixed(1)}%</td>
+                                <td className={'px-2 py-1.5 text-right font-mono ' + (row.zone === 'Global' ? '' : quartileColor(glyVals, row.gly, true))}>{row.gly.toFixed(1)}%</td>
+                                <td className={'px-2 py-1.5 text-right font-mono ' + (row.zone === 'Global' ? '' : quartileColor(dpaVals, row.dpaTT, false))}>{row.dpaTT.toFixed(1)}%</td>
+                                <td className={'px-2 py-1.5 text-right font-mono ' + (row.zone === 'Global' ? '' : quartileColor(ecVals, row.ecTT, false))}>{row.ecTT.toFixed(1)}%</td>
+                                <td className={'px-2 py-1.5 text-right font-mono ' + (row.zone === 'Global' ? '' : quartileColor(icVals, row.icTT, false))}>{row.icTT.toFixed(1)}%</td>
+                                <td className={'px-2 py-1.5 text-right font-mono ' + (row.zone === 'Global' ? '' : quartileColor(nstVals, row.nstTT, false))}>{row.nstTT.toFixed(1)}%</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    {/* Component C: Automated insights */}
+                    {bullets.length > 0 && (
+                      <div className={'rounded-xl border p-4 ' + insightBox}>
+                        <p className={'text-[10px] font-black uppercase tracking-widest mb-2 ' + (dark ? 'text-amber-400' : 'text-amber-700')}>{t.wfInsights}</p>
+                        <div className="space-y-1.5">
+                          {bullets.map((b, i) => (
+                            <p key={i} className="text-xs leading-relaxed">{b}</p>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })() : (
+                <p className={'text-xs ' + sub}>{lang === 'pt' ? 'Carregando dados do waterfall...' : 'Loading waterfall data...'}</p>
               )}
             </div>
           ) : (
@@ -4854,6 +5572,7 @@ const MaturityVsResultsView: React.FC<MaturityVsResultsViewProps> = ({ t, dark, 
               <th className={'py-2 px-3 ' + th}>r(VPO→OSE)</th>
               <th className={'py-2 px-3 ' + th}>r(Tech→OSE)</th>
               <th className={'py-2 px-3 ' + th}>OSE Trend</th>
+              <th className={'py-2 px-3 ' + th} title="ⓘ Projeção linear">{t.proj12m}</th>
               <th className={'text-center py-2 px-3 ' + th}></th>
             </tr></thead>
             <tbody>{zoneRows.map(z => {
@@ -4889,13 +5608,44 @@ const MaturityVsResultsView: React.FC<MaturityVsResultsViewProps> = ({ t, dark, 
                       const pathD = pts.map((p, i) => `${i === 0 ? 'M' : 'L'}${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
                       const last = pts[pts.length - 1];
                       const tooltipText = kpiHistory!.periods.slice(kpiHistory!.periods.length - sparkPoints.length).map((p, i) => `${p}: ${sparkPoints[i].toFixed(1)}%`).join(' → ');
+                      // Projection: extend 3 months with linear regression
+                      const projPts3: {x: number; y: number}[] = [];
+                      if (sparkPoints.length >= 3) {
+                        for (let pm = 1; pm <= 3; pm++) {
+                          const pv = projectOse(kpiHistory!.months.filter(mm => mm.zone === z.zone).sort((a, b) => a.period.localeCompare(b.period)), pm);
+                          if (pv != null) {
+                            const px2 = last.x + (pm / sparkPoints.length) * (W - 2 * pad) * 0.4;
+                            const py2 = pad + (1 - (Math.max(min, Math.min(max, pv)) - min) / range) * (H - 2 * pad);
+                            projPts3.push({ x: px2, y: py2 });
+                          }
+                        }
+                      }
+                      const projPathD = projPts3.length > 0
+                        ? `M${last.x.toFixed(1)},${last.y.toFixed(1)} ` + projPts3.map(p => `L${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ')
+                        : null;
                       return (
-                        <svg width={W} height={H} className="inline-block">
+                        <svg width={W + 20} height={H} className="inline-block">
                           <title>{`OSE ${z.zone}: ${tooltipText}`}</title>
                           <path d={pathD} fill="none" stroke={sparkColor} strokeWidth={1.5} strokeLinejoin="round" strokeLinecap="round"/>
+                          {projPathD && <path d={projPathD} fill="none" stroke={sparkColor} strokeWidth={1} strokeDasharray="3 2" opacity={0.6}/>}
                           <circle cx={last.x} cy={last.y} r={2.5} fill={sparkColor}/>
                           <text x={last.x - 2} y={last.y - 4} fontSize={7} fill={sparkColor} fontWeight="bold" textAnchor="end">{last.v.toFixed(0)}%</text>
                         </svg>
+                      );
+                    })()}
+                  </td>
+                  <td className={'py-2 px-3 border-b ' + td}>
+                    {(() => {
+                      const zh2 = kpiHistory ? kpiHistory.months.filter(m => m.zone === z.zone).sort((a, b) => a.period.localeCompare(b.period)) : [];
+                      if (zh2.length < 3) return <span className={'text-gray-400 text-[10px]'}>{t.insufData}</span>;
+                      const pv12 = projectOse(zh2, 12);
+                      if (pv12 == null) return <span className={'text-gray-400 text-[10px]'}>{t.insufData}</span>;
+                      const oseNow2 = zh2[zh2.length - 1].OSE;
+                      const isUp = pv12 > oseNow2;
+                      return (
+                        <span className={'font-mono font-bold text-[11px] ' + (isUp ? (dark ? 'text-emerald-400' : 'text-emerald-700') : (dark ? 'text-red-400' : 'text-red-600'))}>
+                          {isUp ? '→ ' : '→ '}{pv12.toFixed(1)}%
+                        </span>
                       );
                     })()}
                   </td>
@@ -5667,9 +6417,12 @@ interface ExecutiveSummaryViewProps {
   anaplanOseTtp: Record<string, {ose: number|null; ttp: number|null}> | null;
   onNavigate: (view: 'capabilityGap') => void;
   onShowMethodology: () => void;
+  onCompareWithSimilar?: (siteName: string, refSiteName: string) => void;
+  targets?: { pctL2Plus: number; oseTarget: number; horizonMonths: number };
+  onSetTargets?: (t: { pctL2Plus: number; oseTarget: number; horizonMonths: number }) => void;
 }
 
-const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({ dark, t, vpoData, anaplanOseTtp, onNavigate, onShowMethodology }) => {
+const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({ dark, t, vpoData, anaplanOseTtp, onNavigate, onShowMethodology, onCompareWithSimilar, targets, onSetTargets }) => {
   const card  = dark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200';
   const sub   = dark ? 'text-gray-400' : 'text-gray-500';
 
@@ -5741,6 +6494,26 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({ dark, t, vp
     return Object.values(bySite).sort((a, b) => a.gap - b.gap).slice(0, 5);
   }, []);
 
+  // Sprint 7: find best OSE site per zone for "Compare with similar"
+  const bestOseByZone = useMemo(() => {
+    const result: Record<string, string> = {};
+    if (!anaplanOseTtp) return result;
+    for (const zone of ['AFR','APAC','EUR','MAZ','NAZ','SAZ']) {
+      let bestSite: string | null = null;
+      let bestOse = -1;
+      for (const [name, data] of Object.entries(anaplanOseTtp)) {
+        const site = ALL_SITES.find(s => s.name === name);
+        if (!site || site.zone !== zone) continue;
+        if (data.ose != null && data.ose > bestOse) {
+          bestOse = data.ose;
+          bestSite = name;
+        }
+      }
+      if (bestSite) result[zone] = bestSite;
+    }
+    return result;
+  }, [anaplanOseTtp]);
+
   const ZONES_LIST = ['AFR','APAC','EUR','MAZ','NAZ','SAZ'];
 
   return (
@@ -5768,6 +6541,77 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({ dark, t, vp
           <div className={'text-xs mt-1 ' + sub}>{t.execCapability}</div>
         </div>
       </div>
+
+      {/* ── Sprint 9 US1: Progress vs Target card ── */}
+      {targets && onSetTargets && (() => {
+        const allCsvSites2 = ALL_SITES;
+        const l2PlusCt = allCsvSites2.filter(s => s.scores['Total Global'] >= 2).length;
+        const totalCt = allCsvSites2.length;
+        const pctL2Now = totalCt > 0 ? (l2PlusCt / totalCt) * 100 : 0;
+        let oseNow = 0;
+        if (anaplanOseTtp) {
+          const vals = Object.values(anaplanOseTtp).map(v => v.ose).filter((v): v is number => v != null && isFinite(v));
+          oseNow = vals.length > 0 ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
+        }
+        const pctL2Bar = Math.min(100, (pctL2Now / (targets.pctL2Plus || 1)) * 100);
+        const oseBar = Math.min(100, (oseNow / (targets.oseTarget || 1)) * 100);
+        const pctL2Color = pctL2Bar >= 90 ? '#10b981' : pctL2Bar >= 70 ? '#f59e0b' : '#ef4444';
+        const oseColor = oseBar >= 90 ? '#10b981' : oseBar >= 70 ? '#f59e0b' : '#ef4444';
+        const [showForm, setShowForm] = React.useState(false);
+        return (
+          <div className={'rounded-xl border p-5 ' + card}>
+            <div className="flex items-center gap-3 mb-4">
+              <h3 className={'font-black text-sm flex-1 ' + (dark ? 'text-white' : 'text-gray-900')}>{t.progressVsTarget}</h3>
+              <button
+                onClick={() => setShowForm(f => !f)}
+                title={showForm ? t.closeTargets : (t as any).editTargets || 'Edit targets'}
+                className={'p-1.5 rounded-lg transition-all text-sm ' + (dark ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-100 text-gray-500')}>
+                ⚙
+              </button>
+            </div>
+            {showForm && (
+              <div className={'mb-4 p-3 rounded-lg flex flex-wrap gap-4 items-end ' + (dark ? 'bg-gray-700/50' : 'bg-gray-50')}>
+                <div>
+                  <label className={'block text-xs font-semibold mb-1 ' + (dark ? 'text-gray-300' : 'text-gray-600')}>{t.pctL2PlusLabel}</label>
+                  <input type="number" min={0} max={100} value={targets.pctL2Plus}
+                    onChange={e => onSetTargets({ ...targets, pctL2Plus: Number(e.target.value) })}
+                    className={'w-20 rounded border px-2 py-1 text-sm font-mono ' + (dark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900')} />
+                </div>
+                <div>
+                  <label className={'block text-xs font-semibold mb-1 ' + (dark ? 'text-gray-300' : 'text-gray-600')}>{t.oseTargetLabel}</label>
+                  <input type="number" min={0} max={100} value={targets.oseTarget}
+                    onChange={e => onSetTargets({ ...targets, oseTarget: Number(e.target.value) })}
+                    className={'w-20 rounded border px-2 py-1 text-sm font-mono ' + (dark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900')} />
+                </div>
+                <button onClick={() => setShowForm(false)}
+                  className={'px-3 py-1 rounded text-xs font-bold transition-all ' + (dark ? 'bg-gray-600 hover:bg-gray-500 text-white' : 'bg-gray-200 hover:bg-gray-300 text-gray-700')}>
+                  {t.closeTargets}
+                </button>
+              </div>
+            )}
+            <div className="space-y-3">
+              <div>
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span className={dark ? 'text-gray-300' : 'text-gray-600'}>{t.pctL2PlusLabel}</span>
+                  <span className={'font-mono font-bold ' + (dark ? 'text-white' : 'text-gray-900')}>{pctL2Now.toFixed(0)}% / {targets.pctL2Plus}%</span>
+                </div>
+                <div className={'h-2.5 rounded-full overflow-hidden ' + (dark ? 'bg-gray-700' : 'bg-gray-200')}>
+                  <div className="h-full rounded-full transition-all" style={{ width: `${pctL2Bar}%`, backgroundColor: pctL2Color }} />
+                </div>
+              </div>
+              <div>
+                <div className="flex items-center justify-between text-xs mb-1">
+                  <span className={dark ? 'text-gray-300' : 'text-gray-600'}>{t.oseTargetLabel}</span>
+                  <span className={'font-mono font-bold ' + (dark ? 'text-white' : 'text-gray-900')}>{oseNow.toFixed(1)}% / {targets.oseTarget}%</span>
+                </div>
+                <div className={'h-2.5 rounded-full overflow-hidden ' + (dark ? 'bg-gray-700' : 'bg-gray-200')}>
+                  <div className="h-full rounded-full transition-all" style={{ width: `${oseBar}%`, backgroundColor: oseColor }} />
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
 
       {/* Top 5 Opportunities */}
       <div className={'rounded-xl border overflow-hidden ' + card}>
@@ -5800,10 +6644,20 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({ dark, t, vp
                       <span className={'text-[10px] ' + sub}>{t.execThreshold}: {thresholdPct}%</span>
                     </div>
                   </div>
-                  <button onClick={() => onNavigate('capabilityGap')} title={t.execNavTo}
-                    className={'p-2 rounded-lg transition-all ' + (dark?'hover:bg-gray-700 text-gray-400':'hover:bg-gray-100 text-gray-400')}>
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M9 5l7 7-7 7"/></svg>
-                  </button>
+                  <div className="flex items-center gap-1">
+                    {onCompareWithSimilar && bestOseByZone[opp.zone] && bestOseByZone[opp.zone] !== opp.site && (
+                      <button
+                        onClick={() => onCompareWithSimilar(opp.site, bestOseByZone[opp.zone])}
+                        title={t.compareWithSimilar + ': ' + bestOseByZone[opp.zone]}
+                        className={'px-2 py-1.5 rounded-lg text-[10px] font-bold transition-all ' + (dark ? 'hover:bg-gray-700 text-yellow-400 border border-gray-600' : 'hover:bg-yellow-50 text-yellow-600 border border-yellow-200')}>
+                        🔍
+                      </button>
+                    )}
+                    <button onClick={() => onNavigate('capabilityGap')} title={t.execNavTo}
+                      className={'p-2 rounded-lg transition-all ' + (dark?'hover:bg-gray-700 text-gray-400':'hover:bg-gray-100 text-gray-400')}>
+                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M9 5l7 7-7 7"/></svg>
+                    </button>
+                  </div>
                 </div>
               );
             })}
@@ -5882,6 +6736,242 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({ dark, t, vp
   );
 };
 
+// ── FloatingComparisonBar (Sprint 7) ─────────────────────────────────────────
+const FloatingComparisonBar: React.FC<{
+  selected: string[]; dark: boolean; t: T;
+  onRemove: (name: string) => void; onClear: () => void; onCompare: () => void;
+}> = ({ selected, dark, t, onRemove, onClear, onCompare }) => {
+  if (selected.length === 0) return null;
+  const bar = dark ? 'bg-gray-800 border-gray-600 text-white' : 'bg-white border-gray-300 text-gray-900';
+  return ReactDOM.createPortal(
+    <div className="fixed bottom-0 left-0 right-0 z-[90] flex justify-center p-3 pointer-events-none">
+      <div className={'pointer-events-auto flex items-center gap-3 px-5 py-3 rounded-2xl border shadow-2xl backdrop-blur-lg ' + bar} style={{maxWidth: 600}}>
+        <span className="text-sm font-bold">🔍</span>
+        {selected.map(name => (
+          <span key={name} className={'inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold ' + (dark ? 'bg-gray-700 text-gray-200' : 'bg-gray-100 text-gray-700')}>
+            {name}
+            <button onClick={() => onRemove(name)} className="ml-0.5 hover:text-red-400 transition-colors">×</button>
+          </span>
+        ))}
+        {selected.length === 2 && (
+          <button onClick={onCompare}
+            className="px-4 py-1.5 rounded-xl text-xs font-black bg-yellow-400 text-gray-900 hover:bg-yellow-300 transition-all shadow-sm">
+            {t.compareSites}
+          </button>
+        )}
+        <button onClick={onClear}
+          className={'ml-1 p-1.5 rounded-lg transition-all ' + (dark ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-100 text-gray-400')}>
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
+// ── SiteComparisonModal (Sprint 7) ───────────────────────────────────────────
+const SiteComparisonModal: React.FC<{
+  siteA: string; siteB: string; dark: boolean; t: T; lang: string;
+  siteOseTtp: Record<string, {ose: number|null; ttp: number|null}>;
+  onClose: () => void;
+}> = ({ siteA, siteB, dark, t, lang, siteOseTtp, onClose }) => {
+  const mdA = (MATURITY_DETAIL as Record<string, MaturityDetailSite>)[siteA];
+  const mdB = (MATURITY_DETAIL as Record<string, MaturityDetailSite>)[siteB];
+  if (!mdA || !mdB) return null;
+
+  const card = dark ? 'bg-gray-900 text-white' : 'bg-white text-gray-900';
+  const sub = dark ? 'text-gray-400' : 'text-gray-500';
+  const border = dark ? 'border-gray-700' : 'border-gray-200';
+  const sectionBg = dark ? 'bg-gray-800/60' : 'bg-gray-50';
+  const oseA = siteOseTtp[siteA]?.ose;
+  const oseB = siteOseTtp[siteB]?.ose;
+  const lvls = ['L1','L2','L3','L4'] as const;
+  const inactiveLabel = t.inactive;
+
+  // Collect all domain keys from both sites
+  const allDomains = Array.from(new Set([...Object.keys(mdA.domains), ...Object.keys(mdB.domains)]));
+  const orderedDomains = DOMAIN_SHORTS_ORDER.filter(d => allDomains.includes(d));
+
+  // Compute key differences
+  const diffs: Array<{domain: string; level: string; fracA: number; fracB: number; diff: number; aAhead: boolean}> = [];
+  for (const dom of orderedDomains) {
+    const dA = mdA.domains[dom];
+    const dB = mdB.domains[dom];
+    if (!dA || !dB) continue;
+    for (const lvl of lvls) {
+      const lA = dA.levels[lvl];
+      const lB = dB.levels[lvl];
+      if (lA.vacuous || lB.vacuous || lA.frac === null || lB.frac === null) continue;
+      const diff = Math.abs(lA.frac - lB.frac);
+      if (diff > 0.01) {
+        diffs.push({ domain: dom, level: lvl, fracA: lA.frac, fracB: lB.frac, diff, aAhead: lA.frac > lB.frac });
+      }
+    }
+  }
+  diffs.sort((a, b) => b.diff - a.diff);
+  const topDiffs = diffs.slice(0, 5);
+
+  const renderBar = (frac: number | null, pass: boolean, vacuous: boolean) => {
+    if (vacuous) return (
+      <div className="flex items-center gap-1.5">
+        <div className={'flex-1 h-3 rounded ' + (dark ? 'bg-gray-700' : 'bg-gray-200')} />
+        <span className={'text-[10px] w-10 text-right ' + sub}>{t.compVacuous}</span>
+      </div>
+    );
+    const pct = frac !== null ? Math.round(frac * 100) : 0;
+    const color = pass ? '#10B981' : '#EF4444';
+    return (
+      <div className="flex items-center gap-1.5">
+        <div className={'flex-1 h-3 rounded overflow-hidden ' + (dark ? 'bg-gray-700' : 'bg-gray-200')}>
+          <div className="h-full rounded transition-all" style={{ width: `${pct}%`, backgroundColor: color }} />
+        </div>
+        <span className={'text-[10px] w-10 text-right font-mono font-bold ' + (pass ? (dark ? 'text-emerald-400' : 'text-emerald-600') : (dark ? 'text-red-400' : 'text-red-600'))}>
+          {pct}%
+        </span>
+        <span className="text-[10px] flex-shrink-0">{pass ? '✓' : '✗'}</span>
+      </div>
+    );
+  };
+
+  // Find fail level for a site (first level that fails)
+  const getFailLevel = (d: MaturityDetailDomain | null): string | null => {
+    if (!d) return null;
+    for (const lvl of lvls) {
+      if (!d.levels[lvl].pass && !d.levels[lvl].vacuous) return lvl;
+    }
+    return null;
+  };
+
+  return ReactDOM.createPortal(
+    <div className="fixed inset-0 z-[100] flex items-center justify-center p-4" onClick={onClose}>
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+      <div className={'relative w-full rounded-2xl border shadow-2xl overflow-hidden ' + card + ' ' + border}
+        style={{ maxWidth: '95vw', maxHeight: '90vh', width: 1100 }}
+        onClick={e => e.stopPropagation()}>
+        {/* Header */}
+        <div className={'flex items-center justify-between px-6 py-4 border-b ' + border}>
+          <h2 className="text-lg font-black">{t.siteComparison}</h2>
+          <button onClick={onClose} className={'p-1.5 rounded-lg transition-all ' + (dark ? 'hover:bg-gray-700 text-gray-400' : 'hover:bg-gray-100 text-gray-400')}>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M6 18L18 6M6 6l12 12" /></svg>
+          </button>
+        </div>
+
+        <div className="overflow-y-auto" style={{ maxHeight: 'calc(90vh - 60px)' }}>
+          {/* Site headers */}
+          <div className={'grid grid-cols-2 border-b ' + border}>
+            {[{ name: siteA, md: mdA, ose: oseA }, { name: siteB, md: mdB, ose: oseB }].map((s, i) => (
+              <div key={s.name} className={'px-6 py-4 ' + (i === 0 ? 'border-r ' + border : '')}>
+                <div className="flex items-center gap-2">
+                  <h3 className="font-black text-base">{s.name.toUpperCase()}</h3>
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: ZONE_COLORS[s.md.zone]?.dot ?? '#888' }}>
+                    {s.md.zone}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 mt-1.5">
+                  <span className={'text-xs ' + sub}>{t.compScore}:</span>
+                  <span className="text-xs font-bold px-2 py-0.5 rounded-full text-white" style={{ backgroundColor: scoreToColor(s.md.score) }}>
+                    L{s.md.score}
+                  </span>
+                  <span className={'text-xs ' + sub}>OSE:</span>
+                  <span className={'text-xs font-bold ' + (dark ? 'text-white' : 'text-gray-900')}>
+                    {s.ose != null ? (s.ose * 100).toFixed(1) + '%' : '—'}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Domain comparison */}
+          <div className="px-6 py-4">
+            {orderedDomains.map(dom => {
+              const dA = mdA.domains[dom];
+              const dB = mdB.domains[dom];
+              const bothInactive = !dA && !dB;
+              if (bothInactive) return (
+                <div key={dom} className={'flex items-center gap-3 py-2 border-b opacity-40 ' + border}>
+                  <span className={'text-xs font-mono font-bold w-10 ' + sub}>{dom}</span>
+                  <span className={'text-xs ' + sub}>— {inactiveLabel}</span>
+                </div>
+              );
+
+              const failA = getFailLevel(dA);
+              const failB = getFailLevel(dB);
+
+              return (
+                <div key={dom} className={'border-b py-3 ' + border}>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className={'text-xs font-mono font-black w-10 ' + (dark ? 'text-gray-200' : 'text-gray-700')}>{dom}</span>
+                    <span className={'text-xs ' + sub}>{DOMAIN_FULL_NAMES[dom]}</span>
+                    {dA && <span className="ml-auto text-[10px] font-bold px-1.5 py-0.5 rounded text-white" style={{ backgroundColor: scoreToColor(dA.score) }}>A:L{dA.score}</span>}
+                    {dB && <span className="text-[10px] font-bold px-1.5 py-0.5 rounded text-white" style={{ backgroundColor: scoreToColor(dB.score) }}>B:L{dB.score}</span>}
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    {[{ d: dA, label: siteA, fail: failA }, { d: dB, label: siteB, fail: failB }].map((side, si) => (
+                      <div key={si}>
+                        {!side.d ? (
+                          <div className={'text-xs italic ' + sub}>— {inactiveLabel}</div>
+                        ) : (
+                          <div className="space-y-1">
+                            {lvls.map(lvl => {
+                              const ld = side.d!.levels[lvl];
+                              const isFail = lvl === side.fail;
+                              return (
+                                <div key={lvl} className="flex items-center gap-1.5">
+                                  <span className={'text-[10px] font-bold w-5 flex-shrink-0 ' + (isFail ? 'text-red-500' : sub)}>
+                                    {lvl}{isFail ? '←' : ''}
+                                  </span>
+                                  <div className="flex-1">
+                                    {renderBar(ld.frac, ld.pass, ld.vacuous)}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Key Differences */}
+          {topDiffs.length > 0 && (
+            <div className={'mx-6 mb-6 rounded-xl border p-4 ' + sectionBg + ' ' + border}>
+              <h4 className="font-black text-sm mb-3">{t.keyDifferences}</h4>
+              <div className="space-y-2">
+                {topDiffs.map((d, i) => {
+                  const aheadSite = d.aAhead ? siteA : siteB;
+                  const behindSite = d.aAhead ? siteB : siteA;
+                  const aheadPct = Math.round(Math.max(d.fracA, d.fracB) * 100);
+                  const behindPct = Math.round(Math.min(d.fracA, d.fracB) * 100);
+                  const gapPp = Math.round(d.diff * 100);
+                  return (
+                    <div key={i} className={'flex items-center gap-2 text-xs ' + (dark ? 'text-gray-300' : 'text-gray-700')}>
+                      <span className="font-bold">•</span>
+                      <span>
+                        <span className="font-bold">{d.domain} {d.level}:</span>{' '}
+                        {aheadSite} ({aheadPct}%) {'>'} {behindSite} ({behindPct}%) — {t.compGap}: <span className="font-bold">{gapPp}pp</span>
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+          {topDiffs.length === 0 && (
+            <div className={'mx-6 mb-6 rounded-xl border p-4 text-center text-sm ' + sectionBg + ' ' + border + ' ' + sub}>
+              {t.compNoData}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>,
+    document.body
+  );
+};
+
 // ── MethodologyModal ──────────────────────────────────────────────────────────
 const MethodologyModal: React.FC<{show: boolean; onClose: () => void; dark: boolean; t: T}> = ({ show, onClose, dark, t }) => {
   if (!show) return null;
@@ -5946,16 +7036,34 @@ export default function App() {
   const [anaplanData, setAnaplanData] = useState<AnaplanData | null>(null);
   const [vpoData, setVpoData] = useState<VpoData | null>(null);
   const [productCoverage, setProductCoverage] = useState<ProductCoverageData | null>(null);
+  const [productCoverageLoading, setProductCoverageLoading] = useState(false);
+  const [productCoverageError, setProductCoverageError] = useState(false);
   const [kpiHistory, setKpiHistory] = useState<KpiHistoryData | null>(null);
+  const [waterfallData, setWaterfallData] = useState<WaterfallData | null>(null);
+  const [selectedBlockingDomain, setSelectedBlockingDomain] = useState<string|null>(null);
+  // Sprint 7: site comparison selection
+  const [compSelection, setCompSelection] = useState<string[]>([]);
+  const [showComparison, setShowComparison] = useState(false);
+  // Sprint 9: targets state
+  const [targets, setTargets] = useState({ pctL2Plus: 80, oseTarget: 45, horizonMonths: 12 });
+  const [showTargetForm, setShowTargetForm] = useState(false);
+  const [zoneHealthOpen, setZoneHealthOpen] = useState<Record<string, boolean>>({});
 
   const t = TRANSLATIONS[lang];
 
+  const fetchProductCoverage = useCallback(() => {
+    if (productCoverage) return;
+    setProductCoverageLoading(true);
+    setProductCoverageError(false);
+    fetch('/product-coverage-2026.json').then(r => r.ok ? r.json() : Promise.reject('not ok')).then(d => {
+      if (d) setProductCoverage(d as ProductCoverageData);
+      setProductCoverageLoading(false);
+    }).catch(() => { setProductCoverageLoading(false); setProductCoverageError(true); });
+  }, [productCoverage]);
   useEffect(() => {
     if (view !== 'portfolioIntelligence' || productCoverage) return;
-    fetch('/product-coverage-2026.json').then(r => r.ok ? r.json() : null).then(d => {
-      if (d) setProductCoverage(d as ProductCoverageData);
-    }).catch(() => {});
-  }, [view, productCoverage]);
+    fetchProductCoverage();
+  }, [view, productCoverage, fetchProductCoverage]);
 
   // ── Fetch kpi-history.json for sparklines & trend badges ──
   useEffect(() => {
@@ -5965,6 +7073,15 @@ export default function App() {
       if (d && d.periods && d.months) setKpiHistory(d as KpiHistoryData);
     }).catch(() => {});
   }, [view, kpiHistory]);
+
+  // ── Fetch waterfall.json for OSE drivers (Sprint 8) ──
+  useEffect(() => {
+    if (waterfallData) return;
+    if (view !== 'maturityVsResults') return;
+    fetch('/waterfall.json').then(r => r.ok ? r.json() : null).then(d => {
+      if (d && d.data) setWaterfallData(d as WaterfallData);
+    }).catch(() => {});
+  }, [view, waterfallData]);
 
   useEffect(() => {
     if (view !== 'maturityVsResults' && view !== 'sites' && view !== 'executive') return;
@@ -6585,6 +7702,79 @@ tr:nth-child(even) td{background:#f8fafc}
     finally { setExpXlsx(false); }
   };
 
+  // ── Domain Blocking Analysis (Sprint 5) ──
+  const domainBlockingData = useMemo(() => {
+    const activeDomains = DOMAIN_KEYS.filter(d => d.key !== 'Utilities'); // excluindo UT
+    return activeDomains.map(dk => {
+      let blockedCount = 0;
+      let activeCount = 0;
+      let totalScore = 0;
+      const dist = [0, 0, 0, 0, 0]; // L0..L4
+      let gCount = 0;
+      let lCount = 0;
+      const blockedSites: { name: string; zone: string; score: number; siteLevel: number; nextLevelFrac: number | null }[] = [];
+
+      for (const site of filtered) {
+        const domScore = site.scores[dk.key] ?? 0;
+        // Check if site has this domain active
+        const hasType = SITE_DOMAIN_TYPE[site.name]?.[dk.short];
+        const isActive = domScore > 0 || !!hasType;
+        if (!isActive) continue;
+        activeCount++;
+        totalScore += domScore;
+        dist[Math.min(4, Math.max(0, domScore))]++;
+        const type = getSiteDomainType(site.name, dk.short);
+        if (type === 'G') gCount++;
+        else if (type === 'L') lCount++;
+
+        // Compute site min across active domains (excl UT)
+        const activeDomainScores: number[] = [];
+        for (const ad of DOMAIN_KEYS) {
+          if (ad.key === 'Utilities') continue;
+          const adScore = site.scores[ad.key] ?? 0;
+          const adHasType = SITE_DOMAIN_TYPE[site.name]?.[ad.short];
+          if (adScore > 0 || !!adHasType) activeDomainScores.push(adScore);
+        }
+        const siteMin = activeDomainScores.length > 0 ? Math.min(...activeDomainScores) : 0;
+        if (domScore === siteMin) {
+          blockedCount++;
+          // Get next level frac from MATURITY_DETAIL if available
+          let nextLevelFrac: number | null = null;
+          const md = (MATURITY_DETAIL as Record<string, MaturityDetailSite>)[site.name];
+          if (md && md.domains) {
+            const domDetail = md.domains[dk.key];
+            if (domDetail) {
+              const nextLvl = `L${Math.min(4, domScore + 1)}` as keyof typeof domDetail.levels;
+              const lvlData = domDetail.levels[nextLvl];
+              if (lvlData && lvlData.frac !== null) nextLevelFrac = lvlData.frac;
+            }
+          }
+          blockedSites.push({
+            name: site.name,
+            zone: site.zone,
+            score: domScore,
+            siteLevel: site.scores['Total Global'] ?? 0,
+            nextLevelFrac,
+          });
+        }
+      }
+
+      blockedSites.sort((a, b) => a.score - b.score);
+      return {
+        key: dk.key,
+        short: dk.short,
+        blockingPct: activeCount > 0 ? blockedCount / activeCount : 0,
+        blockedCount,
+        activeCount,
+        avgScore: activeCount > 0 ? totalScore / activeCount : 0,
+        dist,
+        gCount,
+        lCount,
+        blockedSites,
+      };
+    }).sort((a, b) => b.blockingPct - a.blockingPct);
+  }, [filtered]);
+
   const {featured, grid} = useMemo(()=>{
     if(view==='domain'){
       const dn=activeTab;
@@ -6720,7 +7910,14 @@ tr:nth-child(even) td{background:#f8fafc}
                   <h2 className={'text-lg font-black ' + (dark?'text-white':'text-gray-900')}>{t.execSummaryTitle}</h2>
                   <span className={'text-sm ' + (dark?'text-gray-400':'text-gray-500')}>{t.execSummarySub}</span>
                 </div>
-                <ExecutiveSummaryView dark={dark} t={t} lang={lang} vpoData={vpoData} anaplanOseTtp={null} onNavigate={(v)=>{setView(v);setTabIdx(0);}} onShowMethodology={()=>setShowMethodology(true)}/>
+                <ExecutiveSummaryView dark={dark} t={t} lang={lang} vpoData={vpoData}
+                  anaplanOseTtp={anaplanData?.rows?.length ? getSiteOseTtp(ALL_SITES, anaplanData.rows) : null}
+                  onNavigate={(v)=>{setView(v);setTabIdx(0);}}
+                  onShowMethodology={()=>setShowMethodology(true)}
+                  onCompareWithSimilar={(siteName, refSite)=>{setCompSelection([siteName, refSite]);setShowComparison(true);}}
+                  targets={targets}
+                  onSetTargets={setTargets}
+                />
               </>
             )}
 
@@ -6732,7 +7929,7 @@ tr:nth-child(even) td{background:#f8fafc}
                   <h2 className={'text-lg font-black ' + (dark?'text-white':'text-gray-900')}>{t.sitesTitle}</h2>
                   <span className={'text-sm font-medium ' + (dark?'text-gray-400':'text-gray-400')}>· {t.sitesCount(filtered.length)}</span>
                 </div>
-                <SitesView sites={filtered} t={t} dark={dark} lang={lang} anaplanData={anaplanData}/>
+                <SitesView sites={filtered} t={t} dark={dark} lang={lang} anaplanData={anaplanData} compSelection={compSelection} onToggleComp={(name)=>setCompSelection(prev=>prev.includes(name)?prev.filter(n=>n!==name):prev.length>=2?prev:[...prev,name])}/>
               </>
             )}
 
@@ -6744,7 +7941,7 @@ tr:nth-child(even) td{background:#f8fafc}
                   <h2 className={'text-lg font-black ' + (dark?'text-white':'text-gray-900')}>{t.portfolioNavLabel}</h2>
                   <span className={'text-sm ' + (dark?'text-gray-400':'text-gray-500')}>{t.portfolioSub}</span>
                 </div>
-                <PortfolioIntelligenceView sites={filtered} dark={dark} t={t} lang={lang} productCoverage={productCoverage} />
+                <PortfolioIntelligenceView sites={filtered} dark={dark} t={t} lang={lang} productCoverage={productCoverage} productCoverageLoading={productCoverageLoading} productCoverageError={productCoverageError} onRetryFetch={fetchProductCoverage} />
               </>
             )}
 
@@ -6756,7 +7953,7 @@ tr:nth-child(even) td{background:#f8fafc}
                   <h2 className={'text-lg font-black ' + (dark?'text-white':'text-gray-900')}>{t.maturityVsResults}</h2>
                   <span className={'text-sm ' + (dark?'text-gray-400':'text-gray-500')}>{t.maturityVsResultsSub}</span>
                 </div>
-                <MaturityVsResultsView t={t} dark={dark} lang={lang} sites={filtered} anaplanData={anaplanData} vpoData={vpoData} kpiHistory={kpiHistory}/>
+                <MaturityVsResultsView t={t} dark={dark} lang={lang} sites={filtered} anaplanData={anaplanData} vpoData={vpoData} kpiHistory={kpiHistory} waterfallData={waterfallData}/>
               </>
             )}
 
@@ -6776,6 +7973,172 @@ tr:nth-child(even) td{background:#f8fafc}
                         {/* Zone/Domain views — Monitoramento (não exibir na view Maturidade vs Resultados) */}
             {(view==='zone'||view==='domain')&&(
               <>
+                {/* ── Domain Blocking Analytics (Sprint 5) ── */}
+                {view==='domain'&&(
+                  <div className="mb-6">
+                    {/* Painel A — Ranking */}
+                    <div className="flex items-center gap-3 mb-3 flex-wrap">
+                      <span className="bg-red-500 w-1.5 h-6 rounded-sm block flex-shrink-0"/>
+                      <h2 className={'text-lg font-black '+(dark?'text-white':'text-gray-900')}>{(t as any).domainBlockingTitle}</h2>
+                      <span className={'text-sm '+(dark?'text-gray-400':'text-gray-500')}>{(t as any).domainBlockingSub}</span>
+                    </div>
+                    <div className={'rounded-xl border overflow-hidden mb-2 '+(dark?'bg-gray-800/60 border-gray-700':'bg-white border-gray-200')}>
+                      <table className="w-full text-sm">
+                        <thead>
+                          <tr className={dark?'bg-gray-700/50 text-gray-300':'bg-gray-50 text-gray-600'}>
+                            <th className="text-left px-3 py-2 font-semibold">{lang==='pt'?'Domínio':'Domain'}</th>
+                            <th className="text-right px-3 py-2 font-semibold">{(t as any).domainBlockingPct}</th>
+                            <th className="text-right px-3 py-2 font-semibold">{(t as any).domainAvgScore}</th>
+                            <th className="text-center px-3 py-2 font-semibold">{(t as any).domainDistribution}</th>
+                            <th className="text-center px-3 py-2 font-semibold">{(t as any).domainTypeGL}</th>
+                            <th className="text-right px-3 py-2 font-semibold">{(t as any).domainActiveSites}</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {domainBlockingData.map((d, idx) => {
+                            const isSelected = selectedBlockingDomain === d.key;
+                            const rowBg = isSelected
+                              ? (dark ? 'bg-yellow-900/30' : 'bg-yellow-50')
+                              : idx % 2 === 0
+                                ? (dark ? 'bg-gray-800/30' : 'bg-white')
+                                : (dark ? 'bg-gray-800/60' : 'bg-gray-50/50');
+                            const barMax = Math.max(...domainBlockingData.map(x => x.activeCount), 1);
+                            const distColors = ['#6b7280','#eab308','#f59e0b','#f97316','#10b981']; // L0-L4
+                            return (
+                              <tr key={d.key}
+                                className={`${rowBg} cursor-pointer hover:${dark?'bg-gray-700/60':'bg-yellow-50/80'} transition-colors`}
+                                onClick={() => setSelectedBlockingDomain(isSelected ? null : d.key)}>
+                                <td className={'px-3 py-2 font-medium '+(dark?'text-white':'text-gray-900')}>
+                                  <span className="flex items-center gap-2">
+                                    {isSelected && <span className="text-yellow-500">▸</span>}
+                                    <span>{d.short}</span>
+                                    <span className={'text-xs '+(dark?'text-gray-500':'text-gray-400')}>{d.key}</span>
+                                  </span>
+                                </td>
+                                <td className="px-3 py-2 text-right">
+                                  <span className={`font-bold ${d.blockingPct > 0.4 ? 'text-red-500' : d.blockingPct > 0.2 ? 'text-amber-500' : (dark?'text-gray-300':'text-gray-700')}`}>
+                                    {(d.blockingPct * 100).toFixed(1)}%
+                                  </span>
+                                  <span className={'text-xs ml-1 '+(dark?'text-gray-500':'text-gray-400')}>
+                                    ({d.blockedCount})
+                                  </span>
+                                </td>
+                                <td className={'px-3 py-2 text-right font-mono '+(dark?'text-gray-300':'text-gray-700')}>
+                                  {d.avgScore.toFixed(2)}
+                                </td>
+                                <td className="px-3 py-2">
+                                  {/* Mini sparkbar L0..L4 */}
+                                  <div className="flex h-4 rounded overflow-hidden" style={{minWidth:80}} title={`L0:${d.dist[0]} L1:${d.dist[1]} L2:${d.dist[2]} L3:${d.dist[3]} L4:${d.dist[4]}`}>
+                                    {d.dist.map((count, li) => {
+                                      const pct = d.activeCount > 0 ? (count / d.activeCount) * 100 : 0;
+                                      return pct > 0 ? (
+                                        <div key={li} style={{width:`${pct}%`,backgroundColor:distColors[li]}} className="transition-all" title={`L${li}: ${count}`}/>
+                                      ) : null;
+                                    })}
+                                  </div>
+                                  <div className="flex justify-between text-[9px] mt-0.5" style={{minWidth:80}}>
+                                    {d.dist.map((count, li) => (
+                                      <span key={li} className={dark?'text-gray-500':'text-gray-400'} style={{color:count>0?distColors[li]:undefined}}>
+                                        {count > 0 ? count : ''}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </td>
+                                <td className="px-3 py-2 text-center">
+                                  <span className="inline-flex gap-1 text-xs font-mono">
+                                    <span className="text-blue-500" title="Global">{d.gCount}G</span>
+                                    <span className={dark?'text-gray-500':'text-gray-400'}>/</span>
+                                    <span className={dark?'text-gray-400':'text-gray-500'} title="Legacy">{d.lCount}L</span>
+                                  </span>
+                                </td>
+                                <td className={'px-3 py-2 text-right font-mono '+(dark?'text-gray-400':'text-gray-500')}>
+                                  {d.activeCount}
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                    <p className={'text-xs italic mb-4 '+(dark?'text-gray-500':'text-gray-400')}>{(t as any).domainClickDrill}</p>
+
+                    {/* Painel B — Drill-down sites bloqueados */}
+                    {selectedBlockingDomain && (() => {
+                      const domData = domainBlockingData.find(d => d.key === selectedBlockingDomain);
+                      if (!domData || domData.blockedSites.length === 0) return (
+                        <div className={'rounded-lg border px-4 py-3 mb-4 text-sm '+(dark?'bg-gray-800 border-gray-700 text-gray-400':'bg-gray-50 border-gray-200 text-gray-500')}>
+                          {(t as any).domainNoBlocked}
+                        </div>
+                      );
+                      return (
+                        <div className={'rounded-xl border overflow-hidden mb-4 '+(dark?'bg-gray-800/40 border-gray-700':'bg-white border-gray-200')}>
+                          <div className={'px-4 py-2 border-b flex items-center gap-2 '+(dark?'bg-gray-700/50 border-gray-700':'bg-gray-50 border-gray-200')}>
+                            <span className="bg-red-500 w-1 h-4 rounded-sm block"/>
+                            <span className={'font-bold text-sm '+(dark?'text-white':'text-gray-900')}>{(t as any).domainBlockedSites}: {domData.short}</span>
+                            <span className={'text-xs '+(dark?'text-gray-400':'text-gray-500')}>
+                              {domData.blockedCount} {(t as any).domainBlockedBy} {domData.short}
+                            </span>
+                          </div>
+                          <div className="max-h-64 overflow-y-auto">
+                            <table className="w-full text-sm">
+                              <thead>
+                                <tr className={dark?'bg-gray-700/30 text-gray-400':'bg-gray-50/80 text-gray-500'}>
+                                  <th className="text-left px-3 py-1.5 font-medium">Site</th>
+                                  <th className="text-center px-3 py-1.5 font-medium">{lang==='pt'?'Zona':'Zone'}</th>
+                                  <th className="text-right px-3 py-1.5 font-medium">Score {domData.short}</th>
+                                  <th className="text-right px-3 py-1.5 font-medium">{(t as any).domainSiteLevel}</th>
+                                  <th className="text-right px-3 py-1.5 font-medium">{(t as any).domainNextLevel}</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {domData.blockedSites.map((bs, bi) => {
+                                  const zc = ZONE_COLORS[bs.zone];
+                                  return (
+                                    <tr key={bs.name}
+                                      className={`${bi%2===0?(dark?'bg-gray-800/20':'bg-white'):(dark?'bg-gray-800/50':'bg-gray-50/50')} cursor-pointer hover:${dark?'bg-gray-700':'bg-blue-50'} transition-colors`}
+                                      onClick={() => { setView('capabilityGap'); }}>
+                                      <td className={'px-3 py-1.5 font-medium '+(dark?'text-white':'text-gray-900')}>{bs.name}</td>
+                                      <td className="px-3 py-1.5 text-center">
+                                        <span className="inline-flex items-center gap-1">
+                                          <span className="w-2 h-2 rounded-full inline-block" style={{backgroundColor:zc?.dot}}/>
+                                          <span className={'text-xs font-bold '+(dark?zc?.darkText:zc?.text)}>{bs.zone}</span>
+                                        </span>
+                                      </td>
+                                      <td className="px-3 py-1.5 text-right">
+                                        <span className={`inline-block w-6 h-6 rounded text-center leading-6 text-xs font-bold ${
+                                          bs.score===0?(dark?'bg-gray-700 text-gray-400':'bg-gray-200 text-gray-500')
+                                          :bs.score===1?(dark?'bg-yellow-800/60 text-yellow-300':'bg-yellow-100 text-yellow-700')
+                                          :bs.score===2?'bg-yellow-400 text-gray-900'
+                                          :bs.score===3?'bg-amber-500 text-white'
+                                          :'bg-emerald-500 text-white'
+                                        }`}>L{bs.score}</span>
+                                      </td>
+                                      <td className={'px-3 py-1.5 text-right font-mono text-xs '+(dark?'text-gray-400':'text-gray-500')}>
+                                        L{bs.siteLevel}
+                                      </td>
+                                      <td className="px-3 py-1.5 text-right">
+                                        {bs.nextLevelFrac !== null ? (
+                                          <div className="flex items-center justify-end gap-1">
+                                            <div className={'w-12 h-2 rounded-full overflow-hidden '+(dark?'bg-gray-700':'bg-gray-200')}>
+                                              <div className="h-full rounded-full bg-emerald-500 transition-all" style={{width:`${(bs.nextLevelFrac*100)}%`}}/>
+                                            </div>
+                                            <span className={'text-xs font-mono '+(dark?'text-gray-400':'text-gray-500')}>{(bs.nextLevelFrac*100).toFixed(0)}%</span>
+                                          </div>
+                                        ) : <span className={'text-xs '+(dark?'text-gray-600':'text-gray-300')}>—</span>}
+                                      </td>
+                                    </tr>
+                                  );
+                                })}
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      );
+                    })()}
+                    <hr className={dark?'border-gray-700':'border-gray-200'}/>
+                  </div>
+                )}
+
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
                   <span className="bg-yellow-400 w-1.5 h-6 rounded-sm block flex-shrink-0"/>
                   <h2 className={'text-lg font-black ' + (dark?'text-white':'text-gray-900')}>{t.monitoring}: {activeTab}</h2>
@@ -6787,6 +8150,97 @@ tr:nth-child(even) td{background:#f8fafc}
                 </div>
                 <div className="mb-5">
                   <FunnelCard title={featured.title} subtitle={featured.subtitle} domain={featured.domain} zone={featured.zone} volFilter={volFilter} sites={featured.sites} isFeatured accent={featured.accent} t={t} dark={dark} kpiHistory={kpiHistory}/>
+                  {/* ── Sprint 9 US2: Zone Health Card (collapsible, added below FunnelCard) ── */}
+                  {view === 'zone' && featured.zone !== 'Global' && (() => {
+                    const zh_zone = featured.zone;
+                    const zh_sites = featured.sites;
+                    const zh_isOpen = !!zoneHealthOpen[zh_zone];
+                    const zh_l2ct = zh_sites.filter(s => s.scores['Total Global'] >= 2).length;
+                    const zh_total = zh_sites.length;
+                    const zh_l2pct = zh_total > 0 ? (zh_l2ct / zh_total) * 100 : 0;
+                    // OSE trend from kpiHistory
+                    const zh_history = kpiHistory
+                      ? kpiHistory.months.filter(m => m.zone === zh_zone).sort((a, b) => a.period.localeCompare(b.period))
+                      : [];
+                    const zh_oseNow = zh_history.length > 0 ? zh_history[zh_history.length - 1].OSE : null;
+                    const zh_osePrev3 = zh_history.length >= 3 ? zh_history[zh_history.length - 4]?.OSE ?? null : null;
+                    const zh_trend3 = zh_oseNow != null && zh_osePrev3 != null ? zh_oseNow - zh_osePrev3 : null;
+                    const zh_declining2 = zh_history.length >= 3 &&
+                      zh_history[zh_history.length - 1].OSE < zh_history[zh_history.length - 2].OSE &&
+                      zh_history[zh_history.length - 2].OSE < zh_history[zh_history.length - 3].OSE;
+                    // VPO80+
+                    let zh_vpo80pct: number | null = null;
+                    if (vpoData) {
+                      const zh_vScores = zh_sites.map(s => vpoData[s.name]?.overall_score).filter((v): v is number => v != null);
+                      zh_vpo80pct = zh_vScores.length > 0 ? (zh_vScores.filter(v => v >= 80).length / zh_vScores.length) * 100 : null;
+                    }
+                    // Blocking domain (lowest avg score)
+                    const DKEYS = ['BP','DA','UT','MT','MG','MDM','PP','QL','SF'];
+                    let zh_blockDom = '—'; let zh_blockCount = 0; let zh_blockMin = Infinity;
+                    for (const dk of DKEYS) {
+                      const vs = zh_sites.map(s => s.scores[dk]).filter((v): v is number => v != null && isFinite(v));
+                      if (vs.length === 0) continue;
+                      const avg = vs.reduce((a, b) => a + b, 0) / vs.length;
+                      if (avg < zh_blockMin) { zh_blockMin = avg; zh_blockDom = dk; zh_blockCount = vs.length; }
+                    }
+                    // Health score
+                    let zh_health: 'good' | 'caution' | 'critical';
+                    if (zh_l2pct >= 80 && zh_trend3 != null && zh_trend3 >= 0) zh_health = 'good';
+                    else if (zh_declining2 || zh_l2pct < 60) zh_health = 'critical';
+                    else zh_health = 'caution';
+                    const zh_emoji = zh_health === 'good' ? '🟢' : zh_health === 'caution' ? '🟡' : '🔴';
+                    const zh_label = zh_health === 'good'
+                      ? (lang === 'pt' ? 'Bom' : 'Good')
+                      : zh_health === 'caution'
+                        ? (lang === 'pt' ? 'Atenção' : 'Caution')
+                        : (lang === 'pt' ? 'Crítico' : 'Critical');
+                    const zh_proj = zh_history.length >= 3 ? projectOse(zh_history, targets.horizonMonths) : null;
+                    const card2 = dark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200';
+                    const sub2 = dark ? 'text-gray-400' : 'text-gray-500';
+                    return (
+                      <div className={'mt-3 rounded-xl border overflow-hidden ' + card2}>
+                        <button
+                          className={'w-full flex items-center gap-2 px-4 py-3 text-left ' + (dark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50') + ' transition-all'}
+                          onClick={() => setZoneHealthOpen(prev => ({ ...prev, [zh_zone]: !zh_isOpen }))}>
+                          <span className="text-base">{zh_emoji}</span>
+                          <span className={'font-bold text-sm flex-1 ' + (dark ? 'text-white' : 'text-gray-900')}>
+                            {zh_zone} — {t.healthScore}: <span>{zh_label}</span>
+                          </span>
+                          <span className={'text-xs font-semibold ' + sub2}>{t.zoneHealth}</span>
+                          <svg className={'w-4 h-4 transition-transform ' + (zh_isOpen ? 'rotate-180' : '') + ' ' + sub2} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M19 9l-7 7-7-7"/></svg>
+                        </button>
+                        {zh_isOpen && (
+                          <div className={'px-4 pb-4 pt-1 text-xs space-y-2 border-t ' + (dark ? 'border-gray-700' : 'border-gray-100')}>
+                            <div className="grid grid-cols-2 gap-x-6 gap-y-1.5">
+                              <div className="flex items-center gap-2">
+                                <span className={sub2}>% L2+:</span>
+                                <span className={'font-bold tabular-nums ' + (dark ? 'text-white' : 'text-gray-900')}>{zh_l2pct.toFixed(0)}%</span>
+                                <span>{zh_l2pct >= 80 ? '✓' : zh_l2pct >= 60 ? '↗' : '↘'}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className={sub2}>OSE:</span>
+                                <span className={'font-bold tabular-nums ' + (dark ? 'text-white' : 'text-gray-900')}>{zh_oseNow != null ? zh_oseNow.toFixed(1) + '%' : '—'}</span>
+                                {zh_trend3 != null && <span>{zh_trend3 > 0 ? '↗' : zh_trend3 < 0 ? '↘' : '→'}</span>}
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className={sub2}>% VPO80+:</span>
+                                <span className={'font-bold tabular-nums ' + (dark ? 'text-white' : 'text-gray-900')}>{zh_vpo80pct != null ? zh_vpo80pct.toFixed(0) + '%' : '—'}</span>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <span className={sub2}>{lang === 'pt' ? 'Bloq:' : 'Block:'}</span>
+                                <span className={'font-bold ' + (dark ? 'text-amber-400' : 'text-amber-700')}>{zh_blockDom}</span>
+                                <span className={sub2}>({zh_blockCount} sites)</span>
+                              </div>
+                            </div>
+                            <div className={'flex gap-4 pt-1 border-t ' + (dark ? 'border-gray-700 text-gray-300' : 'border-gray-100 text-gray-600')}>
+                              <span>{lang === 'pt' ? 'Tend. OSE' : 'OSE Trend'}: <strong>{zh_trend3 != null ? (zh_trend3 > 0 ? '+' : '') + zh_trend3.toFixed(1) + 'pp (3M)' : '—'}</strong></span>
+                              <span>{t.proj12m}: <strong>{zh_proj != null ? '→ ' + zh_proj.toFixed(1) + '%' : t.insufData}</strong> <span className={'text-[10px] ' + sub2}>(ⓘ {lang === 'pt' ? 'Proj. linear' : 'Linear proj.'})</span></span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })()}
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-4">
                   {grid.map((c,i)=>(
@@ -6799,6 +8253,20 @@ tr:nth-child(even) td{background:#f8fafc}
         </div>
       </div>
       <MethodologyModal show={showMethodology} onClose={()=>setShowMethodology(false)} dark={dark} t={t}/>
+      <FloatingComparisonBar
+        selected={compSelection} dark={dark} t={t}
+        onRemove={(name)=>setCompSelection(prev=>prev.filter(n=>n!==name))}
+        onClear={()=>setCompSelection([])}
+        onCompare={()=>setShowComparison(true)}
+      />
+      {showComparison && compSelection.length === 2 && (
+        <SiteComparisonModal
+          siteA={compSelection[0]} siteB={compSelection[1]}
+          dark={dark} t={t} lang={lang}
+          siteOseTtp={anaplanData?.rows?.length ? getSiteOseTtp(filtered, anaplanData.rows) : {}}
+          onClose={()=>setShowComparison(false)}
+        />
+      )}
     </div>
   );
 }
