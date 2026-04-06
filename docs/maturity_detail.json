@@ -7,7 +7,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -29,27 +29,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -162,7 +162,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Agudos": {
     "zone": "SAZ",
@@ -172,12 +172,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -194,7 +194,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -202,19 +202,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -387,7 +387,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -409,27 +409,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -542,7 +542,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Aquiraz": {
     "zone": "SAZ",
@@ -552,12 +552,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -574,7 +574,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -582,19 +582,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -767,7 +767,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -789,27 +789,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -972,7 +972,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Ate": {
     "zone": "MAZ",
@@ -982,7 +982,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -1004,27 +1004,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -1187,7 +1187,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Aurangabad": {
     "zone": "APAC",
@@ -1258,16 +1258,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -1284,27 +1284,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -1417,34 +1417,34 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Baoding": {
     "zone": "APAC",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -1567,7 +1567,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -1589,27 +1589,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -1772,34 +1772,34 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Beira": {
     "zone": "AFR",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -1922,7 +1922,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -1944,27 +1944,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -2127,7 +2127,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Bremen": {
     "zone": "EUR",
@@ -2137,7 +2137,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -2159,27 +2159,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -2302,7 +2302,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -2324,27 +2324,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -2507,7 +2507,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Camacari": {
     "zone": "SAZ",
@@ -2517,12 +2517,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -2539,7 +2539,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -2547,19 +2547,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -2728,16 +2728,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -2754,27 +2754,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -2887,7 +2887,7 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Chamdor": {
     "zone": "AFR",
@@ -2897,7 +2897,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -2919,27 +2919,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -3052,7 +3052,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Charminar": {
     "zone": "APAC",
@@ -3099,27 +3099,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -3217,12 +3217,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -3239,7 +3239,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -3247,19 +3247,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -3428,16 +3428,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -3454,27 +3454,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -3612,7 +3612,7 @@
         "type": "G"
       }
     },
-    "score": 0
+    "score": 1
   },
   "Cordoba": {
     "zone": "SAZ",
@@ -3622,12 +3622,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -3644,7 +3644,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -3652,19 +3652,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -3837,12 +3837,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -3859,7 +3859,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -3867,19 +3867,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -4048,16 +4048,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -4074,27 +4074,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -4182,7 +4182,7 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Cuiaba": {
     "zone": "SAZ",
@@ -4192,12 +4192,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -4214,7 +4214,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -4222,19 +4222,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -4407,12 +4407,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -4429,7 +4429,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -4437,19 +4437,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -4622,7 +4622,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -4644,27 +4644,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -4827,7 +4827,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Dar es Salaam": {
     "zone": "AFR",
@@ -4837,12 +4837,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8263,
+            "frac": 0.9385,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -4859,27 +4859,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -5002,7 +5002,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -5024,27 +5024,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -5163,16 +5163,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -5189,27 +5189,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -5297,7 +5297,7 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "El Alto": {
     "zone": "SAZ",
@@ -5307,12 +5307,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -5329,7 +5329,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -5337,19 +5337,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -5522,12 +5522,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -5544,7 +5544,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -5552,19 +5552,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -5734,27 +5734,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -5873,16 +5873,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -5899,27 +5899,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -6032,34 +6032,34 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Foshan": {
     "zone": "APAC",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -6207,7 +6207,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -6229,27 +6229,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -6323,7 +6323,7 @@
           },
           "L3": {
             "vacuous": false,
-            "frac": 0.6682,
+            "frac": 0.6963,
             "pass": false
           },
           "L4": {
@@ -6387,7 +6387,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Guadalajara": {
     "zone": "MAZ",
@@ -6397,7 +6397,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -6419,27 +6419,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -6602,7 +6602,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Guarulhos": {
     "zone": "SAZ",
@@ -6612,12 +6612,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -6634,7 +6634,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -6642,19 +6642,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -6827,7 +6827,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -6849,27 +6849,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -7032,7 +7032,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Gwangju": {
     "zone": "APAC",
@@ -7042,7 +7042,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9585,
+            "frac": 0.9615,
             "pass": true
           },
           "L2": {
@@ -7064,27 +7064,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -7178,16 +7178,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -7204,27 +7204,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -7312,34 +7312,34 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Harbin 2": {
     "zone": "APAC",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -7487,7 +7487,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -7509,27 +7509,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -7692,7 +7692,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Hoegaarden": {
     "zone": "EUR",
@@ -7702,7 +7702,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -7724,27 +7724,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -7857,22 +7857,22 @@
       },
       "SF": null
     },
-    "score": 2
+    "score": 1
   },
   "Houston": {
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -7889,27 +7889,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -8022,7 +8022,7 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Huachipa": {
     "zone": "SAZ",
@@ -8122,12 +8122,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -8144,7 +8144,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -8152,19 +8152,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -8377,7 +8377,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -8399,27 +8399,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -8532,7 +8532,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Icheon": {
     "zone": "APAC",
@@ -8542,7 +8542,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9585,
+            "frac": 0.9615,
             "pass": true
           },
           "L2": {
@@ -8564,27 +8564,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -8682,7 +8682,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -8704,27 +8704,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -8798,7 +8798,7 @@
           },
           "L3": {
             "vacuous": false,
-            "frac": 0.6682,
+            "frac": 0.6963,
             "pass": false
           },
           "L4": {
@@ -8862,7 +8862,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Ind La Constancia": {
     "zone": "MAZ",
@@ -8872,7 +8872,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -8894,27 +8894,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -9077,7 +9077,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Ind La Constancia CSD": {
     "zone": "MAZ",
@@ -9202,7 +9202,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -9367,7 +9367,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -9389,27 +9389,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -9497,7 +9497,7 @@
       },
       "SF": null
     },
-    "score": 2
+    "score": 1
   },
   "Jacarei": {
     "zone": "SAZ",
@@ -9507,12 +9507,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -9529,7 +9529,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -9537,19 +9537,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -9718,16 +9718,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -9744,27 +9744,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -9877,7 +9877,7 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Jaguariuna": {
     "zone": "SAZ",
@@ -9887,12 +9887,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -9909,7 +9909,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -9917,19 +9917,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -10099,27 +10099,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -10239,27 +10239,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -10379,27 +10379,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -10519,27 +10519,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -10659,27 +10659,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -10802,12 +10802,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -10824,7 +10824,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -10832,19 +10832,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -11017,7 +11017,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -11039,27 +11039,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -11179,27 +11179,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -11322,12 +11322,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9484,
+            "frac": 0.9692,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -11344,27 +11344,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -11487,12 +11487,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -11509,7 +11509,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -11517,19 +11517,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -11702,12 +11702,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -11724,7 +11724,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -11732,19 +11732,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -11917,7 +11917,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -11939,27 +11939,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -12047,34 +12047,34 @@
       },
       "SF": null
     },
-    "score": 2
+    "score": 1
   },
   "Lesotho": {
     "zone": "AFR",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -12197,7 +12197,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -12219,27 +12219,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -12358,16 +12358,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -12384,27 +12384,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -12517,22 +12517,22 @@
         "type": "G"
       }
     },
-    "score": 0
+    "score": 1
   },
   "Los Angeles": {
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -12549,27 +12549,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -12682,34 +12682,34 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Lusaka": {
     "zone": "AFR",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -12832,12 +12832,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -12854,7 +12854,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -12862,19 +12862,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -13047,7 +13047,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -13069,27 +13069,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -13237,12 +13237,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -13259,7 +13259,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -13267,19 +13267,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -13449,27 +13449,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -13592,7 +13592,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -13614,27 +13614,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -13747,7 +13747,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Mazatlan": {
     "zone": "MAZ",
@@ -13757,7 +13757,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -13779,27 +13779,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -13962,34 +13962,34 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Mbarara": {
     "zone": "AFR",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -14112,12 +14112,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8263,
+            "frac": 0.9385,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -14134,27 +14134,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -14277,7 +14277,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -14299,27 +14299,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -14482,7 +14482,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Meerut": {
     "zone": "APAC",
@@ -14557,12 +14557,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -14579,7 +14579,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -14587,19 +14587,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -14772,7 +14772,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -14794,27 +14794,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -14977,7 +14977,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Mexico APAN": {
     "zone": "MAZ",
@@ -14987,7 +14987,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -15009,27 +15009,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -15192,7 +15192,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Mexico Plant": {
     "zone": "MAZ",
@@ -15202,7 +15202,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -15224,27 +15224,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -15407,22 +15407,22 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Montreal": {
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -15439,27 +15439,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -15547,7 +15547,7 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Motupe": {
     "zone": "MAZ",
@@ -15557,7 +15557,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -15579,27 +15579,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -15762,34 +15762,34 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Mudanjiang": {
     "zone": "APAC",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -15887,7 +15887,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -15909,27 +15909,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -16042,7 +16042,7 @@
       },
       "SF": null
     },
-    "score": 2
+    "score": 1
   },
   "Mwanza": {
     "zone": "AFR",
@@ -16052,12 +16052,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8263,
+            "frac": 0.9385,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -16074,27 +16074,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -16214,27 +16214,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -16329,27 +16329,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -16447,7 +16447,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -16469,27 +16469,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -16602,7 +16602,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Nampula": {
     "zone": "AFR",
@@ -16612,7 +16612,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -16634,27 +16634,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -16767,34 +16767,34 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Nanning": {
     "zone": "APAC",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -16889,27 +16889,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -17032,7 +17032,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -17054,27 +17054,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -17187,7 +17187,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Onitsha": {
     "zone": "AFR",
@@ -17197,7 +17197,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -17219,27 +17219,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -17313,7 +17313,7 @@
           },
           "L3": {
             "vacuous": false,
-            "frac": 0.6682,
+            "frac": 0.6963,
             "pass": false
           },
           "L4": {
@@ -17377,7 +17377,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Panama": {
     "zone": "MAZ",
@@ -17387,7 +17387,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -17409,27 +17409,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -17592,7 +17592,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Pernambuco": {
     "zone": "SAZ",
@@ -17602,12 +17602,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -17624,7 +17624,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -17632,19 +17632,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -17817,12 +17817,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -17839,7 +17839,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -17847,19 +17847,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -18032,7 +18032,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -18054,27 +18054,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -18187,7 +18187,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Ponta Grossa": {
     "zone": "SAZ",
@@ -18197,12 +18197,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -18219,7 +18219,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -18227,19 +18227,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -18412,7 +18412,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -18434,27 +18434,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -18528,7 +18528,7 @@
           },
           "L3": {
             "vacuous": false,
-            "frac": 0.6682,
+            "frac": 0.6963,
             "pass": false
           },
           "L4": {
@@ -18592,7 +18592,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Prospecton": {
     "zone": "AFR",
@@ -18602,7 +18602,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -18624,27 +18624,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -18757,34 +18757,34 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Putian": {
     "zone": "APAC",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -18932,12 +18932,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -18954,7 +18954,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -18962,19 +18962,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -19147,7 +19147,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -19169,27 +19169,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -19352,7 +19352,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Rio de Janeiro": {
     "zone": "SAZ",
@@ -19362,12 +19362,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -19384,7 +19384,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -19392,19 +19392,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -19577,7 +19577,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8238,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
@@ -19599,27 +19599,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7561,
+            "frac": 0.8361,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7317,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.65,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -19732,7 +19732,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Samlesbury": {
     "zone": "EUR",
@@ -19742,7 +19742,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -19764,27 +19764,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -19932,7 +19932,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -19954,27 +19954,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -20137,7 +20137,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "San Pedro Sula": {
     "zone": "MAZ",
@@ -20147,7 +20147,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -20169,27 +20169,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -20352,7 +20352,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "San Pedro Sula CSD": {
     "zone": "MAZ",
@@ -20362,7 +20362,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -20384,27 +20384,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -20567,7 +20567,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Santo Domingo": {
     "zone": "MAZ",
@@ -20577,7 +20577,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -20599,27 +20599,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -20782,7 +20782,7 @@
         "type": "G"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Sapucaia": {
     "zone": "SAZ",
@@ -20792,12 +20792,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -20814,7 +20814,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -20822,19 +20822,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -21007,12 +21007,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -21029,7 +21029,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -21037,19 +21037,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -21222,12 +21222,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -21244,7 +21244,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -21252,19 +21252,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -21434,27 +21434,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -21638,16 +21638,16 @@
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -21664,27 +21664,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -21797,7 +21797,7 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Suqian": {
     "zone": "APAC",
@@ -21807,12 +21807,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9484,
+            "frac": 0.9692,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -21829,27 +21829,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -21997,12 +21997,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -22019,7 +22019,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -22027,19 +22027,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -22209,27 +22209,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -22352,12 +22352,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -22374,7 +22374,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -22382,19 +22382,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -22567,7 +22567,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -22589,27 +22589,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -22772,7 +22772,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Torreon": {
     "zone": "MAZ",
@@ -22782,7 +22782,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -22804,27 +22804,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -22987,7 +22987,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Tuxtepec": {
     "zone": "MAZ",
@@ -22997,7 +22997,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -23019,27 +23019,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -23202,7 +23202,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Uberlandia": {
     "zone": "SAZ",
@@ -23212,12 +23212,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -23234,7 +23234,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -23242,19 +23242,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -23427,12 +23427,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -23449,7 +23449,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -23457,19 +23457,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -23642,12 +23642,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9484,
+            "frac": 0.9692,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -23664,27 +23664,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -23832,7 +23832,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9531,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -23854,27 +23854,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.8033,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.622,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.35,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -23962,22 +23962,22 @@
       },
       "SF": null
     },
-    "score": 2
+    "score": 1
   },
   "Williamsburg": {
     "zone": "NAZ",
     "domains": {
       "BP": {
-        "score": 0,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.5681,
-            "pass": false
+            "frac": 0.9385,
+            "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -23994,27 +23994,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.3293,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -24127,34 +24127,34 @@
       },
       "SF": null
     },
-    "score": 0
+    "score": 1
   },
   "Wugang": {
     "zone": "APAC",
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -24274,27 +24274,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -24442,12 +24442,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9484,
+            "frac": 0.9692,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -24464,27 +24464,27 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -24629,27 +24629,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -24744,27 +24744,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -24887,12 +24887,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -24909,7 +24909,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -24917,19 +24917,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -25102,7 +25102,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -25124,27 +25124,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -25307,7 +25307,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Zacatecas": {
     "zone": "MAZ",
@@ -25317,7 +25317,7 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.9482,
+            "frac": 1.0,
             "pass": true
           },
           "L2": {
@@ -25339,27 +25339,27 @@
         "type": "L"
       },
       "DA": {
-        "score": 4,
+        "score": 1,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.7073,
+            "frac": 0.7705,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.2561,
+            "pass": false
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.05,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -25522,7 +25522,7 @@
         "type": "L"
       }
     },
-    "score": 2
+    "score": 1
   },
   "Zarate": {
     "zone": "SAZ",
@@ -25532,12 +25532,12 @@
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.6432,
+            "frac": 0.9231,
             "pass": true
           },
           "L2": {
             "vacuous": false,
-            "frac": 0.8462,
+            "frac": 0.8605,
             "pass": true
           },
           "L3": {
@@ -25554,7 +25554,7 @@
         "type": "G"
       },
       "DA": {
-        "score": 4,
+        "score": 2,
         "levels": {
           "L1": {
             "vacuous": false,
@@ -25562,19 +25562,19 @@
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.8902,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
-            "pass": true
+            "frac": 0.8,
+            "pass": false
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "G"
@@ -25744,27 +25744,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
@@ -25884,27 +25884,27 @@
     "domains": {
       "BP": null,
       "DA": {
-        "score": 4,
+        "score": 3,
         "levels": {
           "L1": {
             "vacuous": false,
-            "frac": 0.8049,
+            "frac": 0.8689,
             "pass": true
           },
           "L2": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.7561,
+            "pass": true
           },
           "L3": {
             "vacuous": false,
-            "frac": 1.0,
+            "frac": 0.85,
             "pass": true
           },
           "L4": {
-            "vacuous": true,
-            "pass": true,
-            "frac": null
+            "vacuous": false,
+            "frac": 0.0,
+            "pass": false
           }
         },
         "type": "L"
