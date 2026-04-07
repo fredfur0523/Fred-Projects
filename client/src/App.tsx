@@ -9609,6 +9609,12 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                 !(cap.coveredBy as string[]).some((k:string) => allLegacyKeySet.has(k))
               );
               const legacyExtraCaps = lReadyCaps.filter(({cap}) => !gReadyLocal(cap));
+              // NOT READY globally, but legacy already covers — "legacy ahead of global"
+              const legacyAheadCaps = allCaps.filter(({cap}) =>
+                cap.status==='NOT READY' &&
+                (cap.coveredBy as string[]).some((k:string) => allLegacyKeySet.has(k)) &&
+                !(cap.coveredBy as string[]).some((k:string) => gk.has(k))
+              );
 
               // ── GPI (Global Parity Index) ──────────────────────────────────────────────
               const sitesWithDom = [...gSites, ...lSites];
@@ -9914,11 +9920,35 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                                 {lang==='pt'?'Zona cobre, Global ainda não entrega':'Zone covers — global gap'}
                               </div>
                               <div className={'text-[9px] '+(dark?'text-amber-500':'text-amber-600')}>
-                                {legacyExtraCaps.length} N4s · {lang==='pt'?'atenção na migração':'watch during migration'}
+                                {legacyExtraCaps.length+legacyAheadCaps.length} N4s · {lang==='pt'?'atenção na migração':'watch during migration'}
                               </div>
                             </div>
                           </div>
-                          {renderCapList(legacyExtraCaps, 'gap_l', '#F59E0B', false)}
+                          {legacyExtraCaps.length > 0 && (
+                            <>
+                              <div className={'px-3 pt-2 pb-0.5'}>
+                                <span className={'text-[9px] font-bold uppercase tracking-wider '+(dark?'text-amber-400':'text-amber-600')}>
+                                  {lang==='pt'?`READY no legado (${legacyExtraCaps.length})`:`READY in legacy (${legacyExtraCaps.length})`}
+                                </span>
+                              </div>
+                              {renderCapList(legacyExtraCaps, 'gap_l', '#F59E0B', false)}
+                            </>
+                          )}
+                          {legacyAheadCaps.length > 0 && (
+                            <>
+                              <div className={'px-3 pt-2 pb-0.5'}>
+                                <span className={'text-[9px] font-bold uppercase tracking-wider '+(dark?'text-orange-400':'text-orange-600')}>
+                                  {lang==='pt'?`Global ainda não tem (${legacyAheadCaps.length})`:`Not yet in global (${legacyAheadCaps.length})`}
+                                </span>
+                              </div>
+                              {renderCapList(legacyAheadCaps, 'gap_la', '#EA580C', false)}
+                            </>
+                          )}
+                          {legacyExtraCaps.length===0 && legacyAheadCaps.length===0 && (
+                            <div className={'px-3 py-3 text-[10px] italic '+(dark?'text-gray-500':'text-gray-400')}>
+                              {lang==='pt'?'Nenhuma cap. exclusiva do legado identificada':'No legacy-exclusive capabilities identified'}
+                            </div>
+                          )}
                         </div>
                       </div>
                     );
@@ -9932,8 +9962,8 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
 
             <p className={'text-[10px] italic ' + sub}>
               {lang==='pt'
-                ? '🌐 Global = produto padrão ABI ativo naquele site. ⬡ Legado = produto local/anterior. Gap = N4s que o portfólio global entrega (READY) mas o legado não cobre.'
-                : '🌐 Global = ABI standard product active at that site. ⬡ Legacy = local/previous product. Gap = N4s that global portfolio delivers (READY) but legacy does not cover.'}
+                ? '🌐 Global = produto padrão ABI ativo naquele site. ⬡ Legado = produto local/anterior. Gap = N4s READY no global mas não no legado. "Zona cobre" = N4s READY no legado mas não no global + N4s que o legado já tem mas o global ainda não construiu (NOT READY).'
+                : '🌐 Global = ABI standard product active at that site. ⬡ Legacy = local/previous product. Gap = N4s READY in global but not in legacy. "Zone covers" = N4s READY in legacy but not global + N4s legacy already has but global hasn\'t built yet (NOT READY).'}
             </p>
           </div>
         )}
