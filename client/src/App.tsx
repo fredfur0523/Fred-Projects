@@ -9183,7 +9183,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                 MG: new Set(['acadia','eureka','gops & toolkits','ial','kpi-pi','splan']),
                 MDM: new Set(['soda mdm']),
                 PP: new Set(['lms','production order']),
-                QL: new Set(['process hygiene','production order','pts execution','pts management']),
+                QL: new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains']),
                 SF: new Set(['guardian']),
                 UT: new Set(['ums']),
               };
@@ -9195,6 +9195,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                 'soda mdm':'SODA MDM',
                 'lms':'LMS',
                 'process hygiene':'Process Hygiene','pts execution':'PTS Execution','pts management':'PTS Management',
+                'pts portal':'PTS Portal','sensory one':'Sensory One','tracegains':'TraceGains',
                 'guardian':'Guardian','ums':'UMS',
               };
               // Zone filter
@@ -9332,7 +9333,148 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                       })}
                     </div>
                     <p className={'text-[10px] ' + sub}>{lang==='pt'?'Clique em um domínio para detalhar':'Click a domain to drill down'} · {lang==='pt'?'Delta vs média global do domínio':'Delta vs domain global average'}</p>
-                  </div>
+
+                  {/* ── Global Portfolio Coverage Matrix 9×6 ─────────────────── */}
+                  {(() => {
+                    const ALL_DOMS = ['BP','DA','MT','MG','MDM','PP','QL','SF','UT'];
+                    const ACTIVE_DOMS = ALL_DOMS.filter(d => d !== 'UT');
+                    // Precompute per-domain global-ready caps
+                    const domGlobalCaps: Record<string,{gate:string;cap:any}[]> = {};
+                    ACTIVE_DOMS.forEach(dom => {
+                      const gkD = GK_LOCAL[dom] ?? new Set<string>();
+                      const caps: {gate:string;cap:any}[] = [];
+                      ['L1','L2','L3','L4'].forEach(gate =>
+                        Object.values(((CAPABILITY_DETAIL as any)[dom]??{})[gate]??{}).forEach((cap:any) => caps.push({gate,cap}))
+                      );
+                      domGlobalCaps[dom] = caps.filter(({cap}) =>
+                        gkD.size === 0 || (cap.coveredBy as string[]).some((k:string) => gkD.has(k))
+                      );
+                    });
+                    // Precompute per-domain per-zone cell data
+                    type CellData = { total:number; gCount:number; lCount:number; gFrac:number; gCov:number; lCov:number; intersect:number };
+                    const matrix: Record<string,Record<string,CellData>> = {};
+                    ACTIVE_DOMS.forEach(dom => {
+                      matrix[dom] = {};
+                      const gkD = GK_LOCAL[dom] ?? new Set<string>();
+                      const gReadyCapsD = domGlobalCaps[dom];
+                      ZONE_LIST.forEach(zone => {
+                        const zs = ACTIVE_SITES.filter(s => s.zone===zone && (SITE_DOMAIN_TYPE[s.name]??{})[dom]);
+                        const zGS = zs.filter(s => (SITE_DOMAIN_TYPE[s.name]??{})[dom]==='G');
+                        const zLS = zs.filter(s => (SITE_DOMAIN_TYPE[s.name]??{})[dom]==='L');
+                        // Build zone legacy covKeys (non-global)
+                        const zLCovKeys = new Set<string>();
+                        zLS.forEach(s => {
+                          ((SITE_PRODUCT_MAP[s.name]??{})[dom]?.products ?? []).forEach((p:string) => {
+                            const lk = p.toLowerCase();
+                            if (gkD.has(lk)) return;
+                            const fromMap = (PRODUCT_TO_CAP_KEYS as Record<string,string[]>)[lk] ?? [];
+                            fromMap.forEach(k => { if (!gkD.has(k)) zLCovKeys.add(k); });
+                            if (!gkD.has(lk)) zLCovKeys.add(lk);
+                          });
+                        });
+                        // All domain caps
+                        const allCapsD: {gate:string;cap:any}[] = [];
+                        ['L1','L2','L3','L4'].forEach(gate =>
+                          Object.values(((CAPABILITY_DETAIL as any)[dom]??{})[gate]??{}).forEach((cap:any) => allCapsD.push({gate,cap}))
+                        );
+                        const lReadyCapsD = allCapsD.filter(({cap}) =>
+                          cap.status==='READY' && (cap.coveredBy as string[]).some(k => zLCovKeys.has(k))
+                        );
+                        const intersectCapsD = gReadyCapsD.filter(({cap}) =>
+                          (cap.coveredBy as string[]).some(k => zLCovKeys.has(k))
+                        );
+                        matrix[dom][zone] = {
+                          total: zs.length, gCount: zGS.length, lCount: zLS.length,
+                          gFrac: zs.length > 0 ? zGS.length/zs.length : 0,
+                          gCov: gReadyCapsD.length, lCov: lReadyCapsD.length,
+                          intersect: intersectCapsD.length,
+                        };
+                      });
+                    });
+                    // Cell renderer
+                    const renderCell = (dom: string, zone: string) => {
+                      const d = matrix[dom]?.[zone];
+                      if (!d || d.total === 0) return <span className={'text-[11px] ' + sub}>—</span>;
+                      if (d.gFrac >= 0.8) {
+                        // ✓ Covered by global
+                        return (
+                          <div className="flex flex-col items-center gap-0.5">
+                            <span style={{color:'#10B981',fontSize:16,lineHeight:1}}>✓</span>
+                            <span style={{fontSize:8,color:'#10B981'}}>{d.gCount}G/{d.total}</span>
+                          </div>
+                        );
+                      }
+                      const parityFrac = d.lCov > 0 ? d.intersect/d.lCov : (d.gCov > 0 ? 0 : null);
+                      if (parityFrac == null) {
+                        return (
+                          <div className="flex flex-col items-center gap-0.5">
+                            <span style={{fontSize:8,color:'#6B7280'}}>{d.gCount}G/{d.total}</span>
+                          </div>
+                        );
+                      }
+                      if (parityFrac >= 0.7) {
+                        // ⭕ High parity — opportunity
+                        return (
+                          <div className="flex flex-col items-center gap-0.5">
+                            <span style={{fontSize:14,lineHeight:1}}>⭕</span>
+                            <span style={{fontSize:8,color:'#F59E0B'}}>{d.intersect}/{d.lCov}</span>
+                          </div>
+                        );
+                      }
+                      // Progress indicator
+                      const pct = Math.round(parityFrac * 100);
+                      const pColor = parityFrac >= 0.5 ? '#F97316' : '#EF4444';
+                      return (
+                        <div className="flex flex-col items-center gap-0.5 w-full px-1">
+                          <span style={{fontSize:8,color:pColor,fontWeight:700}}>{d.intersect}/{d.lCov}</span>
+                          <div style={{width:'100%',height:3,background:dark?'#374151':'#E5E7EB',borderRadius:2}}>
+                            <div style={{width:`${pct}%`,height:3,background:pColor,borderRadius:2}}/>
+                          </div>
+                        </div>
+                      );
+                    };
+                    return (
+                      <div className={'rounded-xl border overflow-hidden ' + (dark?'border-gray-700':'border-gray-200')}>
+                        <div className={'px-4 py-2.5 border-b flex items-center gap-3 ' + (dark?'bg-gray-800 border-gray-700':'bg-gray-50 border-gray-200')}>
+                          <span className={'text-xs font-black uppercase tracking-wider ' + sub}>{lang==='pt'?'Cobertura do Portfólio Global por Domínio × Zona':'Global Portfolio Coverage — Domain × Zone'}</span>
+                          <div className="flex items-center gap-3 ml-auto text-[9px]">
+                            <span className="flex items-center gap-1"><span style={{color:'#10B981',fontSize:11}}>✓</span><span className={sub}>≥80% global sites</span></span>
+                            <span className="flex items-center gap-1"><span style={{fontSize:11}}>⭕</span><span className={sub}>≥70% cap parity</span></span>
+                            <span className="flex items-center gap-1"><span style={{width:8,height:3,borderRadius:1,background:'#EF4444',display:'inline-block'}}/><span className={sub}>progress X/Y caps</span></span>
+                          </div>
+                        </div>
+                        {/* Header */}
+                        <div className={'grid border-b ' + (dark?'bg-gray-800/60 border-gray-700':'bg-gray-50/80 border-gray-200')}
+                          style={{gridTemplateColumns:'60px repeat(6,1fr)'}}>
+                          <div className={'px-2 py-1.5 text-[9px] font-black uppercase ' + sub}>Dom.</div>
+                          {ZONE_LIST.map(z => (
+                            <div key={z} className="py-1.5 text-[9px] font-black text-center" style={{color:ZONE_COLORS[z]?.dot??'#6B7280'}}>{z}</div>
+                          ))}
+                        </div>
+                        {/* Domain rows */}
+                        {ALL_DOMS.map(dom => {
+                          const isUT = dom === 'UT';
+                          return (
+                            <div key={dom}
+                              className={'grid border-b ' + (dark?'border-gray-700/60':'border-gray-100')}
+                              style={{gridTemplateColumns:'60px repeat(6,1fr)', opacity: isUT ? 0.4 : 1}}>
+                              <div className={'px-2 py-2 flex items-center'}>
+                                <span className={'text-[10px] font-black px-1.5 py-0.5 rounded ' + (dark?'bg-gray-700 text-gray-200':'bg-gray-100 text-gray-600')}>{dom}</span>
+                              </div>
+                              {ZONE_LIST.map(zone => (
+                                <div key={zone} className={'py-2 flex items-center justify-center ' + (dark?'':'')}>
+                                  {isUT
+                                    ? <span className={'text-[10px] ' + sub}>—</span>
+                                    : renderCell(dom, zone)}
+                                </div>
+                              ))}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })()}
+                </div>
                 );
               }
 
@@ -9379,9 +9521,14 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
               };
 
               // ── Collect unique legacy products with per-gate coverage ─────
+              // Exclude any product whose name or resolved covKeys overlap with global keys
               const allLegacyProds: Record<string, Site[]> = {};
               lSites.forEach(s => {
                 ((SITE_PRODUCT_MAP[s.name]??{})[compareDom]?.products ?? []).forEach((p:string) => {
+                  const lk = p.toLowerCase();
+                  if (gk.has(lk)) return; // direct name match → global product
+                  const pKeys = resolveProdKeys(p);
+                  if (pKeys.some(k => gk.has(k))) return; // key match → global product
                   if (!allLegacyProds[p]) allLegacyProds[p] = [];
                   allLegacyProds[p].push(s);
                 });
@@ -9634,118 +9781,115 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                     </div>
                   </div>
 
-                  {/* ── Gap Detail: N4s global READY, zone legacy combined doesn't cover ─ */}
-                  {gapCaps.length > 0 && (
-                    <div className={'rounded-xl border overflow-hidden ' + (dark?'border-red-900/40':'border-red-200')}>
-                      <div className={'px-4 py-2.5 flex items-center gap-3 border-b ' + (dark?'bg-red-900/10 border-red-900/30':'bg-red-50/60 border-red-200')}>
-                        <span className={'text-xs font-black uppercase tracking-wider '+(dark?'text-red-400':'text-red-700')}>
-                          Δ {lang==='pt'
-                            ? `Gap: ${gapCaps.length} N4s que o Global entrega e o portfólio legado não cobre`
-                            : `Gap: ${gapCaps.length} N4s Global delivers, legacy portfolio doesn't cover`}
-                        </span>
-                        <div className="flex-1"/>
-                        {compareZoneFilter && <span className={'text-[10px] '+sub}>{compareZoneFilter}</span>}
-                      </div>
-                      <div className={'divide-y ' + (dark?'divide-gray-700/50':'divide-gray-100')}>
-                        {(['L1','L2','L3','L4'] as const).map(gate => {
-                          const gateGaps = gapCaps.filter(x => x.gate===gate);
-                          if (gateGaps.length===0) return null;
-                          const gKey = `gap_g_${gate}`;
-                          const isOpen = expandedN3s.has(gKey);
-                          const n3Map: Record<string, typeof gateGaps> = {};
-                          gateGaps.forEach(x => { const k=x.cap.n3||'—'; if(!n3Map[k]) n3Map[k]=[]; n3Map[k].push(x); });
-                          return (
-                            <div key={gate}>
-                              <button onClick={() => toggleN3(gKey)}
-                                className={'w-full flex items-center gap-3 px-4 py-2.5 text-left transition-colors ' + (dark?'hover:bg-gray-700/30':'hover:bg-gray-50')}>
-                                <span className={'text-[9px] font-black px-1.5 py-0.5 rounded flex-shrink-0'} style={{backgroundColor:gateColor[gate]+'33',color:gateColor[gate]}}>{gate}</span>
-                                <span className={'text-xs flex-1 ' + (dark?'text-gray-300':'text-gray-600')}>{gateGaps.length} {lang==='pt'?'N4s não cobertas':'N4s not covered'}</span>
-                                <span className={'text-[10px] ' + sub}>{Object.keys(n3Map).length} N3</span>
-                                <svg className={'w-3 h-3 flex-shrink-0 transition-transform ' + (isOpen?'rotate-90':'')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                  <path d="M9 5l7 7-7 7"/>
-                                </svg>
-                              </button>
-                              {isOpen && (
-                                <div className={'divide-y ' + (dark?'divide-gray-700/30':'divide-gray-100')}>
-                                  {Object.entries(n3Map).map(([n3k, items]) => {
-                                    const n3key = `gap_g_${gate}_${n3k}`;
-                                    const n3open = expandedN3s.has(n3key);
-                                    return (
-                                      <div key={n3k} className={dark?'bg-gray-800/20':'bg-gray-50/40'}>
-                                        <button onClick={() => toggleN3(n3key)}
-                                          className={'w-full flex items-center gap-2 px-6 py-1.5 text-left ' + (dark?'hover:bg-gray-700/30':'hover:bg-gray-50')}>
-                                          <span className={'text-[10px] flex-1 font-medium ' + (dark?'text-gray-300':'text-gray-600')}>{n3k}</span>
-                                          <span className={'text-[9px] ' + sub}>{items.length} N4</span>
-                                          <svg className={'w-2.5 h-2.5 flex-shrink-0 transition-transform ' + (n3open?'rotate-90':'')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                                            <path d="M9 5l7 7-7 7"/>
-                                          </svg>
-                                        </button>
-                                        {n3open && (
-                                          <div className="pl-8 pr-4 pb-2 space-y-1">
-                                            {items.map(({cap}, i) => {
-                                              const gProds = [...new Set((cap.coveredBy as string[]).filter((k:string) => gk.has(k)).map((k:string) => PROD_DISPLAY[k]??k))];
-                                              return (
-                                                <div key={i} className="flex items-start gap-1.5">
-                                                  <span className={'text-[8px] flex-shrink-0 mt-0.5 '+(dark?'text-red-400':'text-red-500')}>○</span>
-                                                  <div className="flex-1 min-w-0">
-                                                    <div className={'text-[9px] leading-tight '+(dark?'text-gray-300':'text-gray-600')}>{cap.name}</div>
-                                                    {gProds.length>0 && <div className={'text-[8px] '+(dark?'text-blue-400':'text-blue-500')}>🌐 {gProds.join(', ')}</div>}
-                                                  </div>
-                                                </div>
-                                              );
-                                            })}
-                                          </div>
-                                        )}
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              )}
-                            </div>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  )}
-                  {gapCaps.length === 0 && lSites.length > 0 && (
-                    <div className={'rounded-xl border p-4 flex items-center gap-3 '+(dark?'border-emerald-700/40 bg-emerald-900/10':'border-emerald-200 bg-emerald-50/40')}>
-                      <span className="text-2xl">✓</span>
-                      <div>
-                        <div className={'text-sm font-bold '+(dark?'text-emerald-400':'text-emerald-700')}>{lang==='pt'?'Paridade atingida!':'Parity achieved!'}</div>
-                        <div className={'text-xs ' + sub}>{lang==='pt'
-                          ? `O portfólio legado da zona cobre todas as ${gReadyCaps.length} caps READY do Global.`
-                          : `Zone legacy portfolio covers all ${gReadyCaps.length} READY capabilities of Global.`}</div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* Legacy extras: what zone legacy has READY that global doesn't */}
-                  {legacyExtraCaps.length > 0 && (
-                    <div className={'rounded-xl border overflow-hidden ' + (dark?'border-amber-900/40':'border-amber-200')}>
-                      <button className={'w-full px-4 py-2.5 flex items-center gap-3 border-b text-left ' + (dark?'bg-amber-900/10 border-amber-900/30 hover:bg-amber-900/20':'bg-amber-50/60 border-amber-200 hover:bg-amber-50')}
-                        onClick={() => toggleN3('legacy_extras')}>
-                        <span className={'text-xs font-black uppercase tracking-wider '+(dark?'text-amber-400':'text-amber-700')}>
-                          + {lang==='pt'
-                            ? `${legacyExtraCaps.length} N4s que o portfólio legado cobre e o Global ainda não entrega`
-                            : `${legacyExtraCaps.length} N4s legacy covers that Global doesn't deliver yet`}
-                        </span>
-                        <div className="flex-1"/>
-                        <svg className={'w-3 h-3 flex-shrink-0 transition-transform '+(expandedN3s.has('legacy_extras')?'rotate-90':'')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                          <path d="M9 5l7 7-7 7"/>
-                        </svg>
-                      </button>
-                      {expandedN3s.has('legacy_extras') && (
-                        <div className="p-3 space-y-1">
-                          {legacyExtraCaps.map(({gate,cap},i) => (
-                            <div key={i} className="flex items-start gap-1.5">
-                              <span className={'text-[9px] px-1 py-0 rounded font-bold flex-shrink-0'} style={{backgroundColor:gateColor[gate]+'33',color:gateColor[gate]}}>{gate}</span>
-                              <div className={'text-[9px] leading-tight flex-1 '+(dark?'text-gray-300':'text-gray-600')}>{cap.name}</div>
-                            </div>
-                          ))}
+                  {/* ── Side-by-side GAP tables ─────────────────────────────────────────── */}
+                  {(() => {
+                    // Helper: render a N3-grouped expandable list of caps
+                    const renderCapList = (
+                      caps: {gate:string;cap:any}[],
+                      prefix: string,
+                      dotColor: string,
+                      showGlobalTag: boolean,
+                    ) => {
+                      if (caps.length === 0) return (
+                        <div className={'text-xs p-3 text-center ' + sub}>
+                          {lang==='pt'?'Nenhuma capability nesta categoria.':'No capabilities in this category.'}
                         </div>
-                      )}
-                    </div>
-                  )}
+                      );
+                      return (
+                        <div className={'divide-y ' + (dark?'divide-gray-700/40':'divide-gray-100')}>
+                          {(['L1','L2','L3','L4'] as const).map(gate => {
+                            const items = caps.filter(x => x.gate===gate);
+                            if (items.length===0) return null;
+                            const gKey = `${prefix}_${gate}`;
+                            const isOpen = expandedN3s.has(gKey);
+                            const n3Map: Record<string,typeof items> = {};
+                            items.forEach(x => { const k=x.cap.n3||'—'; if(!n3Map[k]) n3Map[k]=[]; n3Map[k].push(x); });
+                            return (
+                              <div key={gate}>
+                                <button onClick={() => toggleN3(gKey)}
+                                  className={'w-full flex items-center gap-2 px-3 py-2 text-left ' + (dark?'hover:bg-gray-700/20':'hover:bg-gray-50')}>
+                                  <span className={'text-[9px] font-black px-1 py-0.5 rounded flex-shrink-0'} style={{backgroundColor:gateColor[gate]+'33',color:gateColor[gate]}}>{gate}</span>
+                                  <span className={'text-[10px] flex-1 font-semibold ' + (dark?'text-gray-300':'text-gray-700')}>{items.length} N4s · {Object.keys(n3Map).length} N3</span>
+                                  <svg className={'w-2.5 h-2.5 flex-shrink-0 transition-transform ' + (isOpen?'rotate-90':'')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path d="M9 5l7 7-7 7"/></svg>
+                                </button>
+                                {isOpen && (
+                                  <div className={'space-y-0 ' + (dark?'bg-gray-800/20':'bg-gray-50/50')}>
+                                    {Object.entries(n3Map).map(([n3k, n3items]) => {
+                                      const n3key = `${prefix}_${gate}_${n3k}`;
+                                      const n3open = expandedN3s.has(n3key);
+                                      return (
+                                        <div key={n3k}>
+                                          <button onClick={() => toggleN3(n3key)}
+                                            className={'w-full flex items-center gap-2 pl-5 pr-3 py-1.5 text-left ' + (dark?'hover:bg-gray-700/20':'hover:bg-gray-100/60')}>
+                                            <span style={{color:dotColor}} className="text-[10px] flex-shrink-0">▸</span>
+                                            <span className={'text-[10px] flex-1 font-medium ' + (dark?'text-gray-300':'text-gray-600')}>{n3k}</span>
+                                            <span className={'text-[9px] ' + sub}>{n3items.length}</span>
+                                            <svg className={'w-2 h-2 flex-shrink-0 transition-transform ' + (n3open?'rotate-90':'')} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path d="M9 5l7 7-7 7"/></svg>
+                                          </button>
+                                          {n3open && (
+                                            <div className="pl-8 pr-3 pb-2 space-y-0.5">
+                                              {n3items.map(({cap}, i) => {
+                                                const prodTags = showGlobalTag
+                                                  ? [...new Set((cap.coveredBy as string[]).filter((k:string)=>gk.has(k)).map((k:string)=>PROD_DISPLAY[k]??k))]
+                                                  : [];
+                                                return (
+                                                  <div key={i} className="flex items-start gap-1">
+                                                    <span style={{color:dotColor}} className="text-[8px] flex-shrink-0 mt-0.5">●</span>
+                                                    <div className="flex-1 min-w-0">
+                                                      <div className={'text-[9px] leading-snug ' + (dark?'text-gray-300':'text-gray-600')}>{cap.name}</div>
+                                                      {prodTags.length>0 && <div className={'text-[8px] '+(dark?'text-blue-400':'text-blue-500')}>🌐 {prodTags.join(', ')}</div>}
+                                                    </div>
+                                                  </div>
+                                                );
+                                              })}
+                                            </div>
+                                          )}
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      );
+                    };
+                    return (
+                      <div className="grid grid-cols-2 gap-3">
+                        {/* ── Left: Global has, zone doesn't (green) ── */}
+                        <div className={'rounded-xl border overflow-hidden ' + (dark?'border-emerald-900/40':'border-emerald-200')}>
+                          <div className={'px-3 py-2 border-b flex items-center gap-2 ' + (dark?'bg-emerald-900/10 border-emerald-900/30':'bg-emerald-50/70 border-emerald-200')}>
+                            <span className="text-base">✅</span>
+                            <div>
+                              <div className={'text-[10px] font-black uppercase tracking-wider '+(dark?'text-emerald-400':'text-emerald-700')}>
+                                {lang==='pt'?'Global entrega, zona não cobre':'Global delivers — zone gap'}
+                              </div>
+                              <div className={'text-[9px] '+(dark?'text-emerald-500':'text-emerald-600')}>
+                                {gapCaps.length} N4s · {lang==='pt'?'oportunidade de adoção':'adoption opportunity'}
+                              </div>
+                            </div>
+                          </div>
+                          {renderCapList(gapCaps, 'gap_g', '#10B981', true)}
+                        </div>
+                        {/* ── Right: Zone has, global doesn't (amber) ── */}
+                        <div className={'rounded-xl border overflow-hidden ' + (dark?'border-amber-900/40':'border-amber-200')}>
+                          <div className={'px-3 py-2 border-b flex items-center gap-2 ' + (dark?'bg-amber-900/10 border-amber-900/30':'bg-amber-50/70 border-amber-200')}>
+                            <span className="text-base">⚠️</span>
+                            <div>
+                              <div className={'text-[10px] font-black uppercase tracking-wider '+(dark?'text-amber-400':'text-amber-700')}>
+                                {lang==='pt'?'Zona cobre, Global ainda não entrega':'Zone covers — global gap'}
+                              </div>
+                              <div className={'text-[9px] '+(dark?'text-amber-500':'text-amber-600')}>
+                                {legacyExtraCaps.length} N4s · {lang==='pt'?'atenção na migração':'watch during migration'}
+                              </div>
+                            </div>
+                          </div>
+                          {renderCapList(legacyExtraCaps, 'gap_l', '#F59E0B', false)}
+                        </div>
+                      </div>
+                    );
+                  })()}
 
                 </div>
               );
@@ -10144,7 +10288,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
             MG:  new Set(['acadia','eureka','gops & toolkits','ial','kpi-pi','splan']),
             MDM: new Set(['soda mdm']),
             PP:  new Set(['lms','production order']),
-            QL:  new Set(['process hygiene','production order','pts execution','pts management']),
+            QL:  new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains']),
             SF:  new Set(['guardian']),
             UT:  new Set(['ums']),
           };
@@ -10952,7 +11096,7 @@ const MethodologyView: React.FC<{dark:boolean;lang:string;t:T}> = ({dark,lang,t}
           MG:  new Set(['acadia','eureka','gops & toolkits','ial','kpi-pi','splan']),
           MDM: new Set(['soda mdm']),
           PP:  new Set(['lms','production order']),
-          QL:  new Set(['process hygiene','production order','pts execution','pts management']),
+          QL:  new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains']),
           SF:  new Set(['guardian']),
           UT:  new Set(['ums']),
         };
@@ -10972,6 +11116,7 @@ const MethodologyView: React.FC<{dark:boolean;lang:string;t:T}> = ({dark,lang,t}
           'soda mdm':'SODA MDM',
           'lms':'LMS',
           'process hygiene':'Process Hygiene', 'pts execution':'PTS Execution', 'pts management':'PTS Management',
+          'pts portal':'PTS Portal', 'sensory one':'Sensory One', 'tracegains':'TraceGains',
           'guardian':'Guardian', 'ums':'UMS',
         };
 
