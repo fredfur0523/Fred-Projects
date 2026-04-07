@@ -9594,9 +9594,11 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
               };
 
               // ── DOMAIN-LEVEL COMPARISON: UNION of all zone legacy products ────────────
+              // Exclude global keys (same logic as zLCovKeys in 9×6 matrix) so that
+              // products like SAZ-LMS (PTCK→['lms']) don't inflate legacy coverage to 100%.
               const allLegacyKeySet = new Set<string>();
               legacyProductsSorted.forEach(([prod]) => {
-                resolveProdKeys(prod).forEach(k => allLegacyKeySet.add(k));
+                resolveProdKeys(prod).forEach(k => { if (!gk.has(k)) allLegacyKeySet.add(k); });
               });
               const lReadyCaps = allCaps.filter(({cap}) =>
                 cap.status==='READY' && (cap.coveredBy as string[]).some((k:string) => allLegacyKeySet.has(k))
