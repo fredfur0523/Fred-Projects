@@ -9830,6 +9830,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                       prefix: string,
                       dotColor: string,
                       showGlobalTag: boolean,
+                      showPlanned = false,
                     ) => {
                       if (caps.length === 0) return (
                         <div className={'text-xs p-3 text-center ' + sub}>
@@ -9873,11 +9874,21 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                                                 const prodTags = showGlobalTag
                                                   ? [...new Set((cap.coveredBy as string[]).filter((k:string)=>gk.has(k)).map((k:string)=>PROD_DISPLAY[k]??k))]
                                                   : [];
+                                                const planLabel = showPlanned && cap.plannedYear
+                                                  ? (cap.plannedQuarter ? `${cap.plannedYear} ${cap.plannedQuarter}` : cap.plannedYear)
+                                                  : null;
                                                 return (
                                                   <div key={i} className="flex items-start gap-1">
                                                     <span style={{color:dotColor}} className="text-[8px] flex-shrink-0 mt-0.5">●</span>
                                                     <div className="flex-1 min-w-0">
-                                                      <div className={'text-[9px] leading-snug ' + (dark?'text-gray-300':'text-gray-600')}>{cap.name}</div>
+                                                      <div className="flex items-baseline gap-1 flex-wrap">
+                                                        <span className={'text-[9px] leading-snug ' + (dark?'text-gray-300':'text-gray-600')}>{cap.name}</span>
+                                                        {planLabel && (
+                                                          <span className={'text-[8px] font-bold px-1 py-0 rounded flex-shrink-0 '+(dark?'bg-violet-900/40 text-violet-300':'bg-violet-100 text-violet-700')}>
+                                                            {planLabel}
+                                                          </span>
+                                                        )}
+                                                      </div>
                                                       {prodTags.length>0 && <div className={'text-[8px] '+(dark?'text-blue-400':'text-blue-500')}>🌐 {prodTags.join(', ')}</div>}
                                                     </div>
                                                   </div>
@@ -9911,7 +9922,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                               </div>
                             </div>
                           </div>
-                          {renderCapList(gapCaps, 'gap_g', '#10B981', true)}
+                          {renderCapList(gapCaps, 'gap_g', '#10B981', true, true)}
                         </div>
                         {/* ── Right: Zone has, global doesn't (amber) ── */}
                         <div className={'rounded-xl border overflow-hidden ' + (dark?'border-amber-900/40':'border-amber-200')}>
@@ -9943,7 +9954,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                                   {lang==='pt'?`Global ainda não tem (${legacyAheadCaps.length})`:`Not yet in global (${legacyAheadCaps.length})`}
                                 </span>
                               </div>
-                              {renderCapList(legacyAheadCaps, 'gap_la', '#EA580C', false)}
+                              {renderCapList(legacyAheadCaps, 'gap_la', '#EA580C', false, true)}
                             </>
                           )}
                           {legacyExtraCaps.length===0 && legacyAheadCaps.length===0 && (
@@ -12915,12 +12926,12 @@ tr:nth-child(even) td{background:#f8fafc}
                   const n = new Set(prev); n.has(key)?n.delete(key):n.add(key); return n;
                 });
 
-                const domData = (CAPABILITY_DETAIL as any)[capDom] as Record<string,Record<string,{name:string;subarea:string;coveredBy:string[];n1:string;n2:string;n3:string;status:string;plannedYear:string}>> ?? {};
+                const domData = (CAPABILITY_DETAIL as any)[capDom] as Record<string,Record<string,{name:string;subarea:string;coveredBy:string[];n1:string;n2:string;n3:string;status:string;plannedYear:string;plannedQuarter:string}>> ?? {};
                 const prodFilterLower = capProdFilter.toLowerCase().trim();
 
                 // Flatten entries for selected gate(s)
                 const entries = useMemo(() => {
-                  const result: {gate:string;key:string;info:{name:string;subarea:string;coveredBy:string[];n1:string;n2:string;n3:string;status:string;plannedYear:string}}[] = [];
+                  const result: {gate:string;key:string;info:{name:string;subarea:string;coveredBy:string[];n1:string;n2:string;n3:string;status:string;plannedYear:string;plannedQuarter:string}}[] = [];
                   for (const gate of ['L1','L2','L3','L4']) {
                     if (capGate !== 'All' && capGate !== gate) continue;
                     const gateData = domData[gate] ?? {};

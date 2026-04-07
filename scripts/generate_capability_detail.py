@@ -214,9 +214,11 @@ def main():
     print(f"  N2: col {col_n2} = '{headers.get(col_n2, '?')}'")
     print(f"  N3: col {col_n3} = '{headers.get(col_n3, '?')}'")
 
-    # Planned Year — fallback to col 17
-    col_planned_year = find_col("Planned Year") or find_col_containing("Planned") or 17
+    # Planned Year / Quarter — fallback to cols 17/18
+    col_planned_year = find_col("Planned Year") or 17
+    col_planned_quarter = find_col("Planned Quarter") or 18
     print(f"  Planned Year: col {col_planned_year} = '{headers.get(col_planned_year, '?')}'")
+    print(f"  Planned Quarter: col {col_planned_quarter} = '{headers.get(col_planned_quarter, '?')}'")
 
     # N4 ID — col 0
     col_n4_id = 0
@@ -291,6 +293,9 @@ def main():
         except (ValueError, TypeError):
             planned_year = ""
 
+        planned_quarter_val = ws.cell(row=row_idx, column=col_planned_quarter + 1).value
+        planned_quarter = str(planned_quarter_val).strip() if planned_quarter_val and str(planned_quarter_val).strip() not in ("None", "", "-") else ""
+
         # Gate checks
         gates: dict[str, bool] = {}
         for level, gcol in gate_cols.items():
@@ -344,6 +349,7 @@ def main():
                     "n3": n3,
                     "status": func_status,
                     "plannedYear": planned_year,
+                    "plannedQuarter": planned_quarter,
                 }
 
     print(f"\nRows processadas: {row_count}")
@@ -380,6 +386,7 @@ def main():
     lines.append("  n3: string;")
     lines.append("  status: string;")
     lines.append("  plannedYear: string;")
+    lines.append("  plannedQuarter: string;")
     lines.append("}>>> = {")
 
     for dom_code in sorted(capability_detail.keys()):
@@ -400,10 +407,11 @@ def main():
                 n3_esc = _js_str(info.get("n3", ""))
                 status_esc = _js_str(info.get("status", ""))
                 py_esc = _js_str(info.get("plannedYear", ""))
+                pq_esc = _js_str(info.get("plannedQuarter", ""))
                 lines.append(
                     f"      {_js_str(n4_key)}: "
                     f"{{name:{name_esc},subarea:{sub_esc},coveredBy:[{covered_js}],"
-                    f"n1:{n1_esc},n2:{n2_esc},n3:{n3_esc},status:{status_esc},plannedYear:{py_esc}}},"
+                    f"n1:{n1_esc},n2:{n2_esc},n3:{n3_esc},status:{status_esc},plannedYear:{py_esc},plannedQuarter:{pq_esc}}},"
                 )
             lines.append("    },")
         lines.append("  },")
