@@ -9615,6 +9615,8 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                 (cap.coveredBy as string[]).some((k:string) => allLegacyKeySet.has(k)) &&
                 !(cap.coveredBy as string[]).some((k:string) => gk.has(k))
               );
+              // Add legacy-ahead caps into the per-gate coverage bars
+              legacyAheadCaps.forEach(({gate}) => { lGateCov[gate]=(lGateCov[gate]||0)+1; });
 
               // ── GPI (Global Parity Index) ──────────────────────────────────────────────
               const sitesWithDom = [...gSites, ...lSites];
@@ -9791,7 +9793,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                               const lLv = Math.min(4,Math.floor(lAvg));
                               return <span className={'text-[10px] font-black px-1.5 py-0.5 rounded-full border flex-shrink-0'} style={{backgroundColor:levelColors[lLv]+'33',color:levelColors[lLv],borderColor:levelColors[lLv]+'66'}}>L{lLv} · {lAvg.toFixed(1)}</span>;
                             })()}
-                            <span className={'text-[9px] flex-shrink-0 ' + sub}>{lSites.length} sites · {lReadyCaps.length}/{allCaps.length} caps</span>
+                            <span className={'text-[9px] flex-shrink-0 ' + sub}>{lSites.length} sites · {lReadyCaps.length+legacyAheadCaps.length}/{allCaps.length} caps</span>
                           </div>
                           <div className="flex items-center gap-3">
                             <div className="w-20 flex-shrink-0"/>
