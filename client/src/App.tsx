@@ -9179,23 +9179,23 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
               const GK_LOCAL: Record<string, Set<string>> = {
                 BP: new Set(['brewing performance','production order']),
                 DA: new Set(['soda etl']),
-                MT: new Set(['maintenance one','max ps','max wo']),
+                MT: new Set(['maintenance one','max ps','max sp','max wo']),
                 MG: new Set(['acadia','eureka','gops & toolkits','ial','kpi-pi','splan']),
                 MDM: new Set(['soda mdm']),
                 PP: new Set(['lms','production order']),
-                QL: new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains']),
+                QL: new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains','omnia ph']),
                 SF: new Set(['guardian']),
                 UT: new Set(['ums']),
               };
               const PROD_DISPLAY: Record<string,string> = {
                 'brewing performance':'Omnia BMS','production order':'Production Orders',
                 'soda etl':'SODA ETL',
-                'maintenance one':'Maintenance One','max ps':'MAX PS','max wo':'MAX WO',
+                'maintenance one':'Maintenance One','max ps':'MAX PS','max sp':'MAX SP','max wo':'MAX WO',
                 'acadia':'Acadia','eureka':'Eureka','gops & toolkits':'GOPs & Toolkits','ial':'IAL','kpi-pi':'KPI-PI','splan':'SPlan',
                 'soda mdm':'SODA MDM',
                 'lms':'LMS',
                 'process hygiene':'Process Hygiene','pts execution':'PTS Execution','pts management':'PTS Management',
-                'pts portal':'PTS Portal','sensory one':'Sensory One','tracegains':'TraceGains',
+                'pts portal':'PTS Portal','sensory one':'Sensory One','tracegains':'TraceGains','omnia ph':'Omnia PH',
                 'guardian':'Guardian','ums':'UMS',
               };
               // Zone filter
@@ -9507,14 +9507,8 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
               allCaps.forEach(({cap}) => (cap.coveredBy as string[]).forEach(k => allCovKeysSet.add(k)));
 
               // ── Product → coveredBy key resolver ─────────────────────────
-              // Overrides for product display names that don't match coveredBy keys directly
-              const PROD_COV_OVERRIDE: Record<string,string[]> = {
-                'traksys core (core)': ['maz - traksys (core)'],
-                'traksys core (lms)': ['traksys lms'],
-              };
               const resolveProdKeys = (prodName: string): string[] => {
                 const lk = prodName.toLowerCase();
-                if (PROD_COV_OVERRIDE[lk]) return PROD_COV_OVERRIDE[lk].filter(k => allCovKeysSet.has(k));
                 if (allCovKeysSet.has(lk)) return [lk];
                 const fromMap = (PRODUCT_TO_CAP_KEYS as Record<string,string[]>)[lk] ?? [];
                 return fromMap.filter(k => allCovKeysSet.has(k));
@@ -10284,11 +10278,11 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
           const GK: Record<string, Set<string>> = {
             BP:  new Set(['brewing performance','production order']),
             DA:  new Set(['soda etl']),
-            MT:  new Set(['maintenance one','max ps','max wo']),
+            MT:  new Set(['maintenance one','max ps','max sp','max wo']),
             MG:  new Set(['acadia','eureka','gops & toolkits','ial','kpi-pi','splan']),
             MDM: new Set(['soda mdm']),
             PP:  new Set(['lms','production order']),
-            QL:  new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains']),
+            QL:  new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains','omnia ph']),
             SF:  new Set(['guardian']),
             UT:  new Set(['ums']),
           };
@@ -11092,11 +11086,11 @@ const MethodologyView: React.FC<{dark:boolean;lang:string;t:T}> = ({dark,lang,t}
         const GLOBAL_KEYS: Record<string, Set<string>> = {
           BP:  new Set(['brewing performance','production order']),
           DA:  new Set(['soda etl']),
-          MT:  new Set(['maintenance one','max ps','max wo']),
+          MT:  new Set(['maintenance one','max ps','max sp','max wo']),
           MG:  new Set(['acadia','eureka','gops & toolkits','ial','kpi-pi','splan']),
           MDM: new Set(['soda mdm']),
           PP:  new Set(['lms','production order']),
-          QL:  new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains']),
+          QL:  new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains','omnia ph']),
           SF:  new Set(['guardian']),
           UT:  new Set(['ums']),
         };
@@ -11110,13 +11104,13 @@ const MethodologyView: React.FC<{dark:boolean;lang:string;t:T}> = ({dark,lang,t}
         const GLOBAL_KEY_DISPLAY: Record<string,string> = {
           'brewing performance':'Omnia BMS', 'production order':'Production Orders',
           'soda etl':'SODA ETL',
-          'maintenance one':'Maintenance One', 'max ps':'MAX PS', 'max wo':'MAX WO',
+          'maintenance one':'Maintenance One', 'max ps':'MAX PS', 'max sp':'MAX SP', 'max wo':'MAX WO',
           'acadia':'Acadia', 'eureka':'Eureka', 'gops & toolkits':'GOPs & Toolkits',
           'ial':'IAL', 'kpi-pi':'KPI-PI', 'splan':'SPlan',
           'soda mdm':'SODA MDM',
           'lms':'LMS',
           'process hygiene':'Process Hygiene', 'pts execution':'PTS Execution', 'pts management':'PTS Management',
-          'pts portal':'PTS Portal', 'sensory one':'Sensory One', 'tracegains':'TraceGains',
+          'pts portal':'PTS Portal', 'sensory one':'Sensory One', 'tracegains':'TraceGains', 'omnia ph':'Omnia PH',
           'guardian':'Guardian', 'ums':'UMS',
         };
 
