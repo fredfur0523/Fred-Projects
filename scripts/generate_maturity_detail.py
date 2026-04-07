@@ -80,7 +80,7 @@ ZONE_LEGACY_COLS = {
     "SAZ":  ["AN","AO","AP","AQ","AR","AS","AT","AU","AV","AW"],
     "NAZ":  ["AY","AZ","BA","BB","BC","BD","BE","BF","BG","BH","BI","BJ","BK"],
     "MAZ":  ["BM","BN","BO","BP"],
-    "EUR":  ["BR","BS","BT","BU","BV","BW","BX"],
+    "EUR":  ["BS","BT","BU","BV","BW","BX"],  # BR="MAZ" é label de zona, não produto
 }
 ZONES = list(ZONE_LEGACY_COLS.keys())
 
@@ -348,17 +348,38 @@ def load_capabilities():
         }
         weight = n4_weight(n4_desc)
 
+        any_legacy = any(l_by_zone.values())
+
         key = (product, n3_group)
         raw_caps[domain_code][level][key].append({
             "n4": n4_desc,
             "g":  global_ready,
             "l_by_zone": l_by_zone,
+            "any_legacy": any_legacy,
             "w":  weight,
         })
         rows_loaded += 1
 
     wb.close()
     print(f"  {rows_loaded} N4 capabilities carregadas")
+
+    # ── Post-processing: Credit360 é produto legado global de SF ─────────────
+    # Está mapeado nas colunas AFR mas cobre TODAS as zonas que não têm Guardian.
+    # Propagar a cobertura de zona para todas as zonas no produto_zone_coverage
+    # e atualizar l_by_zone em todos os N4s de SF onde Credit360 tem marca AFR.
+    credit360_key = "AFR - Credit360"
+    if credit360_key in product_zone_coverage.get("SF", {}):
+        product_zone_coverage["SF"][credit360_key] = set(ZONES)
+        all_zones_true = {z: True for z in ZONES}
+        for lvl in raw_caps.get("SF", {}):
+            for key, n4_list in raw_caps["SF"][lvl].items():
+                prod, _ = key
+                if prod == credit360_key:
+                    for n4 in n4_list:
+                        if n4["l_by_zone"].get("AFR", False):
+                            n4["l_by_zone"] = dict(all_zones_true)
+                            n4["any_legacy"] = True
+
     return raw_caps, product_zone_coverage, all_domain_products
 
 
@@ -431,6 +452,11 @@ def analyze_domain(
         total_w_passed = 0.0
         total_w_all    = 0.0
         for (prod, n3), n4s in filtered.items():
+            # Para sites Legacy: excluir N3 groups onde nenhum produto legacy
+            # em qualquer zona cobre as N4s (features global-product-specific).
+            if site_type == "L" and not any(x["g"] or x["any_legacy"] for x in n4s):
+                continue
+
             w_avail = sum(x["w"] for x in n4s if x["g"] or x["l_by_zone"].get(zone, False))
             w_total = sum(x["w"] for x in n4s)
             n3_frac = w_avail / w_total if w_total > 0 else 0.0

@@ -792,38 +792,38 @@ export async function exportCurrentDataToExcel(
 
   // ── Sheet 1: "Guia" ──
   const instrRows: any[][] = [
-    [`COVERAGE DASHBOARD — Rollout Editável  [${ROLLOUT_SENTINEL}]`],
-    [`Gerado em: ${today}   |   ${sites.length} sites   |   ${productMeta.size} produtos`],
+    [`COVERAGE DASHBOARD — Editable Rollout  [${ROLLOUT_SENTINEL}]`],
+    [`Generated: ${today}   |   ${sites.length} sites   |   ${productMeta.size} products`],
     [''],
-    ['ABAS DESTA PLANILHA'],
-    ['  1. Guia              → Este guia de uso (você está aqui).'],
-    ['  2. Rollout           → Lista de produtos por site/domínio. ABA EDITÁVEL (colunas amarelas).'],
-    ['  3. Cobertura por Site → Scores L0-L4 por domínio para todos os sites. Somente leitura.'],
-    ['  4. Produtos          → Visão de cada produto: sites, domínios cobertos por capabilidade.'],
-    ['  5. Capabilidades     → Árvore completa de N4s por domínio e gate. Referência e análise.'],
-    ['  6. Req. por Nível    → Requerimentos de capabilidade por gate (L1/L2/L3/L4).'],
+    ['SHEETS IN THIS WORKBOOK'],
+    ['  1. Guide           → This usage guide (you are here).'],
+    ['  2. Rollout         → Product list per site/domain. EDITABLE SHEET (yellow columns).'],
+    ['  3. Site Coverage   → L0-L4 scores per domain for all sites. Read-only.'],
+    ['  4. Products        → Each product: sites, domains covered by capability.'],
+    ['  5. Capabilities    → Full N4 tree by domain and gate. Reference and analysis.'],
+    ['  6. Level Req.      → Capability requirements by gate (L1/L2/L3/L4).'],
     [''],
-    ['COMO EDITAR E REIMPORTAR (aba Rollout)'],
-    ['  Passo 1: Na aba Rollout, edite apenas as colunas com fundo AMARELO (G–J).'],
-    ['  Passo 2: Salve o arquivo Excel (.xlsx).'],
-    ['  Passo 3: Importe de volta no Coverage Dashboard. O formato é detectado automaticamente.'],
+    ['HOW TO EDIT AND RE-IMPORT (Rollout sheet)'],
+    ['  Step 1: In the Rollout sheet, edit only columns with YELLOW background (G–J).'],
+    ['  Step 2: Save the Excel file (.xlsx).'],
+    ['  Step 3: Import back into the Coverage Dashboard. Format is detected automatically.'],
     [''],
-    ['OPERAÇÕES NA ABA ROLLOUT'],
-    ['  Colunas de CHAVE (não editar): Zona | País | Site | Código | Domínio | Score Dom.'],
-    ['  Colunas EDITÁVEIS (fundo amarelo):'],
-    ['    G — Produto      → Nome exato do produto (consulte aba Produtos para lista válida).'],
-    ['    H — Tipo         → G = Global (produto padrão ABI)  |  L = Legado (produto local).'],
-    ['    I — Ativo        → Sim = produto ativo neste site  |  Não = inativo / a remover.'],
-    ['    J — Plano Rollout → Preenchimento livre: ex. "Q1 2026", "Piloto 2027". Não afeta scores.'],
+    ['ROLLOUT SHEET OPERATIONS'],
+    ['  KEY columns (do not edit): Zone | Country | Site | Code | Domain | Dom. Score'],
+    ['  EDITABLE columns (yellow background):'],
+    ['    G — Product      → Exact product name (see Products sheet for valid list).'],
+    ['    H — Type         → G = Global (AB InBev standard)  |  L = Legacy (local product).'],
+    ['    I — Active       → Yes = product active at this site  |  No = inactive / to remove.'],
+    ['    J — Rollout Plan → Free text: e.g. "Q1 2026", "Pilot 2027". Does not affect scores.'],
     [''],
-    ['  Adicionar produto : insira nova linha com as colunas de chave preenchidas + Produto + Tipo + Ativo=Sim.'],
-    ['  Remover produto   : mude a coluna Ativo para "Não". A linha será ignorada na reimportação.'],
+    ['  Add product : insert new row with key columns filled + Product + Type + Active=Yes.'],
+    ['  Remove product : change Active column to "No". Row will be ignored on re-import.'],
     [''],
-    ['REGRAS APLICADAS AO REIMPORTAR'],
-    ['  • Tipo L (Legado) prevalece sobre G (Global) no mesmo site + domínio.'],
-    ['  • Scores recalculados automaticamente via base de capabilidades (aba Capabilidades).'],
-    ['  • UT e SF excluídos do site score (dados pendentes — consulte aba Capabilidades).'],
-    ['  • SAP PM é adicionado automaticamente como MT para zonas fora de EUR.'],
+    ['RULES APPLIED ON RE-IMPORT'],
+    ['  • Type L (Legacy) takes precedence over G (Global) for same site + domain.'],
+    ['  • Scores recalculated automatically via capabilities base (Capabilities sheet).'],
+    ['  • UT and SF excluded from site score (pending data — see Capabilities sheet).'],
+    ['  • SAP PM added automatically as MT for zones outside EUR.'],
   ];
   const wsGuia = XLSX.utils.aoa_to_sheet(instrRows);
   wsGuia['!cols'] = [{ wch: 98 }];
@@ -835,14 +835,14 @@ export async function exportCurrentDataToExcel(
   if (wsGuia['A12']) wsGuia['A12'].s = S_SECTION;
   if (wsGuia['A17']) wsGuia['A17'].s = S_SECTION;
   if (wsGuia['A27']) wsGuia['A27'].s = S_SECTION;
-  XLSX.utils.book_append_sheet(wb, wsGuia, 'Guia');
+  XLSX.utils.book_append_sheet(wb, wsGuia, 'Guide');
 
   // ── Sheet 2: "Rollout" — one row per (site × domain × product) ──
-  // Cols: A=Zona B=País C=Site D=Código E=Domínio F=Score Dom. [read-only]
-  //       G=Produto H=Tipo I=Ativo J=Plano Rollout [EDITABLE]
+  // Cols: A=Zone B=Country C=Site D=Code E=Domain F=Dom. Score [read-only]
+  //       G=Product H=Type I=Active J=Rollout Plan [EDITABLE]
   const rolloutHeader = [
-    'Zona', 'País', 'Site', 'Código', 'Domínio', 'Score Dom.',
-    'Produto ← EDITAR', 'Tipo ← EDITAR', 'Ativo ← EDITAR', 'Plano Rollout ← EDITAR',
+    'Zone', 'Country', 'Site', 'Code', 'Domain', 'Dom. Score',
+    'Product ← EDIT', 'Type ← EDIT', 'Active ← EDIT', 'Rollout Plan ← EDIT',
   ];
   const rolloutRows: any[][] = [rolloutHeader];
   const rolloutScores: number[] = []; // score per data row (excluding header)
@@ -854,11 +854,11 @@ export async function exportCurrentDataToExcel(
       const domScore = (entry?.score ?? 0);
       if (entry && entry.products.length > 0) {
         for (const prod of entry.products) {
-          rolloutRows.push([site.zone, site.country, site.name, d, DOM_FULL[d], domScore, prod, entry.type, 'Sim', '']);
+          rolloutRows.push([site.zone, site.country, site.name, d, DOM_FULL[d], domScore, prod, entry.type, 'Yes', '']);
           rolloutScores.push(domScore);
         }
       } else {
-        rolloutRows.push([site.zone, site.country, site.name, d, DOM_FULL[d], domScore, '', '', 'Não', '']);
+        rolloutRows.push([site.zone, site.country, site.name, d, DOM_FULL[d], domScore, '', '', 'No', '']);
         rolloutScores.push(domScore);
       }
     }
@@ -899,10 +899,10 @@ export async function exportCurrentDataToExcel(
   // Cell comments on editable headers
   if (!wsRollout['!comments']) wsRollout['!comments'] = [];
   wsRollout['!comments'].push(
-    { ref: 'G1', comment: { author: 'Dashboard', t: 'Insira o nome exato do produto.\nConsulte a aba "Produtos" para a lista de produtos válidos.' } },
-    { ref: 'H1', comment: { author: 'Dashboard', t: 'G = Global (produto padrão AB InBev)\nL = Legado (produto local ou legado)' } },
-    { ref: 'I1', comment: { author: 'Dashboard', t: 'Sim = produto ativo neste site\nNão = produto inativo / a remover na reimportação' } },
-    { ref: 'J1', comment: { author: 'Dashboard', t: 'Plano de rollout — preenchimento livre.\nExemplos: "Q1 2026", "Piloto 2027", "2026".\nEste campo não afeta o cálculo de scores.' } },
+    { ref: 'G1', comment: { author: 'Dashboard', t: 'Enter the exact product name.\nSee the "Products" sheet for the valid product list.' } },
+    { ref: 'H1', comment: { author: 'Dashboard', t: 'G = Global (AB InBev standard product)\nL = Legacy (local or legacy product)' } },
+    { ref: 'I1', comment: { author: 'Dashboard', t: 'Yes = product active at this site\nNo = product inactive / to remove on re-import' } },
+    { ref: 'J1', comment: { author: 'Dashboard', t: 'Rollout plan — free text.\nExamples: "Q1 2026", "Pilot 2027", "2026".\nThis field does not affect score calculation.' } },
   );
 
   XLSX.utils.book_append_sheet(wb, wsRollout, 'Rollout');
@@ -922,7 +922,7 @@ export async function exportCurrentDataToExcel(
   ];
   const COV_SITE_SCORE_KEY = 'Total Global';
 
-  const covHeader = ['Zona', 'País', 'Site', 'Score', ...COV_SCORE_KEYS.map(([k]) => k)];
+  const covHeader = ['Zone', 'Country', 'Site', 'Score', ...COV_SCORE_KEYS.map(([k]) => k)];
   const covSites = [...sites].sort((a, b) =>
     a.zone.localeCompare(b.zone) || (b.scores[COV_SITE_SCORE_KEY] ?? 0) - (a.scores[COV_SITE_SCORE_KEY] ?? 0) || a.name.localeCompare(b.name)
   );
@@ -973,12 +973,12 @@ export async function exportCurrentDataToExcel(
     }
   }
 
-  XLSX.utils.book_append_sheet(wb, wsCov, 'Cobertura por Site');
+  XLSX.utils.book_append_sheet(wb, wsCov, 'Site Coverage');
 
   // ── Sheet 4: "Produtos" ──
   const prodRows: any[][] = [
-    ['Produto', 'Tipo', 'Zona', 'País', 'Site', 'Dom. Atribuído', 'Dom. Cobertos (cap)', 'Detalhes de Cobertura de Capabilidades'],
-    ['', '(G=Global, L=Legado)', '', '', '', '', '(via base de capabilidades)', '(gate: cobertas/total)'],
+    ['Product', 'Type', 'Zone', 'Country', 'Site', 'Assigned Dom.', 'Covered Dom. (cap)', 'Capability Coverage Details'],
+    ['', '(G=Global, L=Legacy)', '', '', '', '', '(via capability base)', '(gate: covered/total)'],
   ];
 
   const sortedProducts = [...productMeta.entries()].sort((a, b) => b[1].sites.size - a[1].sites.size);
@@ -1021,12 +1021,12 @@ export async function exportCurrentDataToExcel(
     else if (typeVal === 'L') styleCell(wsProd, `B${i}`, S_TYPE_L);
   }
 
-  XLSX.utils.book_append_sheet(wb, wsProd, 'Produtos');
+  XLSX.utils.book_append_sheet(wb, wsProd, 'Products');
 
   // ── Sheet 5: "Capabilidades" ──
   type CapEntryFull = { name: string; subarea: string; coveredBy: string[]; n1: string; n2: string; n3: string; status: string; plannedYear: string };
   const capRows: any[][] = [
-    ['Domínio', 'Gate', 'Subárea', 'ID (N4)', 'Funcionalidade (N4)', 'N1 — Processo', 'N2 — Eventos/Comportamento', 'N3 — Necessidade', 'Status', 'Ano Previsto', 'Coberto por (cap_keys)'],
+    ['Domain', 'Gate', 'Subarea', 'ID (N4)', 'Functionality (N4)', 'N1 — Process', 'N2 — Events/Behavior', 'N3 — Need', 'Status', 'Planned Year', 'Covered by (cap_keys)'],
   ];
 
   for (const [dom, gateMap] of Object.entries(CAPABILITY_DETAIL).sort()) {
@@ -1065,13 +1065,13 @@ export async function exportCurrentDataToExcel(
     }
   }
 
-  XLSX.utils.book_append_sheet(wb, wsCap, 'Capabilidades');
+  XLSX.utils.book_append_sheet(wb, wsCap, 'Capabilities');
 
   // ── Sheet 6: "Req. por Nível" ──
   const reqRows: any[][] = [];
 
-  reqRows.push(['RESUMO — Requerimentos por Gate (N4s: READY / Total)']);
-  reqRows.push(['Domínio', 'L1 Total', 'L1 READY', 'L1 %', 'L2 Total', 'L2 READY', 'L2 %', 'L3 Total', 'L3 READY', 'L3 %', 'L4 Total', 'L4 READY', 'L4 %', 'Threshold']);
+  reqRows.push(['SUMMARY — Requirements by Gate (N4s: READY / Total)']);
+  reqRows.push(['Domain', 'L1 Total', 'L1 READY', 'L1 %', 'L2 Total', 'L2 READY', 'L2 %', 'L3 Total', 'L3 READY', 'L3 %', 'L4 Total', 'L4 READY', 'L4 %', 'Threshold']);
   for (const [dom, gateMap] of Object.entries(CAPABILITY_DETAIL).sort()) {
     const row: any[] = [dom];
     for (const gate of ['L1', 'L2', 'L3', 'L4']) {
@@ -1086,16 +1086,16 @@ export async function exportCurrentDataToExcel(
     reqRows.push(row);
   }
   reqRows.push([]);
-  reqRows.push(['NOTA: Para atingir um gate (L1→L4), o site precisa que ≥70% das N4s desse gate estejam cobertos pelos produtos instalados.']);
-  reqRows.push(['O site score é o gate mínimo atingido em todos os domínios ativos (UT e SF excluídos).']);
+  reqRows.push(['NOTE: To reach a gate (L1→L4), the site needs ≥70% of the N4s for that gate covered by installed products.']);
+  reqRows.push(['Site score = minimum gate achieved across all active domains (UT and SF excluded).']);
   reqRows.push([]);
 
   const reqSummaryEnd = reqRows.length; // track where summary ends for styling
 
   for (const gate of ['L1', 'L2', 'L3', 'L4']) {
     reqRows.push([]);
-    reqRows.push([`GATE ${gate} — Lista de Requerimentos`, '', '', '', '', '', '', '']);
-    reqRows.push(['Domínio', 'Subárea', 'ID', 'Funcionalidade (N4)', 'N1 — Processo', 'Status', 'Ano Previsto', 'Coberto por (cap_keys)']);
+    reqRows.push([`GATE ${gate} — Requirements List`, '', '', '', '', '', '', '']);
+    reqRows.push(['Domain', 'Subarea', 'ID', 'Functionality (N4)', 'N1 — Process', 'Status', 'Planned Year', 'Covered by (cap_keys)']);
     for (const [dom, gateMap] of Object.entries(CAPABILITY_DETAIL).sort()) {
       const n4Map = (gateMap as any)[gate] as Record<string, CapEntryFull> | undefined;
       if (!n4Map) continue;
@@ -1131,7 +1131,7 @@ export async function exportCurrentDataToExcel(
     const first = String(rowData[0] ?? '');
     if (first.startsWith('GATE ')) {
       for (const col of ['A','B','C','D','E','F','G','H']) styleCell(wsReq, `${col}${row}`, S_GATE_HDR);
-    } else if (first === 'Domínio') {
+    } else if (first === 'Domain') {
       for (const col of ['A','B','C','D','E','F','G','H']) styleCell(wsReq, `${col}${row}`, S_HEADER_RO);
     } else {
       // data row: color status (col F = index 5)
@@ -1141,7 +1141,7 @@ export async function exportCurrentDataToExcel(
     }
   }
 
-  XLSX.utils.book_append_sheet(wb, wsReq, 'Req. por Nível');
+  XLSX.utils.book_append_sheet(wb, wsReq, 'Level Req.');
 
   // ── Sheet 7: "Regras de Nível" — human-readable level guide ──
   // Section 1: What each level means (general concept)
@@ -1155,9 +1155,9 @@ export async function exportCurrentDataToExcel(
   wsRules['!freeze'] = { xSplit: 1, ySplit: 4 }; // freeze col A + first 4 rows
   // Apply styles
   for (const [addr, style] of RULES.styles) styleCell(wsRules, addr, style);
-  XLSX.utils.book_append_sheet(wb, wsRules, 'Regras de Nível');
+  XLSX.utils.book_append_sheet(wb, wsRules, 'Level Rules');
 
-  XLSX.writeFile(wb, `rollout_editavel_${today}.xlsx`);
+  XLSX.writeFile(wb, `coverage_rollout_${today}.xlsx`);
 }
 
 // ---------------------------------------------------------------------------
@@ -1209,12 +1209,12 @@ function buildLevelRulesSheet(): RulesSheet {
   const cols = [{ wch: 24 }, { wch: 24 }, { wch: 28 }, { wch: 28 }, { wch: 28 }, { wch: 28 }];
 
   // ── ROW 0: Main title ──
-  rows.push(['REGRAS DE NÍVEL — Guia de Maturidade Digital  |  Coverage Dashboard AB InBev', '', '', '', '', '']);
+  rows.push(['LEVEL RULES — Digital Maturity Guide  |  Coverage Dashboard AB InBev', '', '', '', '', '']);
   addMerge(0, 0, 0, 5);
   addStyle('A', 0, S_TITLE_MAIN);
 
   // ── ROW 1: Subtitle ──
-  rows.push(['Este guia explica em linguagem de negócio o que cada nível significa e o que é necessário para avançar. Use em conjunto com a aba "Rollout" para planejar a evolução de cada site.', '', '', '', '', '']);
+  rows.push(['This guide explains in business language what each level means and what is needed to advance. Use together with the "Rollout" sheet to plan the evolution of each site.', '', '', '', '', '']);
   addMerge(1, 0, 1, 5);
   addStyle('A', 1, S_SUBTITLE);
 
@@ -1231,43 +1231,43 @@ function buildLevelRulesSheet(): RulesSheet {
   // ══════════════════════════════════════════════════════════════
   // SECTION 1: O que significa cada nível (conceito geral)
   // ══════════════════════════════════════════════════════════════
-  rows.push(['SEÇÃO 1 — O QUE SIGNIFICA CADA NÍVEL?', '', '', '', '', '']);
+  rows.push(['SECTION 1 — WHAT DOES EACH LEVEL MEAN?', '', '', '', '', '']);
   const sec1Row = rows.length - 1;
   addMerge(sec1Row, 0, sec1Row, 5);
   addStyle('A', sec1Row, S_SECTION_HDR);
 
   const generalDefs: [string, string, string, string, string, string][] = [
     [
-      'Situação do site',
-      'Nenhum sistema digital cobre as operações principais. Dados em papel ou planilhas isoladas.',
-      'Pelo menos um sistema digital está em operação cobrindo as funções essenciais de cada domínio.',
-      'Sistemas integrados e conectados. Dados fluem entre sistemas sem intervenção manual.',
-      'Dados analisados automaticamente. O sistema detecta padrões, alerta desvios e sugere ações.',
-      'Processos autônomos. O sistema decide e age com mínima intervenção humana.',
+      'Site situation',
+      'No digital system covers core operations. Data on paper or isolated spreadsheets.',
+      'At least one digital system is operational covering essential functions of each domain.',
+      'Integrated and connected systems. Data flows between systems without manual intervention.',
+      'Data automatically analyzed. System detects patterns, alerts deviations and suggests actions.',
+      'Autonomous processes. System decides and acts with minimal human intervention.',
     ],
     [
-      'Exemplo prático (Brewing)',
-      'Controle de processo em papel. Receitas em cadernos. Sem rastreabilidade digital.',
-      'Sistema registra ordens de produção, parâmetros de receita e downtime de forma digital.',
-      'Sistema integra com sensores, puxa dados automaticamente e gera relatórios de performance.',
-      'Algoritmos detectam desvios antes de impactar o produto e alertam o operador em tempo real.',
-      'Sistema ajusta parâmetros automaticamente sem intervenção manual durante a brassagem.',
+      'Practical example (Brewing)',
+      'Process control on paper. Recipes in notebooks. No digital traceability.',
+      'System records production orders, recipe parameters and downtime digitally.',
+      'System integrates with sensors, pulls data automatically and generates performance reports.',
+      'Algorithms detect deviations before impacting product and alert operator in real time.',
+      'System adjusts parameters automatically without manual intervention during brewing.',
     ],
     [
-      'Impacto esperado no OSE',
-      'Base de referência (sem sistema)',
-      '+2 a +5 pp OSE vs. L0 (quando VPO controlado)',
-      '+5 a +10 pp OSE vs. L1',
-      '+10 a +15 pp OSE vs. L2 (projeção)',
-      '+15 pp+ OSE vs. L3 (projeção)',
+      'Expected OSE impact',
+      'Reference baseline (no system)',
+      '+2 to +5 pp OSE vs. L0 (when VPO controlled)',
+      '+5 to +10 pp OSE vs. L1',
+      '+10 to +15 pp OSE vs. L2 (projection)',
+      '+15 pp+ OSE vs. L3 (projection)',
     ],
     [
-      'O que precisa instalar',
+      'What needs to be installed',
       '—',
-      'Produto global ou legado cobrindo ≥70% das funcionalidades básicas (gate L1) do domínio.',
-      'Produtos cobrindo ≥70% do gate L2. Normalmente requer expansão de módulos ou integração.',
-      'Módulos avançados de analytics, modelos preditivos ou automação cobrindo ≥70% do gate L3.',
-      'Automação completa e IA operacional cobrindo ≥70% do gate L4.',
+      'Global or legacy product covering ≥70% of basic functionalities (L1 gate) of the domain.',
+      'Products covering ≥70% of L2 gate. Typically requires module expansion or integration.',
+      'Advanced analytics modules, predictive models or automation covering ≥70% of L3 gate.',
+      'Full automation and operational AI covering ≥70% of L4 gate.',
     ],
   ];
 
@@ -1282,18 +1282,18 @@ function buildLevelRulesSheet(): RulesSheet {
 
   // ── Como o score é calculado ──
   rows.push(['', '', '', '', '', '']);
-  rows.push(['COMO O SCORE DO SITE É CALCULADO', '', '', '', '', '']);
+  rows.push(['HOW THE SITE SCORE IS CALCULATED', '', '', '', '', '']);
   const calcRow = rows.length - 1;
   addMerge(calcRow, 0, calcRow, 5);
   addStyle('A', calcRow, S_SECTION_HDR);
 
   const calcRules = [
-    ['Regra 1 — Cumulativo', 'Para ser L2, o site precisa ter passado L1 primeiro. Para L3, precisa ter passado L1 e L2. O score avança gate a gate.'],
-    ['Regra 2 — Threshold 70%', 'Dentro de cada gate (L1, L2, L3, L4), o site precisa que ≥70% das funcionalidades (N4s) estejam cobertas pelos produtos instalados.'],
-    ['Regra 3 — Mínimo entre domínios', 'O score final do SITE é o menor score entre todos os domínios ativos. Se BP=L2, MT=L1, MG=L2: site score = L1 (gargalo no Maintenance).'],
-    ['Regra 4 — Domínios excluídos', 'UT (Utilities) e SF (Safety) NÃO entram no cálculo do site score. São monitorados mas não penalizam o site enquanto os dados estiverem incompletos.'],
-    ['Regra 5 — Produto global vs. legado', 'Tanto produtos Global (G) quanto Legado (L) contribuem para o score. Legado prevalece sobre Global no mesmo domínio. Ambos contam.'],
-    ['Regra 6 — Cross-domain', 'Produtos instalados em um domínio podem cobrir funcionalidades de outro. Ex: Omnia BMS instalado em BP pode cobrir N4s de DA automaticamente.'],
+    ['Rule 1 — Cumulative', 'To be L2, the site must have passed L1 first. For L3, must have passed L1 and L2. Score advances gate by gate.'],
+    ['Rule 2 — 70% Threshold', 'Within each gate (L1, L2, L3, L4), the site needs ≥70% of functionalities (N4s) covered by installed products.'],
+    ['Rule 3 — Minimum across domains', 'The final SITE score is the lowest score among all active domains. If BP=L2, MT=L1, MG=L2: site score = L1 (bottleneck in Maintenance).'],
+    ['Rule 4 — Excluded domains', 'UT (Utilities) and SF (Safety) do NOT enter site score calculation. They are monitored but do not penalize the site while data is incomplete.'],
+    ['Rule 5 — Global vs. legacy product', 'Both Global (G) and Legacy (L) products contribute to the score. Legacy takes precedence over Global in the same domain. Both count.'],
+    ['Rule 6 — Cross-domain', 'Products installed in one domain can cover functionalities in another. E.g.: Omnia BMS installed in BP can automatically cover DA N4s.'],
   ];
 
   for (const [key, val] of calcRules) {
@@ -1307,7 +1307,7 @@ function buildLevelRulesSheet(): RulesSheet {
   // ── Nota sobre L0 ──
   rows.push(['', '', '', '', '', '']);
   const noteRowIdx = rows.length;
-  rows.push(['⚠ ATENÇÃO: Muitos sites aparecem como L0 não por falta de sistema, mas porque o produto instalado ainda não está mapeado na base de capabilidades. Reporte ao time de Coverage se suspeitar disso.', '', '', '', '', '']);
+  rows.push(['⚠ NOTE: Many sites appear as L0 not due to lack of systems, but because the installed product is not yet mapped in the capability base. Report to the Coverage team if you suspect this.', '', '', '', '', '']);
   addMerge(noteRowIdx, 0, noteRowIdx, 5);
   addStyle('A', noteRowIdx, S_NOTE_ROW);
 
@@ -1315,12 +1315,12 @@ function buildLevelRulesSheet(): RulesSheet {
   // SECTION 2: Por Domínio
   // ══════════════════════════════════════════════════════════════
   rows.push(['', '', '', '', '', '']);
-  rows.push(['SEÇÃO 2 — REGRAS POR DOMÍNIO', '', '', '', '', '']);
+  rows.push(['SECTION 2 — RULES BY DOMAIN', '', '', '', '', '']);
   const sec2Row = rows.length - 1;
   addMerge(sec2Row, 0, sec2Row, 5);
   addStyle('A', sec2Row, S_SECTION_HDR);
 
-  rows.push(['Cada domínio tem suas próprias funcionalidades (N4s) por gate. Abaixo o significado de cada nível em linguagem de negócio, e o que precisa ser implementado para avançar.', '', '', '', '', '']);
+  rows.push(['Each domain has its own functionalities (N4s) per gate. Below is the meaning of each level in business language, and what needs to be implemented to advance.', '', '', '', '', '']);
   const descRow2 = rows.length - 1;
   addMerge(descRow2, 0, descRow2, 5);
   addStyle('A', descRow2, S_SUBTITLE);
@@ -1335,136 +1335,136 @@ function buildLevelRulesSheet(): RulesSheet {
     {
       code: 'BP', name: 'Brewing Performance', emoji: '🍺',
       levels: [
-        'Nenhum sistema digital para monitoramento de brassagem. Controle por papel, planilha ou sistema local sem integração.',
-        'Sistema digital registra parâmetros de receita, categoriza downtime e gerencia ordens de produção. Operador consegue abrir, editar e fechar ordens digitalmente.',
-        'Sistema integrado monitora todas as etapas da brassagem (brewhouse, fermentação, filtração, adega). Performance calculada automaticamente. Relatórios diários sem intervenção manual.',
-        'Análise preditiva identifica desvios antes que impactem o produto. Benchmarking automático entre plantas. Recomendações baseadas em dados históricos.',
-        'Ajuste automático de parâmetros durante a brassagem. Decisões de processo sem intervenção humana. Receitas auto-otimizadas.',
+        'No digital system for brewing monitoring. Control by paper, spreadsheet or local system without integration.',
+        'Digital system records recipe parameters, categorizes downtime and manages production orders. Operator can open, edit and close orders digitally.',
+        'Integrated system monitors all brewing stages (brewhouse, fermentation, filtration, cellar). Performance calculated automatically. Daily reports without manual intervention.',
+        'Predictive analysis identifies deviations before impacting product. Automatic benchmarking between plants. Recommendations based on historical data.',
+        'Automatic parameter adjustment during brewing. Process decisions without human intervention. Self-optimized recipes.',
       ],
       actions: [
-        'Instalar Omnia BMS, Traksys ou LMS configurados para sua planta. Ativar módulos de receita, categorização de downtime e gestão de ordens.',
-        'Expandir para módulos de fermentação, filtração e adega. Configurar integração com instrumentação da planta. Ativar relatórios de performance automáticos.',
-        'Ativar módulos de analytics e benchmarking. Integrar com modelos estatísticos de controle de processo (SPC). Conectar dados históricos para análise de tendências.',
-        'Implementar loops de controle automático. Integrar com sistemas de automação (PLC/SCADA) para ajuste de parâmetros sem intervenção manual.',
+        'Install Omnia BMS, Traksys or LMS configured for your plant. Activate recipe, downtime categorization and order management modules.',
+        'Expand to fermentation, filtration and cellar modules. Configure integration with plant instrumentation. Activate automatic performance reports.',
+        'Activate analytics and benchmarking modules. Integrate with statistical process control (SPC) models. Connect historical data for trend analysis.',
+        'Implement automatic control loops. Integrate with automation systems (PLC/SCADA) for parameter adjustment without manual intervention.',
       ],
       products: 'Omnia BMS · Traksys · LMS (Brew) · APAC BMS',
     },
     {
       code: 'DA', name: 'Data Acquisition', emoji: '📡',
       levels: [
-        'Dados de processo não são coletados digitalmente ou ficam isolados em sistemas sem integração.',
-        'Sistema coleta dados de processo de forma digital e os disponibiliza para consulta. Operadores conseguem visualizar dados históricos básicos.',
-        'Coleta automatizada de múltiplas fontes. Dados normalizados e disponíveis em tempo real para outros sistemas. Pipeline de dados funcional e monitorado.',
-        'Dados validados automaticamente. Anomalias detectadas e sinalizadas. Governança de dados estabelecida com rastreabilidade completa.',
-        'Ecossistema de dados totalmente autônomo. Coleta, validação e distribuição sem intervenção humana. Auto-healing de falhas de pipeline.',
+        'Process data not collected digitally or isolated in systems without integration.',
+        'System collects process data digitally and makes it available for querying. Operators can view basic historical data.',
+        'Automated collection from multiple sources. Normalized data available in real time for other systems. Functional and monitored data pipeline.',
+        'Data validated automatically. Anomalies detected and flagged. Data governance established with full traceability.',
+        'Fully autonomous data ecosystem. Collection, validation and distribution without human intervention. Auto-healing of pipeline failures.',
       ],
       actions: [
-        'Instalar SODA ETL ou BMS Connect. Configurar conectores para os equipamentos principais da planta.',
-        'Ampliar cobertura de sensores e fontes. Configurar pipeline normalizado com validação de qualidade de dados.',
-        'Implementar monitoramento de pipeline, alertas de falha e dashboards de qualidade de dados. Documentar fontes e transformações.',
-        'Configurar auto-detecção de anomalias e recuperação automática de falhas no pipeline.',
+        'Install SODA ETL or BMS Connect. Configure connectors for main plant equipment.',
+        'Expand sensor and source coverage. Configure normalized pipeline with data quality validation.',
+        'Implement pipeline monitoring, failure alerts and data quality dashboards. Document sources and transformations.',
+        'Configure auto-detection of anomalies and automatic recovery of pipeline failures.',
       ],
       products: 'SODA ETL · BMS Connect · Omnia Connect · PI System',
     },
     {
       code: 'MT', name: 'Maintenance', emoji: '🔧',
       levels: [
-        'Sem sistema de gestão de manutenção. Ordens em papel, histórico de falhas inexistente ou em planilhas.',
-        'Sistema digital para criação, aprovação e fechamento de ordens de trabalho. Histórico de manutenção registrado. Técnicos conseguem consultar equipamentos.',
-        'Planejamento de manutenção preventiva integrado. KPIs de manutenção calculados automaticamente (MTBF, MTTR, backlog). Integração com operações para coordenação.',
-        'Manutenção preditiva baseada em dados de condição. Ordens geradas automaticamente por triggers de condição. Priorização inteligente do backlog.',
-        'Manutenção autônoma. Sistema decide quando e o que manter com base em modelos de vida útil e dados operacionais em tempo real.',
+        'No maintenance management system. Orders on paper, failure history nonexistent or in spreadsheets.',
+        'Digital system for creating, approving and closing work orders. Maintenance history recorded. Technicians can query equipment.',
+        'Integrated preventive maintenance planning. KPIs calculated automatically (MTBF, MTTR, backlog). Integration with operations for coordination.',
+        'Predictive maintenance based on condition data. Orders automatically generated by condition triggers. Intelligent backlog prioritization.',
+        'Autonomous maintenance. System decides when and what to maintain based on lifecycle models and real-time operational data.',
       ],
       actions: [
-        'Implantar SAP PM, MAX WO ou similar. Configurar estrutura de equipamentos (functional locations). Treinar equipe de manutenção.',
-        'Ativar módulos de planejamento PM. Configurar KPIs e dashboards. Integrar com operações para coordenação de paradas.',
-        'Implementar sensores de condição nos equipamentos críticos. Configurar modelos de manutenção preditiva. Ativar priorização automática.',
-        'Integrar completamente com sistemas de automação e condição. Configurar loops de decisão autônoma para equipamentos estratégicos.',
+        'Deploy SAP PM, MAX WO or similar. Configure equipment structure (functional locations). Train maintenance team.',
+        'Activate PM planning modules. Configure KPIs and dashboards. Integrate with operations for shutdown coordination.',
+        'Implement condition sensors on critical equipment. Configure predictive maintenance models. Activate automatic prioritization.',
+        'Fully integrate with automation and condition systems. Configure autonomous decision loops for strategic equipment.',
       ],
       products: 'SAP PM · MAX WO · Omnia Maintenance · IBM Maximo',
     },
     {
       code: 'MG', name: 'Management', emoji: '📊',
       levels: [
-        'Rotinas de gestão em papel ou e-mail. Sem sistema de acompanhamento de ações ou performance.',
-        'Reuniões de gestão com registro digital. Ações rastreadas digitalmente com responsável e prazo. Performance básica monitorada em dashboard.',
-        'Rotinas de gestão conectadas com dados operacionais em tempo real. VPO digital integrado. Performance atualizada automaticamente sem preparação manual.',
-        'IA identifica correlações entre gestão e performance. Recomendações automáticas de foco. Benchmarking automático entre sites similares.',
-        'Gestão autônoma. Agenda de reuniões, pauta e ações priorizadas automaticamente com base em dados e benchmarks globais.',
+        'Management routines on paper or email. No system for tracking actions or performance.',
+        'Management meetings with digital records. Actions tracked digitally with owner and deadline. Basic performance monitored on dashboard.',
+        'Management routines connected with real-time operational data. Digital VPO integrated. Performance updated automatically without manual preparation.',
+        'AI identifies correlations between management and performance. Automatic focus recommendations. Automatic benchmarking between similar sites.',
+        'Autonomous management. Meeting agenda, topics and actions automatically prioritized based on data and global benchmarks.',
       ],
       actions: [
-        'Implantar Omnia Interact, One2Five ou SPlan. Configurar estrutura de reuniões e templates de ação.',
-        'Integrar com dados operacionais (OSE, downtime). Configurar dashboards de performance em tempo real.',
-        'Ativar módulos de analytics e benchmarking. Conectar com dados de múltiplos sites para comparação.',
-        'Implementar recomendações automáticas baseadas em IA. Configurar priorização inteligente de agenda.',
+        'Deploy Omnia Interact, One2Five or SPlan. Configure meeting structure and action templates.',
+        'Integrate with operational data (OSE, downtime). Configure real-time performance dashboards.',
+        'Activate analytics and benchmarking modules. Connect with data from multiple sites for comparison.',
+        'Implement AI-based automatic recommendations. Configure intelligent agenda prioritization.',
       ],
       products: 'Omnia Interact · One2Five · SPlan · InteractionLog',
     },
     {
       code: 'MDM', name: 'MasterData Management', emoji: '🗂️',
       levels: [
-        'Sem gestão centralizada de master data. Códigos de materiais, equipamentos e produtos inconsistentes entre sistemas.',
-        'Sistema centralizado de master data. Código único de materiais e equipamentos. Sincronização básica entre sistemas.',
-        'Master data integrado e sincronizado automaticamente entre todos os sistemas da planta. Mudanças propagadas sem intervenção manual.',
-        'Governança automatizada de master data. Detecção e resolução de duplicidades. Qualidade de dados monitorada continuamente.',
-        'Master data autônomo. Criação, atualização e inativação de registros sem intervenção humana baseada em regras de negócio.',
+        'No centralized master data management. Material, equipment and product codes inconsistent across systems.',
+        'Centralized master data system. Single code for materials and equipment. Basic synchronization between systems.',
+        'Master data integrated and automatically synchronized across all plant systems. Changes propagated without manual intervention.',
+        'Automated master data governance. Duplicate detection and resolution. Data quality continuously monitored.',
+        'Autonomous master data. Record creation, update and deactivation without human intervention based on business rules.',
       ],
       actions: [
-        'Instalar Omnia MDM ou SAP MDM. Criar estrutura de materiais e equipamentos padronizada.',
-        'Configurar sincronização automática com sistemas ERP e operacionais. Estabelecer processos de governança.',
-        'Implementar detecção automática de duplicidades e alertas de qualidade de dados.',
-        'Configurar workflows automáticos para ciclo de vida de master data.',
+        'Install Omnia MDM or SAP MDM. Create standardized material and equipment structure.',
+        'Configure automatic synchronization with ERP and operational systems. Establish governance processes.',
+        'Implement automatic duplicate detection and data quality alerts.',
+        'Configure automatic workflows for master data lifecycle.',
       ],
       products: 'Omnia MDM · SAP MDM · Golden Record',
     },
     {
       code: 'PP', name: 'Packaging Performance', emoji: '📦',
       levels: [
-        'Sem monitoramento digital das linhas de envase. Performance calculada manualmente ou não calculada.',
-        'Sistema registra produção e downtime das linhas de envase. OEE básico calculado. Categorização de paradas digital.',
-        'Performance de todas as linhas monitorada em tempo real. Integração com equipamentos. Relatórios automáticos por turno e dia.',
-        'Análise preditiva identifica padrões de falha nas linhas. Benchmarking automático entre linhas e plantas. Otimização de schedule sugerida.',
-        'Linhas auto-otimizadas. Sistema ajusta velocidade, planejamento de paradas e sequência de produção automaticamente.',
+        'No digital monitoring of packaging lines. Performance calculated manually or not calculated.',
+        'System records production and downtime of packaging lines. Basic OEE calculated. Digital stop categorization.',
+        'All line performance monitored in real time. Integration with equipment. Automatic reports per shift and day.',
+        'Predictive analysis identifies failure patterns on lines. Automatic benchmarking between lines and plants. Schedule optimization suggested.',
+        'Self-optimized lines. System automatically adjusts speed, stop planning and production sequence.',
       ],
       actions: [
-        'Instalar LMS, Traksys ou APAC Line View nas linhas principais. Configurar categorização de downtime.',
-        'Expandir para todas as linhas. Configurar integração com PLCs e equipamentos. Ativar cálculo automático de OEE.',
-        'Implementar analytics de padrões de falha. Conectar dados históricos para modelos preditivos.',
-        'Configurar otimização automática de parâmetros de linha com base em performance histórica.',
+        'Install LMS, Traksys or APAC Line View on main lines. Configure downtime categorization.',
+        'Expand to all lines. Configure integration with PLCs and equipment. Activate automatic OEE calculation.',
+        'Implement failure pattern analytics. Connect historical data for predictive models.',
+        'Configure automatic line parameter optimization based on historical performance.',
       ],
       products: 'LMS · Traksys · APAC Line View · Omnia Packaging',
     },
     {
       code: 'QL', name: 'Quality', emoji: '✅',
       levels: [
-        'Controle de qualidade em papel ou planilha local. Sem rastreabilidade digital do produto.',
-        'Sistema registra resultados de análises de qualidade digitalmente. Especificações armazenadas no sistema. Rastreabilidade básica do lote.',
-        'Qualidade integrada com processo. Resultados alimentam automaticamente relatórios de tendência. Não-conformidades gerenciadas digitalmente.',
-        'Análise preditiva identifica desvios de qualidade antes da liberação. Sistema sugere ações corretivas baseado em histórico.',
-        'Controle de qualidade autônomo. Decisões de liberação/rejeição automáticas com base em modelos de qualidade.',
+        'Quality control on paper or local spreadsheet. No digital product traceability.',
+        'System records quality analysis results digitally. Specifications stored in system. Basic lot traceability.',
+        'Quality integrated with process. Results automatically feed trend reports. Non-conformances managed digitally.',
+        'Predictive analysis identifies quality deviations before release. System suggests corrective actions based on history.',
+        'Autonomous quality control. Automatic release/rejection decisions based on quality models.',
       ],
       actions: [
-        'Instalar eQMS, LIMS ou Omnia Quality. Configurar especificações e planos de amostragem.',
-        'Integrar com dados de processo para correlação qualidade-processo. Configurar gerenciamento de não-conformidades.',
-        'Implementar análise de tendências e alertas preditivos de qualidade.',
-        'Configurar modelos de decisão automática para liberação de produto.',
+        'Install eQMS, LIMS or Omnia Quality. Configure specifications and sampling plans.',
+        'Integrate with process data for quality-process correlation. Configure non-conformance management.',
+        'Implement trend analysis and predictive quality alerts.',
+        'Configure automatic decision models for product release.',
       ],
       products: 'eQMS · LIMS · Omnia Quality · SAP QM',
     },
     {
       code: 'SF', name: 'Safety', emoji: '⛑️',
       levels: [
-        'Registros de segurança em papel. Sem rastreabilidade digital de incidentes ou permissões de trabalho.',
-        'Incidentes e quase-acidentes registrados digitalmente. Permissões de trabalho digitais. Treinamentos rastreados.',
-        'Sistema integrado com operações. Permissões vinculadas a ordens de manutenção. Análise de incidentes automatizada.',
-        'Análise preditiva de riscos. Sistema identifica condições de risco antes de incidentes. Recomendações proativas.',
-        'Gestão de segurança autônoma com análise de risco em tempo real e alertas automáticos para condições perigosas.',
+        'Safety records on paper. No digital traceability of incidents or work permits.',
+        'Incidents and near-misses recorded digitally. Digital work permits. Training tracked.',
+        'System integrated with operations. Permits linked to maintenance orders. Automated incident analysis.',
+        'Predictive risk analysis. System identifies risk conditions before incidents. Proactive recommendations.',
+        'Autonomous safety management with real-time risk analysis and automatic alerts for hazardous conditions.',
       ],
       actions: [
-        'Instalar Credit 360 ou Guardian. Configurar registro digital de incidentes e permissões.',
-        'Integrar com SAP PM para vincular permissões de trabalho a ordens. Configurar análise de causa raiz.',
-        'Implementar análise preditiva de risco com base em histórico de incidentes.',
-        'Configurar alertas automáticos e protocolos de resposta baseados em IA.',
+        'Install Credit 360 or Guardian. Configure digital incident and permit registration.',
+        'Integrate with SAP PM to link work permits to orders. Configure root cause analysis.',
+        'Implement predictive risk analysis based on incident history.',
+        'Configure automatic alerts and AI-based response protocols.',
       ],
       products: 'Credit 360 · Guardian · Safety One',
     },
@@ -1482,7 +1482,7 @@ function buildLevelRulesSheet(): RulesSheet {
 
     // Subheader: products
     const prodIdx = rows.length;
-    rows.push([`Produtos que contribuem para este domínio: ${dom.products}`, '', '', '', '', '']);
+    rows.push([`Products contributing to this domain: ${dom.products}`, '', '', '', '', '']);
     addMerge(prodIdx, 0, prodIdx, 5);
     addStyle('A', prodIdx, S_SUBTITLE);
 
@@ -1496,7 +1496,7 @@ function buildLevelRulesSheet(): RulesSheet {
 
     // What this level means
     const meaningIdx = rows.length;
-    rows.push(['O que significa', ...dom.levels] as any[]);
+    rows.push(['What it means', ...dom.levels] as any[]);
     addStyle('A', meaningIdx, S_RULE_KEY);
     for (const [ci, lv] of [[1,0],[2,1],[3,2],[4,3],[5,4]] as [number,number][]) {
       addStyle(colLetter(ci), meaningIdx, S_L_BODY[lv]);
@@ -1504,7 +1504,7 @@ function buildLevelRulesSheet(): RulesSheet {
 
     // Arrow row: what to do to advance
     const arrowIdx = rows.length;
-    rows.push(['Como avançar', '↑ para L1:', '↑ para L2:', '↑ para L3:', '↑ para L4:', '—']);
+    rows.push(['How to advance', '↑ to L1:', '↑ to L2:', '↑ to L3:', '↑ to L4:', '—']);
     addStyle('A', arrowIdx, S_RULE_KEY);
     for (const ci of [1, 2, 3, 4, 5]) addStyle(colLetter(ci), arrowIdx, S_ARROW);
 
@@ -1521,7 +1521,7 @@ function buildLevelRulesSheet(): RulesSheet {
   // ── Final note ──
   rows.push(['', '', '', '', '', '']);
   const finalNoteIdx = rows.length;
-  rows.push(['📌 Para ver as funcionalidades técnicas (N4s) que compõem cada gate, consulte a aba "Req. por Nível". Para o plano de rollout e produtos por site, use a aba "Rollout".', '', '', '', '', '']);
+  rows.push(['📌 To see the technical functionalities (N4s) that make up each gate, see the "Level Req." sheet. For the rollout plan and products by site, use the "Rollout" sheet.', '', '', '', '', '']);
   addMerge(finalNoteIdx, 0, finalNoteIdx, 5);
   addStyle('A', finalNoteIdx, S_NOTE_ROW);
 
@@ -1535,8 +1535,8 @@ function buildLevelRulesSheet(): RulesSheet {
 // Auto-detect: returns true if the workbook looks like an exported Rollout file.
 export function isRolloutWorkbook(workbook: any): boolean {
   if (!workbook?.SheetNames?.includes('Rollout')) return false;
-  // Accept either "Guia" (V2) or "Instruções" (V1) as the guide sheet
-  const guideSheet = workbook.Sheets['Guia'] ?? workbook.Sheets['Instruções'];
+  // Accept "Guide" (V3), "Guia" (V2) or "Instruções" (V1) as the guide sheet
+  const guideSheet = workbook.Sheets['Guide'] ?? workbook.Sheets['Guia'] ?? workbook.Sheets['Instruções'];
   if (!guideSheet) return true; // Rollout sheet alone is enough
   const XLSX = (window as any).XLSX;
   const rows: any[][] = XLSX.utils.sheet_to_json(guideSheet, { header: 1, defval: '' });
@@ -1552,12 +1552,12 @@ export function parseRolloutImport(
 ): ImportedData {
   const XLSX = (window as any).XLSX;
   const ws = workbook.Sheets['Rollout'];
-  if (!ws) throw new Error('Planilha "Rollout" não encontrada.');
+  if (!ws) throw new Error('Sheet "Rollout" not found.');
 
   const rawRows: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
-  if (rawRows.length < 2) throw new Error('Planilha "Rollout" está vazia.');
+  if (rawRows.length < 2) throw new Error('Sheet "Rollout" is empty.');
 
-  // Find column indices from header row (strip "← EDITAR" suffixes)
+  // Find column indices from header row (strip "← EDIT" / "← EDITAR" suffixes)
   const header = (rawRows[0] as any[]).map(h => String(h ?? '').trim().toLowerCase().replace(/\s*←.*$/, '').trim());
   const ci = (names: string[]) => {
     for (const n of names) { const idx = header.indexOf(n); if (idx >= 0) return idx; }
@@ -1574,7 +1574,7 @@ export function parseRolloutImport(
   const iActive  = ci(['ativo', 'active']);
 
   if (iSite < 0 || iCode < 0 || iProduct < 0) {
-    throw new Error('Colunas obrigatórias não encontradas ("Site", "Código", "Produto"). Verifique se o arquivo é um Rollout Editável válido.');
+    throw new Error('Required columns not found ("Site", "Code", "Product"). Check that the file is a valid Editable Rollout.');
   }
 
   // Parse data rows into grouped structure: site → domain → {products, type, zone, country}

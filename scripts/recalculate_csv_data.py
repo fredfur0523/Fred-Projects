@@ -107,11 +107,25 @@ def parse_app_tsx():
     reader = csv.DictReader(io.StringIO(csv_text))
     csv_rows = []
     for row in reader:
+        # Read existing domain scores and site score as fallback for sites not in MD/SPM
+        existing_domain_scores = {}
+        for dk in DOMAIN_KEYS:
+            try:
+                existing_domain_scores[dk] = int(float(row.get(dk, '0') or '0'))
+            except (ValueError, TypeError):
+                existing_domain_scores[dk] = 0
+        try:
+            existing_site_score = int(float(row.get('Score', '0') or '0'))
+        except (ValueError, TypeError):
+            existing_site_score = 0
+
         csv_rows.append({
             'zone': row.get('Zone', '').strip(),
             'site': row.get('Site', '').strip(),
             'country': row.get('Country', '').strip(),
             'volume': row.get('Volume', '0').strip(),
+            'existing_domain_scores': existing_domain_scores,
+            'existing_site_score': existing_site_score,
         })
 
     # SITE_DOMAIN_TYPE
@@ -162,25 +176,15 @@ def main():
             for dk in DOMAIN_KEYS:
                 dom = site_data.get('domains', {}).get(dk)
                 if dom is None:
-                    # Domain not evaluated — check SITE_PRODUCT_MAP for force-added score
-                    spm_site = spm_scores.get(md_key, {})
-                    spm_score = spm_site.get(dk)
-                    domain_scores[dk] = spm_score if spm_score is not None else 0
+                    # Domain not evaluated for this site — score 0 (no products in that domain)
+                    domain_scores[dk] = 0
                 else:
-                    md_score = dom.get('score') or 0
-                    # If maturity_detail score is 0 (not evaluated), check SITE_PRODUCT_MAP
-                    # for force-added product score (e.g. SAP PM in non-EUR MT)
-                    if md_score == 0:
-                        spm_site = spm_scores.get(md_key, {})
-                        spm_score = spm_site.get(dk)
-                        domain_scores[dk] = spm_score if spm_score is not None else 0
-                    else:
-                        domain_scores[dk] = md_score
+                    domain_scores[dk] = dom.get('score') or 0
 
-            # Site score = min de TODOS os domínios não-UT (incluindo L0)
-            # Regra: domínios sem produto ativo → score 0 (L0), incluídos no cálculo
-            active = [domain_scores[dk] for dk in DOMAIN_KEYS if dk not in SCORE_EXCLUDED]
-            site_score = min(active) if active else 0
+            # Site score: use pre-computed score from maturity_detail.json (authoritative).
+            # It reflects min(active domains) where "active" = domains the site actually has
+            # products for. Domains without products are excluded from min (not penalized).
+            site_score = site_data.get('score', 0)
 
             tag = 'MD'
             if site != md_key:
@@ -190,22 +194,29 @@ def main():
                 stats['from_md'] += 1
 
         else:
-            # Site sem dados de Readiness: usar scores computados do SITE_PRODUCT_MAP
+            # Site sem dados de Readiness: usar scores computados do SITE_PRODUCT_MAP;
+            # se também ausente do SPM, preservar os scores existentes do CSV_DATA.
             spm_site = spm_scores.get(md_key, {})
             domain_scores = {}
-            for dk in DOMAIN_KEYS:
-                spm_score = spm_site.get(dk)
-                domain_scores[dk] = spm_score if spm_score is not None else 0
+            has_spm_data = any(spm_site.get(dk) is not None for dk in DOMAIN_KEYS)
 
-            active = [domain_scores[dk] for dk in DOMAIN_KEYS if dk not in SCORE_EXCLUDED]
-            site_score = min(active) if active else 0
-
-            sdt_key = NAME_MAP.get(site, site)
-            if sdt_key in sdt:
+            if has_spm_data:
+                for dk in DOMAIN_KEYS:
+                    spm_score = spm_site.get(dk)
+                    domain_scores[dk] = spm_score if spm_score is not None else 0
+                active = [domain_scores[dk] for dk in DOMAIN_KEYS if dk not in SCORE_EXCLUDED]
+                site_score = min(active) if active else 0
                 tag = 'SDT'
             else:
-                tag = 'L0'
-                stats['l0_all'] += 1
+                # Preservar scores existentes do CSV para sites sem avaliação formal
+                domain_scores = row['existing_domain_scores']
+                site_score = row['existing_site_score']
+                sdt_key = NAME_MAP.get(site, site)
+                if site_score == 0 and not any(v > 0 for v in domain_scores.values()):
+                    tag = 'L0'
+                    stats['l0_all'] += 1
+                else:
+                    tag = 'PRESERVED'
 
         # Calcular Score médio (avg de TODOS domínios não-UT, incluindo L0)
         active_scores = [domain_scores[dk] for dk in DOMAIN_KEYS if dk != 'UT']
