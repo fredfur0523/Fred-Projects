@@ -1704,7 +1704,7 @@ export const CAPABILITY_DETAIL: Record<string, Record<string, Record<string, {
 // Maps Coverage product name (lowercase) → cap_coverage keys for N4 matching
 // Frontend uses this to resolve SITE_PRODUCT_MAP product names to coveredBy keys
 export const PRODUCT_TO_CAP_KEYS: Record<string, string[]> = {
-  'afr - core lms': ['traksys lms'],
+  'afr - core lms': ['traksys lms','afr - traksys'],
   'afr - credit360': ['afr - credit360'],
   'afr - digital brewsheets': ['afr - digital brewsheets'],
   'afr - digital workstation': ['afr - digital brewsheets'],
@@ -1747,7 +1747,7 @@ export const PRODUCT_TO_CAP_KEYS: Record<string, string[]> = {
   'dst': ['dst'],
   'dvpo': ['apac dvpo'],
   'ems': ['apac ems'],
-  'eur - lms': ['traksys lms'],
+  'eur - lms': ['traksys lms','eur'],
   'eur - powerapps packaging(dws)': ['digital operator workstation'],
   'eur - sap pm': ['eur - sap pm'],
   'eur - sigma': ['sigma'],
@@ -1762,12 +1762,13 @@ export const PRODUCT_TO_CAP_KEYS: Record<string, string[]> = {
   'lms full 2.0': ['lms'],
   'max sp': ['max ps'],
   'maz - digital workstation': ['digital operator workstation'],
-  'maz - lms': ['maz - traksys (core)'],
+  'maz - lms': ['maz - traksys (core)','maz','maz - suite 360'],
   'maz - safety 360': ['safety portal'],
   'maz - sap pm': ['maz - sap pm'],
   'mes athena': ['athena'],
   'mmis': ['afr - mmis'],
   'naz - bpa': ['bpa'],
+  'naz - infor': ['naz'],
   'naz - flex': ['flex'],
   'naz - ims': ['ims'],
   'naz - lims': ['lims'],
@@ -1794,5 +1795,5 @@ export const PRODUCT_TO_CAP_KEYS: Record<string, string[]> = {
   'soda vision': ['soda vision'],
   'traksys': ['afr - traksys'],
   'traksys core (core)': ['afr - traksys','maz - traksys (core)'],
-  'traksys core (lms)': ['traksys lms'],
+  'traksys core (lms)': ['traksys lms','afr - traksys','maz - traksys (core)'],
 };

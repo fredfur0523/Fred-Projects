@@ -9361,10 +9361,15 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                         const zs = ACTIVE_SITES.filter(s => s.zone===zone && (SITE_DOMAIN_TYPE[s.name]??{})[dom]);
                         const zGS = zs.filter(s => (SITE_DOMAIN_TYPE[s.name]??{})[dom]==='G');
                         const zLS = zs.filter(s => (SITE_DOMAIN_TYPE[s.name]??{})[dom]==='L');
-                        // Build zone legacy covKeys (non-global)
+                        // Build zone legacy covKeys (non-global) — cross-domain: all products at site
                         const zLCovKeys = new Set<string>();
                         zLS.forEach(s => {
-                          ((SITE_PRODUCT_MAP[s.name]??{})[dom]?.products ?? []).forEach((p:string) => {
+                          const siteMD = (SITE_PRODUCT_MAP[s.name] ?? {}) as Record<string, any>;
+                          const allSiteProdsMx = new Set<string>();
+                          Object.values(siteMD).forEach((de: any) => {
+                            (de.products ?? []).forEach((p: string) => allSiteProdsMx.add(p));
+                          });
+                          allSiteProdsMx.forEach((p: string) => {
                             const lk = p.toLowerCase();
                             if (gkD.has(lk)) return;
                             const fromMap = (PRODUCT_TO_CAP_KEYS as Record<string,string[]>)[lk] ?? [];
@@ -9515,14 +9520,41 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
               };
 
               // ── Collect unique legacy products with per-gate coverage ─────
-              // Exclude any product whose name or resolved covKeys overlap with global keys
+              // Cross-domain: collect ALL products deployed at each site (all domains),
+              // keeping only those with at least one READY capability in compareDom.
               const allLegacyProds: Record<string, Site[]> = {};
+              // Track which domains each product is natively listed in (for UI tagging)
+              const prodNativeDoms: Record<string, string[]> = {};
               lSites.forEach(s => {
-                ((SITE_PRODUCT_MAP[s.name]??{})[compareDom]?.products ?? []).forEach((p:string) => {
+                const siteMap = (SITE_PRODUCT_MAP[s.name] ?? {}) as Record<string, any>;
+                // Build per-product native-domain map for this site
+                Object.entries(siteMap).forEach(([dom, domEntry]) => {
+                  ((domEntry as any).products ?? []).forEach((p: string) => {
+                    if (!prodNativeDoms[p]) prodNativeDoms[p] = [];
+                    if (!prodNativeDoms[p].includes(dom)) prodNativeDoms[p].push(dom);
+                  });
+                });
+                // Flatten: all unique products across all domains at this site
+                const allSiteProds = new Set<string>();
+                Object.values(siteMap).forEach((domEntry: any) => {
+                  (domEntry.products ?? []).forEach((p: string) => allSiteProds.add(p));
+                });
+                allSiteProds.forEach((p: string) => {
                   const lk = p.toLowerCase();
-                  if (gk.has(lk)) return; // direct name match → global product
-                  const pKeys = resolveProdKeys(p);
-                  if (pKeys.some(k => gk.has(k))) return; // key match → global product
+                  if (gk.has(lk)) return; // global by explicit name → always skip
+                  const pKeys = resolveProdKeys(p); // already filtered to keys in compareDom via allCovKeysSet
+                  if (pKeys.length === 0) return; // no capabilities in this domain → irrelevant
+                  // Native products (listed in compareDom at this site): keep even if keys overlap
+                  // with global keys — they represent the zone's local deployment of the standard.
+                  // Cross-domain products (contributed from another domain): filter if they resolve
+                  // to global keys, to avoid double-counting global capabilities as legacy.
+                  const isNative = ((siteMap[compareDom] as any)?.products ?? []).includes(p);
+                  if (!isNative && pKeys.some(k => gk.has(k))) return;
+                  // Must have at least one READY cap in compareDom
+                  const hasReadyCap = allCaps.some(({cap}) =>
+                    cap.status === 'READY' && (cap.coveredBy as string[]).some(k => pKeys.includes(k))
+                  );
+                  if (!hasReadyCap) return;
                   if (!allLegacyProds[p]) allLegacyProds[p] = [];
                   allLegacyProds[p].push(s);
                 });
@@ -9761,11 +9793,16 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                           </div>
                           {legacyProductsSorted.length > 1 && (
                             <div className={'mt-2 flex flex-wrap gap-1.5'}>
-                              {legacyProductsSorted.map(([prod, data]) => (
-                                <span key={prod} className={'text-[9px] px-1.5 py-0.5 rounded border '+(dark?'border-amber-700/40 text-amber-400 bg-amber-900/20':'border-amber-200 text-amber-700 bg-amber-50')}>
-                                  {prod} ({data.sites.length})
-                                </span>
-                              ))}
+                              {legacyProductsSorted.map(([prod, data]) => {
+                                const nativeDoms = prodNativeDoms[prod] ?? [];
+                                const isCross = !nativeDoms.includes(compareDom);
+                                return (
+                                  <span key={prod} className={'text-[9px] px-1.5 py-0.5 rounded border flex items-center gap-1 '+(dark?'border-amber-700/40 text-amber-400 bg-amber-900/20':'border-amber-200 text-amber-700 bg-amber-50')}>
+                                    {prod} ({data.sites.length})
+                                    {isCross && <span className={'opacity-60 font-normal'} title={`Produto nativo em: ${nativeDoms.join(', ')}`}>↳ {nativeDoms.join('/')}</span>}
+                                  </span>
+                                );
+                              })}
                             </div>
                           )}
                         </div>
