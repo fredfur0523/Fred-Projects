@@ -3543,8 +3543,8 @@ const exportZonePDF = async (zone: string) => {
 
   const domainTableRows = domainStats.map(d => {
     const delta = d.zL2 - d.gL2;
-    const scoreBg = levelColor(Math.round(d.zAvg));
-    const textColor = Math.round(d.zAvg) <= 1 ? '#374151' : '#fff';
+    const scoreBg = levelColor(Math.floor(d.zAvg));
+    const textColor = Math.floor(d.zAvg) <= 1 ? '#374151' : '#fff';
     return `<tr style="border-bottom:1px solid #f3f4f6">
       <td style="padding:5px 8px;font-weight:700;font-family:monospace;font-size:12px">${d.short}</td>
       <td style="padding:5px 8px;font-size:11px;color:#6B7280">${d.full}</td>
@@ -9273,7 +9273,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
 
                       {/* Domain rows */}
                       {domainRows.map(({dom, gAll, lAll, avgAll, domCaps, gReadyCount, zoneData}) => {
-                        const lv = avgAll != null ? Math.min(4, Math.round(avgAll)) : 0;
+                        const lv = avgAll != null ? Math.min(4, Math.floor(avgAll)) : 0;
                         const glPct = globalL2[dom];
                         return (
                           <div key={dom}
@@ -9345,7 +9345,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
               const gSites = zoneSites.filter(s => (SITE_DOMAIN_TYPE[s.name]??{})[compareDom]==='G');
               const lSites = zoneSites.filter(s => (SITE_DOMAIN_TYPE[s.name]??{})[compareDom]==='L');
               const gAvg = gSites.length > 0 ? gSites.reduce((a,s) => a+(s.scores[fullDom]??0),0)/gSites.length : null;
-              const gLevel = gAvg != null ? Math.min(4, Math.round(gAvg)) : 0;
+              const gLevel = gAvg != null ? Math.min(4, Math.floor(gAvg)) : 0;
               // All caps for domain
               const allCaps: {gate:string; cap:any}[] = [];
               ['L1','L2','L3','L4'].forEach(gate => {
@@ -9400,7 +9400,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                   covKeys.length===0 || !(cap.coveredBy as string[]).some(k => covKeys.includes(k))
                 );
                 const avgSc = prodSites.length > 0 ? prodSites.reduce((a,s) => a+(s.scores[fullDom]??0),0)/prodSites.length : null;
-                legacyProductMap[prod] = { covKeys, sites:prodSites, gateCov:gateC, gapCaps:gapC, avgScore:avgSc, level: avgSc!=null?Math.min(4,Math.round(avgSc)):0 };
+                legacyProductMap[prod] = { covKeys, sites:prodSites, gateCov:gateC, gapCaps:gapC, avgScore:avgSc, level: avgSc!=null?Math.min(4,Math.floor(avgSc)):0 };
               });
               const legacyProductsSorted = Object.entries(legacyProductMap).sort((a,b)=>b[1].sites.length-a[1].sites.length);
 
@@ -9503,7 +9503,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                       const zAvg = zAllSites.length > 0 ? zAllSites.reduce((a,s)=>a+(s.scores[fullDom]??0),0)/zAllSites.length : null;
                       const zL2n = zAllSites.filter(s=>Math.floor(s.scores[fullDom]??0)>=2).length;
                       const zL2pct = zAllSites.length > 0 ? zL2n/zAllSites.length*100 : null;
-                      const zLv = zAvg!=null ? Math.min(4,Math.round(zAvg)) : null;
+                      const zLv = zAvg!=null ? Math.min(4,Math.floor(zAvg)) : null;
                       return { zone:z, total:zAllSites.length, gCount:zGS.length, lCount:zLS.length, avg:zAvg, lv:zLv, l2pct:zL2pct };
                     });
                     const globalL2pct = (() => {
@@ -9607,7 +9607,7 @@ const ExecutiveSummaryView: React.FC<ExecutiveSummaryViewProps> = ({
                             </span>
                             {(() => {
                               const lAvg = lSites.reduce((a,s)=>a+(s.scores[fullDom]??0),0)/lSites.length;
-                              const lLv = Math.min(4,Math.round(lAvg));
+                              const lLv = Math.min(4,Math.floor(lAvg));
                               return <span className={'text-[10px] font-black px-1.5 py-0.5 rounded-full border flex-shrink-0'} style={{backgroundColor:levelColors[lLv]+'33',color:levelColors[lLv],borderColor:levelColors[lLv]+'66'}}>L{lLv} · {lAvg.toFixed(1)}</span>;
                             })()}
                             <span className={'text-[9px] flex-shrink-0 ' + sub}>{lSites.length} sites · {lReadyCaps.length}/{allCaps.length} caps</span>
