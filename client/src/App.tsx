@@ -2479,6 +2479,66 @@ const exportZonePDF = async (
     </table>`}
   </div>
 
+  <!-- SECTION 6: PER-SITE DETAIL (Sprint 9) — high-interest sites only -->
+  ${vpoData && pdfTiers ? (() => {
+    const highSites = zoneSites.filter(s => pdfTiers.get(s.name) === 'high')
+      .sort((a, b) => b.volume - a.volume)
+      .slice(0, 10); // cap at 10 to avoid PDF explosion
+    if (highSites.length === 0) return '';
+    const siteDetailBlocks = highSites.map(s => {
+      const vpo = vpoData?.[s.name];
+      const gap = computeSiteTargetGap(s, 'high');
+      const pillarsRow = VPO_PILLARS.map(p => {
+        const score = vpo?.pillars?.[p]?.score;
+        const pct = score != null ? (score * 100).toFixed(0) + '%' : '—';
+        const bg = score == null ? '#F3F4F6' : score >= 0.80 ? '#D1FAE5' : score >= 0.60 ? '#FEF3C7' : '#FEE2E2';
+        const fg = score == null ? '#9CA3AF' : score >= 0.80 ? '#065F46' : score >= 0.60 ? '#78350F' : '#991B1B';
+        return `<td style="padding:3px 5px;text-align:center;background:${bg};border:1px solid #E5E7EB;border-radius:3px">
+          <div style="font-size:8px;color:#6B7280;font-weight:600">${p.slice(0,3).toUpperCase()}</div>
+          <div style="font-size:10px;font-weight:700;color:${fg}">${pct}</div>
+        </td>`;
+      }).join('');
+      const domCells = gap.domains.map(d => {
+        const gapN = d.gap;
+        const bg = gapN === 0 ? '#D1FAE5' : gapN === 1 ? '#FEF3C7' : '#FEE2E2';
+        const fg = gapN === 0 ? '#065F46' : gapN === 1 ? '#78350F' : '#991B1B';
+        return `<td style="padding:3px 5px;text-align:center;background:${bg};border:1px solid #E5E7EB;border-radius:3px">
+          <div style="font-size:8px;color:#6B7280;font-weight:600">${d.short}</div>
+          <div style="font-size:10px;font-weight:700;color:${fg}">${gapN === 0 ? '✓' : '+'+gapN}</div>
+        </td>`;
+      }).join('');
+      const volFmt = s.volume >= 1e6 ? (s.volume / 1e6).toFixed(1) + 'M hL' : (s.volume / 1e3).toFixed(0) + 'K hL';
+      const rpRow = rolloutPlanData?.sites.find(r => r.site === s.name);
+      const contact = rpRow?.responsibleContact || '—';
+      return `<div style="border:1px solid #E5E7EB;border-radius:6px;padding:12px;margin-bottom:10px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+          <div>
+            <span style="font-size:13px;font-weight:800;color:#111827">${s.name}</span>
+            <span style="font-size:10px;color:#6B7280;margin-left:8px">${s.country} · ${volFmt}</span>
+            <span style="display:inline-block;background:#D1FAE5;color:#065F46;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-left:8px">HIGH</span>
+          </div>
+          <div style="text-align:right">
+            <div style="font-size:10px;color:#6B7280">Contact: <strong>${contact}</strong></div>
+            <div style="font-size:10px;color:#6B7280">VPO: <strong>${vpo?.overall_score != null ? (vpo.overall_score * 100).toFixed(0) + '%' : '—'}</strong> · Current: <strong>L${gap.currentLevel}</strong> → Target: <strong>L${gap.targetLevel}</strong></div>
+          </div>
+        </div>
+        <table style="border-collapse:separate;border-spacing:2px;width:100%"><tr>
+          <td style="font-size:8px;font-weight:700;color:#6B7280;padding-right:6px;vertical-align:middle;white-space:nowrap">VPO PILLARS</td>
+          ${pillarsRow}
+        </tr></table>
+        <table style="border-collapse:separate;border-spacing:2px;width:100%;margin-top:4px"><tr>
+          <td style="font-size:8px;font-weight:700;color:#6B7280;padding-right:6px;vertical-align:middle;white-space:nowrap">DOMAIN GAP</td>
+          ${domCells}
+        </tr></table>
+      </div>`;
+    }).join('');
+    return `<div style="page-break-before:always;height:1px"></div>
+    <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
+      ${sectionHeader('High-Interest Site Detail (Top 10)', `VPO pillar scores and domain gap per high-priority site (L→ target L4). Sites ordered by volume.`)}
+      ${siteDetailBlocks}
+    </div>`;
+  })() : ''}
+
   <!-- PAGE 7: SITE LIST -->
   <div style="page-break-before:always;height:1px"></div>
   <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
