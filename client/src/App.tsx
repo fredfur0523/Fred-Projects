@@ -12561,7 +12561,7 @@ tr:nth-child(even) td{background:#f8fafc}
                                     <span className={sub}>{issue.message}</span>
                                   </div>
                                 ))}
-                                {importedData.issues.length>60&&<div className={'px-4 py-2 text-xs '+sub}>...e mais {importedData.issues.length-60} eventos</div>}
+                                {importedData.issues.length>60&&<div className={'px-4 py-2 text-xs '+sub}>...{lang==='pt'?`e mais ${importedData.issues.length-60} eventos`:`and ${importedData.issues.length-60} more events`}</div>}
                               </div>
                             </div>
                           );
@@ -12575,7 +12575,7 @@ tr:nth-child(even) td{background:#f8fafc}
                             <table className="w-full text-xs">
                               <thead>
                                 <tr className={dark?'bg-gray-700/50':'bg-gray-50'}>
-                                  {['Zona','Site','País',...domCodes,'Score'].map(h=>(
+                                  {(lang==='pt'?['Zona','Site','País',...domCodes,'Score']:['Zone','Site','Country',...domCodes,'Score']).map(h=>(
                                     <th key={h} className={'px-3 py-2 text-left font-black '+sub}>{h}</th>
                                   ))}
                                 </tr>
@@ -12594,7 +12594,7 @@ tr:nth-child(even) td{background:#f8fafc}
                                     <td className={'px-3 py-1.5 text-center font-black '+(s.score>=2?'text-yellow-500':s.score>=1?'text-amber-500':dark?'text-gray-600':'text-gray-400')}>{s.score>0?s.score.toFixed(2):'-'}</td>
                                   </tr>
                                 ))}
-                                {importedData.sites.length>50&&<tr><td colSpan={13} className={'px-3 py-2 text-center text-xs '+sub}>...e mais {importedData.sites.length-50} sites</td></tr>}
+                                {importedData.sites.length>50&&<tr><td colSpan={13} className={'px-3 py-2 text-center text-xs '+sub}>...{lang==='pt'?`e mais ${importedData.sites.length-50} sites`:`and ${importedData.sites.length-50} more sites`}</td></tr>}
                               </tbody>
                             </table>
                           </div>
