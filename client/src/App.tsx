@@ -9460,6 +9460,7 @@ const MethodologyView: React.FC<{dark:boolean;lang:string;t:T}> = ({dark,lang,t}
         const [expandedSubareas, setExpandedSubareas] = React.useState<Record<string,boolean>>({});
         const [showAll, setShowAll] = React.useState<Record<string,boolean>>({});
         const [scoreMode, setScoreMode] = React.useState<'n4'|'n3'>('n4');
+        const [showGlobalOnly, setShowGlobalOnly] = React.useState<boolean>(false);
 
         const isAllSelected = activeDoms.length === ALL_DOMS.length;
 
@@ -9731,8 +9732,8 @@ const MethodologyView: React.FC<{dark:boolean;lang:string;t:T}> = ({dark,lang,t}
                           ✕ {lang==='pt'?'Fechar':'Close'}
                         </button>
                       </div>
-                      {/* N4 / N3 mode toggle */}
-                      <div className="flex items-center gap-2 mb-2">
+                      {/* N4 / N3 mode toggle + Global Only filter */}
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
                         <span className={'text-[10px] font-bold ' + (dark?'text-gray-400':'text-gray-500')}>
                           {lang==='pt'?'Métrica:':'Metric:'}
                         </span>
@@ -9749,6 +9750,14 @@ const MethodologyView: React.FC<{dark:boolean;lang:string;t:T}> = ({dark,lang,t}
                             ? (lang==='pt'?'contagem direta de funcionalidades READY':'direct count of READY capabilities')
                             : (lang==='pt'?'grupos N3 entregues ≥ limiar (metodologia real)':'N3 groups delivered ≥ threshold (real methodology)')}
                         </span>
+                        <div className="ml-auto flex items-center gap-1.5">
+                          <button onClick={() => setShowGlobalOnly(v => !v)}
+                            className={'flex items-center gap-1 px-2.5 py-0.5 rounded text-[10px] font-black border transition-all ' + (showGlobalOnly
+                              ? (dark?'bg-emerald-700 border-emerald-600 text-white':'bg-emerald-600 border-emerald-600 text-white')
+                              : (dark?'bg-gray-700 border-gray-600 text-gray-300 hover:bg-gray-600':'bg-white border-gray-200 text-gray-600 hover:bg-gray-50'))}>
+                            🌐 {lang==='pt'?'Só Global':'Global Only'}
+                          </button>
+                        </div>
                       </div>
                       {/* Global completion bar */}
                       <div className="flex items-center gap-3">
@@ -9796,7 +9805,9 @@ const MethodologyView: React.FC<{dark:boolean;lang:string;t:T}> = ({dark,lang,t}
                                 )}
                                 <div className={'divide-y ' + (dark?'divide-gray-700/50':'divide-gray-100')}>
                                   {subareaList.map(sa => {
-                                    const caps = bySubarea[sa];
+                                    const capsAll = bySubarea[sa];
+                                    const caps = showGlobalOnly ? capsAll.filter(({cap}) => isGlobalReady(dom, cap)) : capsAll;
+                                    if (showGlobalOnly && caps.length === 0) return null;
                                     const saKey = dom + ':' + sa;
                                     const isOpen = !!expandedSubareas[saKey];
                                     const allShown = !!showAll[saKey];
@@ -10154,6 +10165,157 @@ const PriorityMatrixView: React.FC<{
 };
 
 // ============================================================================
+// ZONE GLOBAL GAP (Sprint 4)
+// ============================================================================
+
+interface ZoneDomGap {
+  short: string;
+  key: string;
+  totalSites: number;
+  globalCount: number;
+  legacyCount: number;
+  pctGlobal: number | null;
+  legacyProducts: string[];
+}
+
+function computeZoneGlobalGap(zone: string, sites: Site[]): ZoneDomGap[] {
+  const SCORED_DOMS = ['BP','DA','MT','MG','MDM','PP','QL','SF'] as const;
+  const DOM_KEY: Record<string, string> = {
+    BP:'Brewing Performance', DA:'Data Acquisition', MT:'Maintenance',
+    MG:'Management', MDM:'MasterData Mgmt', PP:'Packaging Performance',
+    QL:'Quality', SF:'Safety',
+  };
+  const zoneSites = zone ? sites.filter(s => s.zone === zone) : sites;
+  return SCORED_DOMS.map(short => {
+    const sitesForDom = zoneSites.filter(s => (SITE_DOMAIN_TYPE[s.name]??{})[short]);
+    const globalSites = sitesForDom.filter(s => getSiteDomainType(s.name, short) === 'G');
+    const legacySites = sitesForDom.filter(s => getSiteDomainType(s.name, short) === 'L');
+    const spm = SITE_PRODUCT_MAP as Record<string,Record<string,{products:string[];type:'G'|'L';dominant:string}>>;
+    const legacyProducts = Array.from(new Set(
+      legacySites.flatMap(s => spm[s.name]?.[short]?.products ?? [])
+    ));
+    const pctGlobal = sitesForDom.length > 0 ? Math.round(globalSites.length / sitesForDom.length * 100) : null;
+    return { short, key: DOM_KEY[short], totalSites: sitesForDom.length, globalCount: globalSites.length, legacyCount: legacySites.length, pctGlobal, legacyProducts };
+  });
+}
+
+const ZoneGapView: React.FC<{
+  sites: Site[];
+  dark: boolean;
+  lang: string;
+}> = ({ sites, dark, lang }) => {
+  const [selectedZone, setSelectedZone] = React.useState<string>('SAZ');
+  const gap = useMemo(() => computeZoneGlobalGap(selectedZone, sites), [selectedZone, sites]);
+  const card = dark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200';
+  const sub  = dark ? 'text-gray-400' : 'text-gray-500';
+  const hdr  = dark ? 'text-white' : 'text-gray-900';
+
+  const PCT_COLOR = (pct: number | null) =>
+    pct == null ? (dark ? 'text-gray-500' : 'text-gray-400')
+    : pct >= 80 ? (dark ? 'text-emerald-400' : 'text-emerald-600')
+    : pct >= 40 ? (dark ? 'text-amber-400' : 'text-amber-600')
+    : (dark ? 'text-red-400' : 'text-red-600');
+
+  return (
+    <div className="space-y-5">
+      {/* Zone selector */}
+      <div className={`rounded-xl border p-4 ${card}`}>
+        <p className={`text-xs font-black uppercase tracking-wider mb-3 ${sub}`}>
+          {lang==='pt' ? 'Selecionar Zona' : 'Select Zone'}
+        </p>
+        <div className="flex gap-2 flex-wrap">
+          {(['AFR','APAC','EUR','MAZ','NAZ','SAZ'] as const).map(z => {
+            const n = sites.filter(s => s.zone === z).length;
+            const active = selectedZone === z;
+            return (
+              <button key={z} onClick={() => setSelectedZone(z)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-bold border transition-all ${
+                  active
+                    ? 'bg-blue-600 border-blue-600 text-white'
+                    : (dark ? 'border-gray-600 text-gray-300 hover:border-gray-400' : 'border-gray-200 text-gray-600 hover:border-gray-400')
+                }`}>
+                <span style={{color: active ? undefined : ZONE_COLORS[z]?.dot}}>●</span>{' '}{z}
+                <span className={`ml-1 text-[10px] ${active ? 'text-blue-200' : sub}`}>({n})</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Domain gap table */}
+      <div className={`rounded-xl border overflow-hidden ${card}`}>
+        <div className={`px-5 py-3 border-b ${dark ? 'border-gray-700' : 'border-gray-200'}`}>
+          <p className={`text-sm font-black ${hdr}`}>
+            {lang==='pt' ? `Cobertura Global por Domínio — ${selectedZone}` : `Global Coverage by Domain — ${selectedZone}`}
+          </p>
+          <p className={`text-[10px] mt-0.5 ${sub}`}>
+            {lang==='pt'
+              ? 'Porcentagem de sites usando ferramentas globais (não legadas). Verde ≥ 80%, Amarelo ≥ 40%, Vermelho < 40%.'
+              : 'Percentage of sites on global (non-legacy) tools. Green ≥ 80%, Yellow ≥ 40%, Red < 40%.'}
+          </p>
+        </div>
+        <div className="divide-y divide-gray-100 dark:divide-gray-700">
+          {gap.map(d => (
+            <div key={d.short} className={`px-5 py-4 ${dark ? 'hover:bg-gray-700/30' : 'hover:bg-gray-50'}`}>
+              <div className="flex items-center gap-3">
+                <div className="w-10 flex-shrink-0">
+                  <span className={`text-xs font-black ${hdr}`}>{d.short}</span>
+                </div>
+                <div className="flex-1">
+                  {/* Progress bar */}
+                  <div className={`relative h-2 rounded-full overflow-hidden ${dark ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                    <div className={`h-full rounded-full transition-all ${
+                      d.pctGlobal == null ? 'bg-gray-400'
+                      : d.pctGlobal >= 80 ? 'bg-emerald-500'
+                      : d.pctGlobal >= 40 ? 'bg-amber-400'
+                      : 'bg-red-400'
+                    }`} style={{width: `${d.pctGlobal ?? 0}%`}}/>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 flex-shrink-0 text-right" style={{minWidth:'200px'}}>
+                  <span className={`text-sm font-black tabular-nums ${PCT_COLOR(d.pctGlobal)}`}>
+                    {d.pctGlobal != null ? `${d.pctGlobal}%` : '—'}
+                  </span>
+                  <span className={`text-[10px] ${sub}`}>
+                    {d.globalCount}/{d.totalSites} {lang==='pt'?'sites':'sites'}
+                  </span>
+                  {d.legacyCount > 0 && (
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded ${dark ? 'bg-amber-900/30 text-amber-400 border border-amber-700' : 'bg-amber-50 text-amber-700 border border-amber-200'}`}>
+                      {d.legacyCount} {lang==='pt'?'legado':'legacy'}
+                    </span>
+                  )}
+                </div>
+              </div>
+              {d.legacyProducts.length > 0 && (
+                <div className={`mt-2 ml-[52px] flex flex-wrap gap-1`}>
+                  {d.legacyProducts.slice(0, 6).map(p => (
+                    <span key={p} className={`text-[9px] px-1.5 py-0.5 rounded border ${dark ? 'border-gray-600 text-gray-400 bg-gray-700/50' : 'border-gray-200 text-gray-500 bg-gray-50'}`}>
+                      ↙ {p}
+                    </span>
+                  ))}
+                  {d.legacyProducts.length > 6 && <span className={`text-[9px] ${sub}`}>+{d.legacyProducts.length - 6} more</span>}
+                </div>
+              )}
+              {d.totalSites === 0 && (
+                <p className={`ml-[52px] mt-1 text-[10px] italic ${sub}`}>
+                  {lang==='pt' ? 'Domínio não mapeado nesta zona.' : 'Domain not mapped in this zone.'}
+                </p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <p className={`text-[10px] ${sub}`}>
+        {lang==='pt'
+          ? 'Produtos legados listados são os identificados em SITE_PRODUCT_MAP para esta zona. Sites sem mapeamento de domínio não são contabilizados.'
+          : 'Legacy products listed are those identified in SITE_PRODUCT_MAP for this zone. Sites without domain mapping are not counted.'}
+      </p>
+    </div>
+  );
+};
+
+// ============================================================================
 // APP
 // ============================================================================
 // ViewMode → moved to types/app.ts (imported above)
@@ -10193,7 +10355,7 @@ export default function App() {
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [portfolioSubTab2, setPortfolioSubTab2] = useState<'intelligence'|'gap'|'migration'|'priority'>('intelligence');
+  const [portfolioSubTab2, setPortfolioSubTab2] = useState<'intelligence'|'gap'|'zonegap'|'migration'|'priority'>('intelligence');
   const [sitePriorityOverrides, setSitePriorityOverrides] = React.useState<Record<string,'high'|'mid'|'low'|'auto'>>(() => {
     try { return JSON.parse(localStorage.getItem('sitePriorityOverrides') ?? '{}'); } catch { return {}; }
   });
@@ -11133,14 +11295,15 @@ tr:nth-child(even) td{background:#f8fafc}
                   <span className="bg-yellow-400 w-1.5 h-6 rounded-sm block flex-shrink-0"/>
                   <h2 className={'text-lg font-black ' + (dark?'text-white':'text-gray-900')}>Portfolio</h2>
                   <div className={'flex gap-1 p-1 rounded-lg ml-2 '+(dark?'bg-gray-800':'bg-gray-100')}>
-                    {(['intelligence','gap','priority'] as const).map(tab=>(
-                      <button key={tab} onClick={()=>setPortfolioSubTab2(tab)}
+                    {(['intelligence','gap','zonegap','priority'] as const).map(tab=>(
+                      <button key={tab} onClick={()=>setPortfolioSubTab2(tab as any)}
                         className={'px-3 py-1 rounded-md text-xs font-bold transition-all '+
                           (portfolioSubTab2===tab
                             ? (dark?'bg-gray-700 text-white shadow-sm':'bg-white text-gray-900 shadow-sm')
                             : (dark?'text-gray-400 hover:text-gray-200':'text-gray-500 hover:text-gray-700'))}>
                         {tab==='intelligence'?(lang==='pt'?'Cobertura & Roadmap':'Coverage & Roadmap')
                          :tab==='gap'?(lang==='pt'?'Gap de Capacidade':'Capability Gap')
+                         :tab==='zonegap'?(lang==='pt'?'Gap de Zona':'Zone Gap')
                          :(lang==='pt'?'Prioridade':'Priority')}
                       </button>
                     ))}
@@ -11163,6 +11326,9 @@ tr:nth-child(even) td{background:#f8fafc}
                     vpoData={vpoData}
                     anaplanData={anaplanData}
                   />
+                )}
+                {portfolioSubTab2==='zonegap'&&(
+                  <ZoneGapView sites={filtered} dark={dark} lang={lang} />
                 )}
                 {portfolioSubTab2==='priority'&&vpoData&&(
                   <PriorityMatrixView
