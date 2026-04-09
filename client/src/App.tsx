@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { CAPABILITY_DETAIL, PRODUCT_TO_CAP_KEYS } from './capability_detail';
-import { computeImportedData, parseRolloutImport, isRolloutWorkbook, exportImportedDataToExcel, exportCurrentDataToExcel, type ImportedData, type DataQualityIssue } from './data_import';
+import { computeImportedData, parseRolloutImport, isRolloutWorkbook, exportImportedDataToExcel, exportCurrentDataToExcel, exportRolloutTemplate, isRolloutPlanWorkbook, parseRolloutPlanImport, type ImportedData, type DataQualityIssue, type RolloutPlanData } from './data_import';
 import type { AnaplanRow, AnaplanData, WaterfallData, KpiHistoryData, KpiHistoryMonth } from './types/anaplan';
 import type { VpoPillarScore, VpoSiteData, VpoData } from './types/vpo';
 import type { Site, ProductDeployment, ProductCoverageData, MaturityDetailLevel, MaturityDetailDomain, MaturityDetailSite, SiteVolumeMix, ProductType, SiteMigrationStatus } from './types/sites';
@@ -10316,6 +10316,201 @@ const ZoneGapView: React.FC<{
 };
 
 // ============================================================================
+// EXECUTION TIMELINE (Sprint 5)
+// ============================================================================
+
+// Global product keys as Sets for inline capability check (matches CapabilityGapView)
+const TIMELINE_GLOBAL_KEYS: Record<string, Set<string>> = {
+  BP: new Set(['brewing performance','production order']),
+  DA: new Set(['soda etl']),
+  MT: new Set(['maintenance one','max ps','max sp','max wo']),
+  MG: new Set(['acadia','eureka','gops & toolkits','ial','kpi-pi','splan']),
+  MDM: new Set(['soda mdm']),
+  PP: new Set(['lms','production order']),
+  QL: new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains','omnia ph']),
+  SF: new Set(['guardian']),
+  UT: new Set(['ums']),
+};
+
+function quarterToSortKey(year: string, quarter: string): number {
+  const y = parseInt(year) || 9999;
+  const q = quarter ? parseInt(quarter.replace('Q','')) : 4;
+  return y * 10 + q;
+}
+
+function formatQuarter(year: string, quarter: string): string {
+  if (!year && !quarter) return '';
+  if (quarter) return `${quarter} ${year}`;
+  return year;
+}
+
+interface TimelineCellData {
+  completionLabel: string;  // e.g. "Q2 2026" or "Done" or "TBD"
+  status: 'done' | 'planned' | 'tbd' | 'empty';
+  missingCount: number;
+  totalGlobalCount: number;
+}
+
+function buildGlobalCoverageTimeline(
+  zones: string[],
+  sites: Site[],
+): Record<string, Record<string, TimelineCellData>> {
+  const SCORED_DOMS = ['BP','DA','MT','MG','MDM','PP','QL','SF'] as const;
+  const result: Record<string, Record<string, TimelineCellData>> = {};
+
+  for (const zone of zones) {
+    result[zone] = {};
+    const zoneSites = sites.filter(s => s.zone === zone);
+    if (zoneSites.length === 0) {
+      for (const dom of SCORED_DOMS) result[zone][dom] = { completionLabel: '—', status: 'empty', missingCount: 0, totalGlobalCount: 0 };
+      continue;
+    }
+
+    for (const dom of SCORED_DOMS) {
+      const gkSet = TIMELINE_GLOBAL_KEYS[dom] ?? new Set<string>();
+      const gateLevels = ['L1','L2','L3','L4'] as const;
+      let maxSortKey = 0;
+      let maxLabel = '';
+      let missingCount = 0;
+      let totalGlobalCount = 0;
+
+      for (const lv of gateLevels) {
+        const gateData: Record<string,any> = ((CAPABILITY_DETAIL as any)[dom]??{})[lv] ?? {};
+        for (const cap of Object.values(gateData) as any[]) {
+          const isGlobal = gkSet.size > 0 && (cap.coveredBy as string[]).some((k: string) => gkSet.has(k));
+          if (!isGlobal) continue;
+          totalGlobalCount++;
+          if (cap.status !== 'READY') {
+            missingCount++;
+            const sk = quarterToSortKey(cap.plannedYear ?? '', cap.plannedQuarter ?? '');
+            if (sk > maxSortKey) {
+              maxSortKey = sk;
+              maxLabel = formatQuarter(cap.plannedYear ?? '', cap.plannedQuarter ?? '');
+            }
+          }
+        }
+      }
+
+      let status: TimelineCellData['status'] = 'empty';
+      let completionLabel = '—';
+
+      if (totalGlobalCount === 0) {
+        status = 'empty';
+        completionLabel = '—';
+      } else if (missingCount === 0) {
+        status = 'done';
+        completionLabel = 'Done';
+      } else if (maxLabel) {
+        status = 'planned';
+        completionLabel = maxLabel;
+      } else {
+        status = 'tbd';
+        completionLabel = 'TBD';
+      }
+
+      result[zone][dom] = { completionLabel, status, missingCount, totalGlobalCount };
+    }
+  }
+  return result;
+}
+
+const ExecutionTimelineView: React.FC<{
+  sites: Site[];
+  dark: boolean;
+  lang: string;
+}> = ({ sites, dark, lang }) => {
+  const ZONES_LIST = ['AFR','APAC','EUR','MAZ','NAZ','SAZ'];
+  const SCORED_DOMS = ['BP','DA','MT','MG','MDM','PP','QL','SF'];
+  const timeline = useMemo(() => buildGlobalCoverageTimeline(ZONES_LIST, sites), [sites]);
+
+  const card = dark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200';
+  const sub  = dark ? 'text-gray-400' : 'text-gray-500';
+  const hdr  = dark ? 'text-white' : 'text-gray-900';
+  const th   = dark ? 'bg-gray-900 text-gray-400' : 'bg-gray-50 text-gray-500';
+
+  const CELL_STYLE = (cell: TimelineCellData) => {
+    if (cell.status === 'done')    return dark ? 'bg-emerald-900/30 text-emerald-300 border-emerald-800' : 'bg-emerald-50 text-emerald-700 border-emerald-200';
+    if (cell.status === 'planned') return dark ? 'bg-blue-900/30 text-blue-300 border-blue-800' : 'bg-blue-50 text-blue-700 border-blue-200';
+    if (cell.status === 'tbd')     return dark ? 'bg-amber-900/30 text-amber-300 border-amber-800' : 'bg-amber-50 text-amber-700 border-amber-200';
+    return dark ? 'text-gray-600 border-gray-700' : 'text-gray-300 border-gray-100';
+  };
+
+  return (
+    <div className="space-y-5">
+      <div className={`rounded-xl border overflow-hidden ${card}`}>
+        <div className={`px-5 py-3 border-b ${dark?'border-gray-700':'border-gray-200'}`}>
+          <p className={`text-sm font-black ${hdr}`}>
+            {lang==='pt' ? 'Timeline de Cobertura Global por Domínio' : 'Global Coverage Timeline by Domain'}
+          </p>
+          <p className={`text-[10px] mt-0.5 ${sub}`}>
+            {lang==='pt'
+              ? 'Estimativa de quando cada domínio estará 100% coberto por ferramentas globais, baseada em plannedYear/Quarter do CAPABILITY_DETAIL. Verde = completo, Azul = data planejada, Amarelo = sem data.'
+              : 'Estimate of when each domain will be 100% covered by global tools, based on plannedYear/Quarter from CAPABILITY_DETAIL. Green = done, Blue = planned date, Yellow = no date.'}
+          </p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-xs">
+            <thead>
+              <tr className={`border-b ${dark?'border-gray-700':'border-gray-200'}`}>
+                <th className={`px-4 py-2.5 text-left font-black text-[10px] uppercase tracking-wider ${th}`}>
+                  {lang==='pt' ? 'Zona' : 'Zone'}
+                </th>
+                {SCORED_DOMS.map(d => (
+                  <th key={d} className={`px-3 py-2.5 text-center font-black text-[10px] uppercase tracking-wider ${th}`}>{d}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {ZONES_LIST.map(zone => {
+                const zColor = ZONE_COLORS[zone]?.dot ?? '#6B7280';
+                return (
+                  <tr key={zone} className={`border-b last:border-b-0 ${dark?'border-gray-700':'border-gray-100'}`}>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{backgroundColor: zColor}}/>
+                        <span className={`font-black text-xs ${hdr}`}>{zone}</span>
+                      </div>
+                    </td>
+                    {SCORED_DOMS.map(dom => {
+                      const cell = timeline[zone]?.[dom];
+                      if (!cell) return <td key={dom} className="px-3 py-3"/>;
+                      return (
+                        <td key={dom} className="px-3 py-3 text-center">
+                          <span className={`inline-block px-2 py-0.5 rounded border text-[10px] font-black ${CELL_STYLE(cell)}`}
+                            title={`${zone} ${dom}: ${cell.totalGlobalCount - cell.missingCount}/${cell.totalGlobalCount} global caps READY`}>
+                            {cell.completionLabel}
+                          </span>
+                        </td>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      {/* Legend */}
+      <div className="flex flex-wrap gap-3">
+        {[
+          { status: 'done',    label: lang==='pt'?'Completo':'Done',           cls: dark?'bg-emerald-900/30 text-emerald-300 border-emerald-800':'bg-emerald-50 text-emerald-700 border-emerald-200' },
+          { status: 'planned', label: lang==='pt'?'Data planejada':'Planned',  cls: dark?'bg-blue-900/30 text-blue-300 border-blue-800':'bg-blue-50 text-blue-700 border-blue-200' },
+          { status: 'tbd',     label: lang==='pt'?'Sem data definida':'TBD',   cls: dark?'bg-amber-900/30 text-amber-300 border-amber-800':'bg-amber-50 text-amber-700 border-amber-200' },
+          { status: 'empty',   label: lang==='pt'?'Não mapeado':'Not mapped',  cls: dark?'text-gray-600 border-gray-700':'text-gray-300 border-gray-200' },
+        ].map(l => (
+          <span key={l.status} className={`inline-block px-2.5 py-1 rounded border text-[10px] font-black ${l.cls}`}>{l.label}</span>
+        ))}
+      </div>
+      <p className={`text-[10px] ${sub}`}>
+        {lang==='pt'
+          ? 'Data exibida = plannedYear/Quarter do N4 global mais atrasado no nível. Caps já READY não são contabilizadas. Domínio UT excluído (sem rollout global mapeado).'
+          : 'Date shown = plannedYear/Quarter of the latest delayed global N4 at that level. Already-READY caps are excluded. Domain UT excluded (no global rollout mapped).'}
+      </p>
+    </div>
+  );
+};
+
+// ============================================================================
 // APP
 // ============================================================================
 // ViewMode → moved to types/app.ts (imported above)
@@ -10349,13 +10544,14 @@ export default function App() {
   const [navSite, setNavSite] = useState<string>('');
   // Sub-tab state para views compostas
   const [maturitySubTab, setMaturitySubTab] = useState<'zone'|'domain'|'matrix'>('zone');
-  const [dataSubTab, setDataSubTab] = useState<'coverage'|'capabilities'|'domains'|'management'>('coverage');
+  const [dataSubTab, setDataSubTab] = useState<'coverage'|'capabilities'|'domains'|'management'|'rollout'>('coverage');
+  const [rolloutPlan, setRolloutPlan] = useState<RolloutPlanData | null>(null);
   // Data management — Coverage.xlsx import
   const [importedData, setImportedData] = useState<ImportedData | null>(null);
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [portfolioSubTab2, setPortfolioSubTab2] = useState<'intelligence'|'gap'|'zonegap'|'migration'|'priority'>('intelligence');
+  const [portfolioSubTab2, setPortfolioSubTab2] = useState<'intelligence'|'gap'|'zonegap'|'timeline'|'migration'|'priority'>('intelligence');
   const [sitePriorityOverrides, setSitePriorityOverrides] = React.useState<Record<string,'high'|'mid'|'low'|'auto'>>(() => {
     try { return JSON.parse(localStorage.getItem('sitePriorityOverrides') ?? '{}'); } catch { return {}; }
   });
@@ -10397,6 +10593,12 @@ export default function App() {
       const volMap: Record<string, number> = {};
       for (const s of ALL_SITES) volMap[s.name] = s.volume;
       const md = MATURITY_DETAIL as Record<string, { zone: string; score: number; domains: Record<string, { score: number; type: string } | null> }>;
+      if (isRolloutPlanWorkbook(wb)) {
+        const plan = parseRolloutPlanImport(wb, file.name);
+        setRolloutPlan(plan);
+        setDataSubTab('rollout');
+        return;
+      }
       const result = isRolloutWorkbook(wb)
         ? parseRolloutImport(wb, file.name, md, volMap)
         : computeImportedData(wb, file.name, md, volMap);
@@ -11295,7 +11497,7 @@ tr:nth-child(even) td{background:#f8fafc}
                   <span className="bg-yellow-400 w-1.5 h-6 rounded-sm block flex-shrink-0"/>
                   <h2 className={'text-lg font-black ' + (dark?'text-white':'text-gray-900')}>Portfolio</h2>
                   <div className={'flex gap-1 p-1 rounded-lg ml-2 '+(dark?'bg-gray-800':'bg-gray-100')}>
-                    {(['intelligence','gap','zonegap','priority'] as const).map(tab=>(
+                    {(['intelligence','gap','zonegap','timeline','priority'] as const).map(tab=>(
                       <button key={tab} onClick={()=>setPortfolioSubTab2(tab as any)}
                         className={'px-3 py-1 rounded-md text-xs font-bold transition-all '+
                           (portfolioSubTab2===tab
@@ -11304,6 +11506,7 @@ tr:nth-child(even) td{background:#f8fafc}
                         {tab==='intelligence'?(lang==='pt'?'Cobertura & Roadmap':'Coverage & Roadmap')
                          :tab==='gap'?(lang==='pt'?'Gap de Capacidade':'Capability Gap')
                          :tab==='zonegap'?(lang==='pt'?'Gap de Zona':'Zone Gap')
+                         :tab==='timeline'?(lang==='pt'?'Timeline':'Timeline')
                          :(lang==='pt'?'Prioridade':'Priority')}
                       </button>
                     ))}
@@ -11329,6 +11532,9 @@ tr:nth-child(even) td{background:#f8fafc}
                 )}
                 {portfolioSubTab2==='zonegap'&&(
                   <ZoneGapView sites={filtered} dark={dark} lang={lang} />
+                )}
+                {portfolioSubTab2==='timeline'&&(
+                  <ExecutionTimelineView sites={ACTIVE_SITES} dark={dark} lang={lang} />
                 )}
                 {portfolioSubTab2==='priority'&&vpoData&&(
                   <PriorityMatrixView
@@ -11382,6 +11588,7 @@ tr:nth-child(even) td{background:#f8fafc}
                       {k:'capabilities',lPt:'Capabilidades', lEn:'Capabilities'},
                       {k:'domains',     lPt:'Domínios',      lEn:'Domains'},
                       {k:'management',  lPt:'Gestão',        lEn:'Management'},
+                      {k:'rollout',     lPt:'Rollout Plan',  lEn:'Rollout Plan'},
                     ] as const).map(({k,lPt,lEn})=>(
                       <button key={k} onClick={()=>setDataSubTab(k)}
                         className={'px-3 py-1 rounded-md text-xs font-bold transition-all '+
@@ -11992,6 +12199,125 @@ tr:nth-child(even) td{background:#f8fafc}
                 );
               };
 
+              // ── Rollout Plan Panel ──
+              const RolloutPlanPanel = () => {
+                const tiers = useMemo(()=>{
+                  if (!vpoData) return {} as Record<string,'high'|'mid'|'low'>;
+                  const m = computePriorityTiers(ALL_SITES, vpoData, sitePriorityOverrides);
+                  const obj: Record<string,'high'|'mid'|'low'> = {};
+                  for (const [k,v] of m) obj[k] = v;
+                  return obj;
+                }, []);
+                const tierColor = { high:'text-emerald-600', mid:'text-amber-600', low:'text-gray-500' };
+                const tierBg   = { high: dark?'bg-emerald-900/30':'bg-emerald-50', mid: dark?'bg-amber-900/30':'bg-amber-50', low: dark?'bg-gray-700/50':'bg-gray-50' };
+                return (
+                  <div className="space-y-5">
+                    <div className={'text-sm '+sub}>{lang==='pt'?'Exporte o template de Rollout Plan, edite e reimporte para visualizar datas reais na Timeline.':'Export the Rollout Plan template, edit planned dates, and re-import to see actual dates in the Timeline view.'}</div>
+                    {/* Action bar */}
+                    <div className={'flex flex-wrap gap-3 p-4 rounded-xl border '+card}>
+                      <button onClick={async()=>{
+                        await loadXLSX();
+                        const tierMap = computePriorityTiers(ALL_SITES, vpoData ?? {}, sitePriorityOverrides);
+                        const tierObj: Record<string,'high'|'mid'|'low'> = {};
+                        for (const [k,v] of tierMap) tierObj[k] = v;
+                        await exportRolloutTemplate(ALL_SITES as any, tierObj);
+                      }}
+                        className={'flex items-center gap-2 px-4 py-2.5 rounded-lg font-bold text-sm transition-all '+(dark?'bg-blue-600 text-white hover:bg-blue-500':'bg-blue-600 text-white hover:bg-blue-500')}>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        {lang==='pt'?'Exportar Template Rollout Plan':'Export Rollout Plan Template'}
+                      </button>
+                      <button onClick={()=>fileInputRef.current?.click()} disabled={importing}
+                        className={'flex items-center gap-2 px-4 py-2.5 rounded-lg font-bold text-sm transition-all disabled:opacity-60 '+(dark?'bg-gray-700 text-white hover:bg-gray-600 border border-gray-600':'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200')}>
+                        {importing
+                          ? <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                          : <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                        }
+                        {lang==='pt'?'Importar Rollout Plan...':'Import Rollout Plan...'}
+                      </button>
+                      {rolloutPlan&&(
+                        <button onClick={()=>{ setRolloutPlan(null); }}
+                          className={'flex items-center gap-2 px-4 py-2.5 rounded-lg font-bold text-sm transition-all '+(dark?'bg-red-900/40 text-red-300 hover:bg-red-900/60':'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200')}>
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M6 18L18 6M6 6l12 12"/></svg>
+                          {lang==='pt'?'Limpar Rollout Plan':'Clear Rollout Plan'}
+                        </button>
+                      )}
+                    </div>
+                    {/* Loaded plan summary */}
+                    {rolloutPlan&&(
+                      <div className={'rounded-xl border overflow-hidden '+card}>
+                        <div className={'px-4 py-3 border-b flex items-center gap-3 '+(dark?'border-gray-700':'border-gray-100')}>
+                          <span className="bg-emerald-500 w-2 h-2 rounded-full"/>
+                          <span className={'text-sm font-bold '+(dark?'text-white':'text-gray-900')}>
+                            {rolloutPlan.fileName}
+                          </span>
+                          <span className={'text-xs ml-auto '+sub}>
+                            {rolloutPlan.importedAt.toLocaleString()} · {rolloutPlan.sites.length} sites · {rolloutPlan.domains.length} domain rows
+                          </span>
+                        </div>
+                        {/* Tier summary */}
+                        <div className="p-4">
+                          <div className="grid grid-cols-3 gap-3 mb-4">
+                            {(['high','mid','low'] as const).map(t=>{
+                              const count = rolloutPlan.sites.filter(s=>s.tier===t).length;
+                              const cfg = { high:{label:'High Interest',target:'L4'}, mid:{label:'Mid Interest',target:'L2'}, low:{label:'Low Interest',target:'L1'} };
+                              return (
+                                <div key={t} className={'rounded-lg p-3 '+tierBg[t]}>
+                                  <div className={'text-xs font-bold '+tierColor[t]}>{cfg[t].label}</div>
+                                  <div className={'text-2xl font-black '+(dark?'text-white':'text-gray-900')}>{count}</div>
+                                  <div className={'text-[10px] '+sub}>Target {cfg[t].target}</div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          {/* Domain plan with dates */}
+                          <div className={'text-xs font-bold mb-2 '+(dark?'text-gray-300':'text-gray-700')}>
+                            {lang==='pt'?'Datas planejadas por site × domínio':'Planned dates by site × domain'}
+                          </div>
+                          <div className="overflow-x-auto max-h-96 overflow-y-auto rounded-lg border" style={{borderColor: dark?'#374151':'#E5E7EB'}}>
+                            <table className="text-xs w-full">
+                              <thead>
+                                <tr className={dark?'bg-gray-800':'bg-gray-50'}>
+                                  {['Zone','Site','Tier','Domain','Planned Date','Gap'].map(h=>(
+                                    <th key={h} className={'px-2 py-1.5 text-left font-bold '+(dark?'text-gray-300':'text-gray-600')}>{h}</th>
+                                  ))}
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {rolloutPlan.domains.filter(d=>d.plannedDate||d.targetScore>d.currentScore).slice(0,200).map((d,i)=>(
+                                  <tr key={i} className={i%2===0?(dark?'bg-gray-800/50':'bg-white'):(dark?'bg-gray-700/30':'bg-gray-50/50')}>
+                                    <td className={'px-2 py-1 '+sub}>{d.zone}</td>
+                                    <td className={'px-2 py-1 font-medium '+(dark?'text-gray-200':'text-gray-800')}>{d.site}</td>
+                                    <td className={'px-2 py-1 text-center font-bold text-[10px] '+(tierColor[rolloutPlan.sites.find(s=>s.site===d.site)?.tier??'low']??'')}>
+                                      {(rolloutPlan.sites.find(s=>s.site===d.site)?.tier??'').toUpperCase()}
+                                    </td>
+                                    <td className={'px-2 py-1 font-mono '+(dark?'text-amber-300':'text-amber-600')}>{d.domain}</td>
+                                    <td className={'px-2 py-1 '+(d.plannedDate?(dark?'text-emerald-300':'text-emerald-700'):(dark?'text-gray-500':'text-gray-400'))}>
+                                      {d.plannedDate||'—'}
+                                    </td>
+                                    <td className={'px-2 py-1 text-center font-bold '+(d.targetScore>Math.floor(d.currentScore)?(dark?'text-red-400':'text-red-600'):(dark?'text-emerald-400':'text-emerald-600'))}>
+                                      {d.targetScore>Math.floor(d.currentScore)?`+${d.targetScore-Math.floor(d.currentScore)}`:'✓'}
+                                    </td>
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>
+                          {rolloutPlan.domains.filter(d=>d.plannedDate||d.targetScore>d.currentScore).length>200&&(
+                            <p className={'text-xs mt-1 '+sub}>...and {rolloutPlan.domains.filter(d=>d.plannedDate||d.targetScore>d.currentScore).length-200} more rows</p>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    {!rolloutPlan&&(
+                      <div className={'rounded-xl border border-dashed p-8 text-center '+(dark?'border-gray-600':'border-gray-300')}>
+                        <div className={'text-sm font-bold mb-1 '+(dark?'text-gray-400':'text-gray-500')}>{lang==='pt'?'Nenhum Rollout Plan importado':'No Rollout Plan imported'}</div>
+                        <div className={'text-xs '+sub}>{lang==='pt'?'Exporte o template, preencha as datas planejadas e reimporte.':'Export the template, fill in planned dates, and re-import.'}</div>
+                      </div>
+                    )}
+                  </div>
+                );
+              };
+
               return (
                 <div className="space-y-0">
                   <DataSubTabs/>
@@ -11999,6 +12325,7 @@ tr:nth-child(even) td{background:#f8fafc}
                   {dataSubTab==='capabilities' && <CapabilityTree/>}
                   {dataSubTab==='domains'      && <DomainsTree/>}
                   {dataSubTab==='management'   && <ManagementPanel/>}
+                  {dataSubTab==='rollout'      && <RolloutPlanPanel/>}
                 </div>
               );
             })()}

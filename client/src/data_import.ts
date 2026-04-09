@@ -1765,3 +1765,340 @@ export function parseRolloutImport(
     },
   };
 }
+
+// ---------------------------------------------------------------------------
+// Sprint 6 — Rollout Plan Template (new format, separate from Coverage Rollout)
+// ---------------------------------------------------------------------------
+
+const ROLLOUT_PLAN_SENTINEL = 'ROLLOUT_PLAN_V1';
+
+export interface RolloutPlanSiteRow {
+  site: string;
+  zone: string;
+  volume: number;
+  currentLevel: number;
+  tier: 'high' | 'mid' | 'low';
+  targetLevel: number;
+  responsibleContact: string;
+}
+
+export interface RolloutPlanDomainRow {
+  site: string;
+  zone: string;
+  domain: string;
+  currentScore: number;
+  targetScore: number;
+  plannedDate: string;
+  blockingCaps: string;
+}
+
+export interface RolloutPlanData {
+  sites: RolloutPlanSiteRow[];
+  domains: RolloutPlanDomainRow[];
+  importedAt: Date;
+  fileName: string;
+}
+
+const SCORED_DOMS_RP = ['BP', 'DA', 'MT', 'MG', 'MDM', 'PP', 'QL'];
+const DOM_LABELS_RP: Record<string, string> = {
+  BP: 'Brewing Performance', DA: 'Data Acquisition', MT: 'Maintenance',
+  MG: 'Management', MDM: 'Master Data', PP: 'Packaging Performance', QL: 'Quality',
+};
+const LEVEL_GATES_RP = { L1: 0.60, L2: 0.75, L3: 0.85, L4: 0.90 };
+const GLOBAL_KEYS_RP: Record<string, string[]> = {
+  BP: ['brewing performance', 'production order'],
+  DA: ['soda etl', 'soda vision', 'soda 1.0'],
+  MT: ['apac - sap pm', 'eur - sap pm', 'maz - sap pm', 'naz - sap pm', 'saz - sap pm', 'max wo'],
+  MG: ['acadia', 'eureka', 'ial', 'splan'],
+  MDM: ['soda mdm'],
+  PP: ['lms', 'traksys lms'],
+  QL: ['sensory one', 'pts portal', 'tracegains'],
+  SF: ['guardian'],
+  UT: ['ums'],
+};
+
+export async function exportRolloutTemplate(
+  sites: CurrentSiteRow[],
+  priorityTiers: Record<string, 'high' | 'mid' | 'low'>,
+): Promise<void> {
+  const XLSX = (window as any).XLSX;
+  const wb = XLSX.utils.book_new();
+  const today = new Date().toISOString().slice(0, 10);
+  const TARGET_BY_TIER: Record<string, number> = { high: 4, mid: 2, low: 1 };
+
+  const sortedSites = [...sites].sort((a, b) =>
+    a.zone.localeCompare(b.zone) || a.name.localeCompare(b.name)
+  );
+
+  // ── Styles ──
+  const S_TITLE    = cs({ bg: '1B5E9E', fg: 'FFFFFF', bold: true, sz: 14 });
+  const S_NOTE     = cs({ fg: '6B7280', italic: true });
+  const S_SECTION  = cs({ fg: '1B5E9E', bold: true });
+  const S_HDR_RO   = cs({ bg: '374151', fg: 'FFFFFF', bold: true, wrapText: true });
+  const S_HDR_EDIT = cs({ bg: 'D97706', fg: 'FFFFFF', bold: true, wrapText: true });
+  const S_RO       = cs({ bg: 'F9FAFB', fg: '374151', border: true });
+  const S_EDIT     = cs({ bg: 'FFFBEB', fg: '1F2937', border: true });
+  const S_HIGH     = cs({ bg: 'D1FAE5', fg: '065F46', bold: true, border: true });
+  const S_MID      = cs({ bg: 'FEF3C7', fg: '78350F', bold: true, border: true });
+  const S_LOW      = cs({ bg: 'F3F4F6', fg: '374151', border: true });
+  const S_REF_HDR  = cs({ bg: '1E3A8A', fg: 'FFFFFF', bold: true });
+  const S_REF_DOM  = cs({ bg: 'DBEAFE', fg: '1E40AF', bold: true, border: true });
+  const S_REF_VAL  = cs({ bg: 'F9FAFB', fg: '374151', border: true });
+
+  // ── Sheet 1: Guide ──
+  const guideRows: any[][] = [
+    [`STRATEGY DASHBOARD — Rollout Plan Template  [${ROLLOUT_PLAN_SENTINEL}]`],
+    [`Generated: ${today}   |   ${sortedSites.length} sites   |   Format: V1`],
+    [''],
+    ['SHEETS IN THIS WORKBOOK'],
+    ['  1. Guide         → This guide (read-only).'],
+    ['  2. Sites         → One row per site. Edit TARGET LEVEL and RESPONSIBLE CONTACT.'],
+    ['  3. Domain Plan   → One row per site × domain. Edit PLANNED DATE.'],
+    ['  4. Reference     → Gate thresholds and global products (read-only).'],
+    [''],
+    ['HOW TO USE'],
+    ['  Step 1: In the "Sites" sheet, review the tier assigned to each site (auto-computed).'],
+    ['         Optionally override Target Level (column F) — valid values: 1, 2, 3, or 4.'],
+    ['         Fill in the Responsible Contact column (column G) for each site.'],
+    [''],
+    ['  Step 2: In the "Domain Plan" sheet, fill in Planned Date (column F) for each'],
+    ['         site × domain gap. Use format: Q1 2026, Q2 2027, TBD, or leave blank.'],
+    [''],
+    ['  Step 3: Save and import back into the Strategy Dashboard.'],
+    ['         The Timeline view will then show actual planned dates instead of TBD.'],
+    [''],
+    ['TIER DEFINITIONS'],
+    ['  High Interest → Target L4 (Touchless Ops). VPO ≥ median AND G2/G3 volume.'],
+    ['  Mid Interest  → Target L2 (Connected Ops). VPO ≥ median AND G1 OR VPO < median AND G2/G3.'],
+    ['  Low Interest  → Target L1 (Digital Foundation). VPO < median AND G1.'],
+    [''],
+    ['NOTE: Planned dates do not affect maturity scores. They are used only for timeline planning.'],
+  ];
+  const wsGuide = XLSX.utils.aoa_to_sheet(guideRows);
+  wsGuide['!cols'] = [{ wch: 100 }];
+  if (wsGuide['A1']) wsGuide['A1'].s = S_TITLE;
+  if (wsGuide['A2']) wsGuide['A2'].s = S_NOTE;
+  if (wsGuide['A4']) wsGuide['A4'].s = S_SECTION;
+  if (wsGuide['A10']) wsGuide['A10'].s = S_SECTION;
+  if (wsGuide['A20']) wsGuide['A20'].s = S_SECTION;
+  XLSX.utils.book_append_sheet(wb, wsGuide, 'Guide');
+
+  // ── Sheet 2: Sites ──
+  const sitesHeader = [
+    'Zone', 'Site', 'Volume (HL)', 'Current Level', 'Tier',
+    'Target Level ← EDIT', 'Responsible Contact ← EDIT',
+  ];
+  const sitesRows: any[][] = [sitesHeader];
+  for (const s of sortedSites) {
+    const tier = priorityTiers[s.name] ?? 'low';
+    const domScores = SCORED_DOMS_RP.map(d => s.scores[d] ?? 0);
+    const currentLevel = Math.min(4, Math.floor(Math.min(...domScores.map(v => Math.max(0, v)))));
+    sitesRows.push([
+      s.zone, s.name, s.volume, currentLevel, tier.toUpperCase(),
+      TARGET_BY_TIER[tier], '',
+    ]);
+  }
+  const wsSites = XLSX.utils.aoa_to_sheet(sitesRows);
+  wsSites['!cols'] = [{ wch: 8 }, { wch: 26 }, { wch: 14 }, { wch: 14 }, { wch: 10 }, { wch: 16 }, { wch: 24 }];
+  // Style header
+  const siteCols = ['A','B','C','D','E','F','G'];
+  for (const col of siteCols) {
+    const addr = `${col}1`;
+    if (wsSites[addr]) wsSites[addr].s = col >= 'F' ? S_HDR_EDIT : S_HDR_RO;
+  }
+  // Style data rows
+  for (let r = 1; r < sitesRows.length; r++) {
+    const tier = (sitesRows[r][4] as string).toLowerCase() as 'high'|'mid'|'low';
+    const tierStyle = tier === 'high' ? S_HIGH : tier === 'mid' ? S_MID : S_LOW;
+    for (const col of ['A','B','C','D','E']) styleCell(wsSites, `${col}${r+1}`, S_RO);
+    styleCell(wsSites, `E${r+1}`, tierStyle);
+    styleCell(wsSites, `F${r+1}`, S_EDIT);
+    styleCell(wsSites, `G${r+1}`, S_EDIT);
+  }
+  XLSX.utils.book_append_sheet(wb, wsSites, 'Sites');
+
+  // ── Sheet 3: Domain Plan ──
+  const domHeader = [
+    'Zone', 'Site', 'Tier', 'Domain Code', 'Domain Name',
+    'Planned Date ← EDIT', 'Current Score', 'Target Score', 'Gap (Levels)',
+  ];
+  const domRows: any[][] = [domHeader];
+  for (const s of sortedSites) {
+    const tier = priorityTiers[s.name] ?? 'low';
+    const targetLevel = TARGET_BY_TIER[tier];
+    for (const dom of SCORED_DOMS_RP) {
+      const currentScore = s.scores[dom] ?? 0;
+      const currentLevel = Math.min(4, Math.floor(Math.max(0, currentScore)));
+      const gap = Math.max(0, targetLevel - currentLevel);
+      domRows.push([
+        s.zone, s.name, tier.toUpperCase(), dom, DOM_LABELS_RP[dom] ?? dom,
+        '', currentScore.toFixed(2), targetLevel, gap,
+      ]);
+    }
+  }
+  const wsDom = XLSX.utils.aoa_to_sheet(domRows);
+  wsDom['!cols'] = [{ wch: 8 }, { wch: 26 }, { wch: 8 }, { wch: 10 }, { wch: 22 }, { wch: 16 }, { wch: 14 }, { wch: 14 }, { wch: 12 }];
+  const domCols = ['A','B','C','D','E','F','G','H','I'];
+  for (const col of domCols) {
+    const addr = `${col}1`;
+    if (wsDom[addr]) wsDom[addr].s = col === 'F' ? S_HDR_EDIT : S_HDR_RO;
+  }
+  for (let r = 1; r < domRows.length; r++) {
+    const tier = (domRows[r][2] as string).toLowerCase() as 'high'|'mid'|'low';
+    const tierStyle = tier === 'high' ? S_HIGH : tier === 'mid' ? S_MID : S_LOW;
+    for (const col of ['A','B','D','E','G','H','I']) styleCell(wsDom, `${col}${r+1}`, S_RO);
+    styleCell(wsDom, `C${r+1}`, tierStyle);
+    styleCell(wsDom, `F${r+1}`, S_EDIT);
+  }
+  XLSX.utils.book_append_sheet(wb, wsDom, 'Domain Plan');
+
+  // ── Sheet 4: Reference ──
+  const refRows: any[][] = [
+    ['REFERENCE — Global Products and Gate Thresholds (read-only)'],
+    [''],
+    ['LEVEL GATES (minimum weighted score to pass)'],
+    ['L1', `${(LEVEL_GATES_RP.L1 * 100).toFixed(0)}%`, 'Digital Foundation'],
+    ['L2', `${(LEVEL_GATES_RP.L2 * 100).toFixed(0)}%`, 'Connected Ops'],
+    ['L3', `${(LEVEL_GATES_RP.L3 * 100).toFixed(0)}%`, 'Intelligent Ops'],
+    ['L4', `${(LEVEL_GATES_RP.L4 * 100).toFixed(0)}%`, 'Touchless Ops'],
+    [''],
+    ['GLOBAL PRODUCTS BY DOMAIN'],
+    ['Domain Code', 'Domain Name', 'Global Products (AB InBev standard)'],
+    ...SCORED_DOMS_RP.map(d => [d, DOM_LABELS_RP[d] ?? d, (GLOBAL_KEYS_RP[d] ?? []).join(', ')]),
+    [''],
+    ['TIER TARGETS'],
+    ['Tier', 'Target Level', 'Description'],
+    ['HIGH', '4', 'Touchless Ops — full automation, predictive, zero-touch'],
+    ['MID',  '2', 'Connected Ops — integrated data, real-time visibility'],
+    ['LOW',  '1', 'Digital Foundation — basic digital tools deployed'],
+  ];
+  const wsRef = XLSX.utils.aoa_to_sheet(refRows);
+  wsRef['!cols'] = [{ wch: 14 }, { wch: 24 }, { wch: 60 }];
+  if (wsRef['A1']) wsRef['A1'].s = S_TITLE;
+  if (wsRef['A3']) wsRef['A3'].s = S_SECTION;
+  if (wsRef['A9']) wsRef['A9'].s = S_SECTION;
+  if (wsRef['A13']) wsRef['A13'].s = S_SECTION;
+  // Style gate header + domain header rows
+  for (const col of ['A','B','C']) {
+    if (wsRef[`${col}10`]) wsRef[`${col}10`].s = S_REF_HDR;
+    if (wsRef[`${col}14`]) wsRef[`${col}14`].s = S_REF_HDR;
+  }
+  // Style gate rows
+  for (let r = 4; r <= 7; r++) {
+    if (wsRef[`A${r}`]) wsRef[`A${r}`].s = S_REF_DOM;
+    if (wsRef[`B${r}`]) wsRef[`B${r}`].s = S_REF_VAL;
+    if (wsRef[`C${r}`]) wsRef[`C${r}`].s = S_REF_VAL;
+  }
+  // Style domain rows (11 to 10+SCORED_DOMS_RP.length)
+  for (let r = 11; r <= 10 + SCORED_DOMS_RP.length; r++) {
+    if (wsRef[`A${r}`]) wsRef[`A${r}`].s = S_REF_DOM;
+    if (wsRef[`B${r}`]) wsRef[`B${r}`].s = S_REF_VAL;
+    if (wsRef[`C${r}`]) wsRef[`C${r}`].s = S_REF_VAL;
+  }
+  XLSX.utils.book_append_sheet(wb, wsRef, 'Reference');
+
+  // ── Write file ──
+  const buf = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `rollout-plan-${today}.xlsx`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export function isRolloutPlanWorkbook(workbook: any): boolean {
+  if (!workbook?.SheetNames?.includes('Sites')) return false;
+  if (!workbook?.SheetNames?.includes('Domain Plan')) return false;
+  const guideSheet = workbook.Sheets['Guide'];
+  if (!guideSheet) return false;
+  const XLSX = (window as any).XLSX;
+  const rows: any[][] = XLSX.utils.sheet_to_json(guideSheet, { header: 1, defval: '' });
+  return rows.some(r => String(r[0] ?? '').includes(ROLLOUT_PLAN_SENTINEL));
+}
+
+export function parseRolloutPlanImport(workbook: any, fileName: string): RolloutPlanData {
+  const XLSX = (window as any).XLSX;
+
+  // ── Parse Sites sheet ──
+  const wsSites = workbook.Sheets['Sites'];
+  if (!wsSites) throw new Error('Sheet "Sites" not found in Rollout Plan workbook.');
+  const siteRaw: any[][] = XLSX.utils.sheet_to_json(wsSites, { header: 1, defval: '' });
+  if (siteRaw.length < 2) throw new Error('Sheet "Sites" is empty.');
+
+  const siteHeader = (siteRaw[0] as any[]).map(h =>
+    String(h ?? '').toLowerCase().replace(/\s*←.*$/, '').trim()
+  );
+  const sHdr = (names: string[]) => {
+    for (const n of names) { const i = siteHeader.indexOf(n); if (i >= 0) return i; }
+    return -1;
+  };
+  const iZone     = sHdr(['zone']);
+  const iSite     = sHdr(['site']);
+  const iTier     = sHdr(['tier']);
+  const iTarget   = sHdr(['target level']);
+  const iContact  = sHdr(['responsible contact']);
+  const iCurLevel = sHdr(['current level']);
+  const iVolume   = sHdr(['volume (hl)', 'volume']);
+
+  const siteRows: RolloutPlanSiteRow[] = [];
+  for (let i = 1; i < siteRaw.length; i++) {
+    const row = siteRaw[i] as any[];
+    const site = String(row[iSite] ?? '').trim();
+    if (!site) continue;
+    const tierRaw = String(row[iTier] ?? '').trim().toLowerCase();
+    const tier: 'high'|'mid'|'low' = tierRaw === 'high' ? 'high' : tierRaw === 'mid' ? 'mid' : 'low';
+    const targetLevel = Math.min(4, Math.max(1, parseInt(String(row[iTarget] ?? ''), 10) || 1));
+    siteRows.push({
+      site,
+      zone: iZone >= 0 ? String(row[iZone] ?? '').trim() : '',
+      volume: iVolume >= 0 ? (Number(row[iVolume]) || 0) : 0,
+      currentLevel: iCurLevel >= 0 ? (parseInt(String(row[iCurLevel] ?? ''), 10) || 0) : 0,
+      tier,
+      targetLevel,
+      responsibleContact: iContact >= 0 ? String(row[iContact] ?? '').trim() : '',
+    });
+  }
+
+  // ── Parse Domain Plan sheet ──
+  const wsDom = workbook.Sheets['Domain Plan'];
+  if (!wsDom) throw new Error('Sheet "Domain Plan" not found in Rollout Plan workbook.');
+  const domRaw: any[][] = XLSX.utils.sheet_to_json(wsDom, { header: 1, defval: '' });
+  if (domRaw.length < 2) throw new Error('Sheet "Domain Plan" is empty.');
+
+  const domHeader = (domRaw[0] as any[]).map(h =>
+    String(h ?? '').toLowerCase().replace(/\s*←.*$/, '').trim()
+  );
+  const dHdr = (names: string[]) => {
+    for (const n of names) { const i = domHeader.indexOf(n); if (i >= 0) return i; }
+    return -1;
+  };
+  const dZone       = dHdr(['zone']);
+  const dSite       = dHdr(['site']);
+  const dTier       = dHdr(['tier']);
+  const dDomCode    = dHdr(['domain code']);
+  const dDomName    = dHdr(['domain name']);
+  const dPlanned    = dHdr(['planned date']);
+  const dCurScore   = dHdr(['current score']);
+  const dTargetScore= dHdr(['target score']);
+
+  const domainRows: RolloutPlanDomainRow[] = [];
+  for (let i = 1; i < domRaw.length; i++) {
+    const row = domRaw[i] as any[];
+    const site = String(row[dSite] ?? '').trim();
+    const domain = String(row[dDomCode] ?? '').trim().toUpperCase();
+    if (!site || !domain) continue;
+    domainRows.push({
+      site,
+      zone: dZone >= 0 ? String(row[dZone] ?? '').trim() : '',
+      domain,
+      currentScore: dCurScore >= 0 ? (parseFloat(String(row[dCurScore] ?? '')) || 0) : 0,
+      targetScore: dTargetScore >= 0 ? (parseInt(String(row[dTargetScore] ?? ''), 10) || 1) : 1,
+      plannedDate: dPlanned >= 0 ? String(row[dPlanned] ?? '').trim() : '',
+      blockingCaps: '',
+    });
+  }
+
+  return { sites: siteRows, domains: domainRows, importedAt: new Date(), fileName };
+}
