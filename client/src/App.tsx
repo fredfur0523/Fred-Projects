@@ -1711,7 +1711,12 @@ const exportXLSX = async (_t: T) => {
 };
 
 // ── Zone Status Report PDF ──────────────────────────────────────────────────
-const exportZonePDF = async (zone: string) => {
+const exportZonePDF = async (
+  zone: string,
+  vpoData?: VpoData | null,
+  siteOseTtpMap?: Record<string, { ose: number | null; ttp: number | null }>,
+  rolloutPlanData?: RolloutPlanData | null,
+) => {
   const html2pdf = await loadHtml2Pdf();
   const now = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
   const zoneSites = ACTIVE_SITES.filter(s => s.zone === zone);
@@ -1845,6 +1850,117 @@ const exportZonePDF = async (zone: string) => {
     const potentialScore = Math.min(4, score + 1);
     return { site: s, score, priority, potentialScore };
   }).sort((a,b) => b.priority - a.priority);
+
+  // ── Sprint 8: Priority tiers + impact projection ─────────────────────────
+  const pdfTiers = vpoData
+    ? computePriorityTiers(zoneSites, vpoData, {})
+    : null;
+  const tierCounts = pdfTiers
+    ? { high: 0, mid: 0, low: 0 } as Record<string, number>
+    : null;
+  if (pdfTiers && tierCounts) pdfTiers.forEach(t => { tierCounts[t] = (tierCounts[t] ?? 0) + 1; });
+
+  // Global coverage % for zone (avg across scored domains)
+  const SCORED_DOMS_PDF = ['BP','DA','MT','MG','MDM','PP','QL'];
+  const globalCovPcts = SCORED_DOMS_PDF.map(d => {
+    const domSites = zoneSites.filter(s => (SITE_DOMAIN_TYPE[s.name] ?? {})[d]);
+    const globalCount = domSites.filter(s => getSiteDomainType(s.name, d) === 'G').length;
+    return domSites.length > 0 ? globalCount / domSites.length * 100 : null;
+  }).filter((v): v is number => v != null);
+  const avgGlobalCov = globalCovPcts.length > 0
+    ? globalCovPcts.reduce((a, b) => a + b, 0) / globalCovPcts.length
+    : null;
+
+  // Execution timeline for this zone
+  const zoneTimeline = buildGlobalCoverageTimeline([zone], zoneSites)[zone] ?? {};
+
+  // Earliest pending completion quarter for zone
+  const pendingCells = Object.values(zoneTimeline).filter(c => c.status === 'planned');
+  const earliestCompletion = pendingCells.length > 0
+    ? pendingCells.reduce((best, c) => {
+        const [qLabel, yLabel] = c.completionLabel.split(' ');
+        const [bestQ, bestY] = best.split(' ');
+        const yr = parseInt(yLabel ?? '9999');
+        const byr = parseInt(bestY ?? '9999');
+        if (yr < byr || (yr === byr && (qLabel ?? '') < (bestQ ?? ''))) return c.completionLabel;
+        return best;
+      }, pendingCells[0].completionLabel)
+    : null;
+
+  // Impact projection (High tier sites → L4)
+  let pdfImpact: { movingSites: number; totalOseUplift: number; totalTtpUplift: number; corrOse: number | null; corrTtp: number | null } | null = null;
+  if (siteOseTtpMap && Object.keys(siteOseTtpMap).length >= 5) {
+    const pairs = ACTIVE_SITES.flatMap(s => {
+      const kpi = siteOseTtpMap[s.name];
+      if (!kpi || kpi.ose == null || kpi.ttp == null) return [];
+      return [{ techScore: s.scores['Total Global'] ?? 0, ose: kpi.ose, ttp: kpi.ttp }];
+    });
+    if (pairs.length >= 5) {
+      const ts = pairs.map(p => p.techScore), os = pairs.map(p => p.ose), tt = pairs.map(p => p.ttp);
+      const cOse = pearson(ts, os), cTtp = pearson(ts, tt);
+      const mean = (a: number[]) => a.reduce((x, y) => x + y, 0) / a.length;
+      const sd = (a: number[]) => Math.sqrt(a.reduce((x, y) => x + (y - mean(a)) ** 2, 0) / a.length);
+      const sdTs = sd(ts), sdOs = sd(os), sdTt = sd(tt);
+      const slopeOse = sdTs > 0 && cOse != null ? cOse * sdOs / sdTs : 0;
+      const slopeTtp = sdTs > 0 && cTtp != null ? cTtp * sdTt / sdTs : 0;
+      let movingSites = 0, totalOseUplift = 0, totalTtpUplift = 0;
+      (pdfTiers ?? new Map()).forEach((tier, siteName) => {
+        if (tier !== 'high') return;
+        const s = zoneSites.find(x => x.name === siteName);
+        if (!s) return;
+        const curLevel = Math.min(4, Math.floor(s.scores['Total Global'] ?? 0));
+        const delta = Math.max(0, 4 - curLevel);
+        if (delta > 0) { movingSites++; totalOseUplift += delta * slopeOse; totalTtpUplift += delta * slopeTtp; }
+      });
+      pdfImpact = { movingSites, totalOseUplift, totalTtpUplift, corrOse: cOse, corrTtp: cTtp };
+    }
+  }
+
+  // Priority tier table rows (for high-interest sites)
+  const priorityTierRows = pdfTiers ? (['high', 'mid', 'low'] as const).flatMap(tier => {
+    const tierSites = zoneSites.filter(s => pdfTiers.get(s.name) === tier);
+    return tierSites.sort((a, b) => b.volume - a.volume).map(s => {
+      const score = s.scores['Total Global'] ?? 0;
+      const vpo = vpoData?.[s.name]?.overall_score;
+      const volFmt = s.volume >= 1e6 ? (s.volume / 1e6).toFixed(1) + 'M hL' : (s.volume / 1e3).toFixed(0) + 'K hL';
+      const TARGET_BY_TIER: Record<string, number> = { high: 4, mid: 2, low: 1 };
+      const targetLvl = TARGET_BY_TIER[tier];
+      const gap = Math.max(0, targetLvl - Math.floor(score));
+      const tierBg = tier === 'high' ? '#D1FAE5' : tier === 'mid' ? '#FEF3C7' : '#F3F4F6';
+      const tierFg = tier === 'high' ? '#065F46' : tier === 'mid' ? '#78350F' : '#374151';
+      return `<tr style="border-bottom:1px solid #f3f4f6">
+        <td style="padding:4px 6px;font-size:11px;font-weight:600">${s.name}</td>
+        <td style="padding:4px 6px;font-size:10px;color:#6B7280">${s.country}</td>
+        <td style="padding:4px 6px;font-size:10px;text-align:right;font-family:monospace">${volFmt}</td>
+        <td style="padding:4px 6px;text-align:center"><span style="background:${tierBg};color:${tierFg};padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700">${tier.toUpperCase()}</span></td>
+        <td style="padding:4px 6px;text-align:center"><span style="background:${levelColor(score)};color:${score<=1?'#374151':'#fff'};padding:1px 7px;border-radius:4px;font-size:11px;font-weight:700">L${Math.floor(score)}</span></td>
+        <td style="padding:4px 6px;text-align:center"><span style="background:${levelColor(targetLvl)};color:${targetLvl<=1?'#374151':'#fff'};padding:1px 7px;border-radius:4px;font-size:11px;font-weight:700">L${targetLvl}</span></td>
+        <td style="padding:4px 6px;text-align:center;font-weight:700;font-size:11px;color:${gap > 0 ? '#DC2626' : '#059669'}">${gap > 0 ? '+'+gap : '✓'}</td>
+        <td style="padding:4px 6px;text-align:center;font-size:10px;color:#6B7280">${vpo != null ? (vpo * 100).toFixed(0) + '%' : '—'}</td>
+      </tr>`;
+    });
+  }).join('') : '';
+
+  // Timeline table rows
+  const timelineRows = SCORED_DOMS_PDF.map(dom => {
+    const cell = zoneTimeline[dom];
+    const bg = !cell || cell.status === 'empty' ? '#F9FAFB'
+      : cell.status === 'done' ? '#D1FAE5'
+      : cell.status === 'planned' ? '#FEF3C7'
+      : '#F3F4F6';
+    const fg = !cell || cell.status === 'empty' ? '#9CA3AF'
+      : cell.status === 'done' ? '#065F46'
+      : cell.status === 'planned' ? '#78350F'
+      : '#6B7280';
+    const label = cell?.completionLabel ?? '—';
+    const missing = cell?.missingCount ?? 0;
+    return `<tr style="border-bottom:1px solid #f3f4f6">
+      <td style="padding:5px 8px;font-weight:700;font-family:monospace;font-size:12px">${dom}</td>
+      <td style="padding:5px 8px;font-size:10px;color:#6B7280">${DOM_LABELS_RP[dom] ?? dom}</td>
+      <td style="padding:5px 8px;text-align:center"><span style="background:${bg};color:${fg};padding:2px 10px;border-radius:10px;font-size:11px;font-weight:700">${label}</span></td>
+      <td style="padding:5px 8px;text-align:center;font-size:10px;color:#6B7280">${missing > 0 ? missing + ' caps pending' : label === 'Done' ? '—' : '—'}</td>
+    </tr>`;
+  }).join('');
 
   // ── Blocking domains (original logic) ────────────────────────────────────
   const blockMap: Record<string,number> = {};
@@ -2109,6 +2225,41 @@ const exportZonePDF = async (zone: string) => {
     </td>
   </tr></table>
 
+  ${tierCounts ? `<!-- EXECUTIVE SUMMARY STRIP -->
+  <table style="width:100%;border-collapse:collapse;background:#EDE9FE;border:1px solid #DDD6FE;border-top:none"><tr>
+    <td style="padding:10px 16px;text-align:center;vertical-align:top;white-space:nowrap">
+      <div style="font-size:9px;font-weight:700;color:#7C3AED;letter-spacing:0.5px;margin-bottom:2px">HIGH INTEREST</div>
+      <div style="font-size:22px;font-weight:900;color:#5B21B6">${tierCounts.high ?? 0}</div>
+      <div style="font-size:9px;color:#8B5CF6">Target L4</div>
+    </td>
+    <td style="padding:10px 16px;text-align:center;vertical-align:top;white-space:nowrap">
+      <div style="font-size:9px;font-weight:700;color:#7C3AED;letter-spacing:0.5px;margin-bottom:2px">MID INTEREST</div>
+      <div style="font-size:22px;font-weight:900;color:#5B21B6">${tierCounts.mid ?? 0}</div>
+      <div style="font-size:9px;color:#8B5CF6">Target L2</div>
+    </td>
+    <td style="padding:10px 16px;text-align:center;vertical-align:top;white-space:nowrap">
+      <div style="font-size:9px;font-weight:700;color:#7C3AED;letter-spacing:0.5px;margin-bottom:2px">LOW INTEREST</div>
+      <div style="font-size:22px;font-weight:900;color:#5B21B6">${tierCounts.low ?? 0}</div>
+      <div style="font-size:9px;color:#8B5CF6">Target L1</div>
+    </td>
+    <td style="padding:10px 16px;text-align:center;vertical-align:top;white-space:nowrap">
+      <div style="font-size:9px;font-weight:700;color:#7C3AED;letter-spacing:0.5px;margin-bottom:2px">GLOBAL COVERAGE</div>
+      <div style="font-size:22px;font-weight:900;color:#5B21B6">${avgGlobalCov != null ? avgGlobalCov.toFixed(0) + '%' : '—'}</div>
+      <div style="font-size:9px;color:#8B5CF6">avg across domains</div>
+    </td>
+    <td style="padding:10px 16px;text-align:center;vertical-align:top;white-space:nowrap">
+      <div style="font-size:9px;font-weight:700;color:#7C3AED;letter-spacing:0.5px;margin-bottom:2px">COMPLETION EST.</div>
+      <div style="font-size:18px;font-weight:900;color:#5B21B6">${earliestCompletion ?? 'TBD'}</div>
+      <div style="font-size:9px;color:#8B5CF6">earliest pending domain</div>
+    </td>
+    ${pdfImpact ? `
+    <td style="padding:10px 16px;text-align:center;vertical-align:top;white-space:nowrap">
+      <div style="font-size:9px;font-weight:700;color:#7C3AED;letter-spacing:0.5px;margin-bottom:2px">PROJ. OSE UPLIFT</div>
+      <div style="font-size:18px;font-weight:900;color:#5B21B6">${pdfImpact.totalOseUplift >= 0 ? '+' : ''}${pdfImpact.totalOseUplift.toFixed(1)} pp</div>
+      <div style="font-size:9px;color:#8B5CF6">${pdfImpact.movingSites} high sites</div>
+    </td>` : ''}
+  </tr></table>` : ''}
+
   <!-- DOMAIN PERFORMANCE TABLE -->
   <div style="border:1px solid #E5E7EB;border-top:none;padding:16px 24px">
     <h2 style="margin:0 0 12px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#374151;border-bottom:2px solid ${zoneColor};padding-bottom:6px">Domain Performance — Zone vs Global</h2>
@@ -2144,6 +2295,50 @@ const exportZonePDF = async (zone: string) => {
 
   <!-- PAGE BREAK -->
   <div style="page-break-before:always;height:1px"></div>
+
+  <!-- SECTION 0: PRIORITY TIER TABLE (Sprint 8) -->
+  ${pdfTiers && priorityTierRows ? `
+  <div style="page-break-before:always;height:1px"></div>
+  <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
+    ${sectionHeader('Site Priority Matrix', `VPO × Volume tier classification — High (→L4) · Mid (→L2) · Low (→L1). Click tier override in the dashboard to adjust.`)}
+    <table style="width:100%;border-collapse:collapse;font-size:11px">
+      <thead>
+        <tr style="background:#F9FAFB;border-bottom:2px solid #E5E7EB">
+          <th style="padding:5px 6px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">SITE</th>
+          <th style="padding:5px 6px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">COUNTRY</th>
+          <th style="padding:5px 6px;text-align:right;font-size:10px;font-weight:700;color:#6B7280">VOLUME</th>
+          <th style="padding:5px 6px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">TIER</th>
+          <th style="padding:5px 6px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">CURRENT</th>
+          <th style="padding:5px 6px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">TARGET</th>
+          <th style="padding:5px 6px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">GAP</th>
+          <th style="padding:5px 6px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">VPO</th>
+        </tr>
+      </thead>
+      <tbody>${priorityTierRows}</tbody>
+    </table>
+  </div>` : ''}
+
+  <!-- SECTION 4: EXECUTION TIMELINE (Sprint 8) -->
+  <div style="page-break-before:always;height:1px"></div>
+  <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
+    ${sectionHeader('Global Coverage Timeline', `Estimated quarter when each domain reaches 100% global tool coverage in ${zone}. Based on CAPABILITY_DETAIL planned dates.`)}
+    <table style="width:100%;border-collapse:collapse;font-size:11px">
+      <thead>
+        <tr style="background:#F9FAFB;border-bottom:2px solid #E5E7EB">
+          <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">DOM</th>
+          <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">DOMAIN</th>
+          <th style="padding:5px 8px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">COMPLETION</th>
+          <th style="padding:5px 8px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">STATUS</th>
+        </tr>
+      </thead>
+      <tbody>${timelineRows}</tbody>
+    </table>
+    <div style="font-size:9px;color:#9CA3AF;margin-top:6px">
+      <span style="background:#D1FAE5;padding:1px 4px;border-radius:2px">Done</span> All global caps ready &nbsp;
+      <span style="background:#FEF3C7;padding:1px 4px;border-radius:2px">Q? 20XX</span> Latest pending global cap planned date &nbsp;
+      <span style="background:#F3F4F6;padding:1px 4px;border-radius:2px">TBD</span> No planned date in data
+    </div>
+  </div>
 
   <!-- PAGE 2: SECTION 1 — Legacy vs Global reference -->
   <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
@@ -2235,33 +2430,53 @@ const exportZonePDF = async (zone: string) => {
     }
   </div>
 
-  <!-- PAGE 6: SECTION 5 — Rollout plan placeholder -->
+  <!-- PAGE 6: SECTION 5 — Rollout plan (from imported data or placeholder) -->
   <div style="page-break-before:always;height:1px"></div>
   <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
-    ${sectionHeader('Rollout Plan by Site', `Phase-by-phase deployment schedule for ${zone} legacy sites`)}
-    <div style="background:#F8FAFC;border:2px dashed #D1D5DB;border-radius:6px;padding:24px;text-align:center;margin-bottom:16px">
-      <div style="font-size:14px;font-weight:700;color:#6B7280;margin-bottom:8px">Em breve — dados de rollout não disponíveis ainda</div>
-      <div style="font-size:12px;color:#9CA3AF">Coming soon — rollout data not yet available</div>
+    ${sectionHeader('Domain Rollout Plan by Site', rolloutPlanData ? `Imported from ${rolloutPlanData.fileName} · ${rolloutPlanData.domains.filter(d => zoneSites.some(s => s.name === d.site)).length} planned entries for ${zone}` : `Phase-by-phase deployment schedule for ${zone} sites (import Rollout Plan template to populate)`)}
+    ${rolloutPlanData ? (() => {
+      const zoneRows = rolloutPlanData.domains.filter(d => zoneSites.some(s => s.name === d.site));
+      if (zoneRows.length === 0) return `<div style="text-align:center;padding:20px;color:#9CA3AF;font-size:12px">No entries for ${zone} in the imported Rollout Plan.</div>`;
+      return `<table style="width:100%;border-collapse:collapse;font-size:11px">
+        <thead><tr style="background:#F9FAFB;border-bottom:2px solid #E5E7EB">
+          <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">SITE</th>
+          <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">DOMAIN</th>
+          <th style="padding:5px 8px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">PLANNED DATE</th>
+          <th style="padding:5px 8px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">GAP</th>
+        </tr></thead>
+        <tbody>${zoneRows.slice(0, 60).map(r => {
+          const gap = Math.max(0, r.targetScore - Math.floor(r.currentScore));
+          return `<tr style="border-bottom:1px solid #f3f4f6">
+            <td style="padding:4px 8px;font-size:11px;font-weight:500">${r.site}</td>
+            <td style="padding:4px 8px;font-size:10px;font-family:monospace;font-weight:700">${r.domain}</td>
+            <td style="padding:4px 8px;text-align:center;font-size:10px;color:${r.plannedDate ? '#059669' : '#9CA3AF'}">${r.plannedDate || 'TBD'}</td>
+            <td style="padding:4px 8px;text-align:center;font-size:10px;font-weight:700;color:${gap > 0 ? '#DC2626' : '#059669'}">${gap > 0 ? '+'+gap : '✓'}</td>
+          </tr>`;
+        }).join('')}
+        ${zoneRows.length > 60 ? `<tr><td colspan="4" style="padding:6px;text-align:center;font-size:9px;color:#9CA3AF">+ ${zoneRows.length - 60} more entries</td></tr>` : ''}
+        </tbody>
+      </table>`;
+    })() : `<div style="background:#F8FAFC;border:2px dashed #D1D5DB;border-radius:6px;padding:24px;text-align:center;margin-bottom:16px">
+      <div style="font-size:13px;font-weight:700;color:#6B7280;margin-bottom:6px">No Rollout Plan imported</div>
+      <div style="font-size:11px;color:#9CA3AF">Export the Rollout Plan template from Dashboard → Data → Rollout Plan, fill in planned dates, and re-import to populate this section.</div>
     </div>
     <table style="width:100%;border-collapse:collapse;font-size:11px">
       <thead>
         <tr style="background:#F9FAFB;border-bottom:2px solid #E5E7EB">
           <th style="padding:8px 10px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">SITE</th>
-          <th style="padding:8px 10px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">FASE / PHASE</th>
-          <th style="padding:8px 10px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">DATA PREVISTA</th>
+          <th style="padding:8px 10px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">PLANNED DATE</th>
           <th style="padding:8px 10px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">STATUS</th>
         </tr>
       </thead>
       <tbody>
         ${zoneLegacySites.slice(0,15).map(s => `<tr style="border-bottom:1px solid #F3F4F6">
           <td style="padding:7px 10px;font-size:11px;font-weight:500;color:#374151">${s.name}</td>
-          <td style="padding:7px 10px;font-size:10px;color:#9CA3AF;font-style:italic">— not yet defined —</td>
           <td style="padding:7px 10px;text-align:center;font-size:10px;color:#9CA3AF">TBD</td>
           <td style="padding:7px 10px;text-align:center"><span style="background:#F3F4F6;border:1px solid #D1D5DB;border-radius:10px;padding:2px 8px;font-size:9px;color:#9CA3AF">PENDING</span></td>
         </tr>`).join('')}
-        ${zoneLegacySites.length > 15 ? `<tr><td colspan="4" style="padding:6px 10px;text-align:center;font-size:10px;color:#9CA3AF;font-style:italic">+ ${zoneLegacySites.length - 15} more sites — data pending</td></tr>` : ''}
+        ${zoneLegacySites.length > 15 ? `<tr><td colspan="3" style="padding:6px 10px;text-align:center;font-size:10px;color:#9CA3AF;font-style:italic">+ ${zoneLegacySites.length - 15} more sites — data pending</td></tr>` : ''}
       </tbody>
-    </table>
+    </table>`}
   </div>
 
   <!-- PAGE 7: SITE LIST -->
@@ -11341,7 +11556,7 @@ tr:nth-child(even) td{background:#f8fafc}
     setExpZone(true);
     setZonePdfTarget(zone);
     try {
-      await exportZonePDF(zone);
+      await exportZonePDF(zone, vpoData, siteOseTtp, rolloutPlan);
     } catch(e) { console.error(e); }
     finally { setExpZone(false); setZonePdfTarget(null); }
   };
