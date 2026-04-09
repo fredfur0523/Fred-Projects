@@ -16,6 +16,8 @@ import { pearson, partialCorr, computeStatsAnalysis, computeZoneAnalysis, comput
 import { calcFunnel, barColor, levelPill } from './utils/funnel';
 import { scoreToColor, scoreToTextClass, getMaturityLevel } from './utils/scoring';
 import { loadXLSX, loadHtml2Pdf, _loadScript, loadD3 } from './utils/export';
+import { useProductCoverage } from './hooks/useProductCoverage';
+import { useAnaplanData } from './hooks/useAnaplanData';
 
 // ============================================================================
 // i18n
@@ -10405,13 +10407,9 @@ export default function App() {
   const [exportingXlsx,setExpXlsx] = useState(false);
   const [exportingZonePdf,setExpZone] = useState(false);
   const [zonePdfTarget,setZonePdfTarget] = useState<string|null>(null);
-  const [anaplanData, setAnaplanData] = useState<AnaplanData | null>(null);
-  const [vpoData, setVpoData] = useState<VpoData | null>(null);
-  const [productCoverage, setProductCoverage] = useState<ProductCoverageData | null>(null);
-  const [productCoverageLoading, setProductCoverageLoading] = useState(false);
-  const [productCoverageError, setProductCoverageError] = useState(false);
-  const [kpiHistory, setKpiHistory] = useState<KpiHistoryData | null>(null);
-  const [waterfallData, setWaterfallData] = useState<WaterfallData | null>(null);
+  // Data fetch hooks
+  const { anaplanData, vpoData, kpiHistory, waterfallData } = useAnaplanData(view);
+  const { data: productCoverage, loading: productCoverageLoading, error: productCoverageError, fetchCoverage: fetchProductCoverage } = useProductCoverage();
   const [selectedBlockingDomain, setSelectedBlockingDomain] = useState<string|null>(null);
   // Sprint 7: site comparison selection
   const [compSelection, setCompSelection] = useState<string[]>([]);
@@ -10436,15 +10434,6 @@ export default function App() {
 
   const t = TRANSLATIONS[lang];
 
-  const fetchProductCoverage = useCallback(() => {
-    if (productCoverage) return;
-    setProductCoverageLoading(true);
-    setProductCoverageError(false);
-    fetch('/product-coverage-2026.json').then(r => r.ok ? r.json() : Promise.reject('not ok')).then(d => {
-      if (d) setProductCoverage(d as ProductCoverageData);
-      setProductCoverageLoading(false);
-    }).catch(() => { setProductCoverageLoading(false); setProductCoverageError(true); });
-  }, [productCoverage]);
   const navigateTo = (targetView: ViewMode, ctx?: {zone?:string, domain?:string, site?:string, subTab?: string}) => {
     setView(targetView);
     setTabIdx(0);
@@ -10457,7 +10446,7 @@ export default function App() {
   useEffect(() => {
     if (view !== 'portfolio' || productCoverage) return;
     fetchProductCoverage();
-  }, [view, productCoverage, fetchProductCoverage]);
+  }, [view, productCoverage, fetchProductCoverage]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Import handler — auto-detects Coverage.xlsx vs Rollout Editável ──
   const handleCoverageImport = useCallback(async (file: File) => {
@@ -10481,45 +10470,7 @@ export default function App() {
     }
   }, []);
 
-  // ── Fetch kpi-history.json for sparklines & trend badges ──
-  useEffect(() => {
-    if (kpiHistory) return;
-    if (view !== 'analysis' && view !== 'maturity' && view !== 'overview') return;
-    fetch('/kpi-history.json').then(r => r.ok ? r.json() : null).then(d => {
-      if (d && d.periods && d.months) setKpiHistory(d as KpiHistoryData);
-    }).catch(() => {});
-  }, [view, kpiHistory]);
-
-  // ── Fetch waterfall.json for OSE drivers (Sprint 8) ──
-  useEffect(() => {
-    if (waterfallData) return;
-    if (view !== 'analysis') return;
-    fetch('/waterfall.json').then(r => r.ok ? r.json() : null).then(d => {
-      if (d && d.data) setWaterfallData(d as WaterfallData);
-    }).catch(() => {});
-  }, [view, waterfallData]);
-
-  useEffect(() => {
-    if (view !== 'analysis' && view !== 'sites' && view !== 'overview') return;
-    let cancelled = false;
-    const load = (url: string) => fetch(url).then(r => r.ok ? r.json() : null);
-    Promise.all([
-      load('/anaplan-kpis-2025.json').then(d => d?.rows?.length ? d : load('/anaplan-kpis.json')),
-      load('/anaplan-ose-ttp-2025.json'),
-      load('/vpo-site-scores-2026.json'),
-    ]).then(([base, oseTtp, vpo]) => {
-      if (cancelled) return;
-      const year = (base as AnaplanData | null)?.year ?? (oseTtp as AnaplanData | null)?.year ?? 2025;
-      const baseRows = (base as AnaplanData | null)?.rows ?? [];
-      const oseTtpRows = (oseTtp as AnaplanData | null)?.rows ?? [];
-      const rows = oseTtpRows.length ? [...baseRows, ...oseTtpRows] : baseRows;
-      if (rows.length) setAnaplanData({ year, rows });
-      else setAnaplanData(null);
-      if (vpo && typeof vpo === 'object') setVpoData(vpo as VpoData);
-    }).catch(() => { if (!cancelled) { setAnaplanData(null); setVpoData(null); } });
-    return () => { cancelled = true; };
-  }, [view]);
-
+  // Data fetching is handled by useAnaplanData and useProductCoverage hooks above.
 
   // apply dark class on root
   useEffect(()=>{
