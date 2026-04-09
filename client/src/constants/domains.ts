@@ -42,6 +42,14 @@ export const GLOBAL_STATS: Record<string,Record<string,{dist:number[];avg:string
   "Management":{"AFR":{dist:[0,0,100,0,0],avg:"2.00",total:28},"SAZ":{dist:[0,0,100,0,0],avg:"2.00",total:41},"MAZ":{dist:[0,6,94,0,0],avg:"1.94",total:31},"NAZ":{dist:[0,0,100,0,0],avg:"2.00",total:14},"EUR":{dist:[0,100,0,0,0],avg:"1.00",total:12},"APAC":{dist:[19,5,8,68,0],avg:"2.24",total:37},"Global":{dist:[4,10,71,15,0],avg:"1.97",total:163}},
 };
 
+// DOMAIN_KEYS: ordered array of all 9 domain keys + shorts (excluding Total Global)
+export const DOMAIN_KEYS = [
+  {key:"Brewing Performance",short:"BP"},{key:"Data Acquisition",short:"DA"},
+  {key:"Utilities",short:"UT"},{key:"Maintenance",short:"MT"},
+  {key:"Management",short:"MG"},{key:"MasterData Management",short:"MDM"},
+  {key:"Packaging Performance",short:"PP"},{key:"Quality",short:"QL"},{key:"Safety",short:"SF"},
+] as const;
+
 // GLOBAL_KEYS: identifies which coveredBy keys map to Global products (per domain)
 // Appears in 3 places in App.tsx — must stay in sync
 export const GLOBAL_KEYS: Record<string, string[]> = {

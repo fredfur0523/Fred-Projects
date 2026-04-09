@@ -8,8 +8,14 @@ import type { Site, ProductDeployment, ProductCoverageData, MaturityDetailLevel,
 import type { ImpactByLevel, StatsAnalysis, ZoneAnalysisRow, ThresholdRow, DomainOseRow, PillarPartialRow, DomainTransition, ImpactByLevelOseTtp, DomainAnalysisRow, DomainAnalysis, VolumeComplexityCluster, MaturityProfileCluster, LevelRow, TriDimSiteRow, TriDimQuadrant, ZoneDomainSummary } from './types/analysis';
 import type { LocalSystem, CapabilityRecord, DomainZonePortfolioRow } from './types/portfolio';
 import type { ViewMode, FunnelLevel, FunnelMetrics, QuadrantFilter, CgSubView, SortKey, CapabilityGapViewProps, CapabilitySiteDetailProps } from './types/app';
-import { DOMAINS, ZONES, ZONE_COLORS, GHQ_TOTALS, GLOBAL_STATS, GLOBAL_KEYS } from './constants/domains';
+import { DOMAINS, ZONES, ZONE_COLORS, GHQ_TOTALS, GLOBAL_STATS, GLOBAL_KEYS, DOMAIN_KEYS } from './constants/domains';
 import { VOLUME_KPI_CODES, ANAPLAN_KPI_GROUPS, type KpiGroup, KPI_GROUP_BY_PREFIX, KPI_EPT, KPI_OST, STUDY_KPI_OSE_PRECALC, STUDY_KPI_TTP, getKpiGroup, PLANT_TO_SITE_OVERRIDE } from './constants/kpis';
+import { normalizePlantToSite, getSiteOseTtp } from './utils/normalize';
+import { complexityBand, getSiteComplexity, getSiteComplexityBand, getSiteComplexityBands, getSiteClusterKey, getProductType, buildVolumeComplexityClusters } from './utils/complexity';
+import { pearson, partialCorr, computeStatsAnalysis, computeZoneAnalysis, computeThresholdSweep, computeDomainOseCorrelation, computePillarPartials, computeDomainReadiness, buildDomainAnalysis, buildMaturityProfileClusters, buildPageInsights } from './utils/analysis';
+import { calcFunnel, barColor, levelPill } from './utils/funnel';
+import { scoreToColor, scoreToTextClass, getMaturityLevel } from './utils/scoring';
+import { loadXLSX, loadHtml2Pdf, _loadScript, loadD3 } from './utils/export';
 
 // ============================================================================
 // i18n
@@ -35,32 +41,7 @@ const getGroupFromVolume = (v: number) => v > 6000000 ? 'G3' : v >= 2000000 ? 'G
 // getKpiGroup → constants/kpis.ts
 // PLANT_TO_SITE_OVERRIDE → constants/kpis.ts
 
-const normalizePlantToSite = (plant: string, siteNames: string[]): string | null => {
-  // 1. Explicit override
-  if (PLANT_TO_SITE_OVERRIDE[plant]) return PLANT_TO_SITE_OVERRIDE[plant];
-  // 2. Strip common suffixes (case-insensitive)
-  const p = plant
-    .replace(/\s*_BOPS\s*$|\s*_T1\s*$/i, '')
-    .replace(/\s*Beer_BOPS\s*$/i, '')
-    .replace(/\s+Beer\s*$/i, '')
-    .replace(/\s+Brewery\s*$/i, '')
-    .replace(/\s*\(SABM\)\s*$|\s*\(BO\)\s*$|\s*\(New\)\s*$/i, '')
-    .replace(/\s+New\s*$/i, '')
-    .trim();
-  // 3. Case-insensitive exact match
-  const pl = p.toLowerCase();
-  const exact = siteNames.find(s => s.toLowerCase() === pl);
-  if (exact) return exact;
-  // 4. Word-boundary aware partial match (avoid false positives like "Ate" → "Albairate")
-  const match = siteNames.find(s => {
-    const sl = s.toLowerCase();
-    // Only match if one is a prefix/suffix of the other at word boundaries
-    return (pl === sl)
-      || (pl.startsWith(sl + ' ') || sl.startsWith(pl + ' '))
-      || (pl.endsWith(' ' + sl) || sl.endsWith(' ' + pl));
-  });
-  return match ?? null;
-};
+// normalizePlantToSite → utils/normalize.ts
 
 
 // ZONE_COLORS → constants/domains.ts
@@ -573,197 +554,23 @@ const ALL_SITES: Site[] = parseCSV(CSV_DATA);
 const ACTIVE_SITES: Site[] = ALL_SITES.filter(s => !isGhostSite(s.name));
 
 // Build cluster key: volume + maturity (e.g. G2_L2) or zone + volume + maturity (e.g. SAZ_G2_L2)
-const getMaturityLevel = (site: Site): string => {
-  const s = site.scores['Total Global'] ?? 0;
-  return 'L' + Math.min(4, Math.max(0, Math.round(s)));
-};
+// getMaturityLevel → utils/scoring.ts
 
-// Impact by maturity level only (L0..L4): for executive "does maturity correlate with results?"
-// ImpactByLevel, StatsAnalysis → moved to types/analysis.ts (imported above)
-function computeStatsAnalysis(impactByLevel: ImpactByLevel[]): StatsAnalysis {
-  const levels = impactByLevel.filter(i => i.composite != null && i.withKpiCount > 0);
-  const n = levels.length;
-  if (n < 2) {
-    return {
-      correlation: null,
-      byLevel: impactByLevel.map(i => ({ level: i.level, mean: i.composite, count: i.withKpiCount })),
-      narrative: n === 0 ? 'Dados insuficientes para análise estatística.' : 'É necessário mais de um nível com dados para correlacionar maturidade e resultado.',
-    };
-  }
-  const levelNum = (l: string) => parseInt(l.replace('L', ''), 10) || 0;
-  const x = levels.map(i => levelNum(i.level));
-  const y = levels.map(i => i.composite!);
-  const mx = x.reduce((a, b) => a + b, 0) / n;
-  const my = y.reduce((a, b) => a + b, 0) / n;
-  let num = 0, denX = 0, denY = 0;
-  for (let i = 0; i < n; i++) {
-    const dx = x[i] - mx, dy = y[i] - my;
-    num += dx * dy;
-    denX += dx * dx;
-    denY += dy * dy;
-  }
-  const corr = denX > 0 && denY > 0 ? num / Math.sqrt(denX * denY) : null;
-  let narrative = '';
-  if (corr != null) {
-    if (corr > 0.3) narrative = 'Há associação positiva entre nível de maturidade tecnológica e resultado operacional: quanto maior o nível (L0→L4), maior tende a ser o indicador composto. O investimento em maturidade mostra efeito nos resultados.';
-    else if (corr < -0.3) narrative = 'Há associação negativa entre maturidade e indicador: revisar métricas ou amostra.';
-    else narrative = 'A correlação entre maturidade e resultado é fraca no período. Pode ser necessário mais tempo ou mais dados para observar o efeito.';
-  }
-  return {
-    correlation: corr,
-    byLevel: impactByLevel.map(i => ({ level: i.level, mean: i.composite, count: i.withKpiCount })),
-    narrative,
-  };
-}
+// computeStatsAnalysis → utils/analysis.ts
 
-// Pearson: x = nível (0–4), y = indicador
-function pearson(x: number[], y: number[]): number | null {
-  const n = x.length;
-  if (n < 2) return null;
-  const mx = x.reduce((a, b) => a + b, 0) / n;
-  const my = y.reduce((a, b) => a + b, 0) / n;
-  let num = 0, denX = 0, denY = 0;
-  for (let i = 0; i < n; i++) {
-    const dx = x[i] - mx, dy = y[i] - my;
-    num += dx * dy;
-    denX += dx * dx;
-    denY += dy * dy;
-  }
-  return denX > 0 && denY > 0 ? num / Math.sqrt(denX * denY) : null;
-}
+// pearson → utils/analysis.ts
 
-// Correlação parcial r(X,Y|Z): efeito de X em Y controlando Z
-function partialCorr(x: number[], y: number[], z: number[]): number | null {
-  const rxy = pearson(x, y), rxz = pearson(x, z), ryz = pearson(y, z);
-  if (rxy == null || rxz == null || ryz == null) return null;
-  const d = Math.sqrt((1 - rxz * rxz) * (1 - ryz * ryz));
-  return d > 0 ? (rxy - rxz * ryz) / d : null;
-}
+// partialCorr → utils/analysis.ts
 
-// ZoneAnalysisRow → moved to types/analysis.ts
-function computeZoneAnalysis(
-  sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
-  vpoData: VpoData | null
-): ZoneAnalysisRow[] {
-  const zones = ['APAC', 'MAZ', 'SAZ', 'NAZ', 'AFR', 'EUR'];
-  return zones.map(z => {
-    const zSites = sites.filter(s => s.zone === z);
-    const rows = zSites.map(s => {
-      const kpi = siteOseTtp[s.name];
-      const vpo = vpoData?.[s.name]?.overall_score ?? null;
-      const active = Object.entries(s.scores).filter(([k, v]) => k !== 'Total Global' && v > 0);
-      const techAvg = active.length > 0 ? active.reduce((a, [, v]) => a + v, 0) / active.length : 0;
-      return { ose: kpi?.ose ?? null, ttp: kpi?.ttp ?? null, vpo, techAvg };
-    }).filter(r => r.vpo != null && r.ose != null);
-    const vpos = rows.map(r => r.vpo!);
-    const oses = rows.map(r => r.ose!);
-    const techs = rows.map(r => r.techAvg);
-    const ttps = rows.filter(r => r.ttp != null).map(r => r.ttp!);
-    return {
-      zone: z, n: rows.length,
-      avgVpo: vpos.length ? vpos.reduce((a, b) => a + b, 0) / vpos.length : null,
-      avgOse: oses.length ? oses.reduce((a, b) => a + b, 0) / oses.length : null,
-      avgTtp: ttps.length ? ttps.reduce((a, b) => a + b, 0) / ttps.length : null,
-      avgTech: techs.length ? techs.reduce((a, b) => a + b, 0) / techs.length : 0,
-      rVpoOse: rows.length >= 5 ? pearson(vpos, oses) : null,
-      rTechOse: rows.length >= 5 ? pearson(techs, oses) : null,
-    };
-  });
-}
+// computeZoneAnalysis → utils/analysis.ts
 
-// ThresholdRow → moved to types/analysis.ts
-function computeThresholdSweep(
-  sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
-  vpoData: VpoData | null, thresholds: number[]
-): ThresholdRow[] {
-  const rows = sites.map(s => {
-    const kpi = siteOseTtp[s.name]; const vpo = vpoData?.[s.name]?.overall_score ?? null;
-    const active = Object.entries(s.scores).filter(([k, v]) => k !== 'Total Global' && v > 0);
-    const techAvg = active.length > 0 ? active.reduce((a, [, v]) => a + v, 0) / active.length : 0;
-    return { ose: kpi?.ose ?? null, vpo, techAvg };
-  }).filter(r => r.vpo != null && r.ose != null);
-  return thresholds.map(t => {
-    const above = rows.filter(r => r.vpo! >= t);
-    const below = rows.filter(r => r.vpo! < t);
-    return {
-      threshold: t,
-      nAbove: above.length,
-      rAbove: above.length >= 5 ? pearson(above.map(r => r.techAvg), above.map(r => r.ose!)) : null,
-      nBelow: below.length,
-      rBelow: below.length >= 5 ? pearson(below.map(r => r.techAvg), below.map(r => r.ose!)) : null,
-    };
-  });
-}
+// computeThresholdSweep → utils/analysis.ts
 
-// DomainOseRow → moved to types/analysis.ts
-function computeDomainOseCorrelation(
-  sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>
-): DomainOseRow[] {
-  const GHQ_PCT: Record<string, number> = { 'Management': 63, 'Quality': 1, 'Packaging Performance': 1, 'Brewing Performance': 39, 'Safety': 45, 'Maintenance': 33, 'Data Acquisition': 79, 'MasterData Management': 93, 'Utilities': 4 };
-  return DOMAIN_KEYS.filter(d => d.key !== 'Total Global').map(dk => {
-    const pairs = sites.map(s => ({ score: s.scores[dk.key] ?? 0, ose: siteOseTtp[s.name]?.ose ?? null })).filter(p => p.score > 0 && p.ose != null);
-    const ghq = GHQ_PCT[dk.key] ?? 0;
-    return {
-      domain: dk.key, short: dk.short, ghqPct: ghq, n: pairs.length,
-      rOse: pairs.length >= 5 ? pearson(pairs.map(p => p.score), pairs.map(p => p.ose!)) : null,
-      cls: ghq >= 60 ? 'global' as const : ghq >= 20 ? 'mixed' as const : 'legacy' as const,
-    };
-  }).sort((a, b) => (b.ghqPct - a.ghqPct));
-}
+// computeDomainOseCorrelation → utils/analysis.ts
 
-// PillarPartialRow → moved to types/analysis.ts
-function computePillarPartials(
-  sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
-  vpoData: VpoData | null
-): PillarPartialRow[] {
-  const PILS = ['Maintenance', 'Logistics', 'Management', 'Quality', 'People', 'Environment', 'Safety'];
-  return PILS.map(p => {
-    const rows = sites.map(s => {
-      const kpi = siteOseTtp[s.name]; const vpo = vpoData?.[s.name];
-      return { ose: kpi?.ose ?? null, pillar: vpo?.pillars?.[p]?.score ?? null, overall: vpo?.overall_score ?? null };
-    }).filter(r => r.ose != null && r.pillar != null && r.overall != null);
-    const ps = rows.map(r => r.pillar!); const os = rows.map(r => r.ose!); const vs = rows.map(r => r.overall!);
-    const rSimple = rows.length >= 5 ? pearson(ps, os) : null;
-    const rPartial = rows.length >= 5 ? partialCorr(ps, os, vs) : null;
-    const cls = rPartial != null && Math.abs(rPartial) > 0.15 ? 'own' as const : rPartial != null && Math.abs(rPartial) < 0.05 ? 'spurious' as const : 'marginal' as const;
-    return { pillar: p, rSimple, rPartial, n: rows.length, cls };
-  });
-}
+// computePillarPartials → utils/analysis.ts
 
-// DomainTransition → moved to types/analysis.ts
-function computeDomainReadiness(
-  sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
-  vpoData: VpoData | null, domainKey: string
-): DomainTransition[] {
-  const byScore: Record<number, { ose: number | null; vpo: number | null }[]> = {};
-  sites.forEach(s => {
-    const sc = s.scores[domainKey] ?? 0;
-    if (sc === 0) return;
-    const kpi = siteOseTtp[s.name]; const vpo = vpoData?.[s.name]?.overall_score ?? null;
-    if (!byScore[sc]) byScore[sc] = [];
-    byScore[sc].push({ ose: kpi?.ose ?? null, vpo });
-  });
-  const transitions: DomainTransition[] = [];
-  for (const [fl, tl] of [[1, 2], [2, 3]] as [number, number][]) {
-    const from = (byScore[fl] ?? []).filter(r => r.ose != null);
-    const to = (byScore[tl] ?? []).filter(r => r.ose != null);
-    if (from.length < 3 || to.length < 3) continue;
-    const fromOse = from.reduce((a, r) => a + r.ose!, 0) / from.length;
-    const toOse = to.reduce((a, r) => a + r.ose!, 0) / to.length;
-    const sorted = [...to].sort((a, b) => a.ose! - b.ose!);
-    const mid = Math.floor(sorted.length / 2);
-    const topHalf = sorted.slice(mid).filter(r => r.vpo != null);
-    const botHalf = sorted.slice(0, mid).filter(r => r.vpo != null);
-    transitions.push({
-      from: fl, to: tl, fromN: from.length, toN: to.length,
-      fromOse, toOse, delta: toOse - fromOse,
-      viable: (toOse - fromOse) > 0.05,
-      topVpo: topHalf.length ? topHalf.reduce((a, r) => a + r.vpo!, 0) / topHalf.length : null,
-      botVpo: botHalf.length ? botHalf.reduce((a, r) => a + r.vpo!, 0) / botHalf.length : null,
-    });
-  }
-  return transitions;
-}
+// computeDomainReadiness → utils/analysis.ts
 
 // SiteMigrationStatus → moved to types/sites.ts
 
@@ -1176,391 +983,38 @@ function buildVolumeMixFromRows(sites: Site[], anaplanRows: AnaplanRow[]): Map<s
 }
 
 // — OSE e TTP por site (para clusters e análise domínio)
-function getSiteOseTtp(sites: Site[], anaplanRows: AnaplanRow[]): Record<string, { ose: number | null; ttp: number | null }> {
-  const studyKpis = [KPI_EPT, KPI_OST, STUDY_KPI_OSE_PRECALC, STUDY_KPI_TTP];
-  const studyRows = anaplanRows.filter(r => studyKpis.includes(r.kpi_code));
-  const siteNames = sites.map(s => s.name);
-  const plantToSite = (plant: string) => normalizePlantToSite(plant, siteNames);
-  type SiteSums = { ept: number; ost: number; osePrecalc: number[]; ttp: number[] };
-  const bySite: Record<string, SiteSums> = {};
-  studyRows.forEach(r => {
-    if (r.plant === 'N/A' || !r.plant) return;
-    const site = plantToSite(r.plant);
-    if (!site) return;
-    if (!bySite[site]) bySite[site] = { ept: 0, ost: 0, osePrecalc: [], ttp: [] };
-    const v = r.aggregated_value;
-    if (r.kpi_code === KPI_EPT) bySite[site].ept += v;
-    else if (r.kpi_code === KPI_OST) bySite[site].ost += v;
-    else if (r.kpi_code === STUDY_KPI_OSE_PRECALC) bySite[site].osePrecalc.push(v);
-    else if (r.kpi_code === STUDY_KPI_TTP) bySite[site].ttp.push(v);
-  });
-  const result: Record<string, { ose: number | null; ttp: number | null }> = {};
-  sites.forEach(s => {
-    const k = bySite[s.name];
-    let ose: number | null = null;
-    if (k?.ost > 0) ose = k.ept / k.ost;
-    if (ose == null && k?.osePrecalc?.length) ose = k.osePrecalc.reduce((a, b) => a + b, 0) / k.osePrecalc.length;
-    const ttp = k?.ttp?.length ? k.ttp.reduce((a, b) => a + b, 0) / k.ttp.length : null;
-    result[s.name] = { ose: ose ?? null, ttp };
-  });
-  return result;
-}
+// getSiteOseTtp → utils/normalize.ts
 
 // — Complexidade operacional: 3 fatores independentes de escala
 // Format diversity (Bottling/Canning/PET) + Product diversity (Beer/SoftDrink/Water) + Cross-category penalty
 // Limiares absolutos — não dependem do dataset
-function complexityBand(c: number): 'L' | 'M' | 'H' {
-  if (c < 0.25) return 'L';  // única categoria de formato ou produto
-  if (c < 0.60) return 'M';  // dois formatos ou dois produtos, ou cerveja + outra categoria
-  return 'H';                 // três formatos, ou multi-produto entre categorias distintas
-}
+// complexityBand → utils/complexity.ts
 
-// Proxy de complexidade: variância dos scores de domínio APLICÁVEIS.
-// Regra: se TG > 0, domínios com score=0 são “Não Aplicável” (ex: BP=0 em operação só CSD)
-// e são excluídos para não inflar variância artificialmente.
-// Se TG = 0, todos os domínios são incluídos — os zeros representam gaps reais.
-function getProxyComplexity(site: Site): number {
-  const keys = DOMAIN_KEYS.filter(d => d.key !== 'Total Global').map(d => d.key);
-  const tg = site.scores['Total Global'] ?? 0;
-  const allScores = keys.map(k => site.scores[k] ?? 0);
-  // Excluir N/A (score=0 quando TG>0 significa domínio não aplicável a essa operação)
-  const scores = tg > 0 ? allScores.filter(v => v > 0) : allScores;
-  if (scores.length < 2) return 0;
-  const mean = scores.reduce((a, b) => a + b, 0) / scores.length;
-  const variance = scores.reduce((a, x) => a + (x - mean) ** 2, 0) / scores.length;
-  const maxVar = 4;
-  return Math.min(1, variance / maxVar);
-}
+// getProxyComplexity → utils/complexity.ts
 
-// Complexidade final: do mix (entropia) quando há dados; senão proxy da variância dos domínios
-function getSiteComplexity(site: Site, volumeMix: Map<string, SiteVolumeMix>): number {
-  const mix = volumeMix.get(site.name);
-  if (mix && mix.totalHL > 0) return mix.complexity;
-  return getProxyComplexity(site);
-}
+// getSiteComplexity → utils/complexity.ts
 
-function getSiteComplexityBand(site: Site, volumeMix: Map<string, SiteVolumeMix>): 'L' | 'M' | 'H' {
-  return complexityBand(getSiteComplexity(site, volumeMix));
-}
+// getSiteComplexityBand → utils/complexity.ts
 
 // Bandas por site via tercis — garante L/M/H sempre com ~⅓ das operações cada,
 // independente da compressão dos valores brutos (proxy ou volume real).
-function getSiteComplexityBands(sites: Site[], volumeMix: Map<string, SiteVolumeMix>): Record<string, 'L' | 'M' | 'H'> {
-  const rawBySite: Record<string, number> = {};
-  sites.forEach(s => { rawBySite[s.name] = getSiteComplexity(s, volumeMix); });
-  const sorted = [...Object.values(rawBySite)].sort((a, b) => a - b);
-  const n = sorted.length;
-  const t33 = sorted[Math.floor(n / 3)] ?? 0;
-  const t67 = sorted[Math.floor(2 * n / 3)] ?? 0;
-  const out: Record<string, 'L' | 'M' | 'H'> = {};
-  sites.forEach(s => {
-    const raw = rawBySite[s.name] ?? 0;
-    out[s.name] = raw <= t33 ? 'L' : raw <= t67 ? 'M' : 'H';
-  });
-  return out;
-}
+// getSiteComplexityBand → utils/complexity.ts
 
-function getSiteClusterKey(site: Site, volumeMix: Map<string, SiteVolumeMix>, complexityBands?: Record<string, 'L' | 'M' | 'H'>): string {
-  const band = complexityBands?.[site.name] ?? getSiteComplexityBand(site, volumeMix);
-  return `${site.group}_${band}`;
-}
+// getSiteClusterKey → utils/complexity.ts
 
-// ProductType → moved to types/sites.ts
-function getProductType(site: Site, volumeMix: Map<string, SiteVolumeMix>): ProductType {
-  const mix = volumeMix.get(site.name);
-  if (!mix || mix.totalHL <= 0) return 'unknown';
-  const beer = (mix.shares[1] ?? 0) + (mix.shares[4] ?? 0) + (mix.shares[7] ?? 0);
-  const softDrink = (mix.shares[0] ?? 0) + (mix.shares[5] ?? 0) + (mix.shares[8] ?? 0);
-  const water = (mix.shares[2] ?? 0) + (mix.shares[3] ?? 0) + (mix.shares[6] ?? 0);
-  const tol = 0.05;
-  if (beer >= 1 - tol && softDrink < tol && water < tol) return 'beer_only';
-  if (softDrink >= 1 - tol && beer < tol && water < tol) return 'soft_drink_only';
-  if (water >= 1 - tol && beer < tol && softDrink < tol) return 'water_only';
-  if (beer >= tol && softDrink >= tol) return 'mixed_beer_soft_drink';
-  return 'mixed_other';
-}
+// getProductType → utils/complexity.ts
 
-// VolumeComplexityCluster → moved to types/analysis.ts
-function buildVolumeComplexityClusters(
-  sites: Site[],
-  volumeMix: Map<string, SiteVolumeMix>,
-  siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
-  complexityBands?: Record<string, 'L' | 'M' | 'H'>
-): VolumeComplexityCluster[] {
-  const clusters = new Map<string, Site[]>();
-  sites.forEach(site => {
-    const band = complexityBands?.[site.name] ?? getSiteComplexityBand(site, volumeMix);
-    const key = `${site.group}_${band}`;
-    if (!clusters.has(key)) clusters.set(key, []);
-    clusters.get(key)!.push(site);
-  });
-  return Array.from(clusters.entries()).map(([clusterKey, clusterSites]) => {
-    const [volumeBand, complexityBand] = clusterKey.split('_');
-    const withKpi = clusterSites.filter(s => siteOseTtp[s.name] && (siteOseTtp[s.name].ose != null || siteOseTtp[s.name].ttp != null));
-    const oseVals = withKpi.map(s => siteOseTtp[s.name].ose).filter((v): v is number => v != null && isFinite(v));
-    const ttpVals = withKpi.map(s => siteOseTtp[s.name].ttp).filter((v): v is number => v != null && isFinite(v));
-    return {
-      clusterKey,
-      volumeBand,
-      complexityBand,
-      siteCount: clusterSites.length,
-      sites: clusterSites,
-      avgOsePct: oseVals.length ? (oseVals.reduce((a, b) => a + b, 0) / oseVals.length) * 100 : null,
-      avgTtp: ttpVals.length ? ttpVals.reduce((a, b) => a + b, 0) / ttpVals.length : null,
-      withKpiCount: withKpi.length,
-    };
-  }).filter(c => c.siteCount > 0).sort((a, b) => a.clusterKey.localeCompare(b.clusterKey));
-}
+// buildVolumeComplexityClusters → utils/complexity.ts
 
-// DomainAnalysisRow, DomainAnalysis → moved to types/analysis.ts
-function buildDomainAnalysis(
-  sites: Site[],
-  siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
-  domainKeys: { key: string; short: string }[]
-): DomainAnalysis {
-  const rows: DomainAnalysisRow[] = domainKeys.map(d => {
-    const siteScores = sites.map(s => ({ site: s, score: s.scores[d.key] ?? 0 }));
-    const avgMaturity = siteScores.length ? siteScores.reduce((a, x) => a + x.score, 0) / siteScores.length : 0;
-    // Indicadores por domínio: média OSE/TTP dos sites com maturidade alta (≥2) nesse domínio
-    const matureSites = siteScores.filter(x => x.score >= 2).map(x => x.site);
-    const withOse = matureSites.filter(s => siteOseTtp[s.name]?.ose != null);
-    const withTtp = matureSites.filter(s => siteOseTtp[s.name]?.ttp != null);
-    const avgOsePct = withOse.length ? withOse.reduce((a, s) => a + (siteOseTtp[s.name].ose! * 100), 0) / withOse.length : null;
-    const avgTtp = withTtp.length ? withTtp.reduce((a, s) => a + siteOseTtp[s.name].ttp!, 0) / withTtp.length : null;
-    return {
-      domain: d.key,
-      domainShort: d.short,
-      siteCount: matureSites.length,
-      avgMaturity,
-      avgOsePct,
-      avgTtp,
-    };
-  });
-  const withBoth = rows.filter(r => r.avgOsePct != null && r.avgTtp != null);
-  const n = withBoth.length;
-  const pearson = (x: number[], y: number[]) => {
-    if (x.length < 2) return null;
-    const mx = x.reduce((a, b) => a + b, 0) / x.length;
-    const my = y.reduce((a, b) => a + b, 0) / y.length;
-    let num = 0, dx2 = 0, dy2 = 0;
-    for (let i = 0; i < x.length; i++) {
-      const dx = x[i] - mx, dy = y[i] - my;
-      num += dx * dy;
-      dx2 += dx * dx;
-      dy2 += dy * dy;
-    }
-    return dx2 > 0 && dy2 > 0 ? num / Math.sqrt(dx2 * dy2) : null;
-  };
-  const corrOse = n >= 2 ? pearson(withBoth.map(r => r.avgMaturity), withBoth.map(r => r.avgOsePct!)) : null;
-  const corrTtp = n >= 2 ? pearson(withBoth.map(r => r.avgMaturity), withBoth.map(r => r.avgTtp!)) : null;
-  let answerMatureDomain = 'Dados insuficientes para correlacionar maturidade do domínio com OSE/TTP.';
-  if (corrOse != null || corrTtp != null) {
-    if ((corrOse != null && corrOse > 0.3) || (corrTtp != null && corrTtp > 0.3))
-      answerMatureDomain = 'Sim. Domínios com maturidade média mais alta tendem a apresentar melhores OSE e/ou TTP (correlação positiva). Investir em maturidade por domínio está alinhado a melhores resultados.';
-    else if ((corrOse != null && corrOse < -0.3) || (corrTtp != null && corrTtp < -0.3))
-      answerMatureDomain = 'Não no período. A correlação entre maturidade do domínio e indicadores é negativa; revisar métricas ou amostra.';
-    else
-      answerMatureDomain = 'A correlação é fraca: ter um domínio mais maduro não mostra, nos dados atuais, relação forte com OSE/TTP. Pode ser necessário mais tempo ou mais dados.';
-  }
-  const highMaturityLowIndicators = rows.filter(r => r.avgMaturity >= 2 && (r.avgOsePct != null && r.avgOsePct < 70 || r.avgTtp != null && r.avgTtp < 2));
-  let answerHighAvg = 'Média de maturidade alta com indicadores ainda baixos pode indicar rollout recente (resultados ainda não refletidos) ou outros fatores (volume, mix, operação). Não é necessariamente mau sinal se a tendência for de melhoria.';
-  if (highMaturityLowIndicators.length > 0)
-    answerHighAvg = `${highMaturityLowIndicators.length} domínio(s) com maturidade média ≥2 e OSE <70% ou TTP <2. ` + answerHighAvg;
-  const bestOse = rows.filter(r => r.avgOsePct != null).sort((a, b) => (b.avgOsePct ?? 0) - (a.avgOsePct ?? 0))[0];
-  const bestTtp = rows.filter(r => r.avgTtp != null).sort((a, b) => (b.avgTtp ?? 0) - (a.avgTtp ?? 0))[0];
-  let answerPortfolio = 'Compare a maturidade por domínio (tabela abaixo) com OSE e TTP. Em geral, priorizar domínios que impactam supply (DA, MDM, PP, BP) e elevar para L2+ tende a melhorar indicadores quando há correlação positiva.';
-  if (bestOse || bestTtp)
-    answerPortfolio = `Melhor OSE médio: ${bestOse?.domainShort ?? '—'}. Melhor TTP médio: ${bestTtp?.domainShort ?? '—'}. ` + answerPortfolio;
-  return {
-    rows,
-    correlationMaturityOse: corrOse ?? null,
-    correlationMaturityTtp: corrTtp ?? null,
-    answerMatureDomain,
-    answerHighAvg,
-    answerPortfolio,
-  };
-}
+// buildDomainAnalysis → utils/analysis.ts
 
-// MaturityProfileCluster → moved to types/analysis.ts
-function buildMaturityProfileClusters(
-  sites: Site[],
-  siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>
-): MaturityProfileCluster[] {
-  const clusters: { key: string; label: string; description: string; test: (s: Site) => boolean }[] = [
-    {
-      key: 'TOP',
-      label: 'Top Performers',
-      description: 'Total Global ≥ 3 — alta maturidade em quase todos os domínios',
-      test: s => (s.scores['Total Global'] ?? 0) >= 3,
-    },
-    {
-      key: 'PKG',
-      label: 'Packaging Focus',
-      description: 'Forte em BP e PP (≥ 2.5 em média) — packaging como diferencial',
-      test: s => ((s.scores['Brewing Performance'] ?? 0) + (s.scores['Packaging Performance'] ?? 0)) / 2 >= 2.5
-        && (s.scores['Total Global'] ?? 0) < 3,
-    },
-    {
-      key: 'DAT',
-      label: 'Data Maturity',
-      description: 'Forte em DA e MDM (≥ 2.5 em média) — dados e master data',
-      test: s => ((s.scores['Data Acquisition'] ?? 0) + (s.scores['MasterData Management'] ?? 0)) / 2 >= 2.5
-        && ((s.scores['Brewing Performance'] ?? 0) + (s.scores['Packaging Performance'] ?? 0)) / 2 < 2.5
-        && (s.scores['Total Global'] ?? 0) < 3,
-    },
-    {
-      key: 'DEV',
-      label: 'Developing',
-      description: 'Total Global 1–2 — maturidade média em avanço',
-      test: s => {
-        const tg = s.scores['Total Global'] ?? 0;
-        return tg >= 1 && tg < 3
-          && ((s.scores['Brewing Performance'] ?? 0) + (s.scores['Packaging Performance'] ?? 0)) / 2 < 2.5
-          && ((s.scores['Data Acquisition'] ?? 0) + (s.scores['MasterData Management'] ?? 0)) / 2 < 2.5;
-      },
-    },
-    {
-      key: 'EMG',
-      label: 'Emerging',
-      description: 'Total Global < 1 — início da jornada digital',
-      test: s => (s.scores['Total Global'] ?? 0) < 1,
-    },
-  ];
-  return clusters.map(c => {
-    const clusterSites = sites.filter(c.test);
-    const withOse = clusterSites.filter(s => siteOseTtp[s.name]?.ose != null);
-    const withTtp = clusterSites.filter(s => siteOseTtp[s.name]?.ttp != null);
-    const avgOsePct = withOse.length ? withOse.reduce((a, s) => a + siteOseTtp[s.name].ose! * 100, 0) / withOse.length : null;
-    const avgTtp = withTtp.length ? withTtp.reduce((a, s) => a + siteOseTtp[s.name].ttp!, 0) / withTtp.length : null;
-    const avgMaturity = clusterSites.length ? clusterSites.reduce((a, s) => a + (s.scores['Total Global'] ?? 0), 0) / clusterSites.length : 0;
-    return {
-      clusterKey: c.key,
-      label: c.label,
-      description: c.description,
-      siteCount: clusterSites.length,
-      sites: clusterSites,
-      avgOsePct,
-      avgTtp,
-      avgMaturity,
-      withKpiCount: Math.max(withOse.length, withTtp.length),
-    };
-  }).filter(c => c.siteCount > 0);
-}
+// buildMaturityProfileClusters → utils/analysis.ts
 
-// — Insights da página: narrativa única a partir de objetivo, níveis, clusters, domínios e correlações
-function buildPageInsights(
-  filteredSites: Site[],
-  totalSites: number,
-  impactOseTtp: { level: string; siteCount: number; withKpiCount: number; avgOse: number | null; avgTtp: number | null }[],
-  volumeComplexityClusters: VolumeComplexityCluster[],
-  domainAnalysis: DomainAnalysis,
-  selectedClusters: string[],
-  hasOseTtpStudy: boolean,
-  statsResolved: { correlationOse?: number | null; correlationTtp?: number | null; narrative?: string }
-): string {
-  const parts: string[] = [];
-  const escopo = selectedClusters.length > 0
-    ? `Análise restrita aos clusters ${selectedClusters.join(', ')}: ${filteredSites.length} de ${totalSites} operações.`
-    : `Análise sobre as ${totalSites} operações (sem filtro de cluster).`;
-  parts.push(escopo);
+// buildPageInsights → utils/analysis.ts
 
-  if (hasOseTtpStudy && impactOseTtp.length) {
-    const byLevel = impactOseTtp
-      .filter(i => i.withKpiCount > 0 && (i.avgOse != null || i.avgTtp != null))
-      .map(i => `${i.level}: OSE ${i.avgOse != null ? (i.avgOse * 100).toFixed(1) + '%' : '—'}, TTP ${i.avgTtp != null ? i.avgTtp.toFixed(2) : '—'} (${i.withKpiCount} sites)`);
-    if (byLevel.length) parts.push(`Por nível de maturidade (L0–L4): ${byLevel.join('; ')}.`);
-    const bestOse = impactOseTtp.filter(i => i.avgOse != null).sort((a, b) => (b.avgOse ?? 0) - (a.avgOse ?? 0))[0];
-    if (bestOse) parts.push(`Nível com melhor OSE médio: ${bestOse.level}.`);
-  }
+// calcFunnel → utils/funnel.ts
 
-  if (volumeComplexityClusters.length) {
-    const bestCluster = volumeComplexityClusters
-      .filter(c => c.avgOsePct != null)
-      .sort((a, b) => (b.avgOsePct ?? 0) - (a.avgOsePct ?? 0))[0];
-    const worstTtp = volumeComplexityClusters
-      .filter(c => c.avgTtp != null)
-      .sort((a, b) => (b.avgTtp ?? 0) - (a.avgTtp ?? 0))[0];
-    if (bestCluster) parts.push(`Entre os clusters (volume × complexidade), melhor OSE médio em ${bestCluster.clusterKey} (${bestCluster.avgOsePct?.toFixed(1)}%).`);
-    if (worstTtp && volumeComplexityClusters.length > 1) parts.push(`Maior TTP médio no cluster ${worstTtp.clusterKey} (${worstTtp.avgTtp?.toFixed(2)}), sugerindo maior complexidade operacional.`);
-  }
-
-  const corrOse = domainAnalysis.correlationMaturityOse ?? statsResolved.correlationOse;
-  const corrTtp = domainAnalysis.correlationMaturityTtp ?? statsResolved.correlationTtp;
-  if (corrOse != null || corrTtp != null) {
-    const interp = [];
-    if (corrOse != null && corrOse > 0.3) interp.push('correlação positiva entre maturidade e OSE');
-    else if (corrOse != null && corrOse < -0.3) interp.push('correlação negativa maturidade×OSE');
-    if (corrTtp != null && corrTtp > 0.3) interp.push('maturidade e TTP positivamente correlacionados');
-    else if (corrTtp != null && corrTtp < -0.3) interp.push('correlação negativa maturidade×TTP');
-    if (interp.length) parts.push(`Correlações: ${interp.join('; ')}.`);
-  }
-
-  const bestDomainOse = domainAnalysis.rows.filter(r => r.avgOsePct != null).sort((a, b) => (b.avgOsePct ?? 0) - (a.avgOsePct ?? 0))[0];
-  const bestDomainTtp = domainAnalysis.rows.filter(r => r.avgTtp != null).sort((a, b) => (b.avgTtp ?? 0) - (a.avgTtp ?? 0))[0];
-  if (bestDomainOse || bestDomainTtp)
-    parts.push(`Por domínio, destaque em OSE: ${bestDomainOse?.domainShort ?? '—'}; em TTP: ${bestDomainTtp?.domainShort ?? '—'}. Priorizar maturidade em DA, MDM, PP e BP tende a reforçar resultados quando a correlação for positiva.`);
-
-  if (statsResolved.narrative) parts.push(statsResolved.narrative);
-  return parts.join(' ');
-}
-
-// ============================================================================
-// FUNNEL CALC
-// ============================================================================
-// FunnelLevel, FunnelMetrics → moved to types/app.ts
-
-const calcFunnel = (sites: Site[], domain: string, zone: string, volFilter: string): FunnelMetrics => {
-  const n = sites.length;
-  const emptyFunnel: FunnelLevel[] = [
-    {level:'L0',pct:0,siteCount:0,exclusiveSites:[],ghq:0},
-    {level:'L1',pct:0,siteCount:0,exclusiveSites:[],ghq:0},
-    {level:'L2',pct:0,siteCount:0,exclusiveSites:[],ghq:0},
-    {level:'L3',pct:0,siteCount:0,exclusiveSites:[],ghq:0},
-    {level:'L4',pct:0,siteCount:0,exclusiveSites:[],ghq:0},
-  ];
-  if (!n) return { avg:"0.00", totalSites:0, funnel:emptyFunnel };
-
-  const byScore: Record<number,Site[]> = {0:[],1:[],2:[],3:[],4:[]};
-  let sum = 0;
-  sites.forEach(s => {
-    const sc = s.scores[domain] ?? 0;
-    sum += sc;
-    byScore[Math.min(sc,4)].push(s);
-  });
-
-  let pe0=(byScore[0].length/n)*100, pe1=(byScore[1].length/n)*100,
-      pe2=(byScore[2].length/n)*100, pe3=(byScore[3].length/n)*100;
-  let avg=(sum/n).toFixed(2), total=n;
-
-  const pct0=100;
-  const pct1=Math.max(0,Math.round(100-pe0));
-  const pct2=Math.max(0,Math.round(100-pe0-pe1));
-  const pct3=Math.max(0,Math.round(100-pe0-pe1-pe2));
-  const pct4=Math.max(0,Math.round(100-pe0-pe1-pe2-pe3));
-  const sc=(p:number)=>Math.round((p/100)*total);
-  const ghq=GHQ_TOTALS[domain]?.[zone]??0;
-
-  return {
-    avg, totalSites:total,
-    funnel:[
-      {level:'L0',pct:pct0,siteCount:sc(pct0),exclusiveSites:byScore[0],ghq:(ghq*pct0)/100},
-      {level:'L1',pct:pct1,siteCount:sc(pct1),exclusiveSites:byScore[1],ghq:(ghq*pct1)/100},
-      {level:'L2',pct:pct2,siteCount:sc(pct2),exclusiveSites:byScore[2],ghq:(ghq*pct2)/100},
-      {level:'L3',pct:pct3,siteCount:sc(pct3),exclusiveSites:byScore[3],ghq:(ghq*pct3)/100},
-      {level:'L4',pct:pct4,siteCount:sc(pct4),exclusiveSites:byScore[4],ghq:(ghq*pct4)/100},
-    ]
-  };
-};
-
-const barColor=(l:string)=>l==='L0'?'#D1D5DB':l==='L1'?'#FFE066':l==='L2'?'#FFC000':l==='L3'?'#F59E0B':'#10B981';
-const levelPill=(l:string,dark:boolean)=>{
-  const base='inline-flex items-center justify-center w-6 h-6 rounded-full text-[10px] font-black ';
-  if(l==='L0') return base+(dark?'bg-gray-700 text-gray-300':'bg-gray-100 text-gray-500');
-  if(l==='L1') return base+(dark?'bg-yellow-900/60 text-yellow-300':'bg-yellow-100 text-yellow-700');
-  if(l==='L2') return base+'bg-yellow-400 text-gray-900';
-  if(l==='L3') return base+'bg-amber-500 text-white';
-  return base+'bg-emerald-500 text-white';
-};
+// barColor, levelPill → utils/funnel.ts
 
 // ============================================================================
 // TOOLTIP — click to open, interactive, scrollable, portal-rendered
@@ -1805,12 +1259,7 @@ const FunnelCard: React.FC<FunnelCardProps> = ({title,subtitle,domain,zone,volFi
 // ============================================================================
 // SITES TABLE
 // ============================================================================
-const DOMAIN_KEYS = [
-  {key:"Brewing Performance",short:"BP"},{key:"Data Acquisition",short:"DA"},
-  {key:"Utilities",short:"UT"},{key:"Maintenance",short:"MT"},
-  {key:"Management",short:"MG"},{key:"MasterData Management",short:"MDM"},
-  {key:"Packaging Performance",short:"PP"},{key:"Quality",short:"QL"},{key:"Safety",short:"SF"},
-];
+// DOMAIN_KEYS → constants/domains.ts (imported above)
 
 const ScoreDot: React.FC<{score:number;dark:boolean;siteName:string;domainShort:string;t:T}> = ({score,dark,siteName,domainShort,t}) => {
   // UT (Utilities) always shows "—" — definitions not yet established
@@ -2336,39 +1785,13 @@ const SitesView: React.FC<{sites:Site[];t:T;dark:boolean;lang:string;anaplanData
 // ============================================================================
 // XLSX EXPORT
 // ============================================================================
-const loadXLSX = (): Promise<any> => new Promise((resolve, reject) => {
-  if ((window as any).XLSX) { resolve((window as any).XLSX); return; }
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/xlsx-js-style@1.2.0/dist/xlsx.bundle.js';
-  script.onload = () => resolve((window as any).XLSX);
-  script.onerror = reject;
-  document.body.appendChild(script);
-});
+// loadXLSX → utils/export.ts
 
-const loadHtml2Pdf = (): Promise<any> => new Promise((resolve, reject) => {
-  if ((window as any).html2pdf) { resolve((window as any).html2pdf); return; }
-  const script = document.createElement('script');
-  script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-  script.onload = () => resolve((window as any).html2pdf);
-  script.onerror = reject;
-  document.body.appendChild(script);
-});
+// loadHtml2Pdf → utils/export.ts
 
-const _loadScript = (src: string): Promise<void> => new Promise((res, rej) => {
-  const existing = document.querySelector(`script[src="${src}"]`);
-  if (existing) { res(); return; }
-  const s = document.createElement('script');
-  s.src = src; s.onload = () => res(); s.onerror = rej;
-  document.body.appendChild(s);
-});
+// _loadScript → utils/export.ts
 
-let _d3Loaded = false;
-const loadD3 = async (): Promise<void> => {
-  if (_d3Loaded && (window as any).d3 && (window as any).topojson) return;
-  await _loadScript('https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js');
-  await _loadScript('https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js');
-  _d3Loaded = true;
-};
+// loadD3, _d3Loaded → utils/export.ts
 
 const DOMAIN_TYPE_LABEL = (domain: string) =>
   ['Data Acquisition','MasterData Management','Management'].includes(domain) ? 'Global' : 'Legacy';
@@ -7094,21 +6517,9 @@ const DOMAIN_FULL_NAMES: Record<string, string> = {
 const LEVEL_GATES: Record<string, number> = { L1: 0.60, L2: 0.75, L3: 0.85, L4: 0.90 };
 
 // Score → color (using existing LEVEL_COLORS palette)
-function scoreToColor(score: number): string {
-  if (score <= 0) return '#D1D5DB';   // L0 gray
-  if (score <= 1) return '#FFE066';   // L1 yellow
-  if (score <= 2) return '#FFC000';   // L2 amber
-  if (score <= 3) return '#F59E0B';   // L3 orange amber
-  return '#10B981';                    // L4 green
-}
+// scoreToColor → utils/scoring.ts
 
-function scoreToTextClass(score: number, dark: boolean): string {
-  if (score <= 0) return dark ? 'text-gray-500' : 'text-gray-400';
-  if (score <= 1) return 'text-yellow-700';
-  if (score <= 2) return 'text-amber-700';
-  if (score <= 3) return 'text-orange-700';
-  return 'text-emerald-700';
-}
+// scoreToTextClass → utils/scoring.ts
 
 // ZoneDomainSummary → moved to types/analysis.ts
 function computeZoneDomainSummary(): Record<string, Record<string, ZoneDomainSummary>> {
