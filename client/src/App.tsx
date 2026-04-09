@@ -10937,9 +10937,12 @@ export default function App() {
   const [navSite, setNavSite] = useState<string>('');
   // Sub-tab state para views compostas
   const [maturitySubTab, setMaturitySubTab] = useState<'zone'|'domain'|'matrix'>('zone');
-  const [dataSubTab, setDataSubTab] = useState<'coverage'|'capabilities'|'domains'|'management'|'rollout'|'siteproduct'>('coverage');
+  const [dataSubTab, setDataSubTab] = useState<'coverage'|'capabilities'|'domains'|'management'|'rollout'|'siteproduct'|'products'>('coverage');
   const [rolloutPlan, setRolloutPlan] = useState<RolloutPlanData | null>(null);
   const [siteProductAssignment, setSiteProductAssignment] = useState<SiteProductAssignmentData | null>(null);
+  // Sprint 12-13: In-memory capability edits
+  const [customProducts, setCustomProducts] = useState<{domain:string;name:string;isGlobal:boolean}[]>([]);
+  const [customN4s, setCustomN4s] = useState<{domain:string;gate:string;name:string;product:string;n1:string;n2:string;n3:string}[]>([]);
   // Data management — Coverage.xlsx import
   const [importedData, setImportedData] = useState<ImportedData | null>(null);
   const [importing, setImporting] = useState(false);
@@ -11991,6 +11994,7 @@ tr:nth-child(even) td{background:#f8fafc}
                       {k:'management',  lPt:'Gestão',        lEn:'Management'},
                       {k:'rollout',     lPt:'Rollout Plan',    lEn:'Rollout Plan'},
                       {k:'siteproduct', lPt:'Site-Produto',    lEn:'Site-Product'},
+                      {k:'products',    lPt:'Produtos',         lEn:'Products'},
                     ] as const).map(({k,lPt,lEn})=>(
                       <button key={k} onClick={()=>setDataSubTab(k)}
                         className={'px-3 py-1 rounded-md text-xs font-bold transition-all '+
@@ -12824,15 +12828,241 @@ tr:nth-child(even) td{background:#f8fafc}
                 );
               };
 
+              // ── Sprint 12: Product Registry Panel ──
+              const ProductRegistryPanel = () => {
+                const [showAddModal, setShowAddModal] = React.useState(false);
+                const [newDomain, setNewDomain] = React.useState('BP');
+                const [newName, setNewName] = React.useState('');
+                const [newIsGlobal, setNewIsGlobal] = React.useState(false);
+                const [domFilter, setDomFilter] = React.useState('All');
+
+                // Build product table: SITE_PRODUCT_MAP + customProducts
+                const productList = useMemo(() => {
+                  const map = new Map<string, {domain:string;name:string;isGlobal:boolean;siteCount:number}>();
+                  const spm = SITE_PRODUCT_MAP as Record<string,Record<string,{products:string[];type:'G'|'L'}>>;
+                  for (const siteSpm of Object.values(spm)) {
+                    for (const [dom, entry] of Object.entries(siteSpm)) {
+                      for (const prod of (entry.products ?? [])) {
+                        const key = `${dom}::${prod}`;
+                        if (!map.has(key)) {
+                          const gkList = GLOBAL_KEYS_RP[dom] ?? [];
+                          const isGlob = gkList.some(k => prod.toLowerCase().includes(k));
+                          map.set(key, { domain: dom, name: prod, isGlobal: isGlob, siteCount: 0 });
+                        }
+                        map.get(key)!.siteCount++;
+                      }
+                    }
+                  }
+                  // Add custom products
+                  for (const cp of customProducts) {
+                    const key = `${cp.domain}::${cp.name}`;
+                    if (!map.has(key)) map.set(key, { ...cp, siteCount: 0 });
+                  }
+                  return Array.from(map.values())
+                    .filter(p => domFilter === 'All' || p.domain === domFilter)
+                    .sort((a, b) => b.siteCount - a.siteCount || a.name.localeCompare(b.name));
+                }, [domFilter, customProducts]);
+
+                const handleAdd = () => {
+                  if (!newName.trim()) return;
+                  setCustomProducts(prev => [...prev, { domain: newDomain, name: newName.trim(), isGlobal: newIsGlobal }]);
+                  setNewName('');
+                  setShowAddModal(false);
+                };
+
+                return (
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 flex-wrap">
+                      <div className={'flex gap-1 p-1 rounded-lg '+(dark?'bg-gray-800':'bg-gray-100')}>
+                        {['All',...domCodes].map(d=>(
+                          <button key={d} onClick={()=>setDomFilter(d)}
+                            className={'px-2 py-1 rounded text-xs font-bold transition-all '+
+                              (domFilter===d?(dark?'bg-gray-700 text-white shadow-sm':'bg-white text-gray-900 shadow-sm'):(dark?'text-gray-400 hover:text-gray-200':'text-gray-500 hover:text-gray-700'))}>
+                            {d}
+                          </button>
+                        ))}
+                      </div>
+                      <button onClick={()=>setShowAddModal(true)}
+                        className={'ml-auto flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold '+(dark?'bg-emerald-700 text-white hover:bg-emerald-600':'bg-emerald-600 text-white hover:bg-emerald-500')}>
+                        + {lang==='pt'?'Adicionar Produto':'Add Product'}
+                      </button>
+                    </div>
+                    {/* Add modal */}
+                    {showAddModal && (
+                      <div className={'rounded-xl border p-4 space-y-3 '+(dark?'bg-gray-800 border-gray-700':'bg-yellow-50 border-yellow-200')}>
+                        <p className={'text-sm font-bold '+(dark?'text-white':'text-gray-900')}>{lang==='pt'?'Novo Produto':'New Product'}</p>
+                        <div className="flex gap-3 flex-wrap items-end">
+                          <div>
+                            <label className={'block text-[10px] font-bold mb-1 '+sub}>{lang==='pt'?'Domínio':'Domain'}</label>
+                            <select value={newDomain} onChange={e=>setNewDomain(e.target.value)}
+                              className={'px-2 py-1.5 rounded border text-xs '+(dark?'bg-gray-700 border-gray-600 text-white':'bg-white border-gray-300 text-gray-900')}>
+                              {domCodes.map(d=><option key={d} value={d}>{d}</option>)}
+                            </select>
+                          </div>
+                          <div className="flex-1 min-w-40">
+                            <label className={'block text-[10px] font-bold mb-1 '+sub}>{lang==='pt'?'Nome do Produto':'Product Name'}</label>
+                            <input value={newName} onChange={e=>setNewName(e.target.value)}
+                              placeholder={lang==='pt'?'ex: my product':'e.g. my product'}
+                              className={'w-full px-2 py-1.5 rounded border text-xs '+(dark?'bg-gray-700 border-gray-600 text-white':'bg-white border-gray-300 text-gray-900')}/>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <input type="checkbox" id="isGlobalChk" checked={newIsGlobal} onChange={e=>setNewIsGlobal(e.target.checked)}/>
+                            <label htmlFor="isGlobalChk" className={'text-xs font-bold '+sub}>Global (AB InBev standard)</label>
+                          </div>
+                          <button onClick={handleAdd}
+                            className={'px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white hover:bg-blue-500'}>
+                            {lang==='pt'?'Adicionar':'Add'}
+                          </button>
+                          <button onClick={()=>setShowAddModal(false)}
+                            className={'px-3 py-1.5 rounded-lg text-xs font-bold '+(dark?'border border-gray-600 text-gray-400':'border border-gray-300 text-gray-500')}>
+                            {lang==='pt'?'Cancelar':'Cancel'}
+                          </button>
+                        </div>
+                        <p className={'text-[9px] '+sub}>⚠ {lang==='pt'?'Novos produtos nunca são classificados como Global automaticamente. Confirme explicitamente.':'New products are never auto-classified as Global. You must explicitly confirm.'}</p>
+                      </div>
+                    )}
+                    {/* Product table */}
+                    <div className={'rounded-xl border overflow-hidden '+card}>
+                      <div className={`px-4 py-2 border-b flex items-center gap-2 ${dark?'border-gray-700':'border-gray-100'}`}>
+                        <span className={'text-xs font-bold '+(dark?'text-gray-300':'text-gray-600')}>{productList.length} {lang==='pt'?'produtos':'products'}</span>
+                        {customProducts.length > 0 && <span className={'text-[10px] px-2 py-0.5 rounded '+(dark?'bg-blue-900/30 text-blue-300':'bg-blue-50 text-blue-600')}>{customProducts.length} custom</span>}
+                      </div>
+                      <div className="overflow-x-auto max-h-96 overflow-y-auto">
+                        <table className="text-xs w-full">
+                          <thead className={dark?'bg-gray-800':'bg-gray-50'}>
+                            <tr>
+                              {['Domain','Product Name','Type','Sites'].map(h=>(
+                                <th key={h} className={'px-3 py-2 text-left font-bold '+(dark?'text-gray-300':'text-gray-600')}>{h}</th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {productList.slice(0,300).map((p,i)=>(
+                              <tr key={i} className={i%2===0?(dark?'bg-gray-800/50':'bg-white'):(dark?'bg-gray-700/30':'bg-gray-50/50')}>
+                                <td className={'px-3 py-1.5 font-mono font-bold '+(dark?'text-amber-300':'text-amber-600')}>{p.domain}</td>
+                                <td className={'px-3 py-1.5 '+(dark?'text-gray-200':'text-gray-800')}>{p.name}</td>
+                                <td className="px-3 py-1.5">
+                                  <span className={`text-[10px] font-bold px-1.5 py-0.5 rounded ${p.isGlobal?(dark?'bg-blue-900/40 text-blue-300':'bg-blue-50 text-blue-700'):(dark?'bg-amber-900/30 text-amber-400':'bg-amber-50 text-amber-700')}`}>
+                                    {p.isGlobal ? 'GLOBAL' : 'LEGACY'}
+                                  </span>
+                                </td>
+                                <td className={'px-3 py-1.5 tabular-nums '+(dark?'text-gray-400':'text-gray-500')}>{p.siteCount>0?p.siteCount:'—'}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                );
+              };
+
+              // ── Sprint 13: N4 custom additions (enhance CapabilityTree) ──
+              // The Add N4 functionality is surfaced inside the CapabilityTree via customN4s state.
+              // CapabilityTree will show a banner + button if customN4s.length > 0.
+
               return (
                 <div className="space-y-0">
                   <DataSubTabs/>
                   {dataSubTab==='coverage'     && <CoverageTree/>}
-                  {dataSubTab==='capabilities'  && <CapabilityTree/>}
+                  {dataSubTab==='capabilities'  && <>
+                    {/* Sprint 13 — Add N4 UI above the tree */}
+                    {(()=>{
+                      const [showN4Modal, setShowN4Modal] = React.useState(false);
+                      const [n4Dom, setN4Dom] = React.useState('BP');
+                      const [n4Gate, setN4Gate] = React.useState('L1');
+                      const [n4Name, setN4Name] = React.useState('');
+                      const [n4Prod, setN4Prod] = React.useState('');
+                      const [n4N1, setN4N1] = React.useState('');
+                      const [n4N2, setN4N2] = React.useState('');
+                      const [n4N3, setN4N3] = React.useState('');
+                      const handleAddN4 = () => {
+                        if (!n4Name.trim()) return;
+                        setCustomN4s(prev => [...prev, { domain:n4Dom, gate:n4Gate, name:n4Name.trim(), product:n4Prod.trim(), n1:n4N1.trim(), n2:n4N2.trim(), n3:n4N3.trim() }]);
+                        setN4Name(''); setN4Prod(''); setN4N1(''); setN4N2(''); setN4N3('');
+                        setShowN4Modal(false);
+                      };
+                      return (
+                        <div className="mb-4 space-y-3">
+                          <div className="flex items-center gap-3">
+                            <button onClick={()=>setShowN4Modal(!showN4Modal)}
+                              className={'flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-bold '+(dark?'bg-emerald-700 text-white hover:bg-emerald-600':'bg-emerald-600 text-white hover:bg-emerald-500')}>
+                              + {lang==='pt'?'Adicionar N4 (em memória)':'Add N4 (in-memory)'}
+                            </button>
+                            {customN4s.length > 0 && (
+                              <span className={'text-xs px-2 py-0.5 rounded '+(dark?'bg-blue-900/30 text-blue-300':'bg-blue-50 text-blue-600')}>
+                                {customN4s.length} custom N4{customN4s.length > 1 ? 's' : ''} — {lang==='pt'?'não persistem após refresh':'not persisted after refresh'}
+                              </span>
+                            )}
+                          </div>
+                          {showN4Modal && (
+                            <div className={'rounded-xl border p-4 space-y-3 '+(dark?'bg-gray-800 border-gray-700':'bg-yellow-50 border-yellow-200')}>
+                              <p className={'text-sm font-bold '+(dark?'text-white':'text-gray-900')}>{lang==='pt'?'Novo N4 Capability':'New N4 Capability'}</p>
+                              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                {([
+                                  ['Domain', n4Dom, setN4Dom, domCodes, 'select'],
+                                  ['Gate', n4Gate, setN4Gate, ['L1','L2','L3','L4'], 'select'],
+                                ] as const).map(([label, val, setter, opts]) => (
+                                  <div key={label as string}>
+                                    <label className={'block text-[10px] font-bold mb-1 '+sub}>{label as string}</label>
+                                    <select value={val as string} onChange={e=>(setter as any)(e.target.value)}
+                                      className={'w-full px-2 py-1.5 rounded border text-xs '+(dark?'bg-gray-700 border-gray-600 text-white':'bg-white border-gray-300 text-gray-900')}>
+                                      {(opts as string[]).map(o=><option key={o} value={o}>{o}</option>)}
+                                    </select>
+                                  </div>
+                                ))}
+                                {([
+                                  ['Capability Name *', n4Name, setN4Name],
+                                  ['Product (coveredBy)', n4Prod, setN4Prod],
+                                  ['N1 (domain)', n4N1, setN4N1],
+                                  ['N2 (area)', n4N2, setN4N2],
+                                  ['N3 (group)', n4N3, setN4N3],
+                                ] as const).map(([label, val, setter]) => (
+                                  <div key={label as string}>
+                                    <label className={'block text-[10px] font-bold mb-1 '+sub}>{label as string}</label>
+                                    <input value={val as string} onChange={e=>(setter as any)(e.target.value)}
+                                      className={'w-full px-2 py-1.5 rounded border text-xs '+(dark?'bg-gray-700 border-gray-600 text-white':'bg-white border-gray-300 text-gray-900')}/>
+                                  </div>
+                                ))}
+                              </div>
+                              <div className="flex gap-2">
+                                <button onClick={handleAddN4} className={'px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-600 text-white hover:bg-blue-500'}>
+                                  {lang==='pt'?'Adicionar N4':'Add N4'}
+                                </button>
+                                <button onClick={()=>setShowN4Modal(false)} className={'px-3 py-1.5 rounded-lg text-xs font-bold '+(dark?'border border-gray-600 text-gray-400':'border border-gray-300 text-gray-500')}>
+                                  {lang==='pt'?'Cancelar':'Cancel'}
+                                </button>
+                              </div>
+                              <p className={'text-[9px] '+sub}>{lang==='pt'?'N4s adicionados ficam em memória. Use Exportar para persistir via pipeline Python.':'Added N4s are in-memory only. Use Export to persist via Python pipeline.'}</p>
+                            </div>
+                          )}
+                          {/* Custom N4 list */}
+                          {customN4s.length > 0 && (
+                            <div className={'rounded-xl border overflow-hidden '+card}>
+                              <div className={`px-4 py-2 border-b text-xs font-bold ${sub} ${dark?'border-gray-700':'border-gray-100'}`}>Custom N4s (in-memory)</div>
+                              <div className="divide-y divide-gray-100 dark:divide-gray-700">
+                                {customN4s.map((n,i)=>(
+                                  <div key={i} className="px-4 py-2 flex items-center gap-3 text-xs">
+                                    <span className={'font-mono font-bold '+(dark?'text-amber-300':'text-amber-600')}>{n.domain}</span>
+                                    <span className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${dark?'bg-gray-700 text-gray-300':'bg-gray-100 text-gray-600'}`}>{n.gate}</span>
+                                    <span className={dark?'text-gray-200':'text-gray-800'}>{n.name}</span>
+                                    {n.product && <span className={`text-[10px] italic ${sub}`}>via {n.product}</span>}
+                                    <button onClick={()=>setCustomN4s(prev=>prev.filter((_,j)=>j!==i))} className={'ml-auto text-[10px] text-red-400 hover:text-red-600'}>✕</button>
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
+                    <CapabilityTree/>
+                  </>}
                   {dataSubTab==='domains'       && <DomainsTree/>}
                   {dataSubTab==='management'    && <ManagementPanel/>}
                   {dataSubTab==='rollout'       && <RolloutPlanPanel/>}
                   {dataSubTab==='siteproduct'   && <SiteProductPanel/>}
+                  {dataSubTab==='products'      && <ProductRegistryPanel/>}
                 </div>
               );
             })()}
