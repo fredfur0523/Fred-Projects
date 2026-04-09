@@ -2102,3 +2102,261 @@ export function parseRolloutPlanImport(workbook: any, fileName: string): Rollout
 
   return { sites: siteRows, domains: domainRows, importedAt: new Date(), fileName };
 }
+
+// ---------------------------------------------------------------------------
+// Sprint 10 — Site-Product Assignment Template Export + Sprint 11 Import
+// ---------------------------------------------------------------------------
+
+const SITE_PRODUCT_SENTINEL = 'SITE_PRODUCT_ASSIGN_V1';
+
+export interface SiteProductAssignmentRow {
+  zone: string;
+  site: string;
+  domain: string;
+  domainName: string;
+  currentProducts: string[];
+  currentType: 'G' | 'L' | '-';
+  assignedProduct: string;  // user-editable
+  notes: string;            // user-editable
+}
+
+export interface SiteProductAssignmentData {
+  assignments: SiteProductAssignmentRow[];
+  importedAt: Date;
+  fileName: string;
+}
+
+export async function exportSiteProductTemplate(
+  sites: CurrentSiteRow[],
+  siteProductMap: Record<string, Record<string, CurrentSPMEntry>>,
+): Promise<void> {
+  const XLSX = (window as any).XLSX;
+  const wb = XLSX.utils.book_new();
+  const today = new Date().toISOString().slice(0, 10);
+
+  const S_TITLE    = cs({ bg: '1B5E9E', fg: 'FFFFFF', bold: true, sz: 14 });
+  const S_NOTE     = cs({ fg: '6B7280', italic: true });
+  const S_SECTION  = cs({ fg: '1B5E9E', bold: true });
+  const S_HDR_RO   = cs({ bg: '374151', fg: 'FFFFFF', bold: true, wrapText: true });
+  const S_HDR_EDIT = cs({ bg: 'D97706', fg: 'FFFFFF', bold: true, wrapText: true });
+  const S_RO       = cs({ bg: 'F9FAFB', fg: '374151', border: true });
+  const S_EDIT     = cs({ bg: 'FFFBEB', fg: '1F2937', border: true });
+  const S_GLOBAL   = cs({ bg: 'DBEAFE', fg: '1E40AF', border: true });
+  const S_LEGACY   = cs({ bg: 'FEE2E2', fg: '991B1B', border: true });
+  const S_REF_HDR  = cs({ bg: '1E3A8A', fg: 'FFFFFF', bold: true });
+  const S_REF_VAL  = cs({ bg: 'F9FAFB', fg: '374151', border: true });
+
+  const sortedSites = [...sites].sort((a, b) =>
+    a.zone.localeCompare(b.zone) || a.name.localeCompare(b.name)
+  );
+
+  // ── Sheet 1: Guide ──
+  const guideRows: any[][] = [
+    [`STRATEGY DASHBOARD — Site-Product Assignment Template  [${SITE_PRODUCT_SENTINEL}]`],
+    [`Generated: ${today}   |   ${sortedSites.length} sites   |   Format: V1`],
+    [''],
+    ['SHEETS IN THIS WORKBOOK'],
+    ['  1. Guide              → This guide (read-only).'],
+    ['  2. Site-Product       → One row per site × domain. Edit ASSIGNED PRODUCT and NOTES.'],
+    ['  3. Product Registry   → All known products with global/legacy classification.'],
+    ['  4. Instructions       → Validation rules and domain references.'],
+    [''],
+    ['HOW TO USE'],
+    ['  Step 1: In the "Site-Product" sheet, review current products per site × domain.'],
+    ['         Edit column G (Assigned Product) to change product assignment.'],
+    ['         Use column H (Notes) for rationale or planned dates.'],
+    [''],
+    ['  Step 2: Use the "Product Registry" sheet to find valid product names.'],
+    ['         IMPORTANT: Only assign global products (marked G). Legacy assignment'],
+    ['         requires explicit confirmation in the dashboard UI on re-import.'],
+    [''],
+    ['  Step 3: Save and import back into the Strategy Dashboard.'],
+    ['         Go to Data → Management → Import to apply changes.'],
+    [''],
+    ['RULES ON RE-IMPORT'],
+    ['  • Assigned Product must match a known product name exactly (case-insensitive).'],
+    ['  • Assigning a Legacy product will trigger a warning in the dashboard.'],
+    ['  • UT and SF domains are reference-only — scores are not recalculated.'],
+    ['  • Empty Assigned Product = no change from current data.'],
+  ];
+  const wsGuide = XLSX.utils.aoa_to_sheet(guideRows);
+  wsGuide['!cols'] = [{ wch: 100 }];
+  if (wsGuide['A1']) wsGuide['A1'].s = S_TITLE;
+  if (wsGuide['A2']) wsGuide['A2'].s = S_NOTE;
+  if (wsGuide['A4']) wsGuide['A4'].s = S_SECTION;
+  if (wsGuide['A10']) wsGuide['A10'].s = S_SECTION;
+  if (wsGuide['A20']) wsGuide['A20'].s = S_SECTION;
+  XLSX.utils.book_append_sheet(wb, wsGuide, 'Guide');
+
+  // ── Sheet 2: Site-Product Assignment ──
+  const domAll = ['BP','DA','UT','MT','MG','MDM','PP','QL','SF'];
+  const assignHeader = [
+    'Zone', 'Site', 'Domain Code', 'Domain Name', 'Current Products (read-only)',
+    'Type (G/L)', 'Assigned Product ← EDIT', 'Notes ← EDIT',
+  ];
+  const assignRows: any[][] = [assignHeader];
+  for (const s of sortedSites) {
+    for (const dom of domAll) {
+      const entry = siteProductMap[s.name]?.[dom];
+      const currentProds = entry?.products?.join(', ') ?? '—';
+      const type = entry?.type ?? '-';
+      const assignedProd = entry?.dominant ?? '';
+      assignRows.push([
+        s.zone, s.name, dom, DOM_LABELS_RP[dom] ?? dom,
+        currentProds, type, assignedProd, '',
+      ]);
+    }
+  }
+  const wsSP = XLSX.utils.aoa_to_sheet(assignRows);
+  wsSP['!cols'] = [{ wch: 8 }, { wch: 26 }, { wch: 10 }, { wch: 22 }, { wch: 36 }, { wch: 8 }, { wch: 28 }, { wch: 30 }];
+  const aCols = ['A','B','C','D','E','F','G','H'];
+  for (const col of aCols) {
+    const addr = `${col}1`;
+    if (wsSP[addr]) wsSP[addr].s = col >= 'G' ? S_HDR_EDIT : S_HDR_RO;
+  }
+  for (let r = 1; r < assignRows.length; r++) {
+    const type = assignRows[r][5] as string;
+    const typeStyle = type === 'G' ? S_GLOBAL : type === 'L' ? S_LEGACY : S_RO;
+    for (const col of ['A','B','C','D','E']) styleCell(wsSP, `${col}${r+1}`, S_RO);
+    styleCell(wsSP, `F${r+1}`, typeStyle);
+    styleCell(wsSP, `G${r+1}`, S_EDIT);
+    styleCell(wsSP, `H${r+1}`, S_EDIT);
+  }
+  XLSX.utils.book_append_sheet(wb, wsSP, 'Site-Product');
+
+  // ── Sheet 3: Product Registry ──
+  // Collect all known products from siteProductMap
+  const productMap = new Map<string, { type: 'G'|'L'; domains: Set<string>; sites: number }>();
+  for (const [siteName, siteSpm] of Object.entries(siteProductMap)) {
+    void siteName;
+    for (const [dom, entry] of Object.entries(siteSpm)) {
+      for (const prod of (entry.products ?? [])) {
+        if (!productMap.has(prod)) productMap.set(prod, { type: entry.type, domains: new Set(), sites: 0 });
+        const pm = productMap.get(prod)!;
+        pm.domains.add(dom);
+        pm.sites++;
+        if (entry.type === 'L') pm.type = 'L';
+      }
+    }
+  }
+  const prodRows: any[][] = [
+    ['Product Name', 'Type (G=Global/L=Legacy)', 'Domains', 'Site Count'],
+    ...Array.from(productMap.entries())
+      .sort((a, b) => b[1].sites - a[1].sites)
+      .map(([name, meta]) => [name, meta.type, Array.from(meta.domains).join(', '), meta.sites]),
+  ];
+  const wsProd = XLSX.utils.aoa_to_sheet(prodRows);
+  wsProd['!cols'] = [{ wch: 36 }, { wch: 20 }, { wch: 24 }, { wch: 12 }];
+  for (const col of ['A','B','C','D']) {
+    if (wsProd[`${col}1`]) wsProd[`${col}1`].s = S_REF_HDR;
+  }
+  for (let r = 1; r < prodRows.length; r++) {
+    const t = prodRows[r][1] as string;
+    const rowStyle = t === 'G' ? S_GLOBAL : t === 'L' ? S_LEGACY : S_REF_VAL;
+    for (const col of ['A','B','C','D']) styleCell(wsProd, `${col}${r+1}`, rowStyle);
+  }
+  XLSX.utils.book_append_sheet(wb, wsProd, 'Product Registry');
+
+  // ── Sheet 4: Instructions ──
+  const instrRows: any[][] = [
+    ['INSTRUCTIONS — Domain Reference and Validation Rules'],
+    [''],
+    ['DOMAIN CODES'],
+    ['Code', 'Full Name', 'Notes'],
+    ['BP', 'Brewing Performance', 'Excluded from score: No'],
+    ['DA', 'Data Acquisition', 'Excluded from score: No'],
+    ['UT', 'Utilities', 'Excluded from score: YES (score not computed)'],
+    ['MT', 'Maintenance', 'SAP PM auto-added for non-EUR zones'],
+    ['MG', 'Management', 'Excluded from score: No'],
+    ['MDM', 'Master Data Management', 'Excluded from score: No'],
+    ['PP', 'Packaging Performance', 'Excluded from score: No'],
+    ['QL', 'Quality', 'Excluded from score: No'],
+    ['SF', 'Safety', 'Excluded from score: YES (Credit 360 universal)'],
+    [''],
+    ['GLOBAL PRODUCTS BY DOMAIN (reference)'],
+    ['Domain', 'Global Products'],
+    ...Object.entries(GLOBAL_KEYS_RP).map(([d, prods]) => [d, prods.join(', ')]),
+    [''],
+    ['VALIDATION RULES'],
+    ['• Assigned Product must match a product name in the Product Registry sheet exactly.'],
+    ['• Assigning a Global product (Type=G) upgrades domain type to G on re-import.'],
+    ['• Assigning a Legacy product (Type=L) will show a warning — confirm intentional.'],
+    ['• Leaving Assigned Product blank = no change from current product assignment.'],
+    ['• Domain UT and SF are reference-only — do not edit (scores not recalculated).'],
+  ];
+  const wsInstr = XLSX.utils.aoa_to_sheet(instrRows);
+  wsInstr['!cols'] = [{ wch: 14 }, { wch: 30 }, { wch: 60 }];
+  if (wsInstr['A1']) wsInstr['A1'].s = S_TITLE;
+  if (wsInstr['A3']) wsInstr['A3'].s = S_SECTION;
+  if (wsInstr['A15']) wsInstr['A15'].s = S_SECTION;
+  if (wsInstr['A23']) wsInstr['A23'].s = S_SECTION;
+  XLSX.utils.book_append_sheet(wb, wsInstr, 'Instructions');
+
+  // ── Write file ──
+  const buf = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([buf], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `site-product-assignment-${today}.xlsx`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+export function isSiteProductWorkbook(workbook: any): boolean {
+  if (!workbook?.SheetNames?.includes('Site-Product')) return false;
+  const guideSheet = workbook.Sheets['Guide'];
+  if (!guideSheet) return false;
+  const XLSX = (window as any).XLSX;
+  const rows: any[][] = XLSX.utils.sheet_to_json(guideSheet, { header: 1, defval: '' });
+  return rows.some(r => String(r[0] ?? '').includes(SITE_PRODUCT_SENTINEL));
+}
+
+export function parseSiteProductImport(workbook: any, fileName: string): SiteProductAssignmentData {
+  const XLSX = (window as any).XLSX;
+  const ws = workbook.Sheets['Site-Product'];
+  if (!ws) throw new Error('Sheet "Site-Product" not found in Site-Product Assignment workbook.');
+  const raw: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '' });
+  if (raw.length < 2) throw new Error('Sheet "Site-Product" is empty.');
+
+  const header = (raw[0] as any[]).map(h =>
+    String(h ?? '').toLowerCase().replace(/\s*←.*$/, '').trim()
+  );
+  const hdr = (names: string[]) => {
+    for (const n of names) { const i = header.indexOf(n); if (i >= 0) return i; }
+    return -1;
+  };
+  const iZone    = hdr(['zone']);
+  const iSite    = hdr(['site']);
+  const iDomCode = hdr(['domain code']);
+  const iDomName = hdr(['domain name']);
+  const iCurProd = hdr(['current products (read-only)', 'current products']);
+  const iType    = hdr(['type (g/l)', 'type']);
+  const iAssign  = hdr(['assigned product']);
+  const iNotes   = hdr(['notes']);
+
+  const assignments: SiteProductAssignmentRow[] = [];
+  for (let i = 1; i < raw.length; i++) {
+    const row = raw[i] as any[];
+    const site = String(row[iSite] ?? '').trim();
+    const domain = String(row[iDomCode] ?? '').trim().toUpperCase();
+    if (!site || !domain) continue;
+    const assignedProduct = iAssign >= 0 ? String(row[iAssign] ?? '').trim() : '';
+    // Only include rows where the user made a change
+    if (!assignedProduct) continue;
+    const currentProds = iCurProd >= 0 ? String(row[iCurProd] ?? '').split(',').map(s => s.trim()).filter(Boolean) : [];
+    const type = (iType >= 0 ? String(row[iType] ?? '').trim().toUpperCase() : 'G') as 'G' | 'L' | '-';
+    assignments.push({
+      zone: iZone >= 0 ? String(row[iZone] ?? '').trim() : '',
+      site,
+      domain,
+      domainName: iDomName >= 0 ? String(row[iDomName] ?? '').trim() : '',
+      currentProducts: currentProds,
+      currentType: type === 'G' ? 'G' : type === 'L' ? 'L' : '-',
+      assignedProduct,
+      notes: iNotes >= 0 ? String(row[iNotes] ?? '').trim() : '',
+    });
+  }
+
+  return { assignments, importedAt: new Date(), fileName };
+}

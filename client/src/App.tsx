@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { CAPABILITY_DETAIL, PRODUCT_TO_CAP_KEYS } from './capability_detail';
-import { computeImportedData, parseRolloutImport, isRolloutWorkbook, exportImportedDataToExcel, exportCurrentDataToExcel, exportRolloutTemplate, isRolloutPlanWorkbook, parseRolloutPlanImport, type ImportedData, type DataQualityIssue, type RolloutPlanData } from './data_import';
+import { computeImportedData, parseRolloutImport, isRolloutWorkbook, exportImportedDataToExcel, exportCurrentDataToExcel, exportRolloutTemplate, isRolloutPlanWorkbook, parseRolloutPlanImport, exportSiteProductTemplate, isSiteProductWorkbook, parseSiteProductImport, type ImportedData, type DataQualityIssue, type RolloutPlanData, type SiteProductAssignmentData } from './data_import';
 import type { AnaplanRow, AnaplanData, WaterfallData, KpiHistoryData, KpiHistoryMonth } from './types/anaplan';
 import type { VpoPillarScore, VpoSiteData, VpoData } from './types/vpo';
 import type { Site, ProductDeployment, ProductCoverageData, MaturityDetailLevel, MaturityDetailDomain, MaturityDetailSite, SiteVolumeMix, ProductType, SiteMigrationStatus } from './types/sites';
@@ -10937,8 +10937,9 @@ export default function App() {
   const [navSite, setNavSite] = useState<string>('');
   // Sub-tab state para views compostas
   const [maturitySubTab, setMaturitySubTab] = useState<'zone'|'domain'|'matrix'>('zone');
-  const [dataSubTab, setDataSubTab] = useState<'coverage'|'capabilities'|'domains'|'management'|'rollout'>('coverage');
+  const [dataSubTab, setDataSubTab] = useState<'coverage'|'capabilities'|'domains'|'management'|'rollout'|'siteproduct'>('coverage');
   const [rolloutPlan, setRolloutPlan] = useState<RolloutPlanData | null>(null);
+  const [siteProductAssignment, setSiteProductAssignment] = useState<SiteProductAssignmentData | null>(null);
   // Data management — Coverage.xlsx import
   const [importedData, setImportedData] = useState<ImportedData | null>(null);
   const [importing, setImporting] = useState(false);
@@ -10990,6 +10991,12 @@ export default function App() {
         const plan = parseRolloutPlanImport(wb, file.name);
         setRolloutPlan(plan);
         setDataSubTab('rollout');
+        return;
+      }
+      if (isSiteProductWorkbook(wb)) {
+        const assignment = parseSiteProductImport(wb, file.name);
+        setSiteProductAssignment(assignment);
+        setDataSubTab('siteproduct');
         return;
       }
       const result = isRolloutWorkbook(wb)
@@ -11982,7 +11989,8 @@ tr:nth-child(even) td{background:#f8fafc}
                       {k:'capabilities',lPt:'Capabilidades', lEn:'Capabilities'},
                       {k:'domains',     lPt:'Domínios',      lEn:'Domains'},
                       {k:'management',  lPt:'Gestão',        lEn:'Management'},
-                      {k:'rollout',     lPt:'Rollout Plan',  lEn:'Rollout Plan'},
+                      {k:'rollout',     lPt:'Rollout Plan',    lEn:'Rollout Plan'},
+                      {k:'siteproduct', lPt:'Site-Produto',    lEn:'Site-Product'},
                     ] as const).map(({k,lPt,lEn})=>(
                       <button key={k} onClick={()=>setDataSubTab(k)}
                         className={'px-3 py-1 rounded-md text-xs font-bold transition-all '+
@@ -12712,14 +12720,119 @@ tr:nth-child(even) td{background:#f8fafc}
                 );
               };
 
+              // ── Site-Product Assignment Panel (Sprint 10/11) ──
+              const SiteProductPanel = () => {
+                const [legacyWarnings, setLegacyWarnings] = React.useState<string[]>([]);
+                React.useEffect(() => {
+                  if (!siteProductAssignment) { setLegacyWarnings([]); return; }
+                  const warnings = siteProductAssignment.assignments
+                    .filter(a => a.currentType === 'L' || a.notes.toLowerCase().includes('legacy'))
+                    .map(a => `${a.site} / ${a.domain}: "${a.assignedProduct}" (legacy assignment)`)
+                    .slice(0, 5);
+                  setLegacyWarnings(warnings);
+                }, []);
+
+                // Detect legacy assignments from the imported data
+                const legacyAssigns = siteProductAssignment?.assignments.filter(a => {
+                  const pl = a.assignedProduct.toLowerCase();
+                  const gkList = GLOBAL_KEYS_RP[a.domain] ?? [];
+                  return gkList.length > 0 && !gkList.some(k => pl.includes(k));
+                }) ?? [];
+
+                return (
+                  <div className="space-y-5">
+                    <div className={'text-sm '+sub}>{lang==='pt'?'Exporte o template de Site-Produto, edite as atribuições de produtos e reimporte para visualizar mudanças.':'Export the Site-Product template, edit product assignments, and re-import to preview changes.'}</div>
+                    <div className={'flex flex-wrap gap-3 p-4 rounded-xl border '+card}>
+                      <button onClick={async()=>{
+                        await loadXLSX();
+                        await exportSiteProductTemplate(ALL_SITES as any, SITE_PRODUCT_MAP as any);
+                      }}
+                        className={'flex items-center gap-2 px-4 py-2.5 rounded-lg font-bold text-sm transition-all '+(dark?'bg-blue-600 text-white hover:bg-blue-500':'bg-blue-600 text-white hover:bg-blue-500')}>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                        {lang==='pt'?'Exportar Template Site-Produto':'Export Site-Product Template'}
+                      </button>
+                      <button onClick={()=>fileInputRef.current?.click()} disabled={importing}
+                        className={'flex items-center gap-2 px-4 py-2.5 rounded-lg font-bold text-sm transition-all disabled:opacity-60 '+(dark?'bg-gray-700 text-white hover:bg-gray-600 border border-gray-600':'bg-gray-100 text-gray-700 hover:bg-gray-200 border border-gray-200')}>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+                        {lang==='pt'?'Importar Template Editado...':'Import Edited Template...'}
+                      </button>
+                      {siteProductAssignment&&(
+                        <button onClick={()=>setSiteProductAssignment(null)}
+                          className={'flex items-center gap-2 px-4 py-2.5 rounded-lg font-bold text-sm transition-all '+(dark?'bg-red-900/40 text-red-300 hover:bg-red-900/60':'bg-red-50 text-red-600 hover:bg-red-100 border border-red-200')}>
+                          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path d="M6 18L18 6M6 6l12 12"/></svg>
+                          {lang==='pt'?'Limpar':'Clear'}
+                        </button>
+                      )}
+                    </div>
+                    {/* Legacy warnings */}
+                    {legacyAssigns.length > 0 && (
+                      <div className={'px-4 py-3 rounded-xl border text-sm '+(dark?'bg-amber-900/30 border-amber-700 text-amber-300':'bg-amber-50 border-amber-200 text-amber-700')}>
+                        ⚠ {legacyAssigns.length} {lang==='pt'?'atribuições não-globais detectadas. Confirme que são intencionais antes de aplicar.':'non-global assignments detected. Confirm they are intentional before applying.'}
+                        <div className="mt-1 space-y-0.5">
+                          {legacyAssigns.slice(0,3).map((a,i)=>(
+                            <div key={i} className="text-xs">{a.site} / {a.domain}: &quot;{a.assignedProduct}&quot;</div>
+                          ))}
+                          {legacyAssigns.length > 3 && <div className="text-xs">...and {legacyAssigns.length-3} more</div>}
+                        </div>
+                      </div>
+                    )}
+                    {/* Assignment preview table */}
+                    {siteProductAssignment ? (
+                      <div className={'rounded-xl border overflow-hidden '+card}>
+                        <div className={'px-4 py-3 border-b flex items-center gap-3 '+(dark?'border-gray-700':'border-gray-100')}>
+                          <span className="bg-blue-500 w-2 h-2 rounded-full"/>
+                          <span className={'text-sm font-bold '+(dark?'text-white':'text-gray-900')}>{siteProductAssignment.fileName}</span>
+                          <span className={'text-xs ml-auto '+sub}>{siteProductAssignment.importedAt.toLocaleString()} · {siteProductAssignment.assignments.length} changes</span>
+                        </div>
+                        <div className="overflow-x-auto max-h-96 overflow-y-auto">
+                          <table className="text-xs w-full">
+                            <thead>
+                              <tr className={dark?'bg-gray-800':'bg-gray-50'}>
+                                {['Zone','Site','Domain','Current Products','Assigned','Notes'].map(h=>(
+                                  <th key={h} className={'px-2 py-1.5 text-left font-bold '+(dark?'text-gray-300':'text-gray-600')}>{h}</th>
+                                ))}
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {siteProductAssignment.assignments.slice(0,200).map((a,i)=>{
+                                const isLegacy = GLOBAL_KEYS_RP[a.domain]?.length > 0 && !GLOBAL_KEYS_RP[a.domain]?.some(k => a.assignedProduct.toLowerCase().includes(k));
+                                return (
+                                  <tr key={i} className={i%2===0?(dark?'bg-gray-800/50':'bg-white'):(dark?'bg-gray-700/30':'bg-gray-50/50')}>
+                                    <td className={'px-2 py-1 '+sub}>{a.zone}</td>
+                                    <td className={'px-2 py-1 font-medium '+(dark?'text-gray-200':'text-gray-800')}>{a.site}</td>
+                                    <td className={'px-2 py-1 font-mono '+(dark?'text-amber-300':'text-amber-600')}>{a.domain}</td>
+                                    <td className={'px-2 py-1 text-[10px] '+sub}>{a.currentProducts.join(', ') || '—'}</td>
+                                    <td className={'px-2 py-1 font-medium '+(isLegacy?(dark?'text-amber-300':'text-amber-600'):(dark?'text-emerald-300':'text-emerald-700'))}>{a.assignedProduct}</td>
+                                    <td className={'px-2 py-1 text-[10px] '+sub}>{a.notes||'—'}</td>
+                                  </tr>
+                                );
+                              })}
+                            </tbody>
+                          </table>
+                        </div>
+                        {siteProductAssignment.assignments.length > 200 && (
+                          <p className={'text-xs p-2 border-t '+sub}>{lang==='pt'?'...e mais':'...and'} {siteProductAssignment.assignments.length-200} {lang==='pt'?'linhas':'rows'}</p>
+                        )}
+                      </div>
+                    ) : (
+                      <div className={'rounded-xl border border-dashed p-8 text-center '+(dark?'border-gray-600':'border-gray-300')}>
+                        <div className={'text-sm font-bold mb-1 '+(dark?'text-gray-400':'text-gray-500')}>{lang==='pt'?'Nenhum template importado':'No template imported'}</div>
+                        <div className={'text-xs '+sub}>{lang==='pt'?'Exporte o template, edite as atribuições de produtos e reimporte.':'Export the template, edit product assignments, and re-import.'}</div>
+                      </div>
+                    )}
+                  </div>
+                );
+              };
+
               return (
                 <div className="space-y-0">
                   <DataSubTabs/>
-                  {dataSubTab==='coverage'    && <CoverageTree/>}
-                  {dataSubTab==='capabilities' && <CapabilityTree/>}
-                  {dataSubTab==='domains'      && <DomainsTree/>}
-                  {dataSubTab==='management'   && <ManagementPanel/>}
-                  {dataSubTab==='rollout'      && <RolloutPlanPanel/>}
+                  {dataSubTab==='coverage'     && <CoverageTree/>}
+                  {dataSubTab==='capabilities'  && <CapabilityTree/>}
+                  {dataSubTab==='domains'       && <DomainsTree/>}
+                  {dataSubTab==='management'    && <ManagementPanel/>}
+                  {dataSubTab==='rollout'       && <RolloutPlanPanel/>}
+                  {dataSubTab==='siteproduct'   && <SiteProductPanel/>}
                 </div>
               );
             })()}
