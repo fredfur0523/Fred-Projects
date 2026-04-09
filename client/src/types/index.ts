@@ -1,7 +1,51 @@
 // Central type re-exports — import from here in new files
-export type { AnaplanRow, AnaplanData, WaterfallZoneData, WaterfallData, KpiHistoryMonth, KpiHistoryData } from './anaplan';
-export type { VpoPillarScore, VpoSiteData, VpoData } from './vpo';
-export type { Site, ProductDeployment, ProductCoverageData, MaturityDetailLevel, MaturityDetailDomain, MaturityDetailSite, SiteVolumeMix, ProductType, SiteMigrationStatus } from './sites';
-export type { ImpactByLevel, StatsAnalysis, ZoneAnalysisRow, ThresholdRow, DomainOseRow, PillarPartialRow, DomainTransition, ImpactByLevelOseTtp, DomainAnalysisRow, DomainAnalysis, VolumeComplexityCluster, MaturityProfileCluster, LevelRow, TriDimSiteRow, TriDimQuadrant, ZoneDomainSummary } from './analysis';
-export type { LocalSystem, CapabilityRecord, DomainZonePortfolioRow } from './portfolio';
-export type { ViewMode, FunnelLevel, FunnelMetrics, QuadrantFilter, CgSubView, SortKey, CapabilityGapViewProps, CapabilitySiteDetailProps } from './app';
+
+export type {
+	DomainAnalysis,
+	DomainAnalysisRow,
+	DomainOseRow,
+	DomainTransition,
+	ImpactByLevel,
+	ImpactByLevelOseTtp,
+	LevelRow,
+	MaturityProfileCluster,
+	PillarPartialRow,
+	StatsAnalysis,
+	ThresholdRow,
+	TriDimQuadrant,
+	TriDimSiteRow,
+	VolumeComplexityCluster,
+	ZoneAnalysisRow,
+	ZoneDomainSummary,
+} from "./analysis";
+export type {
+	AnaplanData,
+	AnaplanRow,
+	KpiHistoryData,
+	KpiHistoryMonth,
+	WaterfallData,
+	WaterfallZoneData,
+} from "./anaplan";
+export type {
+	CapabilityGapViewProps,
+	CapabilitySiteDetailProps,
+	CgSubView,
+	FunnelLevel,
+	FunnelMetrics,
+	QuadrantFilter,
+	SortKey,
+	ViewMode,
+} from "./app";
+export type { CapabilityRecord, DomainZonePortfolioRow, LocalSystem } from "./portfolio";
+export type {
+	MaturityDetailDomain,
+	MaturityDetailLevel,
+	MaturityDetailSite,
+	ProductCoverageData,
+	ProductDeployment,
+	ProductType,
+	Site,
+	SiteMigrationStatus,
+	SiteVolumeMix,
+} from "./sites";
+export type { VpoData, VpoPillarScore, VpoSiteData } from "./vpo";
