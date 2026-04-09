@@ -9944,6 +9944,214 @@ const MethodologyView: React.FC<{dark:boolean;lang:string;t:T}> = ({dark,lang,t}
   );
 };
 
+// ============================================================================
+// PRIORITY MATRIX (Sprints 1+2)
+// ============================================================================
+
+const TARGET_BY_TIER: Record<string, number> = { high: 4, mid: 2, low: 1 };
+
+function computePriorityTiers(
+  sites: Site[],
+  vpoData: VpoData,
+  overrides: Record<string, 'high'|'mid'|'low'|'auto'>,
+): Map<string, 'high'|'mid'|'low'> {
+  const scores = sites
+    .map(s => vpoData[s.name]?.overall_score)
+    .filter((v): v is number => v != null)
+    .sort((a,b) => a-b);
+  const vpoMedian = scores.length > 0 ? scores[Math.floor(scores.length / 2)] : 0.5;
+  const result = new Map<string, 'high'|'mid'|'low'>();
+  for (const site of sites) {
+    const ov = overrides[site.name];
+    if (ov && ov !== 'auto') { result.set(site.name, ov as 'high'|'mid'|'low'); continue; }
+    const vpo = vpoData[site.name]?.overall_score;
+    const isG2G3 = site.volume >= 2_000_000;
+    if (vpo == null) { result.set(site.name, isG2G3 ? 'mid' : 'low'); continue; }
+    const vpoHigh = vpo >= vpoMedian;
+    if (vpoHigh && isG2G3) result.set(site.name, 'high');
+    else if (vpoHigh && !isG2G3 && vpo >= vpoMedian + 0.05) result.set(site.name, 'high');
+    else if (vpoHigh || isG2G3) result.set(site.name, 'mid');
+    else result.set(site.name, 'low');
+  }
+  return result;
+}
+
+interface SiteTargetGapDomain {
+  short: string;
+  key: string;
+  currentScore: number;
+  targetScore: number;
+  gap: number;
+}
+
+function computeSiteTargetGap(
+  site: Site,
+  tier: 'high'|'mid'|'low',
+): { currentLevel: number; targetLevel: number; domains: SiteTargetGapDomain[] } {
+  const targetLevel = TARGET_BY_TIER[tier];
+  const currentLevel = Math.floor(site.scores['Total Global'] ?? 0);
+  const md = (MATURITY_DETAIL as Record<string, {score:number; domains:Record<string,{score:number;type:string}|null>}>)[site.name];
+  const SCORED_DOMS = ['BP','DA','MT','MG','MDM','PP','QL','SF'] as const;
+  const DOM_KEY: Record<string, string> = {
+    BP:'Brewing Performance', DA:'Data Acquisition', MT:'Maintenance',
+    MG:'Management', MDM:'MasterData Mgmt', PP:'Packaging Performance',
+    QL:'Quality', SF:'Safety',
+  };
+  const domains: SiteTargetGapDomain[] = SCORED_DOMS.map(short => {
+    const domData = md?.domains[short];
+    const currentScore = domData?.score ?? site.scores[DOM_KEY[short]] ?? 0;
+    return { short, key: DOM_KEY[short], currentScore, targetScore: targetLevel, gap: Math.max(0, targetLevel - currentScore) };
+  });
+  return { currentLevel, targetLevel, domains };
+}
+
+const TIER_CONFIG = {
+  high: { label: 'High Interest', labelPt: 'Alto Potencial', target: 'L4', color: '#10B981', bg: 'bg-emerald-50', bgDark: 'bg-emerald-900/20', text: 'text-emerald-700', textDark: 'text-emerald-300', border: 'border-emerald-300', borderDark: 'border-emerald-700' },
+  mid:  { label: 'Mid Interest',  labelPt: 'Médio Potencial', target: 'L2', color: '#F59E0B', bg: 'bg-amber-50',   bgDark: 'bg-amber-900/20',   text: 'text-amber-700',   textDark: 'text-amber-300',   border: 'border-amber-300',   borderDark: 'border-amber-700' },
+  low:  { label: 'Low Interest',  labelPt: 'Baixo Potencial', target: 'L1', color: '#6B7280', bg: 'bg-gray-50',   bgDark: 'bg-gray-800/40',    text: 'text-gray-600',    textDark: 'text-gray-400',    border: 'border-gray-300',    borderDark: 'border-gray-600' },
+} as const;
+
+const PriorityMatrixView: React.FC<{
+  sites: Site[];
+  vpoData: VpoData;
+  dark: boolean;
+  lang: string;
+  sitePriorityOverrides: Record<string, 'high'|'mid'|'low'|'auto'>;
+  onOverride: (siteName: string, tier: 'high'|'mid'|'low'|'auto') => void;
+}> = ({ sites, vpoData, dark, lang, sitePriorityOverrides, onOverride }) => {
+  const [selectedSite, setSelectedSite] = React.useState<string|null>(null);
+  const tiers = useMemo(() => computePriorityTiers(sites, vpoData, sitePriorityOverrides), [sites, vpoData, sitePriorityOverrides]);
+
+  const card = dark ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200';
+  const sub  = dark ? 'text-gray-400' : 'text-gray-500';
+  const hdr  = dark ? 'text-white' : 'text-gray-900';
+
+  // Aggregate counts
+  const tierCounts = { high: 0, mid: 0, low: 0 };
+  tiers.forEach(t => { tierCounts[t]++; });
+
+  // Group sites by tier
+  const byCounts = (tier: 'high'|'mid'|'low') => sites.filter(s => tiers.get(s.name) === tier);
+
+  // Selected site gap
+  const selectedSiteObj = selectedSite ? sites.find(s => s.name === selectedSite) : null;
+  const selectedTier = selectedSite ? tiers.get(selectedSite) : undefined;
+  const gap = selectedSiteObj && selectedTier ? computeSiteTargetGap(selectedSiteObj, selectedTier) : null;
+
+  const GAP_COLOR = (g: number) =>
+    g === 0 ? (dark ? 'text-emerald-400' : 'text-emerald-600')
+    : g === 1 ? (dark ? 'text-amber-400' : 'text-amber-600')
+    : (dark ? 'text-red-400' : 'text-red-600');
+
+  return (
+    <div className="space-y-5">
+      {/* ── Summary pills ── */}
+      <div className="grid grid-cols-3 gap-3">
+        {(['high','mid','low'] as const).map(tier => {
+          const cfg = TIER_CONFIG[tier];
+          const n = tierCounts[tier];
+          return (
+            <div key={tier} className={`rounded-xl border p-4 ${dark ? cfg.bgDark + ' ' + cfg.borderDark : cfg.bg + ' ' + cfg.border}`}>
+              <p className={`text-xl font-black ${dark ? cfg.textDark : cfg.text}`}>{n}</p>
+              <p className={`text-xs font-bold ${dark ? cfg.textDark : cfg.text}`}>{lang==='pt' ? cfg.labelPt : cfg.label}</p>
+              <p className={`text-[10px] mt-0.5 ${sub}`}>Target {cfg.target}</p>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ── Tier tables ── */}
+      {(['high','mid','low'] as const).map(tier => {
+        const cfg = TIER_CONFIG[tier];
+        const tierSites = byCounts(tier);
+        if (tierSites.length === 0) return null;
+        return (
+          <div key={tier} className={`rounded-xl border overflow-hidden ${card}`}>
+            <div className={`px-4 py-3 border-b flex items-center gap-2 ${dark ? 'border-gray-700 ' + cfg.bgDark : 'border-gray-100 ' + cfg.bg}`}>
+              <span className="w-2 h-2 rounded-full flex-shrink-0" style={{backgroundColor: cfg.color}}/>
+              <span className={`text-xs font-black uppercase tracking-wider ${dark ? cfg.textDark : cfg.text}`}>
+                {lang==='pt' ? cfg.labelPt : cfg.label}
+              </span>
+              <span className={`text-[10px] ${sub}`}>— {lang==='pt'?'alvo':'target'}: {cfg.target} · {tierSites.length} {lang==='pt'?'sites':'sites'}</span>
+            </div>
+            <div className="p-3">
+              <div className="flex flex-wrap gap-2">
+                {tierSites.sort((a,b) => b.volume - a.volume).map(site => {
+                  const isSelected = selectedSite === site.name;
+                  const vpo = vpoData[site.name]?.overall_score;
+                  const lvl = Math.floor(site.scores['Total Global'] ?? 0);
+                  const ov = sitePriorityOverrides[site.name];
+                  return (
+                    <button
+                      key={site.name}
+                      onClick={() => setSelectedSite(isSelected ? null : site.name)}
+                      className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border text-left transition-all text-xs font-bold ${
+                        isSelected
+                          ? (dark ? 'bg-yellow-400/20 border-yellow-500 text-yellow-300' : 'bg-yellow-50 border-yellow-400 text-yellow-800')
+                          : (dark ? 'border-gray-600 text-gray-300 hover:border-gray-400' : 'border-gray-200 text-gray-700 hover:border-gray-400')
+                      }`}
+                    >
+                      <span className={`text-[9px] font-black px-1 rounded ${dark?'bg-gray-700':'bg-gray-100'}`}>L{lvl}</span>
+                      <span>{site.name}</span>
+                      {vpo != null && <span className={`text-[9px] ${sub}`}>{(vpo*100).toFixed(0)}%</span>}
+                      {ov && ov !== 'auto' && <span className="text-[9px] text-blue-400" title="Manual override">✎</span>}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* ── Target Gap drill-down ── */}
+            {selectedSite && tiers.get(selectedSite) === tier && gap && selectedSiteObj && (
+              <div className={`border-t p-4 ${dark ? 'border-gray-700 bg-gray-900/40' : 'border-gray-100 bg-gray-50'}`}>
+                <div className="flex items-center justify-between mb-3">
+                  <div>
+                    <p className={`text-sm font-black ${hdr}`}>{selectedSite}</p>
+                    <p className={`text-[10px] ${sub}`}>{selectedSiteObj.zone} · {lang==='pt'?'Nível':'Level'} L{gap.currentLevel} → {lang==='pt'?'alvo':'target'} L{gap.targetLevel}</p>
+                  </div>
+                  <div className="flex gap-2">
+                    {(['high','mid','low','auto'] as const).map(t2 => (
+                      <button key={t2} onClick={() => onOverride(selectedSite, t2)}
+                        className={`px-2 py-0.5 rounded text-[9px] font-bold border transition-all ${
+                          (sitePriorityOverrides[selectedSite] ?? 'auto') === t2
+                            ? 'bg-blue-600 border-blue-600 text-white'
+                            : dark ? 'border-gray-600 text-gray-400 hover:border-gray-400' : 'border-gray-300 text-gray-500 hover:border-gray-500'
+                        }`}
+                      >{t2 === 'auto' ? 'Auto' : t2.charAt(0).toUpperCase() + t2.slice(1)}</button>
+                    ))}
+                  </div>
+                </div>
+                <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
+                  {gap.domains.map(d => (
+                    <div key={d.short} className={`rounded-lg border p-2 text-center ${dark?'border-gray-700':'border-gray-200'}`}>
+                      <p className={`text-[10px] font-black ${sub}`}>{d.short}</p>
+                      <p className={`text-base font-black ${GAP_COLOR(d.gap)}`}>{d.currentScore.toFixed(1)}</p>
+                      <p className={`text-[9px] ${d.gap > 0 ? GAP_COLOR(d.gap) : (dark?'text-emerald-400':'text-emerald-600')}`}>
+                        {d.gap === 0 ? '✓' : `+${d.gap.toFixed(1)}`}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <p className={`text-[9px] mt-2 ${sub}`}>
+                  {lang==='pt'
+                    ? 'Domínios em verde já atingiram o target. Amarelo = 1 nível de gap. Vermelho = 2+ níveis.'
+                    : 'Green domains have reached target. Yellow = 1 level gap. Red = 2+ levels.'}
+                </p>
+              </div>
+            )}
+          </div>
+        );
+      })}
+
+      {/* ── Legend ── */}
+      <p className={`text-[10px] ${sub}`}>
+        {lang==='pt'
+          ? 'Priorização automática baseada em VPO × Volume (G1/G2/G3). Clique em um site para ver o gap por domínio. Use os botões de override para ajuste manual.'
+          : 'Auto-priority based on VPO × Volume (G1/G2/G3). Click a site to view domain-level gap. Use override buttons for manual adjustment.'}
+      </p>
+    </div>
+  );
+};
 
 // ============================================================================
 // APP
@@ -9985,7 +10193,10 @@ export default function App() {
   const [importing, setImporting] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  const [portfolioSubTab2, setPortfolioSubTab2] = useState<'intelligence'|'gap'|'migration'>('intelligence');
+  const [portfolioSubTab2, setPortfolioSubTab2] = useState<'intelligence'|'gap'|'migration'|'priority'>('intelligence');
+  const [sitePriorityOverrides, setSitePriorityOverrides] = React.useState<Record<string,'high'|'mid'|'low'|'auto'>>(() => {
+    try { return JSON.parse(localStorage.getItem('sitePriorityOverrides') ?? '{}'); } catch { return {}; }
+  });
 
   const t = TRANSLATIONS[lang];
 
@@ -9998,6 +10209,16 @@ export default function App() {
     if (targetView === 'maturity' && ctx?.subTab) setMaturitySubTab(ctx.subTab as 'zone'|'domain'|'matrix');
     if (targetView === 'portfolio' && ctx?.subTab) setPortfolioSubTab2(ctx.subTab as 'intelligence'|'gap'|'migration');
   };
+
+  const handlePriorityOverride = useCallback((siteName: string, tier: 'high'|'mid'|'low'|'auto') => {
+    setSitePriorityOverrides(prev => {
+      const next = { ...prev };
+      if (tier === 'auto') delete next[siteName]; else next[siteName] = tier;
+      try { localStorage.setItem('sitePriorityOverrides', JSON.stringify(next)); } catch {}
+      return next;
+    });
+  }, []);
+
   useEffect(() => {
     if (view !== 'portfolio' || productCoverage) return;
     fetchProductCoverage();
@@ -10905,21 +11126,22 @@ tr:nth-child(even) td{background:#f8fafc}
               </>
             )}
 
-            {/* Portfolio view (Intelligence + Gap sub-tabs) */}
+            {/* Portfolio view (Intelligence + Gap + Priority sub-tabs) */}
             {view==='portfolio'&&(
               <>
                 <div className="flex items-center gap-3 mb-4 flex-wrap">
                   <span className="bg-yellow-400 w-1.5 h-6 rounded-sm block flex-shrink-0"/>
                   <h2 className={'text-lg font-black ' + (dark?'text-white':'text-gray-900')}>Portfolio</h2>
                   <div className={'flex gap-1 p-1 rounded-lg ml-2 '+(dark?'bg-gray-800':'bg-gray-100')}>
-                    {(['intelligence','gap'] as const).map(tab=>(
+                    {(['intelligence','gap','priority'] as const).map(tab=>(
                       <button key={tab} onClick={()=>setPortfolioSubTab2(tab)}
                         className={'px-3 py-1 rounded-md text-xs font-bold transition-all '+
                           (portfolioSubTab2===tab
                             ? (dark?'bg-gray-700 text-white shadow-sm':'bg-white text-gray-900 shadow-sm')
                             : (dark?'text-gray-400 hover:text-gray-200':'text-gray-500 hover:text-gray-700'))}>
                         {tab==='intelligence'?(lang==='pt'?'Cobertura & Roadmap':'Coverage & Roadmap')
-                         :(lang==='pt'?'Gap de Capacidade':'Capability Gap')}
+                         :tab==='gap'?(lang==='pt'?'Gap de Capacidade':'Capability Gap')
+                         :(lang==='pt'?'Prioridade':'Priority')}
                       </button>
                     ))}
                   </div>
@@ -10941,6 +11163,23 @@ tr:nth-child(even) td{background:#f8fafc}
                     vpoData={vpoData}
                     anaplanData={anaplanData}
                   />
+                )}
+                {portfolioSubTab2==='priority'&&vpoData&&(
+                  <PriorityMatrixView
+                    sites={filtered}
+                    vpoData={vpoData}
+                    dark={dark}
+                    lang={lang}
+                    sitePriorityOverrides={sitePriorityOverrides}
+                    onOverride={handlePriorityOverride}
+                  />
+                )}
+                {portfolioSubTab2==='priority'&&!vpoData&&(
+                  <div className={'rounded-xl border p-8 text-center '+(dark?'bg-gray-800 border-gray-700':'bg-white border-gray-200')}>
+                    <p className={'text-sm '+(dark?'text-gray-400':'text-gray-500')}>
+                      {lang==='pt'?'Carregando dados VPO...':'Loading VPO data...'}
+                    </p>
+                  </div>
                 )}
               </>
             )}
