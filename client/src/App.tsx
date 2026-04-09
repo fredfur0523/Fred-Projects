@@ -2,6 +2,12 @@ import React, { useState, useMemo, useRef, useEffect, useCallback } from 'react'
 import ReactDOM from 'react-dom';
 import { CAPABILITY_DETAIL, PRODUCT_TO_CAP_KEYS } from './capability_detail';
 import { computeImportedData, parseRolloutImport, isRolloutWorkbook, exportImportedDataToExcel, exportCurrentDataToExcel, type ImportedData, type DataQualityIssue } from './data_import';
+import type { AnaplanRow, AnaplanData, WaterfallData, KpiHistoryData, KpiHistoryMonth } from './types/anaplan';
+import type { VpoPillarScore, VpoSiteData, VpoData } from './types/vpo';
+import type { Site, ProductDeployment, ProductCoverageData, MaturityDetailLevel, MaturityDetailDomain, MaturityDetailSite, SiteVolumeMix, ProductType, SiteMigrationStatus } from './types/sites';
+import type { ImpactByLevel, StatsAnalysis, ZoneAnalysisRow, ThresholdRow, DomainOseRow, PillarPartialRow, DomainTransition, ImpactByLevelOseTtp, DomainAnalysisRow, DomainAnalysis, VolumeComplexityCluster, MaturityProfileCluster, LevelRow, TriDimSiteRow, TriDimQuadrant, ZoneDomainSummary } from './types/analysis';
+import type { LocalSystem, CapabilityRecord, DomainZonePortfolioRow } from './types/portfolio';
+import type { ViewMode, FunnelLevel, FunnelMetrics, QuadrantFilter, CgSubView, SortKey, CapabilityGapViewProps, CapabilitySiteDetailProps } from './types/app';
 
 // ============================================================================
 // i18n
@@ -794,33 +800,9 @@ const DOMAINS = [
 ];
 const ZONES = ["AFR","SAZ","MAZ","NAZ","EUR","APAC"];
 
-// Anaplan KPI data: load from file generated via MCP user-anaplan-supply-chain-kpi (aggregate_kpis)
-// Schema: { year: number, rows: { plant, year, kpi_code, aggregated_value[, periodtype?, month?] }[] }
-type AnaplanRow = { plant: string; year: string; kpi_code: string; aggregated_value: number; periodtype?: string; month?: string };
-type AnaplanData = { year: number; rows: AnaplanRow[] };
-
-// Waterfall OSE data (Sprint 8)
-type WaterfallZoneData = { TT: number; NST: number; ST: number; DPA: number; LT: number; EC: number; LET: number; IC: number; EPT: number; OST: number; volume_hl: number; OSE: number; GLY: number; OAE: number; OEE: number; LEF: number };
-type WaterfallData = { period: string; generated_at: string; zones: string[]; data: Record<string, WaterfallZoneData> };
-
-// Product Coverage data: loaded from product-coverage-2026.json (from OneMes Coverage.xlsx)
-// zone → domain → [{product, sites, n}]
-interface ProductDeployment { product: string; sites: string[]; n: number; }
-type ProductCoverageData = Record<string, Record<string, ProductDeployment[]>>;
-
-// VPO Process Maturity data: loaded from vpo-site-scores-2026.json
-interface VpoPillarScore {
-  score: number | null;
-  y: number; n: number; na: number;
-  by_level: Record<string, { y: number; n: number; na: number }>;
-}
-interface VpoSiteData {
-  vpo_name: string;
-  zone: string;
-  overall_score: number | null;
-  pillars: Record<string, VpoPillarScore>;
-}
-type VpoData = Record<string, VpoSiteData>;
+// AnaplanRow, AnaplanData, WaterfallData, VpoPillarScore, VpoSiteData, VpoData,
+// ProductDeployment, ProductCoverageData, KpiHistoryMonth, KpiHistoryData
+// → moved to types/anaplan.ts, types/vpo.ts (imported above)
 
 // KPIs de Volume (hL) — mix e complexidade. Preferir YTD para mix anual; MTH para mensal.
 const VOLUME_KPI_CODES = [
@@ -1218,30 +1200,8 @@ const getDomainScore = (siteName: string, domainKey: string): number | null => {
 // N4 weights: Functional=2.0, Operational=1.0, Administrative=0.5
 // Level gates: L1≥60%, L2≥75%, L3≥85%, L4≥90%
 // ============================================================================
-interface MaturityDetailLevel {
-  vacuous: boolean;
-  frac: number | null;
-  pass: boolean;
-}
-interface MaturityDetailDomain {
-  score: number;
-  type: 'G' | 'L';
-  levels: {
-    L1: MaturityDetailLevel;
-    L2: MaturityDetailLevel;
-    L3: MaturityDetailLevel;
-    L4: MaturityDetailLevel;
-  };
-}
-interface MaturityDetailSite {
-  zone: string;
-  score: number;
-  domains: Record<string, MaturityDetailDomain | null>;
-}
-
-// ── KPI History (kpi-history.json) ──
-interface KpiHistoryMonth { period: string; zone: string; OSE: number; GLY?: number; OAE?: number; }
-interface KpiHistoryData { generated_at: string; periods: string[]; months: KpiHistoryMonth[]; }
+// MaturityDetailLevel, MaturityDetailDomain, MaturityDetailSite, KpiHistoryMonth, KpiHistoryData
+// → moved to types/sites.ts and types/anaplan.ts (imported above)
 
 // ── Sprint 9: OSE projection (linear regression) ──
 function projectOse(history: { period: string; OSE: number }[], months: number): number | null {
@@ -1429,7 +1389,7 @@ AFR,Beira,Mozambique,6286999,0,2,0,0,2,4,0,0,4,0.00
 // ============================================================================
 // TYPES + PARSER
 // ============================================================================
-interface Site { zone:string; name:string; country:string; volume:number; group:string; scores:Record<string,number>; }
+// Site → moved to types/sites.ts (imported above)
 
 const DOMAIN_COLS: [string,number][] = [
   ["Brewing Performance",4],["Data Acquisition",5],["Utilities",6],["Maintenance",7],
@@ -1456,24 +1416,7 @@ const getMaturityLevel = (site: Site): string => {
 };
 
 // Impact by maturity level only (L0..L4): for executive "does maturity correlate with results?"
-interface ImpactByLevel {
-  level: string;
-  siteCount: number;
-  withKpiCount: number;
-  avgOse: number | null;
-  avgVic: number | null;
-  avgLifecycle: number | null;
-  avgTtp: number | null;
-  composite: number | null; // average of non-null KPIs, for bar scale
-}
-
-interface StatsAnalysis {
-  correlation: number | null;
-  byLevel: { level: string; mean: number | null; count: number }[];
-  narrative: string;
-  correlationOse?: number | null;
-  correlationTtp?: number | null;
-}
+// ImpactByLevel, StatsAnalysis → moved to types/analysis.ts (imported above)
 function computeStatsAnalysis(impactByLevel: ImpactByLevel[]): StatsAnalysis {
   const levels = impactByLevel.filter(i => i.composite != null && i.withKpiCount > 0);
   const n = levels.length;
@@ -1534,8 +1477,7 @@ function partialCorr(x: number[], y: number[], z: number[]): number | null {
   return d > 0 ? (rxy - rxz * ryz) / d : null;
 }
 
-// Análise por zona: VPO→OSE e Tech→OSE por zona
-interface ZoneAnalysisRow { zone: string; n: number; avgVpo: number | null; avgOse: number | null; avgTtp: number | null; avgTech: number; rVpoOse: number | null; rTechOse: number | null; }
+// ZoneAnalysisRow → moved to types/analysis.ts
 function computeZoneAnalysis(
   sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
   vpoData: VpoData | null
@@ -1566,8 +1508,7 @@ function computeZoneAnalysis(
   });
 }
 
-// Threshold sweep: para cada limiar de VPO, verifica se tech→OSE muda de sinal
-interface ThresholdRow { threshold: number; nAbove: number; rAbove: number | null; nBelow: number; rBelow: number | null; }
+// ThresholdRow → moved to types/analysis.ts
 function computeThresholdSweep(
   sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
   vpoData: VpoData | null, thresholds: number[]
@@ -1591,8 +1532,7 @@ function computeThresholdSweep(
   });
 }
 
-// Correlação domínio tech → OSE com classificação Global/Legacy
-interface DomainOseRow { domain: string; short: string; ghqPct: number; rOse: number | null; n: number; cls: 'global' | 'mixed' | 'legacy'; }
+// DomainOseRow → moved to types/analysis.ts
 function computeDomainOseCorrelation(
   sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>
 ): DomainOseRow[] {
@@ -1608,8 +1548,7 @@ function computeDomainOseCorrelation(
   }).sort((a, b) => (b.ghqPct - a.ghqPct));
 }
 
-// Parciais por pilar VPO: efeito próprio de cada pilar controlando VPO geral
-interface PillarPartialRow { pillar: string; rSimple: number | null; rPartial: number | null; n: number; cls: 'own' | 'spurious' | 'marginal'; }
+// PillarPartialRow → moved to types/analysis.ts
 function computePillarPartials(
   sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
   vpoData: VpoData | null
@@ -1628,8 +1567,7 @@ function computePillarPartials(
   });
 }
 
-// Domain readiness: transições L1→L2 e L2→L3 com OSE delta e VPO dos top performers
-interface DomainTransition { from: number; to: number; fromN: number; toN: number; fromOse: number | null; toOse: number | null; delta: number | null; viable: boolean; topVpo: number | null; botVpo: number | null; }
+// DomainTransition → moved to types/analysis.ts
 function computeDomainReadiness(
   sites: Site[], siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
   vpoData: VpoData | null, domainKey: string
@@ -1664,20 +1602,7 @@ function computeDomainReadiness(
   return transitions;
 }
 
-// ── Level Migration: per-site readiness to move from current level to next ──
-interface SiteMigrationStatus {
-  name: string; zone: string; volume: number; volGroup: string;
-  currentLevel: number;      // 0-4 (Total Global rounded)
-  techAvg: number;           // continuous avg of active domains
-  vpoScore: number | null;
-  ose: number | null; ttp: number | null;
-  blockingDomains: { short: string; key: string; score: number; target: number; productType: string }[];
-  domainsReadyCount: number;   // active domains already at target level
-  totalActiveCount: number;    // total active domains for this site
-  domainProgress: number;      // 0-1 fraction of domains ready
-  vpoReady: boolean;         // VPO meets minimum for next transition
-  readinessClass: 'ready' | 'close' | 'far' | 'nodata' | 'vpo_foundation';
-}
+// SiteMigrationStatus → moved to types/sites.ts
 
 // Per-domain rationale text for each transition — explains what blocking/unblocking means
 const DOMAIN_RATIONALE_PT: Record<string, Record<string, { blocking: string; action: string }>> = {
@@ -1988,15 +1913,7 @@ function buildImpactByMaturityLevel(sites: Site[], anaplanRows: AnaplanRow[]): I
   });
 }
 
-// Estudo OSE & TTP por nível: OSE = ΣEPT/ΣOST (agregar depois aplicar fórmula). OSE exibido em %.
-interface ImpactByLevelOseTtp {
-  level: string;
-  siteCount: number;
-  withKpiCount: number;
-  avgOse: number | null;  // razão 0–1 (exibir como %)
-  avgTtp: number | null;
-  oseFromCanonical: boolean;
-}
+// ImpactByLevelOseTtp → moved to types/analysis.ts
 function buildImpactByLevelOseTtp(sites: Site[], anaplanRows: AnaplanRow[]): ImpactByLevelOseTtp[] {
   const studyKpis = [KPI_EPT, KPI_OST, STUDY_KPI_OSE_PRECALC, STUDY_KPI_TTP];
   const studyRows = anaplanRows.filter(r => studyKpis.includes(r.kpi_code));
@@ -2053,13 +1970,7 @@ function buildImpactByLevelOseTtp(sites: Site[], anaplanRows: AnaplanRow[]): Imp
   });
 }
 
-// — Volume mix e complexidade por site (para clusters). Usar rows com periodtype YTD para ano; MTH somado ou filtrado conforme necessidade.
-export interface SiteVolumeMix {
-  siteName: string;
-  totalHL: number;
-  shares: number[];  // 9 shares (0–1) na ordem VOLUME_KPI_CODES
-  complexity: number;  // 0–1: entropia normalizada (1 = mix equilibrado, 0 = concentrado)
-}
+// SiteVolumeMix → moved to types/sites.ts
 function buildVolumeMixFromRows(sites: Site[], anaplanRows: AnaplanRow[]): Map<string, SiteVolumeMix> {
   const volumeRows = anaplanRows.filter(r => (VOLUME_KPI_CODES as readonly string[]).includes(r.kpi_code));
   if (!volumeRows.length) return new Map();
@@ -2191,9 +2102,7 @@ function getSiteClusterKey(site: Site, volumeMix: Map<string, SiteVolumeMix>, co
   return `${site.group}_${band}`;
 }
 
-// — Tipo de produto: só cerveja | misto (cerveja+refrig) | só refrigerante | água | multi
-// Índices em shares: Beer = 1,4,7 (R0010); SoftDrink = 0,5,8 (R0030); Water = 2,3,6 (R0050)
-export type ProductType = 'beer_only' | 'soft_drink_only' | 'water_only' | 'mixed_beer_soft_drink' | 'mixed_other' | 'unknown';
+// ProductType → moved to types/sites.ts
 function getProductType(site: Site, volumeMix: Map<string, SiteVolumeMix>): ProductType {
   const mix = volumeMix.get(site.name);
   if (!mix || mix.totalHL <= 0) return 'unknown';
@@ -2208,17 +2117,7 @@ function getProductType(site: Site, volumeMix: Map<string, SiteVolumeMix>): Prod
   return 'mixed_other';
 }
 
-// — Clusters: perfil volume (G1/G2/G3) + complexidade (L/M/H)
-export interface VolumeComplexityCluster {
-  clusterKey: string;
-  volumeBand: string;
-  complexityBand: string;
-  siteCount: number;
-  sites: Site[];
-  avgOsePct: number | null;
-  avgTtp: number | null;
-  withKpiCount: number;
-}
+// VolumeComplexityCluster → moved to types/analysis.ts
 function buildVolumeComplexityClusters(
   sites: Site[],
   volumeMix: Map<string, SiteVolumeMix>,
@@ -2250,23 +2149,7 @@ function buildVolumeComplexityClusters(
   }).filter(c => c.siteCount > 0).sort((a, b) => a.clusterKey.localeCompare(b.clusterKey));
 }
 
-// — Análise por domínio: maturidade média × OSE/TTP e respostas às 3 perguntas
-export interface DomainAnalysisRow {
-  domain: string;
-  domainShort: string;
-  siteCount: number;
-  avgMaturity: number;
-  avgOsePct: number | null;
-  avgTtp: number | null;
-}
-export interface DomainAnalysis {
-  rows: DomainAnalysisRow[];
-  correlationMaturityOse: number | null;
-  correlationMaturityTtp: number | null;
-  answerMatureDomain: string;
-  answerHighAvg: string;
-  answerPortfolio: string;
-}
+// DomainAnalysisRow, DomainAnalysis → moved to types/analysis.ts
 function buildDomainAnalysis(
   sites: Site[],
   siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>,
@@ -2335,18 +2218,7 @@ function buildDomainAnalysis(
   };
 }
 
-// — Clusters por perfil de maturidade por domínio (funciona com dados atuais)
-export interface MaturityProfileCluster {
-  clusterKey: string;
-  label: string;
-  description: string;
-  siteCount: number;
-  sites: Site[];
-  avgOsePct: number | null;
-  avgTtp: number | null;
-  avgMaturity: number;
-  withKpiCount: number;
-}
+// MaturityProfileCluster → moved to types/analysis.ts
 function buildMaturityProfileClusters(
   sites: Site[],
   siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>
@@ -2472,8 +2344,7 @@ function buildPageInsights(
 // ============================================================================
 // FUNNEL CALC
 // ============================================================================
-interface FunnelLevel { level:string; pct:number; siteCount:number; exclusiveSites:Site[]; ghq:number; }
-interface FunnelMetrics { avg:string; totalSites:number; funnel:FunnelLevel[]; }
+// FunnelLevel, FunnelMetrics → moved to types/app.ts
 
 const calcFunnel = (sites: Site[], domain: string, zone: string, volFilter: string): FunnelMetrics => {
   const n = sites.length;
@@ -3487,12 +3358,39 @@ const exportZonePDF = async (zone: string) => {
   const zoneSites = ACTIVE_SITES.filter(s => s.zone === zone);
   const zoneColor = ZONE_COLORS[zone]?.dot ?? '#6B7280';
 
-  // Maturity distribution
+  // ── Global product keys (mirrors GK_LOCAL in compare tab) ────────────────
+  const PDF_GLOBAL_KEYS: Record<string, Set<string>> = {
+    BP: new Set(['brewing performance','production order']),
+    DA: new Set(['soda etl']),
+    MT: new Set(['maintenance one','max ps','max sp','max wo']),
+    MG: new Set(['acadia','eureka','gops & toolkits','ial','kpi-pi','splan']),
+    MDM: new Set(['soda mdm']),
+    PP: new Set(['lms','production order']),
+    QL: new Set(['process hygiene','production order','pts execution','pts management','pts portal','sensory one','tracegains','omnia ph']),
+    SF: new Set(['guardian']),
+    UT: new Set(['ums']),
+  };
+
+  // ── Identify legacy sites in this zone ────────────────────────────────────
+  // A site is "legacy" for a domain when SITE_DOMAIN_TYPE[site][dom] === 'L'
+  // A site is "legacy overall" if it has at least one domain with type='L'
+  const SCORED_DOMAINS = ['BP','DA','MT','MG','MDM','PP','QL','SF'];
+  const isLegacySite = (siteName: string) =>
+    SCORED_DOMAINS.some(d => getSiteDomainType(siteName, d) === 'L');
+  const zoneLegacySites = zoneSites.filter(s => isLegacySite(s.name));
+  const zoneGlobalSites = ACTIVE_SITES.filter(s =>
+    SCORED_DOMAINS.every(d => {
+      const t = getSiteDomainType(s.name, d);
+      return t === 'G' || t === '-';
+    })
+  );
+
+  // ── Maturity distribution ─────────────────────────────────────────────────
   const lvlCounts = [0,1,2,3,4].map(l => zoneSites.filter(s => (s.scores['Total Global']??0) === l).length);
   const total = zoneSites.length;
   const l2plus = lvlCounts[2] + lvlCounts[3] + lvlCounts[4];
 
-  // Domain performance: zone vs global
+  // ── Domain performance: zone vs global (all sites) ────────────────────────
   const domainStats = DOMAIN_KEYS.filter(d => d.short !== 'UT').map(dk => {
     const zMetrics = calcFunnel(zoneSites, dk.key, zone, 'All');
     const gMetrics = calcFunnel(ACTIVE_SITES, dk.key, 'Global', 'All');
@@ -3502,7 +3400,94 @@ const exportZonePDF = async (zone: string) => {
     return { short: dk.short, full: dk.key, zL0: zMetrics.funnel[0]?.pct??0, zL1: zMetrics.funnel[1]?.pct??0, zL2, gL2, ghq, zAvg: parseFloat(zMetrics.avg), type: DOMAIN_TYPE_LABEL(dk.key) };
   });
 
-  // Blocking domains: which domain most frequently sets the site score
+  // ── Section 1: Legacy zone vs Global reference ────────────────────────────
+  // For each domain: avg score of legacy sites in this zone vs avg of global sites globally
+  const legacyDomainComparison = DOMAIN_KEYS.filter(d => d.short !== 'UT').map(dk => {
+    const legSites = zoneLegacySites.filter(s => getSiteDomainType(s.name, dk.short) === 'L');
+    const glbSites = zoneGlobalSites.filter(s => getSiteDomainType(s.name, dk.short) === 'G');
+    const legAvg = legSites.length > 0
+      ? legSites.reduce((acc,s) => acc + (s.scores[dk.key]??0), 0) / legSites.length
+      : null;
+    const glbAvg = glbSites.length > 0
+      ? glbSites.reduce((acc,s) => acc + (s.scores[dk.key]??0), 0) / glbSites.length
+      : null;
+    const gap = (legAvg !== null && glbAvg !== null) ? legAvg - glbAvg : null;
+    return { short: dk.short, full: dk.key, legCount: legSites.length, glbCount: glbSites.length, legAvg, glbAvg, gap };
+  });
+
+  // ── Section 2 & 3: Capability blockers for legacy zone sites ─────────────
+  // For each capability in CAPABILITY_DETAIL that is NOT READY globally:
+  // count how many legacy zone sites are affected (have a product whose coveredBy includes that cap)
+  type CapBlocker = { domShort: string; gate: string; n3: string; capKey: string; capName: string; affectedCount: number; plannedYear: string; plannedQuarter: string };
+  const capBlockers: CapBlocker[] = [];
+
+  DOMAIN_KEYS.filter(d => d.short !== 'UT').forEach(dk => {
+    const domCapData = (CAPABILITY_DETAIL as any)[dk.short] as Record<string,Record<string,{name:string;n3:string;coveredBy:string[];status:string;plannedYear:string;plannedQuarter:string}>> | undefined;
+    if (!domCapData) return;
+    const gkSet = PDF_GLOBAL_KEYS[dk.short] ?? new Set<string>();
+
+    (['L1','L2','L3','L4'] as const).forEach(gate => {
+      const gateCaps = domCapData[gate] ?? {};
+      Object.entries(gateCaps).forEach(([capKey, cap]) => {
+        if (cap.status === 'READY') return;
+        // Only include caps that are covered by global keys (to assess global product gaps)
+        const isGlobalCap = (cap.coveredBy as string[]).some(k => gkSet.has(k));
+        if (!isGlobalCap) return;
+
+        // Count legacy sites in this zone that have any product covering this cap
+        let affectedCount = 0;
+        zoneLegacySites.forEach(site => {
+          const spm = (SITE_PRODUCT_MAP as any)[site.name];
+          if (!spm) return;
+          const domEntry = spm[dk.short];
+          if (!domEntry) return;
+          const siteProducts: string[] = domEntry.products ?? [];
+          const siteKeys = siteProducts.map((p: string) => p.toLowerCase());
+          // Site is affected if any of its product keys appear in this cap's coveredBy
+          const affected = siteKeys.some((sk: string) => (cap.coveredBy as string[]).includes(sk));
+          if (affected) affectedCount++;
+        });
+        if (affectedCount === 0) return;
+
+        capBlockers.push({
+          domShort: dk.short,
+          gate,
+          n3: cap.n3,
+          capKey,
+          capName: cap.name,
+          affectedCount,
+          plannedYear: cap.plannedYear,
+          plannedQuarter: cap.plannedQuarter,
+        });
+      });
+    });
+  });
+
+  // Sort by affectedCount desc, then gate asc
+  capBlockers.sort((a,b) => b.affectedCount - a.affectedCount || a.gate.localeCompare(b.gate));
+
+  // Top 20 global capability blockers (Section 2)
+  const top20Blockers = capBlockers.slice(0, 20);
+
+  // Group by domain for Section 3
+  const blockersByDomain: Record<string, CapBlocker[]> = {};
+  capBlockers.forEach(cb => {
+    if (!blockersByDomain[cb.domShort]) blockersByDomain[cb.domShort] = [];
+    blockersByDomain[cb.domShort].push(cb);
+  });
+
+  // ── Section 4: Sites prioritized by impact ────────────────────────────────
+  // Priority = volume × (4 - score) — higher volume + lower score = higher priority
+  const legacySiteRanking = [...zoneLegacySites].map(s => {
+    const score = s.scores['Total Global'] ?? 0;
+    const priority = s.volume * (4 - score);
+    // Potential score: max of all domain scores if all non-ready global caps were met
+    // Simplified: if score < 2, potential is at least 2 (Connected Ops baseline with global rollout)
+    const potentialScore = Math.min(4, score + 1);
+    return { site: s, score, priority, potentialScore };
+  }).sort((a,b) => b.priority - a.priority);
+
+  // ── Blocking domains (original logic) ────────────────────────────────────
   const blockMap: Record<string,number> = {};
   zoneSites.forEach(s => {
     const sScore = s.scores['Total Global'] ?? 0;
@@ -3513,13 +3498,13 @@ const exportZonePDF = async (zone: string) => {
   });
   const topBlockers = Object.entries(blockMap).sort((a,b)=>b[1]-a[1]).slice(0,3);
 
-  // Site list sorted by score desc then volume desc
+  // ── Site list sorted by score desc then volume desc ────────────────────────
   const siteList = [...zoneSites].sort((a,b) => {
     const sA = a.scores['Total Global']??0, sB = b.scores['Total Global']??0;
     return sB !== sA ? sB - sA : b.volume - a.volume;
   });
 
-  // Products active in this zone (from SITE_PRODUCT_MAP)
+  // ── Products active in this zone ──────────────────────────────────────────
   const zoneProducts: Record<string,Set<string>> = {};
   zoneSites.forEach(site => {
     const spm = (SITE_PRODUCT_MAP as any)[site.name];
@@ -3530,6 +3515,7 @@ const exportZonePDF = async (zone: string) => {
     });
   });
 
+  // ── HTML helpers ──────────────────────────────────────────────────────────
   const barHtml = (pct: number, color: string, width = 100) => {
     const w = Math.round(pct / 100 * width);
     return `<table style="border-collapse:collapse;display:inline-table"><tr>
@@ -3537,10 +3523,22 @@ const exportZonePDF = async (zone: string) => {
       <td style="padding:0 0 0 6px;vertical-align:middle;font-size:11px;font-weight:700;color:#374151;white-space:nowrap">${pct.toFixed(0)}%</td>
     </tr></table>`;
   };
+  const scoreBarHtml = (score: number, maxScore: number, color: string, width = 80) => {
+    const pct = maxScore > 0 ? (score / maxScore) * 100 : 0;
+    const w = Math.round(pct / 100 * width);
+    return `<table style="border-collapse:collapse;display:inline-table"><tr>
+      <td style="padding:0;vertical-align:middle"><div style="width:${width}px;height:8px;background:#e5e7eb;border-radius:3px;overflow:hidden"><div style="width:${w}px;height:8px;background:${color}"></div></div></td>
+      <td style="padding:0 0 0 4px;vertical-align:middle;font-size:10px;font-weight:700;color:#374151;white-space:nowrap">${score.toFixed(1)}</td>
+    </tr></table>`;
+  };
 
-  const levelColor = (l: number) => ['#D1D5DB','#FFE066','#FFC000','#F59E0B','#10B981'][l] ?? '#D1D5DB';
+  const levelColor = (l: number) => ['#D1D5DB','#FFE066','#FFC000','#F59E0B','#10B981'][Math.floor(l)] ?? '#D1D5DB';
   const deltaColor = (d: number) => d >= 5 ? '#059669' : d >= 0 ? '#D97706' : '#DC2626';
+  const gateColor = (g: string) => ({'L1':'#FFE066','L2':'#FFC000','L3':'#F59E0B','L4':'#10B981'}[g] ?? '#D1D5DB');
+  const sectionHeader = (title: string, subtitle: string = '') =>
+    `<h2 style="margin:0 0 ${subtitle?'4':'10'}px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#374151;border-bottom:2px solid ${zoneColor};padding-bottom:6px">${title}</h2>${subtitle ? `<div style="font-size:11px;color:#6B7280;margin-bottom:10px">${subtitle}</div>` : ''}`;
 
+  // ── Domain performance table rows ─────────────────────────────────────────
   const domainTableRows = domainStats.map(d => {
     const delta = d.zL2 - d.gL2;
     const scoreBg = levelColor(Math.floor(d.zAvg));
@@ -3557,6 +3555,113 @@ const exportZonePDF = async (zone: string) => {
     </tr>`;
   }).join('');
 
+  // ── Section 1 HTML: Legacy Zone vs Global Reference ───────────────────────
+  const legacyCompRows = legacyDomainComparison.filter(d => d.legCount > 0 || d.glbCount > 0).map(d => {
+    const hasData = d.legAvg !== null && d.glbAvg !== null;
+    const gapVal = d.gap ?? 0;
+    const gapColor = gapVal >= 0 ? '#059669' : '#DC2626';
+    const gapLabel = hasData ? `${gapVal >= 0 ? '+' : ''}${gapVal.toFixed(2)}` : '—';
+    const legBar = d.legAvg !== null ? scoreBarHtml(d.legAvg, 4, zoneColor, 80) : '<span style="color:#9CA3AF;font-size:10px">n/a</span>';
+    const glbBar = d.glbAvg !== null ? scoreBarHtml(d.glbAvg, 4, '#6B7280', 80) : '<span style="color:#9CA3AF;font-size:10px">n/a</span>';
+    const highlight = hasData && gapVal < -0.5 ? 'background:#FEF2F2' : hasData && gapVal > 0.5 ? 'background:#F0FDF4' : '';
+    return `<tr style="border-bottom:1px solid #f3f4f6;${highlight}">
+      <td style="padding:5px 8px;font-weight:700;font-family:monospace;font-size:12px">${d.short}</td>
+      <td style="padding:5px 8px;font-size:10px;color:#6B7280">${d.legCount} legacy sites</td>
+      <td style="padding:5px 8px">${legBar}</td>
+      <td style="padding:5px 8px;font-size:10px;color:#6B7280">${d.glbCount} global sites</td>
+      <td style="padding:5px 8px">${glbBar}</td>
+      <td style="padding:5px 8px;text-align:center;font-weight:700;font-size:12px;color:${gapColor}">${gapLabel}</td>
+      <td style="padding:5px 8px;font-size:10px;color:#6B7280">${hasData ? (gapVal < -0.3 ? '⚠ Gap' : gapVal > 0.3 ? '★ Ahead' : '≈ Parity') : '—'}</td>
+    </tr>`;
+  }).join('');
+
+  // ── Section 2 HTML: Top capability blockers ───────────────────────────────
+  const topBlockerRows = top20Blockers.map((cb, idx) => {
+    const pYear = cb.plannedYear ? `${cb.plannedYear}${cb.plannedQuarter ? ' '+cb.plannedQuarter : ''}` : '—';
+    const impactBg = cb.affectedCount >= zoneLegacySites.length * 0.7 ? '#FEE2E2' :
+                     cb.affectedCount >= zoneLegacySites.length * 0.4 ? '#FEF3C7' : '#F9FAFB';
+    return `<tr style="border-bottom:1px solid #f3f4f6;background:${impactBg}">
+      <td style="padding:4px 6px;text-align:center;font-size:11px;color:#9CA3AF">${idx+1}</td>
+      <td style="padding:4px 6px;font-weight:700;font-family:monospace;font-size:11px"><span style="background:${gateColor(cb.gate)};padding:1px 5px;border-radius:3px;font-size:9px;color:#374151">${cb.gate}</span> ${cb.domShort}</td>
+      <td style="padding:4px 6px;font-size:10px;color:#374151;max-width:200px">${cb.n3}</td>
+      <td style="padding:4px 6px;font-size:10px;color:#6B7280;max-width:160px">${cb.capName}</td>
+      <td style="padding:4px 6px;text-align:center">
+        <span style="background:${zoneColor};color:#fff;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700">${cb.affectedCount}</span>
+        <span style="font-size:10px;color:#9CA3AF"> / ${zoneLegacySites.length}</span>
+      </td>
+      <td style="padding:4px 6px;text-align:center;font-size:10px;color:#6B7280">${pYear}</td>
+    </tr>`;
+  }).join('');
+
+  // ── Section 3 HTML: Plan by domain ────────────────────────────────────────
+  const planByDomainHtml = DOMAIN_KEYS.filter(d => d.short !== 'UT').map(dk => {
+    const domBlockers = blockersByDomain[dk.short];
+    if (!domBlockers || domBlockers.length === 0) return '';
+    // Group by gate → N3
+    const byGate: Record<string, CapBlocker[]> = {};
+    domBlockers.forEach(cb => {
+      if (!byGate[cb.gate]) byGate[cb.gate] = [];
+      byGate[cb.gate].push(cb);
+    });
+    const gateRows = (['L1','L2','L3','L4'] as const).map(gate => {
+      const gateCbs = byGate[gate];
+      if (!gateCbs || gateCbs.length === 0) return '';
+      // Group by N3
+      const byN3: Record<string, {count: number; caps: CapBlocker[]}> = {};
+      gateCbs.forEach(cb => {
+        if (!byN3[cb.n3]) byN3[cb.n3] = { count: 0, caps: [] };
+        byN3[cb.n3].count = Math.max(byN3[cb.n3].count, cb.affectedCount);
+        byN3[cb.n3].caps.push(cb);
+      });
+      const n3Rows = Object.entries(byN3)
+        .sort((a,b) => b[1].count - a[1].count)
+        .slice(0, 5)
+        .map(([n3, data]) => {
+          const pYear = data.caps[0]?.plannedYear ? `${data.caps[0].plannedYear}${data.caps[0].plannedQuarter ? ' '+data.caps[0].plannedQuarter : ''}` : '—';
+          return `<tr style="border-bottom:1px solid #f9fafb">
+            <td style="padding:3px 6px;padding-left:24px;font-size:10px;color:#374151">${n3}</td>
+            <td style="padding:3px 6px;text-align:center;font-size:10px;font-weight:700;color:${zoneColor}">${data.count}</td>
+            <td style="padding:3px 6px;text-align:center;font-size:9px;color:#9CA3AF">${data.caps.length} cap${data.caps.length > 1 ? 's' : ''}</td>
+            <td style="padding:3px 6px;text-align:center;font-size:9px;color:#6B7280">${pYear}</td>
+          </tr>`;
+        }).join('');
+      return `<tr style="background:#F3F4F6"><td colspan="4" style="padding:4px 8px;font-size:10px;font-weight:700"><span style="background:${gateColor(gate)};padding:1px 6px;border-radius:3px;color:#374151">${gate}</span> — ${gateCbs.length} capability gap${gateCbs.length > 1 ? 's' : ''}</td></tr>${n3Rows}`;
+    }).join('');
+    return `<div style="margin-bottom:12px">
+      <div style="background:#1F2937;color:#fff;padding:5px 10px;font-size:11px;font-weight:800;font-family:monospace;border-radius:4px 4px 0 0">${dk.short} — ${dk.key}</div>
+      <table style="width:100%;border-collapse:collapse;border:1px solid #E5E7EB;border-top:none">
+        <thead><tr style="background:#F9FAFB;border-bottom:1px solid #E5E7EB">
+          <th style="padding:4px 6px;padding-left:24px;text-align:left;font-size:9px;color:#6B7280">N3 CAPABILITY GROUP</th>
+          <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">SITES</th>
+          <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">CAPS</th>
+          <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">PLANNED</th>
+        </tr></thead>
+        <tbody>${gateRows}</tbody>
+      </table>
+    </div>`;
+  }).join('');
+
+  // ── Section 4 HTML: Sites ranked by impact ───────────────────────────────
+  const impactRankRows = legacySiteRanking.slice(0, 30).map((item, idx) => {
+    const score = item.score;
+    const volFmt = item.site.volume >= 1e6 ? (item.site.volume/1e6).toFixed(1)+'M hL' : (item.site.volume/1e3).toFixed(0)+'K hL';
+    const impactScore = item.site.volume > 0 ? ((4 - score) / 4 * 100).toFixed(0) : '0';
+    return `<tr style="border-bottom:1px solid #f9fafb">
+      <td style="padding:4px 6px;text-align:center;font-size:11px;color:#9CA3AF;font-weight:700">${idx+1}</td>
+      <td style="padding:4px 6px;font-size:11px;font-weight:600">${item.site.name}</td>
+      <td style="padding:4px 6px;font-size:10px;color:#6B7280">${item.site.country}</td>
+      <td style="padding:4px 6px;font-size:10px;font-family:monospace;text-align:right">${volFmt}</td>
+      <td style="padding:4px 6px;text-align:center"><span style="background:${levelColor(score)};color:${score<=1?'#374151':'#fff'};padding:1px 7px;border-radius:4px;font-size:11px;font-weight:700">L${score}</span></td>
+      <td style="padding:4px 6px;text-align:center"><span style="background:${levelColor(item.potentialScore)};color:${item.potentialScore<=1?'#374151':'#fff'};padding:1px 7px;border-radius:4px;font-size:11px;font-weight:700">L${item.potentialScore}</span></td>
+      <td style="padding:4px 6px;text-align:center;font-size:10px;font-weight:700;color:${zoneColor}">${impactScore}%</td>
+    </tr>`;
+  }).join('');
+
+  // ── Legacy site count ──────────────────────────────────────────────────────
+  const legTotal = zoneLegacySites.length;
+  const legL2plus = zoneLegacySites.filter(s => (s.scores['Total Global']??0) >= 2).length;
+
+  // ── Site list rows (original) ──────────────────────────────────────────────
   const siteTableRows = siteList.map(s => {
     const score = s.scores['Total Global'] ?? 0;
     const volFmt = s.volume >= 1e6 ? (s.volume/1e6).toFixed(1)+'M' : (s.volume/1e3).toFixed(0)+'K';
@@ -3566,8 +3671,9 @@ const exportZonePDF = async (zone: string) => {
       const fg = sc <= 1 ? '#374151' : '#fff';
       return `<span style="display:inline-block;width:20px;height:20px;border-radius:50%;background:${bg};color:${fg};font-size:8px;font-weight:700;line-height:20px;text-align:center;margin:0 1px" title="${dk.short}">${sc}</span>`;
     }).join('');
+    const legTag = isLegacySite(s.name) ? `<span style="font-size:8px;background:#FEF3C7;border:1px solid #F59E0B;border-radius:2px;padding:0 3px;color:#92400E;margin-left:3px">L</span>` : `<span style="font-size:8px;background:#EFF6FF;border:1px solid #3B82F6;border-radius:2px;padding:0 3px;color:#1D4ED8;margin-left:3px">G</span>`;
     return `<tr style="border-bottom:1px solid #f9fafb">
-      <td style="padding:4px 6px;font-size:11px;font-weight:600">${s.name}</td>
+      <td style="padding:4px 6px;font-size:11px;font-weight:600">${s.name}${legTag}</td>
       <td style="padding:4px 6px;font-size:10px;color:#6B7280">${s.country}</td>
       <td style="padding:4px 6px;font-size:10px;text-align:right;font-family:monospace">${volFmt}</td>
       <td style="padding:4px 6px;text-align:center"><span style="background:${levelColor(score)};color:${score<=1?'#374151':'#fff'};padding:1px 7px;border-radius:4px;font-size:11px;font-weight:700">L${score}</span></td>
@@ -3601,16 +3707,17 @@ const exportZonePDF = async (zone: string) => {
     </tr></table>`;
   }).join('');
 
+  // ── Full HTML ─────────────────────────────────────────────────────────────
   const htmlContent = `<div style="font-family:'Segoe UI',system-ui,Arial,sans-serif;max-width:760px;margin:0 auto;color:#111827">
 
-  <!-- HEADER -->
+  <!-- PAGE 1: HEADER + OVERVIEW -->
   <table style="width:100%;border-collapse:collapse;background:#111827;color:#fff;border-radius:8px 8px 0 0"><tr>
     <td style="padding:20px 24px;vertical-align:top">
       <div style="font-size:10px;font-weight:600;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:4px">AB InBev Global Manufacturing</div>
       <div style="margin:0;font-size:22px;font-weight:900;letter-spacing:-0.5px;color:#fff">ZONE STATUS REPORT</div>
       <div style="margin-top:6px">
         <span style="background:${zoneColor};color:#fff;padding:3px 12px;border-radius:20px;font-size:13px;font-weight:800;margin-right:8px">${zone}</span>
-        <span style="font-size:12px;color:rgba(255,255,255,0.6)">${total} manufacturing sites</span>
+        <span style="font-size:12px;color:rgba(255,255,255,0.6)">${total} manufacturing sites · ${legTotal} legacy · ${total - legTotal} global-only</span>
       </div>
     </td>
     <td style="padding:20px 24px;text-align:right;vertical-align:top;color:rgba(255,255,255,0.6);font-size:11px">
@@ -3630,12 +3737,12 @@ const exportZonePDF = async (zone: string) => {
       <div style="font-size:10px;font-weight:600;color:#6B7280;letter-spacing:0.5px">L2+ RATE</div>
     </td>
     <td style="padding:14px 20px;text-align:center;vertical-align:top;white-space:nowrap;width:80px">
-      <div style="font-size:28px;font-weight:900;color:#6B7280">${lvlCounts[0]}</div>
-      <div style="font-size:10px;font-weight:600;color:#6B7280;letter-spacing:0.5px">L0 SITES</div>
+      <div style="font-size:28px;font-weight:900;color:#6B7280">${legTotal}</div>
+      <div style="font-size:10px;font-weight:600;color:#6B7280;letter-spacing:0.5px">LEGACY SITES</div>
     </td>
     <td style="padding:14px 20px;text-align:center;vertical-align:top;white-space:nowrap;width:80px">
-      <div style="font-size:28px;font-weight:900;color:#374151">${lvlCounts[1]}</div>
-      <div style="font-size:10px;font-weight:600;color:#6B7280;letter-spacing:0.5px">L1 SITES</div>
+      <div style="font-size:28px;font-weight:900;color:#374151">${legL2plus}</div>
+      <div style="font-size:10px;font-weight:600;color:#6B7280;letter-spacing:0.5px">LEGACY L2+</div>
     </td>
     <td style="padding:14px 20px;vertical-align:top">
       <div style="font-size:10px;font-weight:700;color:#6B7280;margin-bottom:6px;letter-spacing:0.5px">MATURITY FUNNEL</div>
@@ -3643,7 +3750,7 @@ const exportZonePDF = async (zone: string) => {
     </td>
   </tr></table>
 
-  <!-- DOMAIN PERFORMANCE -->
+  <!-- DOMAIN PERFORMANCE TABLE -->
   <div style="border:1px solid #E5E7EB;border-top:none;padding:16px 24px">
     <h2 style="margin:0 0 12px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#374151;border-bottom:2px solid ${zoneColor};padding-bottom:6px">Domain Performance — Zone vs Global</h2>
     <table style="width:100%;border-collapse:collapse;font-size:12px">
@@ -3676,10 +3783,137 @@ const exportZonePDF = async (zone: string) => {
     ${productsHtml}
   </div>
 
-  <!-- SITE LIST -->
-  <div style="border:1px solid #E5E7EB;border-top:none;padding:16px 24px;border-radius:0 0 8px 8px">
-    <h2 style="margin:0 0 10px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#374151;border-bottom:2px solid #E5E7EB;padding-bottom:6px">Sites — ${zone} (${total})</h2>
-    <div style="font-size:9px;color:#9CA3AF;margin-bottom:8px">Domain scores (BP · DA · MT · MG · MDM · PP · QL · SF) — sorted by maturity level</div>
+  <!-- PAGE BREAK -->
+  <div style="page-break-before:always;height:1px"></div>
+
+  <!-- PAGE 2: SECTION 1 — Legacy vs Global reference -->
+  <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
+    ${sectionHeader(
+      'Legacy Zone × Global Reference — Domain Scores',
+      `Average maturity score: ${zone} legacy sites vs global product sites worldwide. Green = legacy ahead · Red = legacy behind · n/a = domain not applicable to site type.`
+    )}
+    <table style="width:100%;border-collapse:collapse;font-size:12px">
+      <thead>
+        <tr style="background:#F9FAFB;border-bottom:2px solid #E5E7EB">
+          <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">DOM</th>
+          <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:${zoneColor}">LEGACY (${zone})</th>
+          <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:${zoneColor}">SCORE</th>
+          <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">GLOBAL REF</th>
+          <th style="padding:5px 8px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">SCORE</th>
+          <th style="padding:5px 8px;text-align:center;font-size:10px;font-weight:700;color:#374151">GAP</th>
+          <th style="padding:5px 8px;text-align:center;font-size:10px;font-weight:700;color:#374151">STATUS</th>
+        </tr>
+      </thead>
+      <tbody>${legacyCompRows}</tbody>
+    </table>
+    <div style="font-size:9px;color:#9CA3AF;margin-top:8px">GAP = legacy avg − global avg · Score range 0–4 (L0=0, L1=1, L2=2, L3=3, L4=4)</div>
+  </div>
+
+  <!-- PAGE 3: SECTION 2 — Capability blockers (top 20) -->
+  <div style="page-break-before:always;height:1px"></div>
+  <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
+    ${sectionHeader(
+      'Development Plan — Top Capability Blockers',
+      `Global capabilities NOT READY that affect the most legacy sites in ${zone}. Ordered by number of affected sites. Only capabilities covered by global product keys are shown.`
+    )}
+    ${top20Blockers.length === 0
+      ? `<div style="text-align:center;padding:20px;color:#9CA3AF;font-size:13px">No capability gaps found for legacy sites in ${zone}</div>`
+      : `<table style="width:100%;border-collapse:collapse;font-size:11px">
+          <thead>
+            <tr style="background:#F9FAFB;border-bottom:2px solid #E5E7EB">
+              <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">#</th>
+              <th style="padding:4px 6px;text-align:left;font-size:9px;color:#6B7280">GATE · DOMAIN</th>
+              <th style="padding:4px 6px;text-align:left;font-size:9px;color:#6B7280">N3 GROUP</th>
+              <th style="padding:4px 6px;text-align:left;font-size:9px;color:#6B7280">CAPABILITY NAME</th>
+              <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">AFFECTED</th>
+              <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">PLANNED</th>
+            </tr>
+          </thead>
+          <tbody>${topBlockerRows}</tbody>
+        </table>
+        <div style="font-size:9px;color:#9CA3AF;margin-top:6px">
+          <span style="background:#FEE2E2;padding:1px 4px">■</span> Affects ≥70% of legacy sites &nbsp;
+          <span style="background:#FEF3C7;padding:1px 4px">■</span> Affects ≥40% &nbsp;
+          <span style="background:#F9FAFB;padding:1px 4px">■</span> Affects &lt;40%
+        </div>`
+    }
+  </div>
+
+  <!-- PAGE 4: SECTION 3 — Development plan by domain -->
+  <div style="page-break-before:always;height:1px"></div>
+  <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
+    ${sectionHeader(
+      'Development Plan by Domain',
+      `N3 capability groups that legacy sites in ${zone} need to complete to advance levels. Grouped by domain and gate. Top 5 N3 groups per gate shown.`
+    )}
+    ${planByDomainHtml || `<div style="text-align:center;padding:20px;color:#9CA3AF;font-size:13px">No open capability gaps for legacy sites in ${zone}</div>`}
+  </div>
+
+  <!-- PAGE 5: SECTION 4 — Sites ranked by impact -->
+  <div style="page-break-before:always;height:1px"></div>
+  <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
+    ${sectionHeader(
+      `Legacy Sites — Prioritized by Impact (${zone})`,
+      `Ranking: higher volume × lower maturity score = higher priority for rollout investment. Potential Score = estimated score after global product adoption (+1 level). Top 30 shown.`
+    )}
+    ${legacySiteRanking.length === 0
+      ? `<div style="text-align:center;padding:20px;color:#9CA3AF;font-size:13px">No legacy sites identified in ${zone}</div>`
+      : `<table style="width:100%;border-collapse:collapse;font-size:11px">
+          <thead>
+            <tr style="background:#F9FAFB;border-bottom:2px solid #E5E7EB">
+              <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">#</th>
+              <th style="padding:4px 6px;text-align:left;font-size:9px;color:#6B7280">SITE</th>
+              <th style="padding:4px 6px;text-align:left;font-size:9px;color:#6B7280">COUNTRY</th>
+              <th style="padding:4px 6px;text-align:right;font-size:9px;color:#6B7280">VOLUME</th>
+              <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">CURRENT</th>
+              <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">POTENTIAL</th>
+              <th style="padding:4px 6px;text-align:center;font-size:9px;color:#6B7280">UPLIFT</th>
+            </tr>
+          </thead>
+          <tbody>${impactRankRows}</tbody>
+        </table>
+        <div style="font-size:9px;color:#9CA3AF;margin-top:6px">Priority = Volume × (4 − current score). Potential score assumes +1 level from global product adoption. Uplift % = maturity gap as share of max achievable.</div>`
+    }
+  </div>
+
+  <!-- PAGE 6: SECTION 5 — Rollout plan placeholder -->
+  <div style="page-break-before:always;height:1px"></div>
+  <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
+    ${sectionHeader('Rollout Plan by Site', `Phase-by-phase deployment schedule for ${zone} legacy sites`)}
+    <div style="background:#F8FAFC;border:2px dashed #D1D5DB;border-radius:6px;padding:24px;text-align:center;margin-bottom:16px">
+      <div style="font-size:14px;font-weight:700;color:#6B7280;margin-bottom:8px">Em breve — dados de rollout não disponíveis ainda</div>
+      <div style="font-size:12px;color:#9CA3AF">Coming soon — rollout data not yet available</div>
+    </div>
+    <table style="width:100%;border-collapse:collapse;font-size:11px">
+      <thead>
+        <tr style="background:#F9FAFB;border-bottom:2px solid #E5E7EB">
+          <th style="padding:8px 10px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">SITE</th>
+          <th style="padding:8px 10px;text-align:left;font-size:10px;font-weight:700;color:#6B7280">FASE / PHASE</th>
+          <th style="padding:8px 10px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">DATA PREVISTA</th>
+          <th style="padding:8px 10px;text-align:center;font-size:10px;font-weight:700;color:#6B7280">STATUS</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${zoneLegacySites.slice(0,15).map(s => `<tr style="border-bottom:1px solid #F3F4F6">
+          <td style="padding:7px 10px;font-size:11px;font-weight:500;color:#374151">${s.name}</td>
+          <td style="padding:7px 10px;font-size:10px;color:#9CA3AF;font-style:italic">— not yet defined —</td>
+          <td style="padding:7px 10px;text-align:center;font-size:10px;color:#9CA3AF">TBD</td>
+          <td style="padding:7px 10px;text-align:center"><span style="background:#F3F4F6;border:1px solid #D1D5DB;border-radius:10px;padding:2px 8px;font-size:9px;color:#9CA3AF">PENDING</span></td>
+        </tr>`).join('')}
+        ${zoneLegacySites.length > 15 ? `<tr><td colspan="4" style="padding:6px 10px;text-align:center;font-size:10px;color:#9CA3AF;font-style:italic">+ ${zoneLegacySites.length - 15} more sites — data pending</td></tr>` : ''}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- PAGE 7: SITE LIST -->
+  <div style="page-break-before:always;height:1px"></div>
+  <div style="border:1px solid #E5E7EB;padding:16px 24px;border-radius:4px;margin-top:8px">
+    <h2 style="margin:0 0 4px;font-size:13px;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:#374151;border-bottom:2px solid #E5E7EB;padding-bottom:6px">All Sites — ${zone} (${total})</h2>
+    <div style="font-size:9px;color:#9CA3AF;margin-bottom:8px">
+      Domain scores: BP · DA · MT · MG · MDM · PP · QL · SF &nbsp;|&nbsp;
+      <span style="background:#FEF3C7;border:1px solid #F59E0B;padding:0 3px;font-size:9px;color:#92400E">L</span> = legacy site &nbsp;
+      <span style="background:#EFF6FF;border:1px solid #3B82F6;padding:0 3px;font-size:9px;color:#1D4ED8">G</span> = global-only site
+    </div>
     <table style="width:100%;border-collapse:collapse;font-size:12px">
       <thead>
         <tr style="background:#F9FAFB;border-bottom:2px solid #E5E7EB">
@@ -3705,13 +3939,14 @@ const exportZonePDF = async (zone: string) => {
       margin: [8, 8, 8, 8],
       filename: `zone-report-${zone.toLowerCase()}-${new Date().toISOString().slice(0,10)}.pdf`,
       image: { type: 'jpeg', quality: 0.95 },
-      html2canvas: { scale: 2, useCORS: true, logging: false, windowWidth: 800 },
+      html2canvas: { scale: 1.5, useCORS: true, logging: false, windowWidth: 800, allowTaint: true },
       jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
     }).from(container).save();
   } finally {
     document.body.removeChild(container);
   }
 };
+
 
 // ============================================================================
 // SIDEBAR
@@ -3939,8 +4174,7 @@ const SparkBar: React.FC<{
   );
 };
 
-// ── Nível Tecnológico × Resultados ───────────────────────────────────────────
-interface LevelRow { level: string; siteCount: number; withKpiCount: number; avgOse: number | null; avgTtp: number | null; }
+// LevelRow → moved to types/analysis.ts
 const LEVEL_HEX: Record<string,string> = { L0:'#6b7280', L1:'#f59e0b', L2:'#f97316', L3:'#10b981', L4:'#059669' };
 
 const corrBadge = (r: number | null | undefined, label: string, dark: boolean) => {
@@ -4076,8 +4310,8 @@ const DomainTable: React.FC<{ domainAnalysis: DomainAnalysis; dark: boolean }> =
   );
 };
 
+// SortKey → moved to types/app.ts
 // ── Explorador de Sites ───────────────────────────────────────────────────────
-type SortKey = 'name' | 'zone' | 'maturity' | 'ose' | 'ttp' | 'vpo';
 const SiteExplorer: React.FC<{
   sites: Site[];
   siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>;
@@ -4361,25 +4595,7 @@ const VPO_PILLAR_SHORT: Record<string, string> = {
   'Management': 'Mgmt', 'People': 'Ppl', 'Quality': 'Qlty', 'Safety': 'Safe',
 };
 
-interface TriDimSiteRow {
-  name: string;
-  zone: string;
-  techLevel: string;      // L0-L4
-  techScore: number;      // Total Global 0-4
-  vpoScore: number | null;  // % compliance overall
-  vpoPillars: Record<string, number | null>;
-  ose: number | null;     // 0-1
-  ttp: number | null;     // hl/h
-}
-
-interface TriDimQuadrant {
-  label: string;
-  description: string;
-  sites: TriDimSiteRow[];
-  avgOse: number | null;
-  avgTtp: number | null;
-  color: string;
-}
+// TriDimSiteRow, TriDimQuadrant → moved to types/analysis.ts
 
 function buildTriDimAnalysis(
   sites: Site[],
@@ -4672,9 +4888,7 @@ const TriDimensionalView: React.FC<{
 // ── View principal ────────────────────────────────────────────────────────────
 // ── Portfolio: Local/Legacy system names per zone × domain ───────────────────
 // Source: OneMes Readiness and Coverage.xlsx (columns: AFR-Traksys, MAZ-Suite360, etc.)
-// ⚠️ = data gap — needs business input to complete
-// Format: { systemName, domains[], note? }
-interface LocalSystem { name: string; domains: string[]; note?: string; }
+// LocalSystem → moved to types/portfolio.ts
 const LOCAL_SYSTEMS: Record<string, LocalSystem[]> = {
   AFR: [
     { name: 'Traksys',        domains: ['Brewing Performance', 'Quality'] },
@@ -4734,16 +4948,7 @@ const GLOBAL_PRODUCT_LEVELS: Record<string, { level: string; note: string; confi
   'Guardian':        { level: 'L3', note: 'APAC/AFR: 54–67% at L3. Safety compliance + analytics.', confirmed: false },
 };
 
-// ── Portfolio Intelligence: Global vs Legacy ──────────────────────────────────
-interface DomainZonePortfolioRow {
-  domain: string; short: string; zone: string; // 'Global' for aggregate
-  nGlobal: number; nLegacy: number; nNeither: number; nTotal: number;
-  avgScoreGlobal: number | null; avgScoreLegacy: number | null; avgScoreNone: number | null;
-  globalCoveragePct: number; // nGlobal / (nGlobal + nLegacy) — excludes nNeither
-  parityStatus: 'global_leading' | 'approaching' | 'legacy_dominant' | 'absent';
-  decommReady: boolean;
-  decommGap: number; // Legacy sites remaining to migrate
-}
+// DomainZonePortfolioRow → moved to types/portfolio.ts
 
 function computePortfolioMatrix(sites: Site[]): DomainZonePortfolioRow[] {
   const zones = [...ZONES, 'Global'] as string[];
@@ -4782,23 +4987,7 @@ function computePortfolioMatrix(sites: Site[]): DomainZonePortfolioRow[] {
   return rows;
 }
 
-// ── CapabilityRecord type (for portfolio capabilities JSON) ──────────────────
-interface CapabilityRecord {
-  domain: string;
-  domain_code: string;
-  global_product: string;
-  subarea: string;
-  n1: string;
-  n2: string;
-  n3: string;
-  n4: string;
-  n4_full: string;
-  levels: string[];
-  status: 'READY' | 'NOT READY';
-  planned_year: number | null;
-  planned_quarter: string | null;
-  legacy_coverage: Record<string, string[]>;
-}
+// CapabilityRecord → moved to types/portfolio.ts
 
 // ── MigrationConditionsView — Standalone readiness view for Portfolio ──────
 const MigrationConditionsView: React.FC<{
@@ -6360,6 +6549,7 @@ const PortfolioIntelligenceView: React.FC<{
   );
 };
 
+// MaturityVsResultsViewProps → stays here until T/Lang move to constants in Phase 2
 interface MaturityVsResultsViewProps {
   t: T;
   dark: boolean;
@@ -6370,7 +6560,7 @@ interface MaturityVsResultsViewProps {
   kpiHistory: KpiHistoryData | null;
   waterfallData: WaterfallData | null;
 }
-type QuadrantFilter = 'all' | 'tech_high_vpo_high' | 'tech_high_vpo_low' | 'tech_low_vpo_high' | 'tech_low_vpo_low';
+// QuadrantFilter → moved to types/app.ts (imported above)
 const QUADRANT_KEYS: QuadrantFilter[] = ['tech_high_vpo_high', 'tech_high_vpo_low', 'tech_low_vpo_high', 'tech_low_vpo_low'];
 
 // ── Level Migration Guide Component ──────────────────────────────────────────
@@ -7757,14 +7947,7 @@ function scoreToTextClass(score: number, dark: boolean): string {
   return 'text-emerald-700';
 }
 
-// Compute zone×domain summary from MATURITY_DETAIL
-interface ZoneDomainSummary {
-  avgScore: number;
-  siteCount: number;
-  avgFracL2: number | null;
-  avgFracL3: number | null;
-}
-
+// ZoneDomainSummary → moved to types/analysis.ts
 function computeZoneDomainSummary(): Record<string, Record<string, ZoneDomainSummary>> {
   const acc: Record<string, Record<string, {scores: number[]; fracsL2: number[]; fracsL3: number[]; count: number}>> = {};
   for (const [, site] of Object.entries(MATURITY_DETAIL)) {
@@ -7798,15 +7981,7 @@ function computeZoneDomainSummary(): Record<string, Record<string, ZoneDomainSum
 
 const ZONE_DOMAIN_SUMMARY = computeZoneDomainSummary();
 
-// ── CapabilitySiteDetail ────────────────────────────────────────────────────
-interface CapabilitySiteDetailProps {
-  siteName: string;
-  site: MaturityDetailSite;
-  dark: boolean;
-  t: {cgVacuous: string; cgNoActiveProduct: string; cgL1Gate: string; cgL2Gate: string; cgL3Gate: string; cgL4Gate: string; [k: string]: unknown};
-  onClose: () => void;
-  siteOseData?: { ose: number | null; ttp: number | null } | null;
-}
+// CapabilitySiteDetailProps → moved to types/app.ts
 
 const LEVEL_GATE_LABELS: Record<string, string> = { L1: '60%', L2: '75%', L3: '85%', L4: '90%' };
 const LEVEL_BAR_COLORS: Record<string, string> = { L1: '#FFE066', L2: '#FFC000', L3: '#F59E0B', L4: '#10B981' };
@@ -8192,14 +8367,7 @@ const CapabilitySiteDetail: React.FC<CapabilitySiteDetailProps> = ({ siteName, s
   );
 };
 
-// ── CapabilityGapView ───────────────────────────────────────────────────────
-type CgSubView = 'summary' | 'sites';
-
-interface CapabilityGapViewProps {
-  dark: boolean;
-  t: Record<string, unknown>;
-  lang: string;
-}
+// CgSubView, CapabilityGapViewProps → moved to types/app.ts
 
 const CapabilityGapView: React.FC<CapabilityGapViewProps> = ({ dark, t, lang: _lang }) => {
   const [subView, setSubView] = React.useState<CgSubView>('summary');
@@ -8575,7 +8743,7 @@ const CapabilityGapView: React.FC<CapabilityGapViewProps> = ({ dark, t, lang: _l
   );
 };
 
-// ── ExecutiveSummaryView ──────────────────────────────────────────────────────
+// ExecutiveSummaryViewProps → stays here until T moves to constants in Phase 2
 interface ExecutiveSummaryViewProps {
   dark: boolean;
   t: T;
@@ -11649,7 +11817,7 @@ const MethodologyModal: React.FC<{show: boolean; onClose: () => void; dark: bool
 // ============================================================================
 // APP
 // ============================================================================
-type ViewMode = 'overview'|'maturity'|'sites'|'analysis'|'portfolio'|'methodology'|'data';
+// ViewMode → moved to types/app.ts (imported above)
 
 export default function App() {
   const [view,setView]       = useState<ViewMode>('overview');

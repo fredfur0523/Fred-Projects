@@ -9,6 +9,8 @@
     "start": "NODE_ENV=production node dist/index.cjs",
     "serve": "npm run build && npm run start",
     "check": "tsc",
+    "lint": "biome check client/src/",
+    "lint:fix": "biome check --write client/src/",
     "db:push": "drizzle-kit push"
   },
   "dependencies": {
@@ -77,6 +79,7 @@
     "zod-validation-error": "^3.4.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.10",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.1.18",
     "@types/connect-pg-simple": "^7.0.3",
