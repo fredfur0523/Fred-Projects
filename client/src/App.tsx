@@ -10029,7 +10029,8 @@ const PriorityMatrixView: React.FC<{
   lang: string;
   sitePriorityOverrides: Record<string, 'high'|'mid'|'low'|'auto'>;
   onOverride: (siteName: string, tier: 'high'|'mid'|'low'|'auto') => void;
-}> = ({ sites, vpoData, dark, lang, sitePriorityOverrides, onOverride }) => {
+  siteOseTtp: Record<string, { ose: number | null; ttp: number | null }>;
+}> = ({ sites, vpoData, dark, lang, sitePriorityOverrides, onOverride, siteOseTtp }) => {
   const [selectedSite, setSelectedSite] = React.useState<string|null>(null);
   const tiers = useMemo(() => computePriorityTiers(sites, vpoData, sitePriorityOverrides), [sites, vpoData, sitePriorityOverrides]);
 
@@ -10040,6 +10041,66 @@ const PriorityMatrixView: React.FC<{
   // Aggregate counts
   const tierCounts = { high: 0, mid: 0, low: 0 };
   tiers.forEach(t => { tierCounts[t]++; });
+
+  // ── Sprint 7: Impact Projection ──
+  const impactProjection = useMemo(() => {
+    // Build (techScore, ose, ttp) pairs for correlation/slope computation
+    const pairs = sites.flatMap(s => {
+      const kpi = siteOseTtp[s.name];
+      if (!kpi || kpi.ose == null || kpi.ttp == null) return [];
+      const techScore = s.scores['Total Global'] ?? 0;
+      return [{ techScore, ose: kpi.ose, ttp: kpi.ttp }];
+    });
+    if (pairs.length < 5) return null;
+
+    const techScores = pairs.map(p => p.techScore);
+    const oseVals    = pairs.map(p => p.ose);
+    const ttpVals    = pairs.map(p => p.ttp);
+
+    const corrOse = pearson(techScores, oseVals);
+    const corrTtp = pearson(techScores, ttpVals);
+
+    // Std dev helper
+    const sd = (arr: number[]) => {
+      const m = arr.reduce((a,b) => a+b, 0) / arr.length;
+      return Math.sqrt(arr.reduce((a,b) => a + (b-m)**2, 0) / arr.length);
+    };
+    const sdTech = sd(techScores);
+    const sdOse  = sd(oseVals);
+    const sdTtp  = sd(ttpVals);
+
+    // Regression slope: β = r × (σY / σX)
+    const slopeOse = sdTech > 0 ? (corrOse ?? 0) * sdOse / sdTech : null;
+    const slopeTtp = sdTech > 0 ? (corrTtp ?? 0) * sdTtp / sdTech : null;
+
+    // For HIGH tier sites: compute projected uplift
+    const highSites = sites.filter(s => tiers.get(s.name) === 'high');
+    const TARGET_BY_TIER: Record<string, number> = { high: 4, mid: 2, low: 1 };
+    let totalOseUplift = 0, totalTtpUplift = 0, movingSites = 0;
+    for (const s of highSites) {
+      const currentLevel = Math.min(4, Math.floor(s.scores['Total Global'] ?? 0));
+      const deltaLevel = Math.max(0, TARGET_BY_TIER.high - currentLevel);
+      if (deltaLevel > 0 && slopeOse != null && slopeTtp != null) {
+        totalOseUplift += deltaLevel * slopeOse;
+        totalTtpUplift += deltaLevel * slopeTtp;
+        movingSites++;
+      }
+    }
+
+    const r2Ose = corrOse != null ? corrOse ** 2 : null;
+    const r2Ttp = corrTtp != null ? corrTtp ** 2 : null;
+    const weakCorr = (r2Ose ?? 0) < 0.09 && (r2Ttp ?? 0) < 0.09; // R² < 0.3
+
+    return {
+      corrOse, corrTtp, r2Ose, r2Ttp,
+      slopeOse, slopeTtp,
+      movingSites,
+      totalOseUplift,
+      totalTtpUplift,
+      n: pairs.length,
+      weakCorr,
+    };
+  }, [sites, siteOseTtp, tiers]);
 
   // Group sites by tier
   const byCounts = (tier: 'high'|'mid'|'low') => sites.filter(s => tiers.get(s.name) === tier);
@@ -10070,6 +10131,63 @@ const PriorityMatrixView: React.FC<{
           );
         })}
       </div>
+
+      {/* ── Impact Projection (Sprint 7) ── */}
+      {impactProjection && (
+        <div className={`rounded-xl border overflow-hidden ${card}`}>
+          <div className={`px-4 py-3 border-b flex items-center gap-2 ${dark ? 'border-gray-700' : 'border-gray-100'}`}>
+            <span className="text-purple-500 text-base">◈</span>
+            <span className={`text-xs font-black uppercase tracking-wider ${dark?'text-purple-300':'text-purple-700'}`}>
+              {lang==='pt' ? 'Projeção de Impacto (High Tier → L4)' : 'Impact Projection (High Tier → L4)'}
+            </span>
+          </div>
+          <div className="p-4">
+            {impactProjection.weakCorr && (
+              <div className={`mb-3 px-3 py-2 rounded-lg text-xs ${dark?'bg-amber-900/30 border border-amber-700 text-amber-300':'bg-amber-50 border border-amber-200 text-amber-700'}`}>
+                ⚠ {lang==='pt'
+                  ? `Correlação Tecnologia→KPI fraca (R²(OSE)=${((impactProjection.r2Ose??0)*100).toFixed(0)}%, R²(TTP)=${((impactProjection.r2Ttp??0)*100).toFixed(0)}%) — projeções são indicativas apenas.`
+                  : `Weak Tech→KPI correlation (R²(OSE)=${((impactProjection.r2Ose??0)*100).toFixed(0)}%, R²(TTP)=${((impactProjection.r2Ttp??0)*100).toFixed(0)}%) — projections are indicative only.`}
+              </div>
+            )}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className={`rounded-lg p-3 ${dark?'bg-purple-900/20 border border-purple-700/50':'bg-purple-50 border border-purple-100'}`}>
+                <p className={`text-[10px] font-bold ${sub}`}>{lang==='pt'?'Sites em movimento':'Sites moving'}</p>
+                <p className={`text-2xl font-black ${dark?'text-purple-300':'text-purple-700'}`}>{impactProjection.movingSites}</p>
+                <p className={`text-[9px] ${sub}`}>{lang==='pt'?'High tier com gap > 0':'High tier with gap > 0'}</p>
+              </div>
+              <div className={`rounded-lg p-3 ${dark?'bg-blue-900/20 border border-blue-700/50':'bg-blue-50 border border-blue-100'}`}>
+                <p className={`text-[10px] font-bold ${sub}`}>OSE Uplift</p>
+                <p className={`text-2xl font-black ${dark?'text-blue-300':'text-blue-700'}`}>
+                  {impactProjection.totalOseUplift >= 0 ? '+' : ''}{(impactProjection.totalOseUplift).toFixed(1)}<span className="text-sm font-normal"> pp</span>
+                </p>
+                <p className={`text-[9px] ${sub}`}>r={((impactProjection.corrOse??0)).toFixed(2)}, n={impactProjection.n}</p>
+              </div>
+              <div className={`rounded-lg p-3 ${dark?'bg-teal-900/20 border border-teal-700/50':'bg-teal-50 border border-teal-100'}`}>
+                <p className={`text-[10px] font-bold ${sub}`}>TTP Uplift</p>
+                <p className={`text-2xl font-black ${dark?'text-teal-300':'text-teal-700'}`}>
+                  {impactProjection.totalTtpUplift >= 0 ? '+' : ''}{(impactProjection.totalTtpUplift).toFixed(1)}<span className="text-sm font-normal"> hL/h</span>
+                </p>
+                <p className={`text-[9px] ${sub}`}>r={((impactProjection.corrTtp??0)).toFixed(2)}, n={impactProjection.n}</p>
+              </div>
+              <div className={`rounded-lg p-3 ${dark?'bg-gray-700/50 border border-gray-600':'bg-gray-50 border border-gray-200'}`}>
+                <p className={`text-[10px] font-bold ${sub}`}>{lang==='pt'?'Confiança':'Confidence'}</p>
+                <p className={`text-2xl font-black ${
+                  !impactProjection.weakCorr ? (dark?'text-emerald-400':'text-emerald-600')
+                  : (dark?'text-amber-400':'text-amber-600')
+                }`}>
+                  {!impactProjection.weakCorr ? (lang==='pt'?'Moderada':'Moderate') : (lang==='pt'?'Fraca':'Weak')}
+                </p>
+                <p className={`text-[9px] ${sub}`}>R²(OSE)={((impactProjection.r2Ose??0)*100).toFixed(0)}%</p>
+              </div>
+            </div>
+            <p className={`text-[9px] mt-3 ${sub}`}>
+              {lang==='pt'
+                ? `Projeção baseada em regressão linear Tech Score → KPI (β(OSE)=${(impactProjection.slopeOse??0).toFixed(2)} pp/nível, β(TTP)=${(impactProjection.slopeTtp??0).toFixed(2)} hL/h/nível). Acumulado de todos os sites High com gap > 0.`
+                : `Linear regression Tech Score → KPI (β(OSE)=${(impactProjection.slopeOse??0).toFixed(2)} pp/level, β(TTP)=${(impactProjection.slopeTtp??0).toFixed(2)} hL/h/level). Aggregate across all High sites with gap > 0.`}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ── Tier tables ── */}
       {(['high','mid','low'] as const).map(tier => {
@@ -11544,6 +11662,7 @@ tr:nth-child(even) td{background:#f8fafc}
                     lang={lang}
                     sitePriorityOverrides={sitePriorityOverrides}
                     onOverride={handlePriorityOverride}
+                    siteOseTtp={siteOseTtp}
                   />
                 )}
                 {portfolioSubTab2==='priority'&&!vpoData&&(
